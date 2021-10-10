@@ -1,0 +1,35 @@
+/* noto-serif-regular - latin */
+@font-face {
+  font-family: 'Noto Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./noto-serif-v16-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('./noto-serif-v16-latin-regular.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ url('./noto-serif-v16-latin-regular.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('./noto-serif-v16-latin-regular.woff')
+      format('woff'),
+    /* Modern Browsers */ url('./noto-serif-v16-latin-regular.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */
+      url('./noto-serif-v16-latin-regular.svg#NotoSerif') format('svg'); /* Legacy iOS */
+}
+
+/* noto-sans-mono-regular - latin */
+@font-face {
+  font-family: 'Noto Sans Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./noto-sans-mono-v11-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('./noto-sans-mono-v11-latin-regular.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */ url('./noto-sans-mono-v11-latin-regular.woff2')
+      format('woff2'),
+    /* Super Modern Browsers */ url('./noto-sans-mono-v11-latin-regular.woff')
+      format('woff'),
+    /* Modern Browsers */ url('./noto-sans-mono-v11-latin-regular.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */
+      url('./noto-sans-mono-v11-latin-regular.svg#NotoSansMono') format('svg'); /* Legacy iOS */
+}
