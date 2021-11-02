@@ -1,0 +1,40 @@
+fragment Contributor on Contributor {
+  stage
+  remoteId: id
+  createdAt
+  updatedAt
+  publishedAt
+  firstName
+  lastName
+  name
+  slug
+  createdBy {
+    ... on User {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  updatedBy {
+    ... on User {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  publishedBy {
+    ... on User {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  books {
+    ... on Book {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  type
+}

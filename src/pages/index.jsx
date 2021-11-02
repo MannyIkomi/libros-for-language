@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import * as React from 'react'
-import { Global, css, jsx } from '@emotion/react'
-import HtmlHead from '../components/HtmlHead'
-import { SANS_FONT, BLACK, WHITE } from '../styles'
-import { TopicTag } from '../components/topicTag'
+import * as React from 'react';
+import { Global, css, jsx } from '@emotion/react';
+import HtmlHead from '../components/HtmlHead';
+import { SANS_FONT, BLACK, WHITE } from '../styles';
+import { TopicTag } from '../components/topicTag';
 
 const topics = [
   'Animals',
@@ -17,7 +17,7 @@ const topics = [
   'Suburban',
   'Traditions/Customs',
   'Urban',
-]
+];
 
 const GlobalLayout = ({ children }) => {
   return (
@@ -42,8 +42,8 @@ const GlobalLayout = ({ children }) => {
         {children}
       </div>
     </>
-  )
-}
+  );
+};
 
 const IndexPage = () => {
   return (
@@ -144,7 +144,7 @@ const IndexPage = () => {
         </footer>
       </GlobalLayout>
     </>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;

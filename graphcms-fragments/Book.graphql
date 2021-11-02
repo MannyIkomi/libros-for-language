@@ -1,0 +1,78 @@
+fragment Book on Book {
+  stage
+  remoteId: id
+  createdAt
+  updatedAt
+  publishedAt
+  bookTitle
+  slug
+  publisherSummary
+  featured
+  actionLabel
+  actionLink
+  translator
+  publisher
+  isbn
+  awards
+  copyrightYear
+  translanguagingTypology
+  chapterBook
+  createdBy {
+    ... on User {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  updatedBy {
+    ... on User {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  publishedBy {
+    ... on User {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  contributors {
+    ... on Contributor {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  bookCover {
+    ... on Asset {
+      remoteTypeName: __typename
+      remoteId: id
+      locale
+      stage
+    }
+  }
+  categories {
+    ... on Category {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  topics {
+    ... on Topic {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  representations {
+    ... on Representation {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  languaging
+}
