@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'gatsby';
 
 function BookTemplate(props) {
   return <div>hi</div>;

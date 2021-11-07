@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import * as React from 'react';
-import { Global, css, jsx } from '@emotion/react';
+import { graphql, Link } from 'gatsby';
+import { Global, jsx, css } from '@emotion/react';
 import HtmlHead from '../components/HtmlHead';
-import { SANS_FONT, BLACK, WHITE } from '../styles';
+import { SANS_FONT, BLACK, WHITE, headings } from '../styles';
 import { TopicTag } from '../components/topicTag';
 
 const topics = [
@@ -24,20 +25,21 @@ const GlobalLayout = ({ children }) => {
     <>
       <HtmlHead />
       <Global
-        styles={css`
-          * {
-            border-size: border-box;
-            color: ${BLACK};
-            font-family: ${SANS_FONT};
-            margin: 0;
-            padding: 0;
-          }
-        `}
+        styles={{
+          '*': {
+            borderSize: 'border-box',
+            color: BLACK,
+            fontFamily: SANS_FONT,
+            margin: 0,
+            padding: 0,
+          },
+          ...headings,
+        }}
       />
       <div
-        css={css`
-          background-color: ${WHITE};
-        `}
+        css={{
+          backgroundColor: WHITE,
+        }}
       >
         {children}
       </div>
@@ -45,7 +47,13 @@ const GlobalLayout = ({ children }) => {
   );
 };
 
-const IndexPage = () => {
+export const DebugData = (props) => {
+  return <pre>{JSON.stringify(props.children || props, null, 2)}</pre>;
+};
+
+const IndexPage = ({ data }) => {
+  const featuredBooks = data.allGraphCmsBook.nodes;
+
   return (
     <>
       <GlobalLayout>
@@ -57,6 +65,41 @@ const IndexPage = () => {
             </h1>
             <div>
               Featured book covers
+              <div class="category-collection w-dyn-list">
+                <div role="list" class="featured-list w-dyn-items">
+                  {featuredBooks.map((book) => {
+                    return (
+                      <div role="listitem" class="book-preview w-dyn-item">
+                        <a
+                          href={`/books/${book.slug}`}
+                          class="book-camera w-inline-block"
+                        >
+                          <div class="book-summary">
+                            <div class="book-cover-title">{book.bookTitle}</div>
+                            <div class="book-cover-byline">
+                              <div class="by-line">by</div>
+                              <div></div>
+                            </div>
+                            <p>{book.publisherSummary}</p>
+                            <div class="fade-paragraph"></div>
+                          </div>
+                          <img
+                            src={book.bookCover?.url}
+                            loading="eager"
+                            alt={book.bookCover?.url || book.bookTitle}
+                            class="book-image"
+                          />
+                        </a>
+                        <div class="book-camera shadow">
+                          <div class="shadow-illusion"></div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div class="w-dyn-empty"></div>
+              </div>
+              <DebugData>{data}</DebugData>
               <div>
                 <div>{`< Prev`}</div>
                 <div>{`Next >`}</div>
@@ -65,19 +108,14 @@ const IndexPage = () => {
           </section>
           <section>
             <h2>Browse by Topics</h2>
-            <ul
-              css={css`
-                display: flex;
-                list-style: none;
-              `}
-            >
+            <ul css={{ display: 'flex', listStyle: 'none' }}>
               {topics.map((topic) => (
                 <li
                   key={topic}
-                  css={css`
-                    margin-bottom: 1rem;
-                    margin-right: 1rem;
-                  `}
+                  css={{
+                    marginBottom: '1rem',
+                    marginRight: '1rem',
+                  }}
                 >
                   <a href={`/`}>
                     <TopicTag>{topic}</TopicTag>
@@ -146,5 +184,34 @@ const IndexPage = () => {
     </>
   );
 };
+
+export const query = graphql`
+  query HomePageQuery {
+    site {
+      siteMetadata {
+        description
+      }
+    }
+    allGraphCmsBook(filter: { featured: { eq: true } }) {
+      nodes {
+        id
+        bookTitle
+        contributors {
+          name
+          type
+        }
+        publisherSummary
+        bookCover {
+          altDescription
+          height
+          width
+          size
+          url
+        }
+        slug
+      }
+    }
+  }
+`;
 
 export default IndexPage;
