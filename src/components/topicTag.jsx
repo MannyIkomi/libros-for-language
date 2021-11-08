@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import * as React from 'react'
-import { css, jsx } from '@emotion/react'
-import { COMPLIMENT, MONO_FONT } from '../styles'
+import * as React from 'react';
+import { css, jsx } from '@emotion/react';
+import { MONO_FONT, COMPLIMENT } from '../styles';
 
 /* 
 
@@ -38,7 +38,7 @@ const display = css`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const type = css`
   text-transform: uppercase;
@@ -46,7 +46,7 @@ const type = css`
   font-family: ${MONO_FONT};
   letter-spacing: 0.05rem;
   white-space: nowrap;
-`
+`;
 
 export const TopicTag = (props) => {
   return (
@@ -70,5 +70,5 @@ export const TopicTag = (props) => {
     >
       {props.children || props.label}
     </div>
-  )
-}
+  );
+};
