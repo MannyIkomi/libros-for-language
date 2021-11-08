@@ -30,16 +30,49 @@ const IndexPage = ({ data }) => {
     <>
       <GlobalLayout>
         <main>
-          <section>
-            <h1 className={''}>
-              Empowering teachers with translanguaging books for their
-              multilingual classrooms.
-            </h1>
-            <div>
-              Featured book covers
-              <div class="category-collection w-dyn-list">
-                <div role="list" class="featured-list w-dyn-items">
-                  {featuredBooks.map((book) => {
+          <nav>
+            {categoryTypes.map((type) => {
+              return (
+                <a href={`/categories/${slugify(type.name)}`}>
+                  {type.name.replace('_', ' ')}
+                </a>
+              );
+            })}
+            <a href={'/about'}>About</a>
+          </nav>
+          <section
+            css={{
+              display: 'flex',
+              overflow: 'hidden',
+              minHeight: '80vh',
+              marginBottom: '10vh',
+
+              flexDirection: 'column',
+
+              justifyContent: 'center',
+            }}
+          >
+            <Container>
+              <Heading
+                level={1}
+                css={{
+                  marginTop: '0px',
+                  marginBottom: '2rem',
+                  ...notoSerif,
+                  color: PRIMARY,
+                  fontWeight: '700',
+                  textAlign: 'center',
+                }}
+              >
+                Empowering teachers with{' '}
+                <span css={{ color: ACCENT, fontFamily: 'inherit' }}>
+                  {' '}
+                  translanguaging books
+                </span>{' '}
+                for their multilingual classrooms.
+              </Heading>
+            </Container>
+            Featured book covers
             <div
               className="category-collection w-dyn-list"
               css={{
