@@ -103,32 +103,34 @@ const IndexPage = ({ data }) => {
             </Container>
           </section>
           <section>
-            <h2>What is Libros for Language?</h2>
-            <p>
-              Libros for Language is a digital library designed to support
-              teachers in finding and using translanguaging books to support
-              fluid language practices in their classrooms. All of the books use
-              English and one or more other languages, making them appropriate
-              for English-medium as well as bilingual classrooms.
-            </p>
-            <h3>
-              We believe high-quality books can help teachers create dynamic,
-              multilingual classrooms.
-            </h3>
-            <p>
-              Translanguaging is a concept that highlights how in reality,
-              rather than keeping languages separate, multilingual people mix
-              and mingle all of their linguistic skills. Multilingual children
-              have a unique ability to strategically use their full linguistic
-              repertoire to make meaning and comprehend literature.
-            </p>{' '}
-            <p>
-              Teachers can build on these skills by integrating quality,
-              culturally relevant children's literature that demonstrates
-              different types of translanguaging practices. We use a
-              "translanguaging typology" to help teachers understand those
-              different ways translanguaging is used in texts.
-            </p>
+            <Container>
+              <Heading level={2}>What is Libros for Language?</Heading>
+              <p>
+                Libros for Language is a digital library designed to support
+                teachers in finding and using translanguaging books to support
+                fluid language practices in their classrooms. All of the books
+                use English and one or more other languages, making them
+                appropriate for English-medium as well as bilingual classrooms.
+              </p>
+              <Heading level={3}>
+                We believe high-quality books can help teachers create dynamic,
+                multilingual classrooms.
+              </Heading>
+              <p>
+                Translanguaging is a concept that highlights how in reality,
+                rather than keeping languages separate, multilingual people mix
+                and mingle all of their linguistic skills. Multilingual children
+                have a unique ability to strategically use their full linguistic
+                repertoire to make meaning and comprehend literature.
+              </p>{' '}
+              <p>
+                Teachers can build on these skills by integrating quality,
+                culturally relevant children's literature that demonstrates
+                different types of translanguaging practices. We use a
+                "translanguaging typology" to help teachers understand those
+                different ways translanguaging is used in texts.
+              </p>
+            </Container>
           </section>
         </main>
         <footer>
