@@ -19,6 +19,12 @@ import { slugify } from '../utils/slugify';
 
 const IndexPage = ({ data }) => {
   const featuredBooks = data.allGraphCmsBook.nodes;
+  const topics = data.allGraphCmsTopic.nodes;
+  // const categories = data.allGraphCmsCategory.nodes;
+  const genres = data.allGraphCmsGenre.nodes;
+  const grades = data.allGraphCmsGrade.nodes;
+  const languages = data.allGraphCmsLanguage.nodes;
+  const categoryTypes = data.categoryNames.enumValues;
 
   return (
     <>
@@ -164,6 +170,11 @@ export const query = graphql`
         description
       }
     }
+    categoryNames: __type(name: "GraphCMS_CategoryType") {
+      enumValues {
+        name
+      }
+    }
     allGraphCmsBook(filter: { featured: { eq: true } }) {
       nodes {
         id
@@ -181,6 +192,48 @@ export const query = graphql`
           url
         }
         slug
+      }
+    }
+    allGraphCmsTopic {
+      nodes {
+        title
+        slug
+      }
+    }
+    allGraphCmsGrade: allGraphCmsCategory(
+      filter: { categoryType: { eq: Grade } }
+    ) {
+      nodes {
+        title
+        slug
+        categoryType
+      }
+    }
+    allGraphCmsGenre: allGraphCmsCategory(
+      filter: { categoryType: { eq: Genre } }
+    ) {
+      nodes {
+        title
+        slug
+        categoryType
+      }
+    }
+    allGraphCmsLanguage: allGraphCmsCategory(
+      filter: { categoryType: { eq: Language } }
+    ) {
+      nodes {
+        title
+        slug
+        categoryType
+      }
+    }
+    allGraphCmsText_Structure: allGraphCmsCategory(
+      filter: { categoryType: { eq: Text_Structure } }
+    ) {
+      nodes {
+        title
+        slug
+        categoryType
       }
     }
   }
