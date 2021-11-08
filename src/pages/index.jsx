@@ -4,11 +4,18 @@ import { graphql, Link } from 'gatsby';
 import { jsx, css } from '@emotion/react';
 import { notoSerif, PRIMARY, ACCENT, a, flex } from '../styles';
 import { TopicTag } from '../components/topicTag';
+import { DebugData } from '../components/DebugData';
+import { Heading } from '../components/Heading';
+import { Footer } from './Footer';
+import { Container } from '../components/Container';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
+import { FeaturedBook } from '../components/FeaturedBook';
+import { GlobalLayout } from '../components/GlobalLayout';
+import { slugify } from '../utils/slugify';
 
 const IndexPage = ({ data }) => {
   const featuredBooks = data.allGraphCmsBook.nodes;
