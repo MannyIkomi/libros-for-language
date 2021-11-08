@@ -133,33 +133,7 @@ const IndexPage = ({ data }) => {
             </Container>
           </section>
         </main>
-        <footer>
-          <img src="/logo" alt="logo" />
-          <div>
-            <h4>Category</h4>
-            <ul>
-              <li>
-                <a href="">Category Link</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4>Category</h4>
-            <ul>
-              <li>
-                <a href="">Category Link</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4>Category</h4>
-            <ul>
-              <li>
-                <a href="">Category Link</a>
-              </li>
-            </ul>
-          </div>
-        </footer>
+        <Footer />
       </GlobalLayout>
     </>
   );
