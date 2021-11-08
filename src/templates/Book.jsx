@@ -1,8 +1,12 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-function BookTemplate(props) {
-  return <div>hi</div>;
+function BookTemplate({ data }) {
+  return (
+    <div>
+      <h1>{data.graphCmsBook.bookTitle}</h1>`
+    </div>
+  );
 }
 
 export const query = graphql`
