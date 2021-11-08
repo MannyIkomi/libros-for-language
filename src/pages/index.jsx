@@ -50,6 +50,10 @@ const GlobalLayout = ({ children }) => {
 export const DebugData = (props) => {
   return <pre>{JSON.stringify(props.children || props, null, 2)}</pre>;
 };
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
 
 const IndexPage = ({ data }) => {
   const featuredBooks = data.allGraphCmsBook.nodes;
@@ -68,42 +72,44 @@ const IndexPage = ({ data }) => {
               <div class="category-collection w-dyn-list">
                 <div role="list" class="featured-list w-dyn-items">
                   {featuredBooks.map((book) => {
+            <div
+              className="category-collection w-dyn-list"
+              css={{
+                minHeight: '33vh',
+                marginBottom: '10vh',
+              }}
+            >
+              <Swiper
+                // .featured-list
+                spaceBetween={50}
+                slidesPerView={3}
+                onSlideChange={() => console.log('slide change')}
+                onSwiper={(swiper) => console.log(swiper)}
+                css={{ overflow: 'visible' }}
+              >
+                {featuredBooks
+                  .filter((book) => {
                     return (
-                      <div role="listitem" class="book-preview w-dyn-item">
-                        <a
-                          href={`/books/${book.slug}`}
-                          class="book-camera w-inline-block"
-                        >
-                          <div class="book-summary">
-                            <div class="book-cover-title">{book.bookTitle}</div>
-                            <div class="book-cover-byline">
-                              <div class="by-line">by</div>
-                              <div></div>
-                            </div>
-                            <p>{book.publisherSummary}</p>
-                            <div class="fade-paragraph"></div>
-                          </div>
-                          <img
-                            src={book.bookCover?.url}
-                            loading="eager"
-                            alt={book.bookCover?.url || book.bookTitle}
-                            class="book-image"
-                          />
-                        </a>
-                        <div class="book-camera shadow">
-                          <div class="shadow-illusion"></div>
-                        </div>
-                      </div>
+                      book.bookCover ||
+                      console.warn(
+                        `Book: ${book.bookTitle} does not have a cover image`
+                      )
+                    );
+                  })
+                  .map((book) => {
+                    return (
+                      <SwiperSlide>
+                        <FeaturedBook {...book} />
+                      </SwiperSlide>
                     );
                   })}
-                </div>
-                <div class="w-dyn-empty"></div>
-              </div>
-              <DebugData>{data}</DebugData>
-              <div>
-                <div>{`< Prev`}</div>
-                <div>{`Next >`}</div>
-              </div>
+              </Swiper>
+              {/* </Slider> */}
+              <div className="w-dyn-empty"></div>
+            </div>
+            <div>
+              <div>{`< Prev`}</div>
+              <div>{`Next >`}</div>
             </div>
           </section>
           <section>
