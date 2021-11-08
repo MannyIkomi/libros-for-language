@@ -51,8 +51,15 @@ export const h5 = {
 
 export const p = {
   ...notoSans,
+  fontSize: '1rem',
   lineHeight: '1.8',
-  fontWeight: '300',
+  fontWeight: '100',
+};
+
+export const a = {
+  ...notoSans,
+  fontSize: 'inherit',
+  textDecoration: 'none',
 };
 
 export const headings = {
