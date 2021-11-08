@@ -6,19 +6,6 @@ import HtmlHead from '../components/HtmlHead';
 import { SANS_FONT, BLACK, WHITE, headings } from '../styles';
 import { TopicTag } from '../components/topicTag';
 
-const topics = [
-  'Animals',
-  'Country',
-  'Culture',
-  'Family',
-  'Folk Tales & Fables',
-  'Food',
-  'History',
-  'Relocation',
-  'Suburban',
-  'Traditions/Customs',
-  'Urban',
-];
 
 const GlobalLayout = ({ children }) => {
   return (
@@ -113,22 +100,26 @@ const IndexPage = ({ data }) => {
             </div>
           </section>
           <section>
-            <h2>Browse by Topics</h2>
-            <ul css={{ display: 'flex', listStyle: 'none' }}>
-              {topics.map((topic) => (
-                <li
-                  key={topic}
-                  css={{
-                    marginBottom: '1rem',
-                    marginRight: '1rem',
-                  }}
-                >
-                  <a href={`/`}>
-                    <TopicTag>{topic}</TopicTag>
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <Container>
+              <Heading level={2}>Browse by Topics</Heading>
+              <ul
+                css={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none' }}
+              >
+                {topics.map(({ slug, title }) => (
+                  <li
+                    key={title}
+                    css={{
+                      marginBottom: '1rem',
+                      marginRight: '1rem',
+                    }}
+                  >
+                    <a href={`/topics/${slug}`}>
+                      <TopicTag>{title}</TopicTag>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Container>
           </section>
           <section>
             <h2>What is Libros for Language?</h2>
