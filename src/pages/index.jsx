@@ -1,42 +1,10 @@
 /** @jsx jsx */
 import * as React from 'react';
 import { graphql, Link } from 'gatsby';
-import { Global, jsx, css } from '@emotion/react';
-import HtmlHead from '../components/HtmlHead';
-import { SANS_FONT, BLACK, WHITE, headings } from '../styles';
+import { jsx, css } from '@emotion/react';
+import { notoSerif, PRIMARY, ACCENT, a, flex } from '../styles';
 import { TopicTag } from '../components/topicTag';
 
-
-const GlobalLayout = ({ children }) => {
-  return (
-    <>
-      <HtmlHead />
-      <Global
-        styles={{
-          '*': {
-            borderSize: 'border-box',
-            color: BLACK,
-            fontFamily: SANS_FONT,
-            margin: 0,
-            padding: 0,
-          },
-          ...headings,
-        }}
-      />
-      <div
-        css={{
-          backgroundColor: WHITE,
-        }}
-      >
-        {children}
-      </div>
-    </>
-  );
-};
-
-export const DebugData = (props) => {
-  return <pre>{JSON.stringify(props.children || props, null, 2)}</pre>;
-};
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
