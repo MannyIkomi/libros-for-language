@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import * as React from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import { jsx, css } from '@emotion/react';
-import { notoSerif, PRIMARY, ACCENT, a, flex } from '../styles';
+import { notoSerif, PRIMARY, ACCENT, a, s1, onTabletMedia } from '../styles';
 import { TopicTag } from '../components/topicTag';
 import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
@@ -16,8 +16,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { FeaturedBook } from '../components/FeaturedBook';
 import { GlobalLayout } from '../components/GlobalLayout';
-import { slugify } from '../utils/slugify';
+
 import { MainMenu } from '../components/MainMenu';
+import { Section } from '../components/Section';
 
 const IndexPage = ({ data }) => {
   const featuredBooks = data.allGraphCmsBook.nodes;
@@ -65,21 +66,31 @@ const IndexPage = ({ data }) => {
                 for their multilingual classrooms.
               </Heading>
             </Container>
-            Featured book covers
+
             <div
               className="category-collection w-dyn-list"
               css={{
                 minHeight: '33vh',
-                marginBottom: '10vh',
+                // marginBottom: '10vh',
               }}
             >
               <Swiper
                 // .featured-list
-                spaceBetween={50}
-                slidesPerView={3}
+                breakpoints={{
+                  320: {
+                    slidesPerView: 2,
+                  },
+                  640: {
+                    slidesPerView: 3,
+                  },
+                  1280: {
+                    slidesPerView: 5,
+                  },
+                }}
+                spaceBetween={100}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
-                css={{ overflow: 'visible' }}
+                style={{ overflow: 'visible' }}
               >
                 {featuredBooks
                   .filter((book) => {
@@ -105,8 +116,8 @@ const IndexPage = ({ data }) => {
               <div>{`< Prev`}</div>
               <div>{`Next >`}</div>
             </div>
-          </section>
-          <section>
+          </Section>
+          <Section>
             <Container>
               <Heading level={2}>Browse by Topics</Heading>
               <ul
@@ -116,8 +127,8 @@ const IndexPage = ({ data }) => {
                   <li
                     key={title}
                     css={{
-                      marginBottom: '1rem',
-                      marginRight: '1rem',
+                      marginBottom: s1,
+                      marginRight: s1,
                     }}
                   >
                     <Link to={`/topics/${slug}`}>
@@ -127,8 +138,8 @@ const IndexPage = ({ data }) => {
                 ))}
               </ul>
             </Container>
-          </section>
-          <section>
+          </Section>
+          <Section>
             <Container>
               <Heading level={2}>What is Libros for Language?</Heading>
               <p>
@@ -157,7 +168,7 @@ const IndexPage = ({ data }) => {
                 different ways translanguaging is used in texts.
               </p>
             </Container>
-          </section>
+          </Section>
         </main>
         <Footer />
       </GlobalLayout>
