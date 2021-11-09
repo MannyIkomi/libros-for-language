@@ -43,6 +43,8 @@ export const GlobalLayout = ({ children }) => {
       <div
         css={{
           backgroundColor: WHITE,
+          overflow: 'hidden',
+          position: 'relative',
         }}
       >
         {children}
