@@ -7,6 +7,9 @@ export function FeaturedBook(book) {
     contributor.type.includes('Author')
   );
   console.log(authors);
+
+  const maxDimensions = { maxWidth: '20rem', maxHeight: '20rem' };
+
   return (
     <a
       href={`/books/${book.slug}`}
@@ -49,9 +52,10 @@ export function FeaturedBook(book) {
 
               display: 'block',
               overflow: 'hidden',
-              width: '100%',
+              // width: '100%',
               height: '100%',
-              minWidth: '15rem',
+              ...maxDimensions,
+              // minWidth: '15rem',
               padding: '1rem',
               backgroundColor: WHITE,
               backfaceVisibility: 'hidden',
@@ -79,7 +83,6 @@ export function FeaturedBook(book) {
             <div
               className="book-cover-byline"
               css={{
-                ...flex(),
                 marginBottom: '0.5rem',
                 ...notoSans,
                 color: PRIMARY,
@@ -116,8 +119,13 @@ export function FeaturedBook(book) {
             className="book-image"
             css={{
               display: 'block',
+              width: '100%',
+              height: 'auto',
+              aspectRatio: `${book.bookCover.width} / ${book.bookCover.height}`,
+
               maxWidth: '20rem',
               maxHeight: '20rem',
+
               backfaceVisibility: 'hidden',
               transform: 'rotate(0deg)',
               transition:
@@ -144,9 +152,10 @@ export function FeaturedBook(book) {
               left: '0%',
               top: 'auto',
               right: '0%',
-              bottom: '-5%',
+              bottom: '-10%',
               zIndex: '-2',
               width: '100%',
+              ...maxDimensions,
               height: '5rem',
               backgroundColor: '#1c2431',
               opacity: '0.5',
