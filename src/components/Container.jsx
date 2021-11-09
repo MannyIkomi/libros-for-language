@@ -1,15 +1,18 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
+import { maxViewWidth, MAX_VIEW_LENGTH, s1 } from '../styles';
 
 export const Container = ({ children, ...props }) => {
   return (
     <div
       css={{
         width: '100%',
-        maxWidth: '60rem',
+        ...maxViewWidth,
         marginRight: 'auto',
         marginLeft: 'auto',
+        paddingLeft: s1,
+        paddingRight: s1,
       }}
       {...props}
     >
