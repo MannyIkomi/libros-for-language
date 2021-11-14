@@ -1,57 +1,18 @@
 /** @jsx jsx */
-import React from 'react';
+import { useContext } from 'react';
 import { jsx, css } from '@emotion/react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
-import { flex, s1, PRIMARY20, PRIMARY } from '../styles';
+import { flex, s1, s05, PRIMARY20, PRIMARY, s5, WHITE } from '../styles';
 import { slugify } from '../utils/slugify';
+import { GlobalContext } from './GlobalLayout';
+import { Logo } from './Logo';
+import { List } from './List';
+import { Container } from './Container';
+import { Link } from './Link';
+import { NavigationLink } from './NavigationLink';
 
 export function Footer() {
+  const { navigation } = useContext(GlobalContext);
   const thisYear = new Date().getFullYear();
-  const data = useStaticQuery(graphql`
-    query FooterQuery {
-      categoryTypes: __type(name: "GraphCMS_CategoryType") {
-        enumValues {
-          name
-        }
-      }
-      allGraphCmsGrade: allGraphCmsCategory(
-        filter: { categoryType: { eq: Grade } }
-      ) {
-        nodes {
-          title
-          slug
-          categoryType
-        }
-      }
-      allGraphCmsGenre: allGraphCmsCategory(
-        filter: { categoryType: { eq: Genre } }
-      ) {
-        nodes {
-          title
-          slug
-          categoryType
-        }
-      }
-      allGraphCmsLanguage: allGraphCmsCategory(
-        filter: { categoryType: { eq: Language } }
-      ) {
-        nodes {
-          title
-          slug
-          categoryType
-        }
-      }
-      allGraphCmsText_Structure: allGraphCmsCategory(
-        filter: { categoryType: { eq: Text_Structure } }
-      ) {
-        nodes {
-          title
-          slug
-          categoryType
-        }
-      }
-    }
-  `);
 
   return (
     <footer
@@ -61,34 +22,41 @@ export function Footer() {
         backgroundColor: PRIMARY,
       }}
     >
-      <div css={[flex()]}>
-        {/* <img src="/logo" alt="logo" /> */}
-        <ul>
-          {data.categoryTypes.enumValues.map((type) => {
-            const viewName = type.name.replace('_', ' ');
-
+      <Container css={[flex('column', { alignItems: 'flex-start' })]}>
+        <Link to={'/'}>
+          <Logo css={{ width: s5, color: WHITE, margin: s05 }} />
+        </Link>
+        <List css={{ listStyle: 'none' }}>
+          {navigation.categories.map((category) => {
             return (
-              <li key={type.name}>
-                <a href={`/${slugify(viewName)}`}>{viewName}</a>
+              <li key={category._name}>
+                <NavigationLink to={`/${category.slug}`} css={{ color: WHITE }}>
+                  {category.title}
+                </NavigationLink>
               </li>
             );
           })}
           <li>
-            <a href="/about">About</a>
+            <NavigationLink
+              to={`${navigation.about.slug}`}
+              css={{ color: WHITE }}
+            >
+              {navigation.about.title}
+            </NavigationLink>
           </li>
-        </ul>
+        </List>
         <p css={{ color: PRIMARY20, fontSize: '0.75rem' }}>
-          <a href="https://www.ala.org/">
+          <Link to="https://www.ala.org/" css={{ color: WHITE }}>
             <small css={{ color: 'inherit' }}>
               Funded by the American Library Association
             </small>
-          </a>{' '}
+          </Link>{' '}
           <br />
           <small css={{ color: 'inherit' }}>
             Copyright © {thisYear} Libros for Language. All rights reserved.
           </small>
         </p>
-      </div>
+      </Container>
     </footer>
   );
 }

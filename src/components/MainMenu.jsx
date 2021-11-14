@@ -1,11 +1,33 @@
 /** @jsx jsx */
+import { useContext } from 'react';
+
 import { jsx } from '@emotion/react';
-import { flex, PRIMARY, s05, s2, s3, WHITE } from '../styles';
+import { flex, PRIMARY, s05, s1, s2, s3, s5, WHITE } from '../styles';
 import { slugify } from '../utils/slugify';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import { NavigationLink } from './NavigationLink';
+import { Logo, LOGO_HEIGHT, LOGO_WIDTH } from './Logo';
+import { GlobalContext } from './GlobalLayout';
+import { MenuIcon } from './MenuIcon';
+import { List } from './List';
+import { Link } from './Link';
 
-export function MainMenu({ categoryTypes }) {
+export function Button({ children, ...props }) {
+  return (
+    <button
+      css={{
+        backgroundColor: 'transparent',
+        border: 'none',
+      }}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function MainMenu() {
+  const { navigation } = useContext(GlobalContext);
   const [toggled, setToggled] = useToggleSwitch(false);
 
   return (
@@ -28,33 +50,37 @@ export function MainMenu({ categoryTypes }) {
           backgroundColor: PRIMARY,
         }}
       >
-        <div>LOGO</div>
-        {/* <div
-          css={{
-            ...flex(),
-            alignItems: 'flex-end',
-            position: 'relative',
-          }}
-        > */}
-        <button
+        <Link to={'/'}>
+          <Logo
+            css={{
+              color: WHITE,
+              width: '100%',
+              // height: 'auto',
+              maxWidth: s5,
+              // aspectRatio: `${LOGO_WIDTH} / ${LOGO_HEIGHT}`,
+            }}
+          />
+        </Link>
+        <Button
           id="menuButton"
-          class="icon"
           aria-expanded={toggled}
           aria-controls="menuItems"
           onClick={() => setToggled(!toggled)}
           css={{
+            color: WHITE,
             width: s2,
             height: s2,
           }}
         >
-          M
-        </button>
-        <ul
+          <MenuIcon />
+        </Button>
+        <List
           id="menuItems"
           css={{
             display: toggled ? flex() : 'none',
             alignItems: 'flex-start',
             backgroundColor: PRIMARY,
+            padding: s1,
 
             position: 'absolute',
             right: 0,
@@ -62,14 +88,14 @@ export function MainMenu({ categoryTypes }) {
             listStyle: 'none',
           }}
         >
-          {categoryTypes.map((type) => {
+          {navigation.categories.map((c) => {
             return (
               <li css={{ textAlign: 'right' }}>
                 <NavigationLink
-                  to={`/categories/${slugify(type.name)}`}
+                  to={`/categories/${c.slug}`}
                   css={{ color: WHITE }}
                 >
-                  {type.name.replace('_', ' ')}
+                  {c.title}
                 </NavigationLink>
               </li>
             );
@@ -80,7 +106,7 @@ export function MainMenu({ categoryTypes }) {
             </NavigationLink>
           </li>
           {/* <a to={'/resources'}>Resources</a> */}
-        </ul>
+        </List>
       </div>
       {/* </div> */}
     </nav>

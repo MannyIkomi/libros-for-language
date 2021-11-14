@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { cont } from 'react';
 
 import { Global, jsx } from '@emotion/react';
 import HtmlHead from './HtmlHead';
@@ -12,32 +12,56 @@ import {
   p,
   notoSans,
   colors,
+  s1,
 } from '../styles';
 import 'normalize.css/normalize.css';
+import { graphql, useStaticQuery } from 'gatsby';
+import { slugify } from '../utils/slugify';
+
+export function useGlobalQuery() {
+  const query = useStaticQuery(graphql`
+    query GlobalQuery {
+      categories: __type(name: "GraphCMS_CategoryType") {
+        enumValues {
+          name
+        }
+      }
+    }
+  `);
+  return query;
+}
+export const GlobalContext = React.createContext();
+GlobalContext.displayName = 'Global Context';
 
 export const GlobalLayout = ({ htmlHead, children }) => {
+  const globalData = useGlobalQuery();
+  console.log(globalData);
+
   return (
     <>
       <HtmlHead {...htmlHead} />
       <Global
         styles={{
           '*': {
-            borderSize: 'border-box',
-            color: BLACK,
-            fontFamily: SANS_FONT,
+            boxSizing: 'border-box',
             margin: 0,
             padding: 0,
+            //   color: BLACK,
+            //   fontFamily: SANS_FONT,
           },
           body: {
             ...notoSans,
             backgroundColor: WHITE,
-            color: '#1c2431',
-            fontSize: '1rem',
+            color: BLACK,
+            fontSize: s1,
             lineHeight: '1.2',
           },
+          svg: {
+            fill: 'currentcolor',
+          },
           ...headings,
-          ...a,
-          ...p,
+          a,
+          p,
         }}
       />
       <div
@@ -47,7 +71,29 @@ export const GlobalLayout = ({ htmlHead, children }) => {
           position: 'relative',
         }}
       >
-        {children}
+        <GlobalContext.Provider
+          value={{
+            navigation: {
+              categories: globalData.categories.enumValues.map(
+                (enumerator) => ({
+                  title: enumerator.name.replace('_', ' '),
+                  slug: slugify(enumerator.name),
+                  _name: enumerator.name,
+                })
+              ),
+              about: {
+                title: 'About',
+                slug: slugify('About'),
+              },
+              resources: {
+                title: 'Resources',
+                slug: slugify('Resources'),
+              },
+            },
+          }}
+        >
+          {children}
+        </GlobalContext.Provider>
       </div>
     </>
   );
