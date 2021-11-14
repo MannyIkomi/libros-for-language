@@ -5,7 +5,14 @@ import { flex, s1 } from '../styles';
 export const Section = ({ children, ...props }) => {
   return (
     <section
-      css={[{ minHeight: '50vh', ...flex(), justifyContent: 'center' }]}
+      css={[
+        {
+          marginTop: s1,
+          marginBottom: s1,
+          minHeight: '50vh',
+          ...flex('column', { alignItems: 'center', justifyContent: 'center' }),
+        },
+      ]}
       {...props}
     >
       {children}

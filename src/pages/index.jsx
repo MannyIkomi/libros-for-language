@@ -7,7 +7,7 @@ import { TopicTag } from '../components/Tag';
 import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
-import { Container } from '../components/Container';
+import { Container, TextContainer } from '../components/Container';
 import { Link } from '../components/Link';
 
 // Import Swiper React components
@@ -36,22 +36,22 @@ const IndexPage = ({ data }) => {
         <main css={{ position: 'relative' }}>
           <Section
             css={{
-              display: 'flex',
               overflow: 'hidden',
               minHeight: '80vh',
               marginBottom: '10vh',
 
+              alignItems: 'initial',
               flexDirection: 'column',
-
               justifyContent: 'center',
             }}
           >
-            <Container>
+            <Container css={{ alignSelf: 'center' }}>
               <Heading
                 level={1}
                 css={{
                   marginTop: '0px',
                   marginBottom: '2rem',
+                  width: '100%',
                   ...notoSerif,
                   color: PRIMARY,
                   fontWeight: '700',
@@ -59,7 +59,12 @@ const IndexPage = ({ data }) => {
                 }}
               >
                 Empowering teachers with{' '}
-                <span css={{ color: ACCENT, fontFamily: 'inherit' }}>
+                <span
+                  css={{
+                    color: ACCENT,
+                    fontFamily: 'inherit',
+                  }}
+                >
                   {' '}
                   translanguaging books
                 </span>{' '}
@@ -119,54 +124,63 @@ const IndexPage = ({ data }) => {
           </Section>
           <Section>
             <Container>
-              <Heading level={2}>Browse by Topics</Heading>
-              <ul
-                css={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none' }}
-              >
-                {topics.map(({ slug, title }) => (
-                  <li
-                    key={title}
-                    css={{
-                      marginBottom: s1,
-                      marginRight: s1,
-                    }}
-                  >
-                    <Link to={`/topics/${slug}`}>
-                      <TopicTag>{title}</TopicTag>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <TextContainer>
+                <Heading level={2}>Browse by Topics</Heading>
+                <ul
+                  css={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none' }}
+                >
+                  {topics.map(({ slug, title }) => (
+                    <li
+                      key={title}
+                      css={{
+                        marginBottom: s1,
+                        marginRight: s1,
+                      }}
+                    >
+                      <Link
+                        to={`/topics/${slug}`}
+                        css={{ textDecoration: 'none' }}
+                      >
+                        <TopicTag>{title}</TopicTag>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </TextContainer>
             </Container>
           </Section>
           <Section>
             <Container>
-              <Heading level={2}>What is Libros for Language?</Heading>
-              <p>
-                Libros for Language is a digital library designed to support
-                teachers in finding and using translanguaging books to support
-                fluid language practices in their classrooms. All of the books
-                use English and one or more other languages, making them
-                appropriate for English-medium as well as bilingual classrooms.
-              </p>
-              <Heading level={3}>
-                We believe high-quality books can help teachers create dynamic,
-                multilingual classrooms.
-              </Heading>
-              <p>
-                Translanguaging is a concept that highlights how in reality,
-                rather than keeping languages separate, multilingual people mix
-                and mingle all of their linguistic skills. Multilingual children
-                have a unique ability to strategically use their full linguistic
-                repertoire to make meaning and comprehend literature.
-              </p>{' '}
-              <p>
-                Teachers can build on these skills by integrating quality,
-                culturally relevant children's literature that demonstrates
-                different types of translanguaging practices. We use a
-                "translanguaging typology" to help teachers understand those
-                different ways translanguaging is used in texts.
-              </p>
+              <TextContainer>
+                <Heading level={2}>What is Libros for Language?</Heading>
+                <p>
+                  Libros for Language is a digital library designed to support
+                  teachers in finding and using translanguaging books to support
+                  fluid language practices in their classrooms. All of the books
+                  use English and one or more other languages, making them
+                  appropriate for English-medium as well as bilingual
+                  classrooms.
+                </p>
+                <Heading level={3}>
+                  We believe high-quality books can help teachers create
+                  dynamic, multilingual classrooms.
+                </Heading>
+                <p>
+                  Translanguaging is a concept that highlights how in reality,
+                  rather than keeping languages separate, multilingual people
+                  mix and mingle all of their linguistic skills. Multilingual
+                  children have a unique ability to strategically use their full
+                  linguistic repertoire to make meaning and comprehend
+                  literature.
+                </p>{' '}
+                <p>
+                  Teachers can build on these skills by integrating quality,
+                  culturally relevant children's literature that demonstrates
+                  different types of translanguaging practices. We use a
+                  "translanguaging typology" to help teachers understand those
+                  different ways translanguaging is used in texts.
+                </p>
+              </TextContainer>
             </Container>
           </Section>
         </main>
