@@ -16,6 +16,9 @@ import {
   BLACK,
   WHITE,
   PRIMARY20,
+  PRIMARY50,
+  PRIMARY80,
+  PRIMARY,
 } from '../styles';
 
 export const Tag = (props) => {
@@ -60,6 +63,12 @@ export const TopicTag = (props) => (
 
 export const CategoryTag = (props) => (
   <Tag textColor={BLACK} background={PRIMARY20}>
+    {props.children}
+  </Tag>
+);
+
+export const TextStructureTag = (props) => (
+  <Tag textColor={WHITE} background={ACCENT}>
     {props.children}
   </Tag>
 );
