@@ -34,9 +34,10 @@ export const onDesktopMedia = (desktopStyles = {}) => ({
   },
 });
 
-export const flex = (direction = 'column') => ({
+export const flex = (direction = 'column', styles) => ({
   display: 'flex',
   flexDirection: direction,
+  ...styles,
 });
 
 export const grid = (styles = {}) =>
