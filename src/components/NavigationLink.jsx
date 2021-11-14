@@ -9,6 +9,7 @@ export function NavigationLink({ children, ...props }) {
       {...props}
       css={{
         ...flex(),
+
         justifyContent: 'center',
         minHeight: s2,
         padding: s05,
