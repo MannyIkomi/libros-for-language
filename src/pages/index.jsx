@@ -6,7 +6,7 @@ import { notoSerif, PRIMARY, ACCENT, a, s1, onTabletMedia } from '../styles';
 import { TopicTag } from '../components/topicTag';
 import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
-import { Footer } from './Footer';
+import { Footer } from '../components/Footer';
 import { Container } from '../components/Container';
 import { Link } from '../components/Link';
 
