@@ -3,7 +3,7 @@ import * as React from 'react';
 import { graphql } from 'gatsby';
 import { jsx, css } from '@emotion/react';
 import { notoSerif, PRIMARY, ACCENT, a, s1, onTabletMedia } from '../styles';
-import { TopicTag } from '../components/topicTag';
+import { TopicTag } from '../components/Tag';
 import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
