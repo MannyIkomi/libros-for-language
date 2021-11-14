@@ -15,10 +15,10 @@ import {
 } from '../styles';
 import 'normalize.css/normalize.css';
 
-export const GlobalLayout = ({ children }) => {
+export const GlobalLayout = ({ htmlHead, children }) => {
   return (
     <>
-      <HtmlHead />
+      <HtmlHead {...htmlHead} />
       <Global
         styles={{
           '*': {
