@@ -1,3 +1,5 @@
+import { MAX_TEXT_LENGTH } from './spacing';
+
 // TYPE
 export const SANS_FONT = `Noto Sans, sans-serif`;
 export const SERIF_FONT = `Noto Serif, serif`;
@@ -17,6 +19,7 @@ export const notoSerif = {
 
 export const h1 = {
   ...notoSerif,
+  maxWidth: MAX_TEXT_LENGTH,
   fontSize: '2.488rem',
   lineHeight: '1.2',
   fontWeight: '700',
@@ -24,12 +27,14 @@ export const h1 = {
 
 export const h2 = {
   ...notoSerif,
+  maxWidth: MAX_TEXT_LENGTH,
   fontSize: '2.074rem',
   lineHeight: '1.2',
 };
 
 export const h3 = {
   ...notoSerif,
+  maxWidth: MAX_TEXT_LENGTH,
   fontSize: '1.728rem',
   lineHeight: '1.2',
   fontWeight: '400',
@@ -51,6 +56,7 @@ export const h5 = {
 
 export const p = {
   ...notoSans,
+  maxWidth: MAX_TEXT_LENGTH,
   fontSize: '1rem',
   lineHeight: '1.8',
   fontWeight: '100',
