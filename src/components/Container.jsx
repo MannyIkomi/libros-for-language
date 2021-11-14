@@ -20,3 +20,17 @@ export const Container = ({ children, ...props }) => {
     </div>
   );
 };
+
+export const TextContainer = (props) => (
+  <Container
+    css={{
+      fontSize: base16,
+      ...maxTypeWidth,
+      alignItems: 'initial',
+      padding: 0,
+    }}
+    {...props}
+  >
+    {props.children}
+  </Container>
+);
