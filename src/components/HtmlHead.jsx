@@ -1,39 +1,53 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
+import { graphql, useStaticQuery } from 'gatsby';
 import { SANS_FONT } from '../styles/index';
 import '../fonts/fonts.css';
 import '../styles/normalize.css';
-// import jQuery from 'jquery';
 
-const HtmlHead = () => {
-  useEffect(() => {
-    // https://kenwheeler.github.io/slick/
-    // when document is fully loaded
-    window.addEventListener('load', (event) => {
-      console.log('DOM fully loaded and parsed');
-    });
-  });
+const HtmlHead = ({ title, description, image, imageDescription }) => {
+  const { graphCmsSiteInformation } = useStaticQuery(graphql`
+    query MyQuery {
+      graphCmsSiteInformation {
+        title
+        description
+        image {
+          id
+        }
+      }
+    }
+  `);
+  const {
+    title: siteTitle,
+    siteDescription,
+    image: siteImage,
+    imageDescription: siteImageDescription,
+  } = graphCmsSiteInformation;
+  const pageTitle = title ?? siteTitle;
+  const pageDescription = description ?? siteDescription;
+  const pageImage = image ?? siteImage;
+  const pageImageDescription = imageDescription ?? siteImageDescription;
 
   return (
     <Helmet htmlAttributes={{ lang: 'en' }}>
       <meta charSet="utf-8" />
-      <title>Home - Libros for Language</title>
-      <meta name="description" content="LFL Description" />
+      <title>{pageTitle}</title>
+      <meta name="description" content={pageDescription} />
 
       {/* OPEN GRAPH */}
       <meta property="og:url" content={''} />
-      <meta property="og:title" content={''} />
-      <meta property="og:description" content={''} />
+      <meta property="og:title" content={pageTitle} />
+      <meta property="og:description" content={pageDescription} />
       <meta property="og:image" content={''} />
       <meta property="og:type" content={''} />
 
       {/* TWITTER */}
-      <meta name="twitter:title" content={''} />
-      <meta name="twitter:description" content={''} />
-      <meta name="twitter:creator" content={''} />
-      <meta name="twitter:site" content={''} />
+      <meta name="twitter:title" content={pageTitle} />
+      <meta name="twitter:description" content={pageDescription} />
+      {/* <meta name="twitter:creator" content={''} /> */}
+      <meta name="twitter:site" content={siteTitle} />
       <meta name="twitter:image" content={''} />
-      <meta name="twitter:image:alt" content={''} />
+      <meta name="twitter:image:alt" content={pageImageDescription} />
       <meta name="twitter:card" content="summary_large_image" />
     </Helmet>
   );
