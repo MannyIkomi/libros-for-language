@@ -46,8 +46,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: `/books/${book.slug}`,
       component: BookTemplate,
       context: {
-        title: book.bookTitle,
-        slug: book.slug,
+        ...book,
       },
     });
   });
