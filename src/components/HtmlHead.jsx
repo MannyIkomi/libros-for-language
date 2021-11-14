@@ -15,7 +15,7 @@ const HtmlHead = () => {
   });
 
   return (
-    <Helmet>
+    <Helmet htmlAttributes={{ lang: 'en' }}>
       <meta charSet="utf-8" />
       <title>Home - Libros for Language</title>
       <meta name="description" content="LFL Description" />
