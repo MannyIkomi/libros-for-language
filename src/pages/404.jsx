@@ -1,5 +1,10 @@
 import * as React from 'react';
-import Link from 'gatsby-link'; // not error
+import { Container, TextContainer } from '../components/Container';
+import { GlobalLayout } from '../components/GlobalLayout';
+import { Link, PrimaryLink } from '../components/Link';
+import { MainMenu } from '../components/MainMenu';
+import { Section } from '../components/Section';
+import { notoMono, s2 } from '../styles';
 
 // styles
 const pageStyles = {
@@ -27,27 +32,19 @@ const codeStyles = {
 // markup
 const NotFoundPage = () => {
   return (
-    <main style={pageStyles}>
-      <title>Not found</title>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
-        Sorry{' '}
-        <span role="img" aria-label="Pensive emoji">
-          😔
-        </span>{' '}
-        we couldn’t find what you were looking for.
-        <br />
-        {process.env.NODE_ENV === 'development' ? (
-          <>
-            <br />
-            Try creating a page in <code style={codeStyles}>src/pages/</code>.
-            <br />
-          </>
-        ) : null}
-        <br />
-        <Link to="/">Go home</Link>.
-      </p>
-    </main>
+    <GlobalLayout htmlHead={{ title: 'Not Found' }}>
+      <MainMenu />
+      <main>
+        <Section>
+          <Container>
+            <TextContainer css={{ textAlign: 'center', gap: s2 }}>
+              <h1>Sorry we couldn't find that page!</h1>
+              <PrimaryLink to="/">Back to Home</PrimaryLink>
+            </TextContainer>
+          </Container>
+        </Section>
+      </main>
+    </GlobalLayout>
   );
 };
 
