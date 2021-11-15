@@ -2,7 +2,15 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
 import { jsx, css } from '@emotion/react';
-import { notoSerif, PRIMARY, ACCENT, a, s1, onTabletMedia } from '../styles';
+import {
+  notoSerif,
+  PRIMARY,
+  ACCENT,
+  a,
+  s1,
+  onTabletMedia,
+  flex,
+} from '../styles';
 import { TopicTag } from '../components/Tag';
 import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
@@ -19,7 +27,6 @@ import { GlobalLayout } from '../components/GlobalLayout';
 
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
-import { UnderConstruction } from '../components/UnderConstruction';
 
 const IndexPage = ({ data }) => {
   const featuredBooks = data.allGraphCmsBook.nodes;
@@ -55,7 +62,7 @@ const IndexPage = ({ data }) => {
                   width: '100%',
                   ...notoSerif,
                   color: PRIMARY,
-                  fontWeight: '700',
+
                   textAlign: 'center',
                 }}
               >
@@ -85,18 +92,22 @@ const IndexPage = ({ data }) => {
                 breakpoints={{
                   320: {
                     slidesPerView: 2,
+                    spaceBetween: 16,
                   },
                   640: {
                     slidesPerView: 3,
+                    spaceBetween: 32,
                   },
                   1280: {
                     slidesPerView: 5,
+                    spaceBetween: 48,
                   },
                 }}
-                spaceBetween={100}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
-                style={{ overflow: 'visible' }}
+                style={{
+                  overflow: 'visible',
+                }}
               >
                 {featuredBooks
                   .filter((book) => {
@@ -109,19 +120,20 @@ const IndexPage = ({ data }) => {
                   })
                   .map((book) => {
                     return (
-                      <SwiperSlide>
+                      <SwiperSlide style={{ alignSelf: 'flex-end' }}>
                         <FeaturedBook {...book} />
                       </SwiperSlide>
                     );
                   })}
               </Swiper>
-              {/* </Slider> */}
+
               <div className="w-dyn-empty"></div>
             </div>
-            <div>
+            {/* need a signifier for horizontal scrolling */}
+            {/* <div>
               <div>{`< Prev`}</div>
               <div>{`Next >`}</div>
-            </div>
+            </div> */}
           </Section>
           <Section>
             <Container>
