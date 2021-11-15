@@ -22,7 +22,7 @@ export const h1 = {
   maxWidth: MAX_TEXT_LENGTH,
   fontSize: '2.488rem',
   lineHeight: '1.2',
-  fontWeight: '700',
+  fontWeight: '500',
 };
 
 export const h2 = {

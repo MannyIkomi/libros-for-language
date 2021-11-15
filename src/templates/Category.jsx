@@ -1,58 +1,15 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { DebugData } from '../components/DebugData';
+import { UnderConstruction } from '../components/UnderConstruction';
+import { isUnderContruction } from '../utils/underContruction';
 
 function CategoryTemplate(props) {
   const { data, context } = props;
-  // const tagData = useStaticQuery(graphql`
-  //   query FooterQuery {
-  //     categoryTypes: __type(name: "GraphCMS_CategoryType") {
-  //       enumValues {
-  //         name
-  //       }
-  //     }
-  //     allGraphCmsGrade: allGraphCmsCategory(
-  //       filter: { categoryType: { eq: Grade } }
-  //     ) {
-  //       nodes {
-  //         title
-  //         slug
-  //         categoryType
-  //       }
-  //     }
-  //     allGraphCmsGenre: allGraphCmsCategory(
-  //       filter: { categoryType: { eq: Genre } }
-  //     ) {
-  //       nodes {
-  //         title
-  //         slug
-  //         categoryType
-  //       }
-  //     }
-  //     allGraphCmsLanguage: allGraphCmsCategory(
-  //       filter: { categoryType: { eq: Language } }
-  //     ) {
-  //       nodes {
-  //         title
-  //         slug
-  //         categoryType
-  //       }
-  //     }
-  //     allGraphCmsText_Structure: allGraphCmsCategory(
-  //       filter: { categoryType: { eq: Text_Structure } }
-  //     ) {
-  //       nodes {
-  //         title
-  //         slug
-  //         categoryType
-  //       }
-  //     }
-  //   }
-  // `);
 
   return (
     <div>
-      {/* <h1>{props}</h1> */}
+      <UnderConstruction />
       <DebugData>{props}</DebugData>
     </div>
   );

@@ -19,6 +19,7 @@ import { GlobalLayout } from '../components/GlobalLayout';
 
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
+import { UnderConstruction } from '../components/UnderConstruction';
 
 const IndexPage = ({ data }) => {
   const featuredBooks = data.allGraphCmsBook.nodes;
@@ -32,6 +33,7 @@ const IndexPage = ({ data }) => {
   return (
     <>
       <GlobalLayout>
+        <UnderConstruction />
         <MainMenu categoryTypes={categoryTypes} />
         <main css={{ position: 'relative' }}>
           <Section

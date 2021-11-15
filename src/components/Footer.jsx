@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useContext } from 'react';
 import { jsx, css } from '@emotion/react';
-import { flex, s1, s05, PRIMARY20, PRIMARY, s5, WHITE } from '../styles';
+import { flex, s1, s05, PRIMARY20, PRIMARY, s5, WHITE, s075 } from '../styles';
 import { slugify } from '../utils/slugify';
 import { GlobalContext } from './GlobalLayout';
 import { Logo } from './Logo';
@@ -30,7 +30,10 @@ export function Footer() {
           {navigation.categories.map((category) => {
             return (
               <li key={category._name}>
-                <NavigationLink to={`/${category.slug}`} css={{ color: WHITE }}>
+                <NavigationLink
+                  to={`categories/${category.slug}`}
+                  css={{ color: WHITE }}
+                >
                   {category.title}
                 </NavigationLink>
               </li>
@@ -45,7 +48,7 @@ export function Footer() {
             </NavigationLink>
           </li>
         </List>
-        <p css={{ color: PRIMARY20, fontSize: '0.75rem' }}>
+        <p css={{ color: PRIMARY20, fontSize: s075 }}>
           <Link to="https://www.ala.org/" css={{ color: WHITE }}>
             <small css={{ color: 'inherit' }}>
               Funded by the American Library Association

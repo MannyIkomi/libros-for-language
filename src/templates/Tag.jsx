@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { DebugData } from '../components/DebugData';
+import { UnderConstruction } from '../components/UnderConstruction';
 
 function TagTemplate(props) {
   const { data, context } = props;
@@ -52,7 +53,7 @@ function TagTemplate(props) {
 
   return (
     <div>
-      {/* <h1>{props}</h1> */}
+      <UnderConstruction />
       <DebugData>{props}</DebugData>
     </div>
   );
