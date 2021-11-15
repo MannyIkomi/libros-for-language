@@ -10,7 +10,7 @@ import { Section } from '../components/Section';
 import { GlobalLayout } from '../components/GlobalLayout';
 import { CategoryTag, TopicTag, TextStructureTag } from '../components/Tag';
 
-import Link from '../components/Link';
+import Link, { PrimaryLink } from '../components/Link';
 import {
   ACCENT,
   onTabletMedia,
@@ -23,6 +23,8 @@ import {
 } from '../styles';
 import { List, TagList } from '../components/List';
 import { Container, TextContainer } from '../components/Container';
+import { primaryActionStyle } from '../styles/actions.js';
+import { boxShadow } from '../styles/shadow';
 
 function BookTemplate({ data }) {
   const {
@@ -114,6 +116,7 @@ function BookTemplate({ data }) {
               alt={bookCover.altDescription}
               className="book-image full-height"
               css={{
+                ...boxShadow,
                 gridArea: 'book-image',
                 width: '100%',
                 height: 'auto',
@@ -192,9 +195,13 @@ function BookTemplate({ data }) {
           )}
 
           {actionLink && (
-            <Link to={actionLink} className="action-button">
+            <PrimaryLink
+              to={actionLink}
+              className="action-button"
+              css={primaryActionStyle}
+            >
               {actionLabel || 'Learn More'}
-            </Link>
+            </PrimaryLink>
           )}
           {/* <a
               href="#"
@@ -234,8 +241,8 @@ function BookTemplate({ data }) {
               gridRowGap: s2,
               gridAutoColumns: '1fr',
 
-              gridColumnGap: '16px',
-              gridRowGap: '16px',
+              gridColumnGap: s1,
+              gridRowGap: s1,
 
               gridTemplateAreas: '"Area"',
               gridTemplateColumns: '1fr 1fr',
@@ -291,33 +298,38 @@ function BookTemplate({ data }) {
           )}
 
           <TextContainer>
-            <dl>
+            <dl
+              css={{
+                dd: { fontWeight: 'bold' },
+                div: { display: 'flex', gap: s025, marginBottom: s05 },
+              }}
+            >
               {isbn && (
-                <div css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
+                <div>
                   <dt>ISBN:</dt>
                   <dd>{isbn}</dd>
                 </div>
               )}
               {publisher && (
-                <div css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
+                <div>
                   <dt>Publisher:</dt>
                   <dd>{publisher}</dd>
                 </div>
               )}
               {translator && (
-                <div css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
+                <div>
                   <dt>Translator:</dt>
                   <dd>{translator}</dd>
                 </div>
               )}
-              {awards && (
-                <div css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
+              {awards.length > 0 && (
+                <div>
                   <dt>Awards:</dt>
                   <dd>{awards.length > 1 ? awards.join(', ') : awards[0]}</dd>
                 </div>
               )}
               {copyrightYear && (
-                <div css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
+                <div>
                   <dt>Copyright:</dt>
                   <dd>{copyrightYear}</dd>
                 </div>

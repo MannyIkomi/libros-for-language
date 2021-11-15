@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { DebugData } from '../components/DebugData';
 import { UnderConstruction } from '../components/UnderConstruction';
-import { isUnderContruction } from '../utils/underContruction';
+import { isUnderContruction } from '../utils/environment';
 
 function CategoryTemplate(props) {
   const { data, context } = props;
