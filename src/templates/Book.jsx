@@ -107,20 +107,22 @@ function BookTemplate({ data }) {
             }),
           ]}
         >
-          <img
-            src={bookCover.url}
-            loading="eager"
-            alt={bookCover.altDescription}
-            className="book-image full-height"
-            css={{
-              gridArea: 'book-image',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: `${bookCover.width} / ${bookCover.height}`,
-            }}
-            width={bookCover.width}
-            height={bookCover.height}
-          />
+          {bookCover && (
+            <img
+              src={bookCover.url}
+              loading="eager"
+              alt={bookCover.altDescription}
+              className="book-image full-height"
+              css={{
+                gridArea: 'book-image',
+                width: '100%',
+                height: 'auto',
+                aspectRatio: `${bookCover.width} / ${bookCover.height}`,
+              }}
+              width={bookCover.width}
+              height={bookCover.height}
+            />
+          )}
           <TextContainer
             id="w-node-_99a0eb45-7fae-4bf9-8d9d-f3ee27a955eb-0b286f2c"
             className="book-info"
