@@ -1,4 +1,5 @@
-import { MAX_TEXT_LENGTH } from './spacing';
+import { ACCENT, PRIMARY, BLACK } from './color';
+import { s0125, s05, s1, MAX_TEXT_LENGTH } from './spacing';
 
 // TYPE
 export const SANS_FONT = `Noto Sans, sans-serif`;
@@ -22,14 +23,19 @@ export const h1 = {
   maxWidth: MAX_TEXT_LENGTH,
   fontSize: '2.488rem',
   lineHeight: '1.2',
-  fontWeight: '500',
+  fontWeight: '300',
+  marginBottom: s1,
+  color: PRIMARY,
 };
 
 export const h2 = {
   ...notoSerif,
   maxWidth: MAX_TEXT_LENGTH,
   fontSize: '2.074rem',
+  fontWeight: '300',
   lineHeight: '1.2',
+  marginBottom: s1,
+  color: PRIMARY,
 };
 
 export const h3 = {
@@ -37,21 +43,27 @@ export const h3 = {
   maxWidth: MAX_TEXT_LENGTH,
   fontSize: '1.728rem',
   lineHeight: '1.2',
-  fontWeight: '400',
+  fontWeight: '300',
+  marginBottom: s1,
+  color: PRIMARY,
 };
 
 export const h4 = {
   ...notoSerif,
   fontSize: '1.444rem',
   lineHeight: '1.2',
-  fontWeight: '400',
+  fontWeight: '300',
+  marginBottom: s1,
+  color: PRIMARY,
 };
 
 export const h5 = {
   ...notoSerif,
   fontSize: '1.2rem',
   lineHeight: '1.2',
-  fontWeight: '400',
+  fontWeight: '300',
+  marginBottom: s1,
+  color: PRIMARY,
 };
 
 export const p = {
@@ -59,7 +71,9 @@ export const p = {
   maxWidth: MAX_TEXT_LENGTH,
   fontSize: '1rem',
   lineHeight: '1.8',
-  fontWeight: '100',
+  fontWeight: '300',
+  marginBottom: s05,
+  color: BLACK,
 };
 
 export const a = {
@@ -74,4 +88,27 @@ export const headings = {
   h3,
   h4,
   h5,
+};
+
+export const headingsDesktop = {
+  h1: {
+    ...h1,
+    fontSize: '4.209rem',
+  },
+  h2: {
+    ...h2,
+    fontSize: '3.157rem',
+  },
+  h3: {
+    ...h3,
+    fontSize: '2.369rem',
+  },
+  h4: {
+    ...h4,
+    fontSize: '1.777rem',
+  },
+  h5: {
+    ...h5,
+    fontSize: '1.333rem',
+  },
 };

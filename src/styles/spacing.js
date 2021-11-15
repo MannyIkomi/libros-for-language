@@ -8,6 +8,7 @@ export const s2 = '2rem';
 export const s3 = '3rem';
 export const s4 = '4rem';
 export const s5 = '5rem';
+export const s10 = '10rem';
 export const s20 = '20rem';
 export const s40 = '40rem';
 export const s80 = '80rem';
