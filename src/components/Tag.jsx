@@ -15,11 +15,10 @@ import {
   ACCENT,
   BLACK,
   WHITE,
-  PRIMARY20,
-  PRIMARY50,
-  PRIMARY80,
   PRIMARY,
+  PRIMARY33,
 } from '../styles';
+import { boxShadow, boxShadowLg, SHADOW } from '../styles/shadow';
 
 export const Tag = (props) => {
   const { textColor, background, children, label, css } = props;
@@ -31,6 +30,7 @@ export const Tag = (props) => {
           justifyContent: 'center',
         }),
         {
+          ...boxShadowLg,
           textTransform: 'uppercase',
           fontSize: s075,
           fontFamily: MONO_FONT,
@@ -62,7 +62,7 @@ export const TopicTag = (props) => (
 );
 
 export const CategoryTag = (props) => (
-  <Tag textColor={BLACK} background={PRIMARY20}>
+  <Tag textColor={BLACK} background={PRIMARY33}>
     {props.children}
   </Tag>
 );

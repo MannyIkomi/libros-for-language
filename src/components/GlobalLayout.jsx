@@ -13,6 +13,9 @@ import {
   notoSans,
   colors,
   s1,
+  onTabletMedia,
+  onDesktopMedia,
+  headingsDesktop,
 } from '../styles';
 import 'normalize.css/normalize.css';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -41,28 +44,33 @@ export const GlobalLayout = ({ htmlHead, children }) => {
     <>
       <HtmlHead {...htmlHead} />
       <Global
-        styles={{
-          '*': {
-            boxSizing: 'border-box',
-            margin: 0,
-            padding: 0,
-            //   color: BLACK,
-            //   fontFamily: SANS_FONT,
+        styles={[
+          {
+            '*': {
+              boxSizing: 'border-box',
+              margin: 0,
+              padding: 0,
+              //   color: BLACK,
+              //   fontFamily: SANS_FONT,
+            },
+            body: {
+              ...notoSans,
+              backgroundColor: WHITE,
+              color: BLACK,
+              fontSize: s1,
+              lineHeight: '1.2',
+            },
+            svg: {
+              fill: 'currentcolor',
+            },
+            ...headings,
+            a,
+            p,
           },
-          body: {
-            ...notoSans,
-            backgroundColor: WHITE,
-            color: BLACK,
-            fontSize: s1,
-            lineHeight: '1.2',
-          },
-          svg: {
-            fill: 'currentcolor',
-          },
-          ...headings,
-          a,
-          p,
-        }}
+          onTabletMedia({
+            ...headingsDesktop,
+          }),
+        ]}
       />
       <div
         css={{

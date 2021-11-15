@@ -9,9 +9,10 @@ exports.onPostBuild = ({ reporter }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const BookTemplate = path.resolve(`src/templates/Book.jsx`);
-  const TagTemplate = path.resolve(`src/templates/Tag.jsx`);
-  const CategoryTemplate = path.resolve(`src/templates/Category.jsx`);
+  const BookTemplate = path.resolve(`src/templates/BookTemplate.jsx`);
+  const TagTemplate = path.resolve(`src/templates/TagTemplate.jsx`);
+  const CategoryTemplate = path.resolve(`src/templates/CategoryTemplate.jsx`);
+
   const result = await graphql(`
     query {
       allGraphCmsBook {
