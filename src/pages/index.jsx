@@ -33,7 +33,6 @@ const IndexPage = ({ data }) => {
   return (
     <>
       <GlobalLayout>
-        <UnderConstruction />
         <MainMenu categoryTypes={categoryTypes} />
         <main css={{ position: 'relative' }}>
           <Section
