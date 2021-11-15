@@ -2,8 +2,19 @@
 import { useContext } from 'react';
 
 import { jsx } from '@emotion/react';
-import { flex, PRIMARY, s05, s1, s2, s3, s5, WHITE } from '../styles';
-import { slugify } from '../utils/slugify';
+import {
+  flex,
+  PRIMARY,
+  s05,
+  s1,
+  s2,
+  s3,
+  s5,
+  s10,
+  WHITE,
+  ACCENT,
+  COMPLIMENT,
+} from '../styles';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import { NavigationLink } from './NavigationLink';
 import { Logo, LOGO_HEIGHT, LOGO_WIDTH } from './Logo';
@@ -11,20 +22,7 @@ import { GlobalContext } from './GlobalLayout';
 import { MenuIcon } from './MenuIcon';
 import { List } from './List';
 import { Link } from './Link';
-
-export function Button({ children, ...props }) {
-  return (
-    <button
-      css={{
-        backgroundColor: 'transparent',
-        border: 'none',
-      }}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
+import { Button } from './Button';
 
 export function MainMenu() {
   const { navigation } = useContext(GlobalContext);
@@ -53,11 +51,10 @@ export function MainMenu() {
         <Link to={'/'}>
           <Logo
             css={{
-              color: WHITE,
-              width: '100%',
-              // height: 'auto',
-              maxWidth: s5,
-              // aspectRatio: `${LOGO_WIDTH} / ${LOGO_HEIGHT}`,
+              color: COMPLIMENT,
+              width: s10,
+              margin: s1,
+              aspectRatio: `${LOGO_WIDTH} / ${LOGO_HEIGHT}`,
             }}
           />
         </Link>
