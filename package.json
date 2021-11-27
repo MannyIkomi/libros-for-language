@@ -22,6 +22,7 @@
     "gatsby-source-graphcms": "^2.7.0-next.1",
     "gatsby-transformer-sharp": "^3.14.0",
     "normalize.css": "^8.0.1",
+    "react-accessible-accordion": "^4.0.0",
     "react-helmet": "^6.1.0",
     "swiper": "^7.2.0"
   }
