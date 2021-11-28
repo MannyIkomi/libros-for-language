@@ -1,4 +1,4 @@
-import { ACCENT, PRIMARY, BLACK } from './color';
+import { PRIMARY, BLACK } from './color';
 import { s0125, s05, s1, MAX_TEXT_LENGTH } from './spacing';
 
 // TYPE

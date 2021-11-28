@@ -8,15 +8,17 @@ import {
   ACCENT,
   a,
   s1,
+  COMPLIMENT80,
   onTabletMedia,
   flex,
+  COMPLIMENT40,
 } from '../styles';
 import { TopicTag } from '../components/Tag';
 import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
-import { Link } from '../components/Link';
+import { Link, PrimaryLink } from '../components/Link';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -69,7 +71,7 @@ const IndexPage = ({ data }) => {
                 Empowering teachers with{' '}
                 <span
                   css={{
-                    color: ACCENT,
+                    color: COMPLIMENT80,
                     fontFamily: 'inherit',
                   }}
                 >
@@ -84,7 +86,7 @@ const IndexPage = ({ data }) => {
               className="category-collection w-dyn-list"
               css={{
                 minHeight: '33vh',
-                // marginBottom: '10vh',
+                marginBottom: `10vh`,
               }}
             >
               <Swiper
@@ -126,15 +128,12 @@ const IndexPage = ({ data }) => {
                     );
                   })}
               </Swiper>
-
-              <div className="w-dyn-empty"></div>
             </div>
-            {/* need a signifier for horizontal scrolling */}
-            {/* <div>
-              <div>{`< Prev`}</div>
-              <div>{`Next >`}</div>
-            </div> */}
+            <Container>
+              <PrimaryLink to={'/browse'}>Browse All</PrimaryLink>
+            </Container>
           </Section>
+
           <Section>
             <Container>
               <TextContainer>

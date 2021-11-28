@@ -8,12 +8,14 @@ import {
   s05,
   s1,
   s2,
+  COMPLIMENT40,
   s3,
   s5,
   s10,
   WHITE,
-  ACCENT,
+  DEPRECATED_ACCENT,
   COMPLIMENT,
+  COMPLIMENT20,
 } from '../styles';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import { NavigationLink } from './NavigationLink';
@@ -51,7 +53,7 @@ export function MainMenu() {
         <Link to={'/'}>
           <Logo
             css={{
-              color: COMPLIMENT,
+              color: COMPLIMENT40,
               width: s10,
               margin: s1,
               aspectRatio: `${LOGO_WIDTH} / ${LOGO_HEIGHT}`,

@@ -1,28 +1,42 @@
-import { ACCENT, flex, s025, s2, s3, s1, WHITE } from '.';
+import {
+  DEPRECATED_ACCENT,
+  flex,
+  s025,
+  s2,
+  s3,
+  s1,
+  WHITE,
+  s20,
+  onTabletMedia,
+} from '.';
 import { boxShadow, boxShadow2xl, SHADOW } from './shadow';
 
-export const primaryActionStyle = {
-  ...flex('column', {
-    justifyContent: 'center',
-    alignItems: 'center',
-  }),
-  ...boxShadow2xl,
+export const primaryActionStyle = [
+  {
+    ...flex('column', {
+      justifyContent: 'center',
+      alignItems: 'center',
+    }),
+    ...boxShadow2xl,
 
-  width: '100%',
-  minHeight: s3,
-  minWidth: s3,
-  padding: `${s1} ${s2}`,
+    width: '100%',
 
-  borderStyle: 'solid',
-  borderWidth: s025,
-  borderColor: ACCENT,
+    minHeight: s3,
+    minWidth: s3,
+    padding: `${s1} ${s2}`,
 
-  color: ACCENT,
-  backgroundColor: WHITE,
-  fontWeight: '700',
-  textAlign: 'center',
+    borderStyle: 'solid',
+    borderWidth: s025,
+    borderColor: DEPRECATED_ACCENT,
 
-  textDecoration: 'none',
-  textTransform: 'uppercase',
-  whiteSpace: 'nowrap',
-};
+    color: DEPRECATED_ACCENT,
+    backgroundColor: WHITE,
+    fontWeight: '700',
+    textAlign: 'center',
+
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    whiteSpace: 'nowrap',
+  },
+  onTabletMedia({ maxWidth: s20 }),
+];

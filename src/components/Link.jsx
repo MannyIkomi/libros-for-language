@@ -18,7 +18,7 @@ export const Link = ({
   // This example assumes that any internal link (intended for Gatsby)
   // will start with exactly one slash, and that anything else is external.
   if (href) {
-    throw new Error(`Don't use an {href} prop to pass links, use {to} 🚨`);
+    throw new Error(`🚨 Don't use an {href} prop to pass links, use {to}`);
   }
   const internal = /^\/(?!\/)/.test(to);
 
@@ -42,7 +42,7 @@ export const Link = ({
   );
 };
 
-export const PrimaryLink = ({ children, props }) => (
+export const PrimaryLink = ({ children, ...props }) => (
   <Link css={primaryActionStyle} {...props}>
     {children}
   </Link>

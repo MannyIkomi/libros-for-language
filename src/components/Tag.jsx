@@ -12,11 +12,12 @@ import {
   s1,
   s00625,
   s05,
-  ACCENT,
   BLACK,
   WHITE,
   PRIMARY,
-  PRIMARY33,
+  PRIMARY40,
+  COMPLIMENT40,
+  COMPLIMENT20,
 } from '../styles';
 import { boxShadow, boxShadowLg, SHADOW } from '../styles/shadow';
 
@@ -44,7 +45,7 @@ export const Tag = (props) => {
           minHeight: s2,
           padding: `${s0125} ${s1}`,
           color: textColor ?? WHITE,
-          background: background ?? ACCENT,
+          background: background ?? PRIMARY40,
           borderRadius: `${s00625} ${s05}`,
         },
         css,
@@ -56,19 +57,19 @@ export const Tag = (props) => {
 };
 
 export const TopicTag = (props) => (
-  <Tag textColor={BLACK} background={COMPLIMENT}>
+  <Tag textColor={BLACK} background={COMPLIMENT40}>
     {props.children}
   </Tag>
 );
 
 export const CategoryTag = (props) => (
-  <Tag textColor={BLACK} background={PRIMARY33}>
+  <Tag textColor={BLACK} background={PRIMARY40}>
     {props.children}
   </Tag>
 );
 
 export const TextStructureTag = (props) => (
-  <Tag textColor={WHITE} background={ACCENT}>
+  <Tag textColor={WHITE} background={COMPLIMENT40}>
     {props.children}
   </Tag>
 );
