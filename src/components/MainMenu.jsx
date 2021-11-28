@@ -85,6 +85,11 @@ export function MainMenu() {
             listStyle: 'none',
           }}
         >
+          <li css={{ textAlign: 'right' }}>
+            <NavigationLink css={{ color: WHITE }} to={'/browse'}>
+              Browse
+            </NavigationLink>
+          </li>
           {navigation.categories.map((c) => {
             return (
               <li css={{ textAlign: 'right' }}>
@@ -97,6 +102,7 @@ export function MainMenu() {
               </li>
             );
           })}
+
           <li css={{ textAlign: 'right' }}>
             <NavigationLink css={{ color: WHITE }} to={'/about'}>
               About

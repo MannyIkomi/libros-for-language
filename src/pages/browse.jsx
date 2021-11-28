@@ -12,6 +12,7 @@ import {
   flex,
   notoMono,
   s05,
+  grid,
 } from '../styles';
 import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
@@ -32,6 +33,7 @@ import {
   AccordionItemHeading,
   AccordionItemButton,
   AccordionItemPanel,
+  // https://www.npmjs.com/package/react-accessible-accordion
 } from 'react-accessible-accordion';
 
 export const MonoFontLink = (props) => (
@@ -75,11 +77,26 @@ const BrowsePage = ({ data }) => {
           <Section>
             <Heading level={1}>Browse</Heading>
             <Container>
-              <Accordion>
+              <Accordion
+                allowMultipleExpanded={true}
+                preExpanded={[]}
+                css={[
+                  onTabletMedia({
+                    ...grid({
+                      gridTemplateColumns: `repeat(4, 1fr)`,
+                      width: '100%',
+                    }),
+                  }),
+                ]}
+              >
                 {categoryTypes.length > 0 &&
                   categoryTypes.map((type) => {
                     return (
-                      <AccordionItem>
+                      <AccordionItem
+                        key={type.name}
+                        css={{ border: '1px solid red' }}
+                        uuid={type.name}
+                      >
                         <AccordionItemHeading>
                           <AccordionItemButton>
                             <Heading level={2} css={{ color: ACCENT }}>
@@ -161,7 +178,6 @@ const BrowsePage = ({ data }) => {
                       ))}
                     </CategoryList>
                   </AccordionItemPanel>
-                  <DebugData>{categoryTypes}</DebugData>
                 </AccordionItem>
               </Accordion>
             </Container>
