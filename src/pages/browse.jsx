@@ -328,6 +328,7 @@ export const query = graphql`
     }
     allGraphCmsAuthor: allGraphCmsContributor(
       filter: { type: { eq: Author } }
+      sort: { order: ASC, fields: lastName }
     ) {
       nodes {
         slug
@@ -338,6 +339,7 @@ export const query = graphql`
     }
     allGraphCmsIllustrator: allGraphCmsContributor(
       filter: { type: { eq: Illustrator } }
+      sort: { order: ASC, fields: lastName }
     ) {
       nodes {
         slug
