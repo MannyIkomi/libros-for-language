@@ -9,6 +9,7 @@ export const Section = ({ children, ...props }) => {
         {
           marginTop: s1,
           marginBottom: s1,
+          width: '100%',
           minHeight: '50vh',
           ...flex('column', { alignItems: 'center', justifyContent: 'center' }),
         },

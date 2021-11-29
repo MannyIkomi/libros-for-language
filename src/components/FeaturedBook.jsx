@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { notoSerif, PRIMARY, notoSans, onHover, flex, WHITE } from '../styles';
+import { BookImage } from './BookImage';
 
 export function FeaturedBook(book) {
   const authors = book.contributors.filter((contributor) =>
@@ -110,28 +111,16 @@ export function FeaturedBook(book) {
               }}
             ></div>
           </div>
-          <img
-            src={book.bookCover?.url}
-            width={book.bookCover?.width}
-            height={book.bookCover?.height}
-            loading="eager"
-            alt={book.bookCover?.url || book.bookTitle}
-            className="book-image"
+          <BookImage
+            book={book}
             css={{
-              display: 'block',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: `${book.bookCover.width} / ${book.bookCover.height}`,
-
-              maxWidth: '20rem',
-              maxHeight: '20rem',
-
               backfaceVisibility: 'hidden',
               transform: 'rotate(0deg)',
               transition:
                 'transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out',
               objectFit: 'contain',
             }}
+            className={'book-image'}
           />
         </div>
         <div
