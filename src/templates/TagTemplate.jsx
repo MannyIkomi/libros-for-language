@@ -1,74 +1,94 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { DebugData } from '../components/DebugData';
 import { UnderConstruction } from '../components/UnderConstruction';
+import { Footer } from '../components/Footer';
+import { PrimaryLink } from '../components/Link';
+import { Container } from '../components/Container';
+import {
+  base320,
+  COMPLIMENT80,
+  flex,
+  grid,
+  base160,
+  notoSerif,
+  onTabletMedia,
+  PRIMARY,
+  s1,
+  s2,
+  boxShadowLg,
+} from '../styles';
+import { GlobalLayout } from '../components/GlobalLayout';
+import { MainMenu } from '../components/MainMenu';
+import { Section } from '../components/Section';
+import { Heading } from '../components/Heading';
+import { BookCover } from '../components/BookCover';
+import { BookList } from '../components/BookList';
 
 function TagTemplate(props) {
-  const { data, context } = props;
-  // const tagData = useStaticQuery(graphql`
-  //   query FooterQuery {
-  //     categoryTypes: __type(name: "GraphCMS_CategoryType") {
-  //       enumValues {
-  //         name
-  //       }
-  //     }
-  //     allGraphCmsGrade: allGraphCmsCategory(
-  //       filter: { categoryType: { eq: Grade } }
-  //     ) {
-  //       nodes {
-  //         title
-  //         slug
-  //         categoryType
-  //       }
-  //     }
-  //     allGraphCmsGenre: allGraphCmsCategory(
-  //       filter: { categoryType: { eq: Genre } }
-  //     ) {
-  //       nodes {
-  //         title
-  //         slug
-  //         categoryType
-  //       }
-  //     }
-  //     allGraphCmsLanguage: allGraphCmsCategory(
-  //       filter: { categoryType: { eq: Language } }
-  //     ) {
-  //       nodes {
-  //         title
-  //         slug
-  //         categoryType
-  //       }
-  //     }
-  //     allGraphCmsText_Structure: allGraphCmsCategory(
-  //       filter: { categoryType: { eq: Text_Structure } }
-  //     ) {
-  //       nodes {
-  //         title
-  //         slug
-  //         categoryType
-  //       }
-  //     }
-  //   }
-  // `);
+  const { data, pageContext } = props;
+  const { graphCmsCategory } = data;
 
   return (
     <div>
       <UnderConstruction />
-      <DebugData>{props}</DebugData>
+
+      <GlobalLayout>
+        <MainMenu />
+        <main css={{ position: 'relative' }}>
+          <Container css={{ alignItems: 'flex-start' }}>
+            <Heading level={1}>{pageContext.title}</Heading>
+          </Container>
+          TAG TEMPLATE
+        </main>
+        <DebugData>{data}</DebugData>
+        <Footer />
+      </GlobalLayout>
     </div>
   );
 }
 
 export const query = graphql`
-  query TagTemplate($slug: String) {
+  query TagTemplateQuery(
+    $slug: String # $type: GraphCMS_CategoryType = Language
+  ) {
     graphCmsTopic(slug: { eq: $slug }) {
+      books {
+        bookCover {
+          altDescription
+          url
+          width
+          height
+        }
+        slug
+        id
+        bookTitle
+      }
       title
       slug
+      id
     }
     graphCmsCategory(slug: { eq: $slug }) {
       title
       slug
       categoryType
+      id
+      book {
+        bookTitle
+        slug
+        categories {
+          title
+        }
+        bookCover {
+          altDescription
+          width
+          url
+          size
+          height
+        }
+      }
     }
   }
 `;
