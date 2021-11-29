@@ -25,6 +25,7 @@ import { List, TagList } from '../components/List';
 import { Container, TextContainer } from '../components/Container';
 import { primaryActionStyle } from '../styles/actions.js';
 import { boxShadow } from '../styles/shadow';
+import { BookImage } from '../components/BookImage';
 
 function BookTemplate({ data }) {
   const {
@@ -110,20 +111,17 @@ function BookTemplate({ data }) {
           ]}
         >
           {bookCover && (
-            <img
-              src={bookCover.url}
+            <BookImage
               loading="eager"
-              alt={bookCover.altDescription}
               className="book-image full-height"
+              book={data.graphCmsBook}
               css={{
                 ...boxShadow,
                 gridArea: 'book-image',
-                width: '100%',
-                height: 'auto',
-                aspectRatio: `${bookCover.width} / ${bookCover.height}`,
+                maxWidth: 'initial',
+                maxHeight: 'initial',
+                placeSelf: 'start stretch',
               }}
-              width={bookCover.width}
-              height={bookCover.height}
             />
           )}
           <TextContainer
@@ -169,7 +167,7 @@ function BookTemplate({ data }) {
                 gridArea: 'book-summary',
               }}
             >
-              <Heading level={2}>Summary</Heading>
+              <strong level={2}>Publisher Summary</strong>
               <p>{publisherSummary}</p>
             </TextContainer>
           )}
