@@ -85,7 +85,7 @@ export const GlobalLayout = ({ htmlHead, children }) => {
               categories: globalData.categories.enumValues.map(
                 (enumerator) => ({
                   title: enumerator.name.replace('_', ' '),
-                  slug: slugify(enumerator.name),
+                  slug: `/browse/${slugify(enumerator.name)}s`,
                   _name: enumerator.name,
                 })
               ),

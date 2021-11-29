@@ -150,7 +150,7 @@ const IndexPage = ({ data }) => {
                       }}
                     >
                       <Link
-                        to={`/topics/${slug}`}
+                        to={`/browse/topics/${slug}`}
                         css={{ textDecoration: 'none' }}
                       >
                         <TopicTag>{title}</TopicTag>

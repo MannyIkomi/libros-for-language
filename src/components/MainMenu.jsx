@@ -95,10 +95,7 @@ export function MainMenu() {
           {navigation.categories.map((c) => {
             return (
               <li css={{ textAlign: 'right' }}>
-                <NavigationLink
-                  to={`/categories/${c.slug}`}
-                  css={{ color: WHITE }}
-                >
+                <NavigationLink to={c.slug} css={{ color: WHITE }}>
                   {c.title}
                 </NavigationLink>
               </li>
