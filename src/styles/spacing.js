@@ -16,6 +16,7 @@ export const s80 = '80rem';
 export const base4 = s0125;
 export const base16 = s1;
 
+export const base160 = s10;
 export const base320 = s20;
 export const base640 = s40;
 export const base1280 = s80;
