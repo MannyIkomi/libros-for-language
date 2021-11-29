@@ -1,4 +1,5 @@
 const path = require(`path`);
+
 function slugify(string) {
   return string.replace('_', '-').replace(' ', '-').toLowerCase();
 }
@@ -11,7 +12,9 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const BookTemplate = path.resolve(`src/templates/BookTemplate.jsx`);
   const TagTemplate = path.resolve(`src/templates/TagTemplate.jsx`);
-  const CategoryTemplate = path.resolve(`src/templates/CategoryTemplate.jsx`);
+  const TagListingTemplate = path.resolve(
+    `src/templates/TagListingTemplate.jsx`
+  );
 
   const result = await graphql(`
     query {
@@ -26,13 +29,13 @@ exports.createPages = async ({ graphql, actions }) => {
           name
         }
       }
-      allGraphCmsTopic {
+      allGraphCmsTopic(sort: { fields: title, order: ASC }) {
         nodes {
           title
           slug
         }
       }
-      allGraphCmsCategory {
+      allGraphCmsCategory(sort: { fields: title, order: ASC }) {
         nodes {
           title
           slug
@@ -52,13 +55,24 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
+  createPage({
+    path: `/browse/topics`,
+    component: TagListingTemplate,
+    context: {
+      title: `Topics`,
+      slug: `topics`,
+      type: `Topic`,
+    },
+  });
+
   result.data.allGraphCmsTopic.nodes.forEach((topic) => {
     createPage({
-      path: `/topics/${topic.slug}`,
+      path: `/browse/topics/${topic.slug}`,
       component: TagTemplate,
       context: {
         title: topic.title,
         slug: topic.slug,
+        type: 'Topic',
       },
     });
   });
@@ -67,8 +81,8 @@ exports.createPages = async ({ graphql, actions }) => {
     const typeSlug = slugify(typeEnum.name);
     // const viewName = type.name.replace('_', '-');
     createPage({
-      path: `/categories/${typeSlug}`,
-      component: CategoryTemplate,
+      path: `/browse/${typeSlug}s`,
+      component: TagListingTemplate,
       context: {
         title: typeEnum.name.replace('_', ' '),
         slug: typeSlug,
@@ -81,7 +95,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const typeSlug = slugify(category.categoryType);
     // const viewName = type.name.replace('_', '-');
     createPage({
-      path: `/categories/${typeSlug}/${category.slug}`,
+      path: `/browse/${typeSlug}s/${category.slug}`,
       component: TagTemplate,
       context: {
         title: category.title,
