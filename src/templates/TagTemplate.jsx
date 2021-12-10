@@ -1,35 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql } from 'gatsby';
 import { DebugData } from '../components/DebugData';
 import { UnderConstruction } from '../components/UnderConstruction';
 import { Footer } from '../components/Footer';
-import { PrimaryLink } from '../components/Link';
 import { Container } from '../components/Container';
-import {
-  base320,
-  COMPLIMENT80,
-  flex,
-  grid,
-  base160,
-  notoSerif,
-  onTabletMedia,
-  PRIMARY,
-  s1,
-  s2,
-  boxShadowLg,
-} from '../styles';
 import { GlobalLayout } from '../components/GlobalLayout';
 import { MainMenu } from '../components/MainMenu';
-import { Section } from '../components/Section';
 import { Heading } from '../components/Heading';
-import { BookCover } from '../components/BookCover';
-import { BookList } from '../components/BookList';
 
 function TagTemplate(props) {
   const { data, pageContext } = props;
-  const { graphCmsCategory } = data;
+  // const { graphCmsTag } = data;
 
   return (
     <div>

@@ -3,107 +3,29 @@ import * as React from 'react';
 import { graphql } from 'gatsby';
 import { jsx } from '@emotion/react';
 import {
-  notoSerif,
-  PRIMARY,
-  DEPRECATED_ACCENT,
-  a,
   s1,
   onTabletMedia,
   flex,
-  notoMono,
-  s00625,
-  s05,
-  grid,
-  COMPLIMENT,
-  PRIMARY40,
   BLACK,
   grid12Columns,
-  s4,
-  s0125,
-  boxShadow,
-  boxShadowLg,
   onDesktopMedia,
   s2,
   PRIMARY20,
   COMPLIMENT20,
 } from '../styles';
-import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
-import { Container, TextContainer } from '../components/Container';
-import { Link } from '../components/Link';
+import { Container } from '../components/Container';
 
 import { GlobalLayout } from '../components/GlobalLayout';
 
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
-import { List } from '../components/List';
-import { slugify } from '../utils/slugify';
+import { MonoFontLink } from '../components/MonoFontLink';
+import { TagList } from '../components/TagList';
+import { TagGroup } from '../components/TagGroup';
 
-import {
-  Accordion,
-  AccordionItem,
-  AccordionItemHeading,
-  AccordionItemButton,
-  AccordionItemPanel,
-  // https://www.npmjs.com/package/react-accessible-accordion
-} from 'react-accessible-accordion';
-
-export const MonoFontLink = (props) => (
-  <Link
-    css={{
-      ...notoMono,
-      textDecoration: 'underline',
-      color: PRIMARY,
-      letterSpacing: '0.05rem',
-      display: 'inline-block',
-      padding: s05,
-      marginBottom: s05,
-      whiteSpace: 'nowrap',
-    }}
-    {...props}
-  >
-    {props.children}
-  </Link>
-);
-
-export const TagList = (props) => (
-  <List
-    css={[
-      { listStyle: 'none' },
-      { ...flex('row', { flexWrap: 'wrap', gap: s05 }) },
-      onTabletMedia({
-        ...grid({
-          gridTemplateColumns: `repeat(auto-fit, minmax(250px, 1fr))`,
-          // gridAutoRows: `min-content`,
-        }),
-      }),
-    ]}
-    {...props}
-  >
-    {props.children}
-  </List>
-);
-
-export const TagGroup = (props) => {
-  const { background } = props;
-  return (
-    <section
-      css={{
-        padding: s1,
-
-        background: background || DEPRECATED_ACCENT,
-        borderRadius: `${s0125} ${s1}`,
-        ...boxShadowLg,
-      }}
-      {...props}
-    >
-      {props.children}
-    </section>
-  );
-};
-
-const BrowsePage = ({ data }) => {
+function BrowsePage({ data }) {
   const topics = data.allGraphCmsTopic.nodes;
   const authors = data.allGraphCmsAuthor.nodes;
   const illustrators = data.allGraphCmsIllustrator.nodes;

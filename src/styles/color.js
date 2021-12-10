@@ -5,9 +5,6 @@ export const PRIMARY60 = '#659ce9';
 export const PRIMARY40 = '#9ac4fe';
 export const PRIMARY20 = '#d0e4ff';
 export const PRIMARY_WHITE = '#f0f6ff';
-// export const PRIMARY80 = '#53657d';
-// export const PRIMARY50 = '#949fae';
-// export const PRIMARY20 = '#d4d8de';
 
 export const COMPLIMENT = '#6f5f46';
 export const COMPLIMENT80 = '#91855e';

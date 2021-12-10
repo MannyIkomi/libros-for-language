@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { notoSerif, PRIMARY, notoSans, onHover, flex, WHITE } from '../styles';
+import { notoSerif, PRIMARY, notoSans, onHover, WHITE } from '../styles';
 import { BookImage } from './BookImage';
 
 export function FeaturedBook(book) {

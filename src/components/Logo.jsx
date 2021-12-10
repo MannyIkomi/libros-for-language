@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
-import { Global, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 export const LOGO_WIDTH = '512';
 export const LOGO_HEIGHT = '168';

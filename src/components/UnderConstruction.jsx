@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { Global, jsx } from '@emotion/react';
-import { GlobalLayout } from './GlobalLayout';
+import { jsx } from '@emotion/react';
 import Link from './Link';
 import { Logo } from './Logo';
-import { flex, PRIMARY20, s0125, s4, s025, s05, s1, h1 } from '../styles';
+import { flex, s4, s025, h1 } from '../styles';
 import { isUnderContruction } from '../utils/environment';
 
 export function UnderConstruction(props) {

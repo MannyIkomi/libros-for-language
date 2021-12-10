@@ -1,23 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql } from 'gatsby';
 import { DebugData } from '../components/DebugData';
-import { UnderConstruction } from '../components/UnderConstruction';
 import { Footer } from '../components/Footer';
-import { PrimaryLink } from '../components/Link';
 import { Container } from '../components/Container';
 import {
-  base320,
-  COMPLIMENT80,
-  flex,
   grid,
   base160,
-  notoSerif,
   onTabletMedia,
-  PRIMARY,
   s1,
-  s2,
   boxShadowLg,
   COMPLIMENT,
 } from '../styles';

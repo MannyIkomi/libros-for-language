@@ -1,9 +1,7 @@
 /** @jsx jsx */
-import * as React from 'react';
 import { jsx } from '@emotion/react';
 import {
   MONO_FONT,
-  COMPLIMENT,
   s3,
   flex,
   s2,
@@ -14,12 +12,10 @@ import {
   s05,
   BLACK,
   WHITE,
-  PRIMARY,
   PRIMARY40,
   COMPLIMENT40,
-  COMPLIMENT20,
 } from '../styles';
-import { boxShadow, boxShadowLg, SHADOW } from '../styles/shadow';
+import { boxShadowLg } from '../styles/shadow';
 
 export const Tag = (props) => {
   const { textColor, background, children, label, css } = props;

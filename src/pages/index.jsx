@@ -1,20 +1,9 @@
 /** @jsx jsx */
 import * as React from 'react';
 import { graphql } from 'gatsby';
-import { jsx, css } from '@emotion/react';
-import {
-  notoSerif,
-  PRIMARY,
-  ACCENT,
-  a,
-  s1,
-  COMPLIMENT80,
-  onTabletMedia,
-  flex,
-  COMPLIMENT40,
-} from '../styles';
+import { jsx } from '@emotion/react';
+import { notoSerif, PRIMARY, s1, COMPLIMENT80 } from '../styles';
 import { TopicTag } from '../components/Tag';
-import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
@@ -30,14 +19,13 @@ import { GlobalLayout } from '../components/GlobalLayout';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
 
-const IndexPage = ({ data }) => {
+function IndexPage({ data }) {
   const featuredBooks = data.allGraphCmsBook.nodes;
   const topics = data.allGraphCmsTopic.nodes;
-  // const categories = data.allGraphCmsCategory.nodes;
-  const genres = data.allGraphCmsGenre.nodes;
-  const grades = data.allGraphCmsGrade.nodes;
-  const languages = data.allGraphCmsLanguage.nodes;
-  const categoryTypes = data.categoryNames.enumValues;
+  // const genres = data.allGraphCmsGenre.nodes;
+  // const grades = data.allGraphCmsGrade.nodes;
+  // const languages = data.allGraphCmsLanguage.nodes;
+  const tagTypes = data.categoryNames.enumValues;
 
   return (
     <>

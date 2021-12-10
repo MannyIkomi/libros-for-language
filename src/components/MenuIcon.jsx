@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
-import { Global, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 export function MenuIcon(props) {
   // const { color, css } = props;

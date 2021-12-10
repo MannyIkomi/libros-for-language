@@ -9,7 +9,7 @@ import {
   s20,
   onTabletMedia,
 } from '.';
-import { boxShadow, boxShadow2xl, SHADOW } from './shadow';
+import { boxShadow2xl } from './shadow';
 
 export const primaryActionStyle = [
   {
