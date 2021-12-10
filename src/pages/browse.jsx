@@ -107,7 +107,6 @@ const BrowsePage = ({ data }) => {
   const topics = data.allGraphCmsTopic.nodes;
   const authors = data.allGraphCmsAuthor.nodes;
   const illustrators = data.allGraphCmsIllustrator.nodes;
-  const categoryTypes = data.categoryNames.enumValues;
 
   const genres = data.allGraphCmsGenre.nodes;
   const grades = data.allGraphCmsGrade.nodes;
@@ -268,62 +267,59 @@ const BrowsePage = ({ data }) => {
       </GlobalLayout>
     </>
   );
-};
+}
 
 export const query = graphql`
   query BrowsePageQuery {
-    categoryNames: __type(name: "GraphCMS_CategoryType") {
+    categoryNames: __type(name: "GraphCMS_TagType") {
       enumValues {
         name
       }
     }
-    allGraphCmsCategory {
+
+    allGraphCmsTag {
       nodes {
-        categoryType
+        tagType
         slug
         title
       }
     }
-    allGraphCmsTopic {
+
+    allGraphCmsGrade: allGraphCmsTag(filter: { tagType: { eq: Grade } }) {
       nodes {
         title
         slug
+        tagType
       }
     }
-    allGraphCmsGrade: allGraphCmsCategory(
-      filter: { categoryType: { eq: Grade } }
+    allGraphCmsGenre: allGraphCmsTag(filter: { tagType: { eq: Genre } }) {
+      nodes {
+        title
+        slug
+        tagType
+      }
+    }
+    allGraphCmsLanguage: allGraphCmsTag(filter: { tagType: { eq: Language } }) {
+      nodes {
+        title
+        slug
+        tagType
+      }
+    }
+    allGraphCmsTextStructure: allGraphCmsTag(
+      filter: { tagType: { eq: Text_Structure } }
     ) {
       nodes {
         title
         slug
-        categoryType
+        tagType
       }
     }
-    allGraphCmsGenre: allGraphCmsCategory(
-      filter: { categoryType: { eq: Genre } }
-    ) {
+    allGraphCmsTopic: allGraphCmsTag(filter: { tagType: { eq: Topic } }) {
       nodes {
         title
         slug
-        categoryType
-      }
-    }
-    allGraphCmsLanguage: allGraphCmsCategory(
-      filter: { categoryType: { eq: Language } }
-    ) {
-      nodes {
-        title
-        slug
-        categoryType
-      }
-    }
-    allGraphCmsTextStructure: allGraphCmsCategory(
-      filter: { categoryType: { eq: Text_Structure } }
-    ) {
-      nodes {
-        title
-        slug
-        categoryType
+        tagType
       }
     }
     allGraphCmsAuthor: allGraphCmsContributor(

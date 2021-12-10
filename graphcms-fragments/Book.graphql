@@ -53,15 +53,8 @@ fragment Book on Book {
       stage
     }
   }
-  categories {
-    ... on Category {
-      remoteTypeName: __typename
-      remoteId: id
-      stage
-    }
-  }
-  topics {
-    ... on Topic {
+  tags {
+    ... on Tag {
       remoteTypeName: __typename
       remoteId: id
       stage
@@ -74,5 +67,11 @@ fragment Book on Book {
       stage
     }
   }
-  languaging
+  scheduledIn {
+    ... on ScheduledOperation {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
 }

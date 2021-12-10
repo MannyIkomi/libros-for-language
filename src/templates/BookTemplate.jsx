@@ -1,9 +1,7 @@
 /** @jsx jsx */
-import React from 'react';
 import { jsx } from '@emotion/react';
 import { graphql } from 'gatsby';
 import { DebugData } from '../components/DebugData';
-import { Footer } from '../components/Footer';
 import { Heading } from '../components/Heading';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
@@ -21,7 +19,7 @@ import {
   s1,
   s2,
 } from '../styles';
-import { List, TagList } from '../components/List';
+import { TagList } from '../components/List';
 import { Container, TextContainer } from '../components/Container';
 import { primaryActionStyle } from '../styles/actions.js';
 import { boxShadow } from '../styles/shadow';
@@ -30,34 +28,32 @@ import { BookImage } from '../components/BookImage';
 function BookTemplate({ data }) {
   const {
     bookTitle,
-    slug,
+
     publisherSummary,
     bookCover,
-    categories,
-    topics,
-    featured,
+    tags,
+
     actionLabel,
     actionLink,
     translator,
     contributors,
-    representations,
+
     publisher,
     isbn,
     awards,
     copyrightYear,
     translanguagingTypology,
-    chapterBook,
   } = data.graphCmsBook;
 
   // const { altDescription, url, width, height } = bookCover;
   const authors = contributors.filter((c) => c.type === 'Author');
-  const illustrators = contributors.filter((a) => a.type === 'Illustrator');
-  const genres = categories.filter((c) => c.categoryType === 'Genre');
-  const grades = categories.filter((c) => c.categoryType === 'Grade');
-  const languages = categories.filter((c) => c.categoryType === 'Language');
-  const textStructure = categories.filter(
-    (c) => c.categoryType === 'Text_Structure'
-  );
+  const illustrators = contributors.filter((c) => c.type === 'Illustrator');
+
+  const genres = tags.filter((t) => t.tagType === 'Genre');
+  const grades = tags.filter((t) => t.tagType === 'Grade');
+  const languages = tags.filter((t) => t.tagType === 'Language');
+  const textStructure = tags.filter((t) => t.tagType === 'Text_Structure');
+  const topics = tags.filter((t) => t.tagType === 'Topic');
 
   return (
     <GlobalLayout
@@ -89,7 +85,6 @@ function BookTemplate({ data }) {
                 'min-content min-content min-content min-content auto',
             },
             onTabletMedia({
-              display: '-ms-grid',
               display: 'grid',
 
               alignSelf: 'center',
@@ -182,7 +177,7 @@ function BookTemplate({ data }) {
               <TagList>
                 {textStructure.map((structure) => {
                   return (
-                    <Link to={`/categories/${structure.slug}`}>
+                    <Link to={`/tags/${structure.slug}`}>
                       <TextStructureTag>{structure.title}</TextStructureTag>
                     </Link>
                   );
@@ -240,7 +235,6 @@ function BookTemplate({ data }) {
               gridAutoColumns: '1fr',
 
               gridColumnGap: s1,
-              gridRowGap: s1,
 
               gridTemplateAreas: '"Area"',
               gridTemplateColumns: '1fr 1fr',
@@ -256,7 +250,7 @@ function BookTemplate({ data }) {
               <TagList>
                 {languages.map((language) => {
                   return (
-                    <Link to={`/categories/${language.slug}`}>
+                    <Link to={`/tags/${language.slug}`}>
                       <CategoryTag>{language.title}</CategoryTag>
                     </Link>
                   );
@@ -357,10 +351,10 @@ export const query = graphql`
         title
         slug
       }
-      categories {
+      tags {
         title
         slug
-        categoryType
+        tagType
       }
       contributors {
         name
@@ -368,13 +362,10 @@ export const query = graphql`
         type
       }
       slug
-      topics {
-        title
-        slug
-      }
+
       translanguagingTypology
       translator
-      languaging
+
       publisher
       publisherSummary
       isbn

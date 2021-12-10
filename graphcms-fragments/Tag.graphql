@@ -1,12 +1,12 @@
-fragment Topic on Topic {
+fragment Tag on Tag {
   stage
   remoteId: id
   createdAt
   updatedAt
   publishedAt
   title
-  slug
   description
+  slug
   createdBy {
     ... on User {
       remoteTypeName: __typename
@@ -30,6 +30,14 @@ fragment Topic on Topic {
   }
   books {
     ... on Book {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  tagType
+  scheduledIn {
+    ... on ScheduledOperation {
       remoteTypeName: __typename
       remoteId: id
       stage

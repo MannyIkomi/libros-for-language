@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { useContext } from 'react';
-import { jsx, css } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { flex, s1, s05, PRIMARY20, PRIMARY, s5, WHITE, s075 } from '../styles';
-import { slugify } from '../utils/slugify';
 import { GlobalContext } from './GlobalLayout';
 import { Logo } from './Logo';
 import { List } from './List';
@@ -27,14 +26,11 @@ export function Footer() {
           <Logo css={{ width: s5, color: WHITE, margin: s05 }} />
         </Link>
         <List css={{ listStyle: 'none' }}>
-          {navigation.categories.map((category) => {
+          {navigation.tags.map((tag) => {
             return (
-              <li key={category._name}>
-                <NavigationLink
-                  to={`categories/${category.slug}`}
-                  css={{ color: WHITE }}
-                >
-                  {category.title}
+              <li key={tag._name}>
+                <NavigationLink to={`tags/${tag.slug}`} css={{ color: WHITE }}>
+                  {tag.title}
                 </NavigationLink>
               </li>
             );

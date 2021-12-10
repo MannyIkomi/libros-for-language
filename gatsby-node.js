@@ -17,29 +17,23 @@ exports.createPages = async ({ graphql, actions }) => {
   );
 
   const result = await graphql(`
-    query {
+    query CreatePages {
       allGraphCmsBook {
         nodes {
           bookTitle
           slug
         }
       }
-      categoryTypes: __type(name: "GraphCMS_CategoryType") {
+      tagTypes: __type(name: "GraphCMS_TagType") {
         enumValues {
           name
         }
       }
-      allGraphCmsTopic(sort: { fields: title, order: ASC }) {
+      allGraphCmsTag(sort: { fields: title, order: ASC }) {
         nodes {
           title
           slug
-        }
-      }
-      allGraphCmsCategory(sort: { fields: title, order: ASC }) {
-        nodes {
-          title
-          slug
-          categoryType
+          tagType
         }
       }
     }
@@ -55,29 +49,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  createPage({
-    path: `/browse/topics`,
-    component: TagListingTemplate,
-    context: {
-      title: `Topics`,
-      slug: `topics`,
-      type: `Topic`,
-    },
-  });
-
-  result.data.allGraphCmsTopic.nodes.forEach((topic) => {
-    createPage({
-      path: `/browse/topics/${topic.slug}`,
-      component: TagTemplate,
-      context: {
-        title: topic.title,
-        slug: topic.slug,
-        type: 'Topic',
-      },
-    });
-  });
-
-  result.data.categoryTypes.enumValues.forEach((typeEnum) => {
+  result.data.tagTypes.enumValues.forEach((typeEnum) => {
     const typeSlug = slugify(typeEnum.name);
     // const viewName = type.name.replace('_', '-');
     createPage({
@@ -91,16 +63,16 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  result.data.allGraphCmsCategory.nodes.forEach((category) => {
-    const typeSlug = slugify(category.categoryType);
+  result.data.allGraphCmsTag.nodes.forEach((tag) => {
+    const typeSlug = slugify(tag.tagType);
     // const viewName = type.name.replace('_', '-');
     createPage({
-      path: `/browse/${typeSlug}s/${category.slug}`,
+      path: `/browse/${typeSlug}s/${tag.slug}`,
       component: TagTemplate,
       context: {
-        title: category.title,
-        slug: category.slug,
-        type: category.categoryType,
+        title: tag.title,
+        slug: tag.slug,
+        type: tag.tagType,
       },
     });
   });

@@ -37,4 +37,11 @@ fragment Contributor on Contributor {
     }
   }
   type
+  scheduledIn {
+    ... on ScheduledOperation {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
 }

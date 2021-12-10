@@ -10,12 +10,8 @@ import {
   s2,
   COMPLIMENT40,
   s3,
-  s5,
   s10,
   WHITE,
-  DEPRECATED_ACCENT,
-  COMPLIMENT,
-  COMPLIMENT20,
 } from '../styles';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import { NavigationLink } from './NavigationLink';
@@ -92,7 +88,7 @@ export function MainMenu() {
               Browse
             </NavigationLink>
           </li>
-          {navigation.categories.map((c) => {
+          {navigation.tags.map((c) => {
             return (
               <li css={{ textAlign: 'right' }}>
                 <NavigationLink to={c.slug} css={{ color: WHITE }}>

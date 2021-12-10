@@ -51,10 +51,8 @@ function TagTemplate(props) {
 }
 
 export const query = graphql`
-  query TagTemplateQuery(
-    $slug: String # $type: GraphCMS_CategoryType = Language
-  ) {
-    graphCmsTopic(slug: { eq: $slug }) {
+  query TagTemplateQuery($slug: String) {
+    graphCmsTag(slug: { eq: $slug }) {
       books {
         bookCover {
           altDescription
@@ -70,15 +68,15 @@ export const query = graphql`
       slug
       id
     }
-    graphCmsCategory(slug: { eq: $slug }) {
+    graphCmsTag(slug: { eq: $slug }) {
       title
       slug
-      categoryType
+      tagType
       id
-      book {
+      books {
         bookTitle
         slug
-        categories {
+        tags {
           title
         }
         bookCover {

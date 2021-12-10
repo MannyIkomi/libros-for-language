@@ -6,6 +6,7 @@ fragment SiteInformation on SiteInformation {
   publishedAt
   title
   description
+  imageDescription
   createdBy {
     ... on User {
       remoteTypeName: __typename

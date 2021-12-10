@@ -40,5 +40,19 @@ fragment Asset on Asset {
       stage
     }
   }
+  imageSiteInformation {
+    ... on SiteInformation {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  scheduledIn {
+    ... on ScheduledOperation {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
   url
 }

@@ -116,29 +116,26 @@ function TagListingTemplate(props) {
 }
 
 export const query = graphql`
-  query TagListingTemplateQuery(
-    $slug: String
-    $type: GraphCMS_CategoryType = Language
-  ) {
-    graphCmsTopic(slug: { eq: $slug }) {
+  query TagListingTemplateQuery($slug: String, $type: GraphCMS_TagType) {
+    # graphCmsTopic(slug: { eq: $slug }) {
+    #   title
+    #   slug
+    # }
+    graphCmsTag(slug: { eq: $slug }) {
       title
       slug
+      tagType
     }
-    graphCmsCategory(slug: { eq: $slug }) {
-      title
-      slug
-      categoryType
-    }
-    allGraphCmsCategory(
-      filter: { categoryType: { eq: $type } }
+    allGraphCmsTag(
+      filter: { tagType: { eq: $type } }
       sort: { fields: title, order: ASC }
     ) {
       nodes {
         id
-        book {
+        books {
           bookTitle
           slug
-          categories {
+          tags {
             title
           }
           bookCover {
@@ -149,7 +146,7 @@ export const query = graphql`
             height
           }
         }
-        categoryType
+        tagType
         title
         slug
       }

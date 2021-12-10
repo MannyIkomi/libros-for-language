@@ -42,7 +42,7 @@ const IndexPage = ({ data }) => {
   return (
     <>
       <GlobalLayout>
-        <MainMenu categoryTypes={categoryTypes} />
+        <MainMenu tagTypes={tagTypes} />
         <main css={{ position: 'relative' }}>
           <Section
             css={{
@@ -200,7 +200,7 @@ const IndexPage = ({ data }) => {
       </GlobalLayout>
     </>
   );
-};
+}
 
 export const query = graphql`
   query HomePageQuery {
@@ -209,7 +209,7 @@ export const query = graphql`
         description
       }
     }
-    categoryNames: __type(name: "GraphCMS_CategoryType") {
+    categoryNames: __type(name: "GraphCMS_TagType") {
       enumValues {
         name
       }
@@ -233,46 +233,47 @@ export const query = graphql`
         slug
       }
     }
-    allGraphCmsTopic {
+    # allGraphCmsTopic {
+    #   nodes {
+    #     title
+    #     slug
+    #   }
+    # }
+    allGraphCmsGrade: allGraphCmsTag(filter: { tagType: { eq: Grade } }) {
       nodes {
         title
         slug
+        tagType
       }
     }
-    allGraphCmsGrade: allGraphCmsCategory(
-      filter: { categoryType: { eq: Grade } }
+    allGraphCmsGenre: allGraphCmsTag(filter: { tagType: { eq: Genre } }) {
+      nodes {
+        title
+        slug
+        tagType
+      }
+    }
+    allGraphCmsLanguage: allGraphCmsTag(filter: { tagType: { eq: Language } }) {
+      nodes {
+        title
+        slug
+        tagType
+      }
+    }
+    allGraphCmsText_Structure: allGraphCmsTag(
+      filter: { tagType: { eq: Text_Structure } }
     ) {
       nodes {
         title
         slug
-        categoryType
+        tagType
       }
     }
-    allGraphCmsGenre: allGraphCmsCategory(
-      filter: { categoryType: { eq: Genre } }
-    ) {
+    allGraphCmsTopic: allGraphCmsTag(filter: { tagType: { eq: Topic } }) {
       nodes {
         title
         slug
-        categoryType
-      }
-    }
-    allGraphCmsLanguage: allGraphCmsCategory(
-      filter: { categoryType: { eq: Language } }
-    ) {
-      nodes {
-        title
-        slug
-        categoryType
-      }
-    }
-    allGraphCmsText_Structure: allGraphCmsCategory(
-      filter: { categoryType: { eq: Text_Structure } }
-    ) {
-      nodes {
-        title
-        slug
-        categoryType
+        tagType
       }
     }
   }
