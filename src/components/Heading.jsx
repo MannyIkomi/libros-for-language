@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 import { jsx } from '@emotion/react';
 
 export const Heading = ({ level = 1, children, ...props }) => {

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Global, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { flex } from '../styles';
 
 export function List(props) {
