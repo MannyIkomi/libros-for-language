@@ -47,6 +47,13 @@ fragment Asset on Asset {
       stage
     }
   }
+  portraitTeamMember {
+    ... on TeamMember {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
   scheduledIn {
     ... on ScheduledOperation {
       remoteTypeName: __typename

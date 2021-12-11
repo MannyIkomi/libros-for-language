@@ -7,8 +7,8 @@ fragment TeamMember on TeamMember {
   fullName
   role
   webLink
-  webLinkLabel
   description
+  webLinkLabel
   createdBy {
     ... on User {
       remoteTypeName: __typename
@@ -27,6 +27,14 @@ fragment TeamMember on TeamMember {
     ... on User {
       remoteTypeName: __typename
       remoteId: id
+      stage
+    }
+  }
+  portrait {
+    ... on Asset {
+      remoteTypeName: __typename
+      remoteId: id
+      locale
       stage
     }
   }
