@@ -14,6 +14,7 @@ import {
   WHITE,
   PRIMARY40,
   COMPLIMENT40,
+  PRIMARY,
 } from '../styles';
 import { boxShadowLg } from '../styles/shadow';
 
@@ -41,7 +42,7 @@ export const Tag = (props) => {
           minHeight: s2,
           padding: `${s0125} ${s1}`,
           color: textColor ?? WHITE,
-          background: background ?? PRIMARY40,
+          background: background ?? PRIMARY,
           borderRadius: `${s00625} ${s05}`,
         },
         css,
@@ -69,3 +70,18 @@ export const TextStructureTag = (props) => (
     {props.children}
   </Tag>
 );
+
+export const SearchTag = ({ tag, removeButtonText, onDelete }) => {
+  return (
+    <button
+      type="button"
+      title={removeButtonText}
+      onClick={onDelete}
+      css={{
+        border: ' none',
+      }}
+    >
+      <Tag>{tag.name}</Tag>
+    </button>
+  );
+};
