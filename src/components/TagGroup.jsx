@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import { DEPRECATED_ACCENT, s1, s0125, boxShadowLg } from '../styles';
+import { DEPRECATED_ACCENT, s1, s0125, boxShadowLg, PRIMARY } from '../styles';
 
 export const TagGroup = (props) => {
   const { background } = props;
@@ -10,7 +10,7 @@ export const TagGroup = (props) => {
       css={{
         padding: s1,
 
-        background: background || DEPRECATED_ACCENT,
+        background: background || PRIMARY,
         borderRadius: `${s0125} ${s1}`,
         ...boxShadowLg,
       }}

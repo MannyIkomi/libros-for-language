@@ -9,9 +9,21 @@ import {
   COMPLIMENT80,
   base160,
   base320,
+  secondaryActionStyle,
+  tertiaryActionStyle,
+  COMPLIMENT20,
+  s025,
   onTabletMedia,
   flex,
   grid,
+  s0125,
+  boxShadowLg,
+  base16,
+  PRIMARY40,
+  COMPLIMENT40,
+  s2,
+  PRIMARY20,
+  boxShadow,
 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
@@ -25,57 +37,103 @@ import { GlobalLayout } from '../components/GlobalLayout';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
 
-import ALALogo from '../images/ALA Logo.png';
-console.log(ALALogo);
+import ALALogo from '../images/ALA-Logo.png';
+import { SecondaryButton } from '../components/Button';
+import { List } from '../components/List';
 
 function TeamMemberBio(props) {
-  const { id, portrait, fullName, role, description } = props;
+  const { id, portrait, fullName, role, description, webLink, webLinkLabel } =
+    props;
 
   return (
     <Container
       key={id}
       css={[
         {
-          width: '100%',
           ...flex('column', {
             alignItems: 'flex-start',
           }),
+          width: '100%',
+          padding: s1,
+
+          background: PRIMARY20,
+          borderRadius: `${s025}`,
+          ...boxShadow,
         },
       ]}
     >
-      {portrait && (
-        <div
-          css={{
-            borderRadius: '100%',
-            overflow: 'hidden',
-          }}
-        >
-          <img
-            src={portrait?.url}
-            width={portrait?.width}
-            height={portrait?.height}
-            // loading="eager"
-            alt={portrait?.altDescription}
+      <div
+        css={[
+          {
+            ...grid({
+              gridTemplateColumns: 'max-content 1fr',
+              gridTemplateRows: '1fr min-content',
+              gridColumnGap: s1,
+              placeItems: 'end start',
+            }),
+          },
+        ]}
+      >
+        {portrait ? (
+          <div
+            css={{
+              borderRadius: '100%',
+              overflow: 'hidden',
+
+              gridColumn: '1 / 2',
+              gridRow: '1 / 3',
+            }}
+          >
+            <img
+              src={portrait?.url}
+              width={portrait?.width}
+              height={portrait?.height}
+              // loading="eager"
+              alt={portrait?.altDescription}
+              css={{
+                display: 'block',
+                width: '100%',
+                height: 'auto',
+                aspectRatio: `${portrait?.width} / ${portrait?.height}`,
+
+                maxWidth: base160,
+                maxHeight: base160,
+              }}
+            />
+          </div>
+        ) : (
+          <div
             css={{
               display: 'block',
-              width: '100%',
-              height: 'auto',
-              aspectRatio: `${portrait?.width} / ${portrait?.height}`,
+              width: base160,
+              height: base160,
 
-              maxWidth: base320,
-              maxHeight: base320,
+              borderRadius: '100%',
+              overflow: 'hidden',
+
+              backgroundColor: PRIMARY40,
             }}
-          />
-        </div>
-      )}
-      <Heading level={3}>{fullName}</Heading>
-      {role && (
-        <TextContainer>
-          <p>
-            <strong>{role}</strong>
-          </p>
-        </TextContainer>
-      )}
+          ></div>
+        )}
+
+        <Heading level={3} css={{ gridColumn: '2 / -1', margin: '0' }}>
+          {webLink ? (
+            <Link to={webLink} css={{ fontFamily: 'inherit' }}>
+              {fullName}
+            </Link>
+          ) : (
+            fullName
+          )}
+        </Heading>
+
+        {role && (
+          <TextContainer css={{ gridColumn: '2 / -1' }}>
+            <p css={{ margin: '0' }}>
+              <strong>{role}</strong>
+            </p>
+          </TextContainer>
+        )}
+      </div>
       {description && (
         <TextContainer>
           <p>{description}</p>
@@ -104,20 +162,46 @@ function AboutPage({ data }) {
               justifyContent: 'center',
             }}
           >
-            <Container css={{ alignSelf: 'center' }}>
+            <Container
+              css={[
+                { alignSelf: 'center' },
+                // onTabletMedia({
+                //   ...grid({
+                //     gridTemplateColumns: '1fr 1fr',
+                //     gridTemplateRows: '1fr 1fr',
+                //   }),
+                // }),
+              ]}
+            >
               <TextContainer>
-                <Heading level={1}>Libros for Language</Heading>
-
+                <Heading level={1}>
+                  A Digital Library for Translanguaging Books
+                </Heading>
                 <p>
                   Libros for Language is a digital library designed to support
                   teachers in finding and using translanguaging books to support
-                  fluid language practices in their classrooms. All of the books
-                  use English and one or more other languages, making them
-                  appropriate for English-medium as well as bilingual
-                  classrooms.
+                  fluid language practices in their classrooms. The books on
+                  this site are examples of
+                  <Link>authors and illustrators</Link>
+                  who incorporate <em>LOTE</em> (Languages Other Than English)
+                  in their work, just as all multilingual people do in their
+                  daily lives.
                 </p>
               </TextContainer>
-
+              {/* <img
+                src="https://via.placeholder.com/1080x1080?text=Translanguaging+Info+Placeholder"
+                alt="placeholder"
+                css={[
+                  {
+                    width: '100%',
+                    height: 'auto',
+                  },
+                  onTabletMedia({
+                    gridRow: '1 / -1',
+                    gridColumn: '2 / -1',
+                  }),
+                ]}
+              /> */}
               <TextContainer>
                 <Heading level={3}>What is Translanguaging?</Heading>
                 <p>
@@ -144,21 +228,25 @@ function AboutPage({ data }) {
             >
               <Heading level={2}>Meet the Team</Heading>
             </Container>
-            <Container
-              css={[
-                onTabletMedia({
-                  ...grid({
-                    gridTemplateColumns: '1fr 1fr',
-                    gridTempalteRows: '1fr 1fr',
+            <Container>
+              <List
+                css={[
+                  { listStyle: 'none' },
+                  onTabletMedia({
+                    ...grid({
+                      gridTemplateColumns: '1fr 1fr',
+                      gridTempalteRows: '1fr 1fr',
 
-                    placeItems: 'start',
+                      placeItems: 'start',
+                      gridGap: s2,
+                    }),
                   }),
-                }),
-              ]}
-            >
-              {teamMembers.map((person) => (
-                <TeamMemberBio {...person} key={person.id} />
-              ))}
+                ]}
+              >
+                {teamMembers.map((person) => (
+                  <TeamMemberBio {...person} key={person.id} />
+                ))}
+              </List>
             </Container>
           </Section>
 
@@ -166,6 +254,7 @@ function AboutPage({ data }) {
             <Container>
               <TextContainer>
                 <img
+                  css={{ maxWidth: base320 }}
                   src={ALALogo}
                   alt={'ALA American Library Association Logo'}
                 />

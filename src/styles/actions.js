@@ -8,6 +8,9 @@ import {
   WHITE,
   s20,
   onTabletMedia,
+  PRIMARY,
+  PRIMARY80,
+  base320,
 } from '.';
 import { boxShadow2xl } from './shadow';
 
@@ -25,12 +28,8 @@ export const primaryActionStyle = [
     minWidth: s3,
     padding: `${s1} ${s2}`,
 
-    borderStyle: 'solid',
-    borderWidth: s025,
-    borderColor: DEPRECATED_ACCENT,
-
-    color: DEPRECATED_ACCENT,
-    backgroundColor: WHITE,
+    color: WHITE,
+    backgroundColor: PRIMARY,
     fontWeight: '700',
     textAlign: 'center',
 
@@ -39,4 +38,56 @@ export const primaryActionStyle = [
     whiteSpace: 'nowrap',
   },
   onTabletMedia({ maxWidth: s20 }),
+];
+
+export const secondaryActionStyle = [
+  {
+    ...flex('column', {
+      justifyContent: 'center',
+      alignItems: 'center',
+    }),
+    ...boxShadow2xl,
+
+    width: '100%',
+
+    minHeight: s3,
+    minWidth: s3,
+    padding: `${s1} ${s2}`,
+
+    color: WHITE,
+    backgroundColor: PRIMARY80,
+    fontWeight: '700',
+    textAlign: 'center',
+
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    whiteSpace: 'nowrap',
+  },
+  onTabletMedia({ maxWidth: s20 }),
+];
+
+export const tertiaryActionStyle = [
+  {
+    ...flex('column', {
+      justifyContent: 'center',
+      alignItems: 'center',
+    }),
+    ...boxShadow2xl,
+
+    width: '100%',
+
+    minHeight: s3,
+    minWidth: s3,
+    padding: `${s1} ${s2}`,
+
+    color: WHITE,
+    // backgroundColor: PRIMARY80,
+    fontWeight: '700',
+    textAlign: 'center',
+
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    // whiteSpace: 'nowrap',
+  },
+  onTabletMedia({ maxWidth: base320 }),
 ];

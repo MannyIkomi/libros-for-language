@@ -27,8 +27,8 @@ export const Link = ({
     return (
       <GatsbyLink
         to={to}
-        activeClassName={activeClassName}
-        partiallyActive={partiallyActive}
+        // activeClassName={activeClassName}
+        // partiallyActive={partiallyActive}
         {...other}
       >
         {children}
