@@ -26,14 +26,15 @@ import { TagList } from '../components/TagList';
 import { TagGroup } from '../components/TagGroup';
 
 function BrowsePage({ data }) {
-  const topics = data.allGraphCmsTopic.nodes;
   const authors = data.allGraphCmsAuthor.nodes;
   const illustrators = data.allGraphCmsIllustrator.nodes;
 
+  const topics = data.allGraphCmsTopic.nodes;
   const genres = data.allGraphCmsGenre.nodes;
   const grades = data.allGraphCmsGrade.nodes;
   const languages = data.allGraphCmsLanguage.nodes;
   const textStructures = data.allGraphCmsTextStructure.nodes;
+  console.log(data);
 
   return (
     <>
@@ -237,6 +238,7 @@ export const query = graphql`
         tagType
       }
     }
+
     allGraphCmsTopic: allGraphCmsTag(filter: { tagType: { eq: Topic } }) {
       nodes {
         title
@@ -244,6 +246,7 @@ export const query = graphql`
         tagType
       }
     }
+
     allGraphCmsAuthor: allGraphCmsContributor(
       filter: { type: { eq: Author } }
       sort: { order: ASC, fields: lastName }
@@ -255,6 +258,7 @@ export const query = graphql`
         type
       }
     }
+
     allGraphCmsIllustrator: allGraphCmsContributor(
       filter: { type: { eq: Illustrator } }
       sort: { order: ASC, fields: lastName }
