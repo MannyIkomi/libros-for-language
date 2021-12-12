@@ -16,15 +16,15 @@ export function List(props) {
   );
 }
 
-export const TagList = (props) => (
-  <List
-    css={[
-      flex('row', {
-        flexWrap: 'wrap',
-      }),
-      { listStyle: 'none' },
-    ]}
-  >
-    {props.children}
-  </List>
-);
+// export const TagList = (props) => (
+//   <List
+//     css={[
+//       flex('row', {
+//         flexWrap: 'wrap',
+//       }),
+//       { listStyle: 'none' },
+//     ]}
+//   >
+//     {props.children}
+//   </List>
+// );
