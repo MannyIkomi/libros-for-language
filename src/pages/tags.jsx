@@ -43,7 +43,7 @@ function BrowsePage({ data }) {
         <main css={{ position: 'relative' }}>
           <Section>
             <Container>
-              <Heading level={1}>Browse</Heading>
+              <Heading level={1}>Tags</Heading>
             </Container>
 
             <Container
