@@ -13,7 +13,9 @@ module.exports = {
       options: {
         endpoint: process.env.GRAPHCMS_ENDPOINT,
         token: process.env.GRAPHCMS_TOKEN,
-        stages: ['DRAFT', 'PUBLISHED'],
+        stages: [
+          process.env.NODE_ENV === 'development' ? 'DRAFT' : 'PUBLISHED',
+        ],
       },
     },
     'gatsby-plugin-image',
