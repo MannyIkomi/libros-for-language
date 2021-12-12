@@ -21,9 +21,9 @@ import { BookList } from '../components/BookList';
 
 function TagListingTemplate(props) {
   const { data, pageContext } = props;
-  const { allGraphCmsCategory, allGraphCmsTopic } = data;
+  const { allGraphCmsTag } = data;
 
-  const tags = allGraphCmsCategory.nodes || allGraphCmsTopic.nodes;
+  const tags = allGraphCmsTag.nodes;
 
   return (
     <div>
@@ -35,14 +35,10 @@ function TagListingTemplate(props) {
               <Heading level={1}>{pageContext.title}</Heading>
             </Container>
             {tags.map((tag) => {
-              const { title, book: books } = tag;
+              const { title, books } = tag;
               return (
                 books.length > 0 && (
                   <Section css={{ minHeight: 'initial' }}>
-                    {/* 
-              map over each {language: 'spanish'}
-              display books for each {language: 'spanish}
-              */}
                     <Container css={{ alignItems: 'flex-start' }}>
                       <Heading level={2}>
                         {title} ({books.length})
