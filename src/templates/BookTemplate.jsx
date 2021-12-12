@@ -19,7 +19,7 @@ import {
   s1,
   s2,
 } from '../styles';
-import { TagList } from '../components/List';
+import { TagList } from '../components/TagList';
 import { Container, TextContainer } from '../components/Container';
 import { primaryActionStyle } from '../styles/actions.js';
 import { boxShadow } from '../styles/shadow';

@@ -1,7 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { Link as GatsbyLink } from 'gatsby';
-import { primaryActionStyle } from '../styles/actions';
+import {
+  primaryActionStyle,
+  secondaryActionStyle,
+  tertiaryActionStyle,
+} from '../styles/actions';
 
 // Since DOM elements <a> cannot receive activeClassName
 // and partiallyActive, destructure the prop here and
@@ -48,6 +52,16 @@ export const Link = ({
 
 export const PrimaryLink = ({ children, ...props }) => (
   <Link css={primaryActionStyle} {...props}>
+    {children}
+  </Link>
+);
+export const SecondaryLink = ({ children, ...props }) => (
+  <Link css={secondaryActionStyle} {...props}>
+    {children}
+  </Link>
+);
+export const TertiaryLink = ({ children, ...props }) => (
+  <Link css={tertiaryActionStyle} {...props}>
     {children}
   </Link>
 );

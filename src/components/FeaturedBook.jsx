@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/react';
 import { notoSerif, PRIMARY, notoSans, onHover, WHITE } from '../styles';
 import { BookImage } from './BookImage';
+import { Link } from './Link';
 
 export function FeaturedBook(book) {
   const authors = book.contributors.filter((contributor) =>
@@ -12,8 +13,8 @@ export function FeaturedBook(book) {
   const maxDimensions = { maxWidth: '20rem', maxHeight: '20rem' };
 
   return (
-    <a
-      href={`/books/${book.slug}`}
+    <Link
+      to={`/books/${book.slug}`}
       key={book.slug}
       className="book-preview w-dyn-item"
       css={{
@@ -159,6 +160,6 @@ export function FeaturedBook(book) {
           ></div>
         </div>
       </article>
-    </a>
+    </Link>
   );
 }

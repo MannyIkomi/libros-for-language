@@ -53,7 +53,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const typeSlug = slugify(typeEnum.name);
     // const viewName = type.name.replace('_', '-');
     createPage({
-      path: `/browse/${typeSlug}s`,
+      path: `/tags/${typeSlug}s`,
       component: TagListingTemplate,
       context: {
         title: typeEnum.name.replace('_', ' '),
@@ -67,7 +67,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const typeSlug = slugify(tag.tagType);
     // const viewName = type.name.replace('_', '-');
     createPage({
-      path: `/browse/${typeSlug}s/${tag.slug}`,
+      path: `/tags/${typeSlug}s/${tag.slug}`,
       component: TagTemplate,
       context: {
         title: tag.title,

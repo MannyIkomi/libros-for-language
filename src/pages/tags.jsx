@@ -76,7 +76,7 @@ function BrowsePage({ data }) {
 
                 <TagList>
                   {languages.map((language) => (
-                    <MonoFontLink to={`/languages/${language.slug}`}>
+                    <MonoFontLink to={`tags/languages/${language.slug}`}>
                       {language.title}
                     </MonoFontLink>
                   ))}
@@ -93,7 +93,7 @@ function BrowsePage({ data }) {
 
                 <TagList>
                   {genres.map((genre) => (
-                    <MonoFontLink to={`/genres/${genre.slug}`}>
+                    <MonoFontLink to={`tags/genres/${genre.slug}`}>
                       {genre.title}
                     </MonoFontLink>
                   ))}
@@ -110,7 +110,7 @@ function BrowsePage({ data }) {
 
                 <TagList>
                   {textStructures.map((structure) => (
-                    <MonoFontLink to={`/text-structures/${structure.slug}`}>
+                    <MonoFontLink to={`tags/text-structures/${structure.slug}`}>
                       {structure.title}
                     </MonoFontLink>
                   ))}
@@ -127,7 +127,7 @@ function BrowsePage({ data }) {
 
                 <TagList>
                   {grades.map((grade) => (
-                    <MonoFontLink to={`/grades/${grade.slug}`}>
+                    <MonoFontLink to={`tags/grades/${grade.slug}`}>
                       {grade.title}
                     </MonoFontLink>
                   ))}
@@ -143,7 +143,7 @@ function BrowsePage({ data }) {
                 </Heading>
                 <TagList>
                   {topics.map((topic) => (
-                    <MonoFontLink to={`/topics/${topic.slug}`}>
+                    <MonoFontLink to={`tags/topics/${topic.slug}`}>
                       {topic.title}
                     </MonoFontLink>
                   ))}
@@ -160,7 +160,7 @@ function BrowsePage({ data }) {
 
                 <TagList>
                   {authors.map((author) => (
-                    <MonoFontLink to={`/authors/${author.slug}`}>
+                    <MonoFontLink to={`tags/authors/${author.slug}`}>
                       {author.name}
                     </MonoFontLink>
                   ))}
@@ -176,7 +176,7 @@ function BrowsePage({ data }) {
 
                 <TagList>
                   {illustrators.map((illustrator) => (
-                    <MonoFontLink to={`/illustrators/${illustrator.slug}`}>
+                    <MonoFontLink to={`tags/illustrators/${illustrator.slug}`}>
                       {illustrator.name}
                     </MonoFontLink>
                   ))}

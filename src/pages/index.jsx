@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import * as React from 'react';
-import { graphql } from 'gatsby';
+import React from 'react';
 import { jsx } from '@emotion/react';
+import { graphql } from 'gatsby';
 import { notoSerif, PRIMARY, s1, COMPLIMENT80 } from '../styles';
 import { TopicTag } from '../components/Tag';
 import { Heading } from '../components/Heading';
@@ -118,7 +118,7 @@ function IndexPage({ data }) {
               </Swiper>
             </div>
             <Container>
-              <PrimaryLink to={'/browse'}>Browse All</PrimaryLink>
+              <PrimaryLink to={'/books'}>Browse All</PrimaryLink>
             </Container>
           </Section>
 
@@ -138,7 +138,7 @@ function IndexPage({ data }) {
                       }}
                     >
                       <Link
-                        to={`/browse/topics/${slug}`}
+                        to={`/tags/topics/${slug}`}
                         css={{ textDecoration: 'none' }}
                       >
                         <TopicTag>{title}</TopicTag>

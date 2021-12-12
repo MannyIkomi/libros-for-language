@@ -159,6 +159,7 @@ function TeamMemberBio(props) {
 
 function AboutPage({ data }) {
   const teamMembers = data.allGraphCmsTeamMember.nodes;
+  const totalBooks = data.allGraphCmsBook.totalCount;
 
   return (
     <>
@@ -189,7 +190,8 @@ function AboutPage({ data }) {
             >
               <TextContainer>
                 <Heading level={1}>
-                  A Digital Library for Translanguaging Books
+                  A Curated Collection of {totalBooks ? totalBooks : ''}{' '}
+                  Translanguaging Books
                 </Heading>
                 <p>
                   Libros for Language is a digital library designed to support
@@ -299,6 +301,9 @@ function AboutPage({ data }) {
 
 export const query = graphql`
   query AboutPageQuery {
+    allGraphCmsBook {
+      totalCount
+    }
     allGraphCmsTeamMember {
       nodes {
         role
