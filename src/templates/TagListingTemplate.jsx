@@ -35,10 +35,10 @@ function TagListingTemplate(props) {
               <Heading level={1}>{pageContext.title}</Heading>
             </Container>
             {tags.map((tag) => {
-              const { title, books } = tag;
+              const { title, books, id } = tag;
               return (
                 books.length > 0 && (
-                  <Section css={{ minHeight: 'initial' }}>
+                  <Section css={{ minHeight: 'initial' }} key={id}>
                     <Container css={{ alignItems: 'flex-start' }}>
                       <Heading level={2}>
                         {title} ({books.length})
@@ -66,6 +66,7 @@ function TagListingTemplate(props) {
                                 link={{ to: `/books/${book.slug}` }}
                                 book={book}
                                 css={{ ...boxShadowLg }}
+                                key={book.id}
                               >
                                 <Heading
                                   level={3}
@@ -86,7 +87,7 @@ function TagListingTemplate(props) {
                           })}
                         </BookList>
                       ) : (
-                        'no books available'
+                        `Sorry, no books available for ${title}`
                       )}
                     </Container>
                   </Section>
@@ -112,6 +113,7 @@ export const query = graphql`
       title
       slug
       tagType
+      id
     }
     allGraphCmsTag(
       filter: { tagType: { eq: $type } }
