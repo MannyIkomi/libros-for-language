@@ -42,104 +42,118 @@ import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
 
 function TeamMemberBio(props) {
-  const { id, portrait, fullName, role, description, webLink, webLinkLabel } =
-    props;
+  const {
+    id,
+    portrait,
+    fullName,
+    role,
+    description,
+    webLink,
+    webLinkLabel,
+    // css,
+    ...other
+  } = props;
 
   return (
-    <Container
-      key={id}
-      css={[
-        {
-          ...flex('column', {
-            alignItems: 'flex-start',
-          }),
-          width: '100%',
-          padding: s1,
-
-          background: PRIMARY20,
-          borderRadius: `${s025}`,
-          ...boxShadow,
-        },
-      ]}
-    >
-      <div
+    <Link to={webLink}>
+      <Container
+        key={id}
         css={[
+          // css,
           {
-            ...grid({
-              gridTemplateColumns: 'max-content 1fr',
-              gridTemplateRows: '1fr min-content',
-              gridColumnGap: s1,
-              placeItems: 'end start',
+            ...flex('column', {
+              alignItems: 'flex-start',
             }),
+            width: '100%',
+            padding: s1,
+
+            background: PRIMARY20,
+            borderRadius: `${s025}`,
+            ...boxShadow,
           },
         ]}
+        {...other}
       >
-        {portrait ? (
-          <div
-            css={{
-              borderRadius: '100%',
-              overflow: 'hidden',
+        <div
+          css={[
+            {
+              ...grid({
+                gridTemplateColumns: 'max-content 1fr',
+                gridTemplateRows: '1fr min-content',
+                gridColumnGap: s1,
+                placeItems: 'end start',
+              }),
+            },
+          ]}
+        >
+          {portrait ? (
+            <div
+              css={{
+                borderRadius: '100%',
+                overflow: 'hidden',
 
-              gridColumn: '1 / 2',
-              gridRow: '1 / 3',
-            }}
-          >
-            <img
-              src={portrait?.url}
-              width={portrait?.width}
-              height={portrait?.height}
-              // loading="eager"
-              alt={portrait?.altDescription}
+                gridColumn: '1 / 2',
+                gridRow: '1 / 3',
+              }}
+            >
+              <img
+                src={portrait?.url}
+                width={portrait?.width}
+                height={portrait?.height}
+                // loading="eager"
+                alt={portrait?.altDescription || `Portrait of ${fullName}`}
+                css={{
+                  display: 'block',
+                  width: '100%',
+                  height: 'auto',
+                  aspectRatio: `${portrait?.width} / ${portrait?.height}`,
+
+                  maxWidth: base160,
+                  maxHeight: base160,
+                }}
+              />
+            </div>
+          ) : (
+            <div
               css={{
                 display: 'block',
-                width: '100%',
-                height: 'auto',
-                aspectRatio: `${portrait?.width} / ${portrait?.height}`,
+                width: base160,
+                height: base160,
 
-                maxWidth: base160,
-                maxHeight: base160,
+                borderRadius: '100%',
+                overflow: 'hidden',
+
+                backgroundColor: PRIMARY40,
               }}
-            />
-          </div>
-        ) : (
-          <div
-            css={{
-              display: 'block',
-              width: base160,
-              height: base160,
-
-              borderRadius: '100%',
-              overflow: 'hidden',
-
-              backgroundColor: PRIMARY40,
-            }}
-          ></div>
-        )}
-
-        <Heading level={3} css={{ gridColumn: '2 / -1', margin: '0' }}>
-          {webLink ? (
-            <Link to={webLink} css={{ fontFamily: 'inherit' }}>
-              {fullName}
-            </Link>
-          ) : (
-            fullName
+            ></div>
           )}
-        </Heading>
 
-        {role && (
-          <TextContainer css={{ gridColumn: '2 / -1' }}>
-            <p css={{ margin: '0' }}>
-              <strong>{role}</strong>
-            </p>
+          <Heading level={3} css={{ gridColumn: '2 / -1', margin: '0' }}>
+            {/* {webLink ? (
+              <Link to={webLink} css={{ fontFamily: 'inherit' }}>
+                {fullName}
+              </Link>
+            ) : (
+              fullName
+            )} */}
+            {fullName}
+          </Heading>
+
+          {role && (
+            <TextContainer css={{ gridColumn: '2 / -1' }}>
+              <p css={{ margin: '0' }}>
+                <strong>{role}</strong>
+              </p>
+            </TextContainer>
+          )}
+        </div>
+        {description && (
+          <TextContainer>
+            <p>{description}</p>
           </TextContainer>
         )}
-      </div>
-      {description && (
-        <TextContainer>
-          <p>{description}</p>
-        </TextContainer>
-      )}
-    </Container>
+      </Container>
+    </Link>
   );
 }
 
@@ -244,7 +258,11 @@ function AboutPage({ data }) {
                 ]}
               >
                 {teamMembers.map((person) => (
-                  <TeamMemberBio {...person} key={person.id} />
+                  <TeamMemberBio
+                    {...person}
+                    key={person.id}
+                    css={{ marginBottom: s1 }}
+                  />
                 ))}
               </List>
             </Container>

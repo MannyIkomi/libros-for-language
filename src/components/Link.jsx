@@ -35,6 +35,10 @@ export const Link = ({
       </GatsbyLink>
     );
   }
+  if (!to) {
+    // removed the <a/> tag and replaced with generic
+    return <span {...other}>{children}</span>;
+  }
   return (
     <a href={to} {...other}>
       {children}
