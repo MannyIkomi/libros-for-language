@@ -84,26 +84,32 @@ export function MainMenu() {
             listStyle: 'none',
           }}
         >
-          <li css={{ textAlign: 'right' }}>
-            <NavigationLink css={{ color: WHITE }} to={'/browse'}>
-              Browse
-            </NavigationLink>
-          </li>
+          <NavigationLink
+            css={{ color: WHITE, textAlign: 'right' }}
+            to={'/browse'}
+          >
+            Browse
+          </NavigationLink>
+
           {navigation.tags.map((c) => {
             return (
-              <li css={{ textAlign: 'right' }}>
-                <NavigationLink to={c.slug} css={{ color: WHITE }}>
-                  {c.title}
-                </NavigationLink>
-              </li>
+              <NavigationLink
+                to={c.slug}
+                css={{ color: WHITE, textAlign: 'right' }}
+                key={c.slug}
+              >
+                {c.title}
+              </NavigationLink>
             );
           })}
 
-          <li css={{ textAlign: 'right' }}>
-            <NavigationLink css={{ color: WHITE }} to={'/about'}>
-              About
-            </NavigationLink>
-          </li>
+          <NavigationLink
+            css={{ color: WHITE, textAlign: 'right' }}
+            to={'/about'}
+          >
+            About
+          </NavigationLink>
+
           {/* <a to={'/resources'}>Resources</a> */}
         </List>
       </div>

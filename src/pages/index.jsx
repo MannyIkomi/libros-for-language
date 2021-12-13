@@ -18,6 +18,7 @@ import { GlobalLayout } from '../components/GlobalLayout';
 
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
+console.clear();
 
 function IndexPage({ data }) {
   const featuredBooks = data.allGraphCmsBook.nodes;

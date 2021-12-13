@@ -20,12 +20,24 @@ export function Button({ children, ...props }) {
   );
 }
 
-export const PrimaryButton = (props) => {
-  return <Button css={primaryActionStyle}>{props.children}</Button>;
+export const PrimaryButton = ({ children, ...props }) => {
+  return (
+    <Button css={primaryActionStyle} {...props}>
+      {children}
+    </Button>
+  );
 };
-export const SecondaryButton = (props) => {
-  return <Button css={secondaryActionStyle}>{props.children}</Button>;
+export const SecondaryButton = ({ children, ...props }) => {
+  return (
+    <Button css={secondaryActionStyle} {...props}>
+      {children}
+    </Button>
+  );
 };
-export const TertiaryButton = (props) => {
-  return <Button css={tertiaryActionStyle}>{props.children}</Button>;
+export const TertiaryButton = ({ children, ...props }) => {
+  return (
+    <Button css={tertiaryActionStyle} {...props}>
+      {children}
+    </Button>
+  );
 };

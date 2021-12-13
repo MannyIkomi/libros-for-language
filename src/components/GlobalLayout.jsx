@@ -35,7 +35,6 @@ GlobalContext.displayName = 'Global Context';
 
 export const GlobalLayout = ({ htmlHead, children }) => {
   const globalData = useGlobalQuery();
-  console.log(globalData);
 
   return (
     <>
