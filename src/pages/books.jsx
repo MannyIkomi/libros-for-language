@@ -16,6 +16,8 @@ import {
   PRIMARY20,
   COMPLIMENT20,
   secondaryActionStyle,
+  s025,
+  s05,
 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
@@ -24,11 +26,11 @@ import { DebugData } from '../components/DebugData';
 
 import { GlobalLayout } from '../components/GlobalLayout';
 
+import { BookCover } from '../components/BookCover';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
 import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
-import { filter } from 'react-filter-search/lib/filter';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -51,13 +53,7 @@ function BooksPage({ data }) {
   const booksLookup = books.map(withTagProperties);
 
   const [filteredBooks, setFilteredBooks] = useState(booksLookup);
-  const [userFilters, setUserFilters] = useState(
-    []
-    // DICTIONARY LOOKUP METHOD
-    // tags.reduce((prev, current) => {
-    //   return { ...prev, [current.slug]: false };
-    // }, {})
-  );
+  const [userFilters, setUserFilters] = useState([]);
 
   const withAppliedFilters = booksLookup.filter((book) => {
     return userFilters.every((tagFilter) => {
@@ -82,12 +78,6 @@ function BooksPage({ data }) {
     userFilters.length === 0
       ? setFilteredBooks(booksLookup)
       : setFilteredBooks(withAppliedFilters);
-
-    console.log(
-      'withAppliedFilters',
-      withAppliedFilters.length,
-      withAppliedFilters
-    );
   }, [userFilters]);
 
   return (
@@ -97,13 +87,10 @@ function BooksPage({ data }) {
         <main css={{ position: 'relative' }}>
           <Section>
             <Container>
-              <Heading level={1}>Books</Heading>
+              <Heading level={1}>Books ({filteredBooks.length})</Heading>
               {/* <SearchFilter></SearchFilter> */}
-              <div></div>
             </Container>
-          </Section>
-          <Section>
-            <aside>
+            <aside css={{ position: 'sticky', top: 0 }}>
               <List
                 css={{
                   listStyle: 'none',
@@ -113,30 +100,42 @@ function BooksPage({ data }) {
                   }),
                 }}
               >
-                {tags.map((tag) => {
-                  const isChecked = userFilters.some(
-                    (filter) => filter.id === tag.id
-                  );
+                {tags
+                  .filter((tag) => tag.books.length > 0)
+                  .map((tag) => {
+                    const isChecked = userFilters.some(
+                      (filter) => filter.id === tag.id
+                    );
 
-                  return (
-                    <label
-                      htmlFor={tag.id}
-                      key={tag.id}
-                      css={[secondaryActionStyle]}
-                    >
-                      <input
-                        type={'checkbox'}
-                        id={tag.id}
-                        name={tag.slug}
-                        value={tag.title}
-                        onLoad={handleFilterChecked(tag)}
-                        onChange={handleFilterChecked(tag)}
-                        checked={isChecked}
-                      />
-                      {tag.title}
-                    </label>
-                  );
-                })}
+                    return (
+                      <div>
+                        {/* convert to accessible custom checkboxes */}
+                        <input
+                          type={'checkbox'}
+                          id={tag.id}
+                          name={tag.slug}
+                          value={tag.title}
+                          onChange={handleFilterChecked(tag)}
+                          checked={isChecked}
+                        />
+                        <label
+                          htmlFor={tag.id}
+                          key={tag.id}
+                          css={[
+                            secondaryActionStyle,
+                            {
+                              padding: `${s025} ${s05}`,
+                              '&::focus': {
+                                backgroundColor: 'red',
+                              },
+                            },
+                          ]}
+                        >
+                          {tag.title}
+                        </label>
+                      </div>
+                    );
+                  })}
               </List>
               <SecondaryButton
                 onClick={() => {
@@ -147,9 +146,21 @@ function BooksPage({ data }) {
                 Clear All
               </SecondaryButton>
             </aside>
-            <DebugData>{userFilters}</DebugData>
+          </Section>
+          <Section>
             Matches {filteredBooks.length}
-            <DebugData>{filteredBooks}</DebugData>
+            <DebugData>{userFilters}</DebugData>
+            {filteredBooks.length > 0
+              ? filteredBooks.map((book) => {
+                  return (
+                    <BookCover book={book}>
+                      <Heading level={4}>{book.bookTitle}</Heading>
+                    </BookCover>
+                  );
+                })
+              : `Sorry, we don't have books under: ${userFilters
+                  .map(({ title }) => title)
+                  .join(', ')}`}
             {/* <SearchResults
               value={}
               data={books}
@@ -179,6 +190,9 @@ export const query = graphql`
         tagType
         slug
         title
+        books {
+          id
+        }
       }
     }
 
@@ -191,6 +205,13 @@ export const query = graphql`
           title
           slug
           id
+        }
+        bookCover {
+          altDescription
+          height
+          width
+          size
+          url
         }
       }
     }

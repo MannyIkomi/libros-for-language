@@ -66,7 +66,7 @@ export const CategoryTag = (props) => (
 );
 
 export const TextStructureTag = (props) => (
-  <Tag textColor={WHITE} background={COMPLIMENT40}>
+  <Tag textColor={BLACK} background={COMPLIMENT40}>
     {props.children}
   </Tag>
 );

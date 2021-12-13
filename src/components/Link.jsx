@@ -27,6 +27,11 @@ export const Link = ({
   const internal = /^\/(?!\/)/.test(to);
 
   // Use Gatsby Link for internal links, and <a> for others
+  if (!to) {
+    // removed the <a/> tag and replaced with generic
+    return <span {...other}>{children}</span>;
+  }
+
   if (internal) {
     return (
       <GatsbyLink
@@ -39,10 +44,7 @@ export const Link = ({
       </GatsbyLink>
     );
   }
-  if (!to) {
-    // removed the <a/> tag and replaced with generic
-    return <span {...other}>{children}</span>;
-  }
+
   return (
     <a href={to} {...other}>
       {children}

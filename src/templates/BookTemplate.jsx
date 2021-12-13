@@ -24,6 +24,7 @@ import { Container, TextContainer } from '../components/Container';
 import { primaryActionStyle } from '../styles/actions.js';
 import { boxShadow } from '../styles/shadow';
 import { BookImage } from '../components/BookImage';
+import { slugify } from '../utils/slugify';
 
 function BookTemplate({ data }) {
   const {
@@ -177,7 +178,11 @@ function BookTemplate({ data }) {
               <TagList>
                 {textStructure.map((structure) => {
                   return (
-                    <Link to={`/tags/${structure.slug}`}>
+                    <Link
+                      to={`/tags/${slugify(structure.tagType)}s/${
+                        structure.slug
+                      }`}
+                    >
                       <TextStructureTag>{structure.title}</TextStructureTag>
                     </Link>
                   );
@@ -250,7 +255,11 @@ function BookTemplate({ data }) {
               <TagList>
                 {languages.map((language) => {
                   return (
-                    <Link to={`/tags/${language.slug}`}>
+                    <Link
+                      to={`/tags/${slugify(language.tagType)}s/${
+                        language.slug
+                      }`}
+                    >
                       <CategoryTag>{language.title}</CategoryTag>
                     </Link>
                   );
@@ -280,7 +289,7 @@ function BookTemplate({ data }) {
               <TagList>
                 {topics.map((topic) => {
                   return (
-                    <Link to={`/topics/${topic.slug}`}>
+                    <Link to={`/tags/${slugify(topic.tagType)}s/${topic.slug}`}>
                       <TopicTag>{topic.title}</TopicTag>
                     </Link>
                   );
