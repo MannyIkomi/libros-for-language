@@ -2,17 +2,21 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 import { graphql } from 'gatsby';
-import { notoSerif, PRIMARY, s1, COMPLIMENT80 } from '../styles';
+import {
+  notoSerif,
+  PRIMARY,
+  s1,
+  COMPLIMENT80,
+  grid,
+  onTabletMedia,
+  onDesktopMedia,
+} from '../styles';
 import { TopicTag } from '../components/Tag';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
 import { Link, PrimaryLink } from '../components/Link';
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
-import 'swiper/css';
 import { FeaturedBook } from '../components/FeaturedBook';
 import { GlobalLayout } from '../components/GlobalLayout';
 
@@ -23,9 +27,7 @@ console.clear();
 function IndexPage({ data }) {
   const featuredBooks = data.allGraphCmsBook.nodes;
   const topics = data.allGraphCmsTopic.nodes;
-  // const genres = data.allGraphCmsGenre.nodes;
-  // const grades = data.allGraphCmsGrade.nodes;
-  // const languages = data.allGraphCmsLanguage.nodes;
+
   const tagTypes = data.categoryNames.enumValues;
 
   return (
@@ -72,53 +74,38 @@ function IndexPage({ data }) {
             </Container>
 
             <div
-              className="category-collection w-dyn-list"
-              css={{
-                minHeight: '33vh',
-                marginBottom: `10vh`,
-              }}
+              css={[
+                {
+                  minHeight: '33vh',
+                  marginBottom: `10vh`,
+                  ...grid({
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gridTemplateRows: '1fr',
+                    placeItems: 'end center',
+                  }),
+                },
+                onTabletMedia({
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                }),
+                onDesktopMedia({
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                }),
+              ]}
             >
-              <Swiper
-                // .featured-list
-                breakpoints={{
-                  320: {
-                    slidesPerView: 2,
-                    spaceBetween: 16,
-                  },
-                  640: {
-                    slidesPerView: 3,
-                    spaceBetween: 32,
-                  },
-                  1280: {
-                    slidesPerView: 5,
-                    spaceBetween: 48,
-                  },
-                }}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
-                style={{
-                  overflow: 'visible',
-                }}
-              >
-                {featuredBooks
-                  .filter((book) => {
-                    return (
-                      book.bookCover ||
-                      console.warn(
-                        `Book: ${book.bookTitle} does not have a cover image`
-                      )
-                    );
-                  })
-                  .map((book) => {
-                    return (
-                      <SwiperSlide style={{ alignSelf: 'flex-end' }}>
-                        <FeaturedBook {...book} />
-                      </SwiperSlide>
-                    );
-                  })}
-              </Swiper>
+              {featuredBooks
+                .filter((book) => {
+                  return (
+                    book.bookCover ||
+                    console.warn(
+                      `Book: ${book.bookTitle} does not have a cover image`
+                    )
+                  );
+                })
+                .map((book) => {
+                  return <FeaturedBook {...book} />;
+                })}
             </div>
-            <Container>
+            <Container css={{ alignSelf: 'center' }}>
               <PrimaryLink to={'/books'}>Browse All</PrimaryLink>
             </Container>
           </Section>
@@ -169,10 +156,16 @@ export const query = graphql`
         name
       }
     }
-    allGraphCmsBook(filter: { featured: { eq: true } }) {
+    allGraphCmsBook(
+      limit: 4
+      filter: { featured: { eq: true } }
+      sort: { order: DESC, fields: updatedBy___updatedAt }
+    ) {
       nodes {
         id
+        slug
         bookTitle
+        updatedAt
         contributors {
           name
           type
@@ -185,15 +178,9 @@ export const query = graphql`
           size
           url
         }
-        slug
       }
     }
-    # allGraphCmsTopic {
-    #   nodes {
-    #     title
-    #     slug
-    #   }
-    # }
+
     allGraphCmsGrade: allGraphCmsTag(filter: { tagType: { eq: Grade } }) {
       nodes {
         title
