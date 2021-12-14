@@ -30,7 +30,7 @@ import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
 import { DebugData } from '../components/DebugData';
 
-import { Link, PrimaryLink } from '../components/Link';
+import { Link, PrimaryLink, TertiaryLink } from '../components/Link';
 
 import { GlobalLayout } from '../components/GlobalLayout';
 
@@ -146,9 +146,11 @@ function TeamMemberBio(props) {
             <p>
               Learn more about {firstName}:{' '}
               {webLinkLabel ? (
-                <Link to={webLink}>{webLinkLabel}</Link>
+                <TertiaryLink to={webLink}>{webLinkLabel}</TertiaryLink>
               ) : (
-                <Link to={webLink}>{webLink}</Link>
+                <TertiaryLink to={webLink}>
+                  {new URL(webLink).host}
+                </TertiaryLink>
               )}
             </p>
           )}

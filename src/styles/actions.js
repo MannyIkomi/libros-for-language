@@ -68,24 +68,22 @@ export const secondaryActionStyle = [
 
 export const tertiaryActionStyle = [
   {
-    ...flex('column', {
-      justifyContent: 'center',
+    ...flex('row', {
+      display: 'inline-flex',
+      // justifyContent: 'center',
       alignItems: 'center',
     }),
-    ...boxShadow2xl,
-
-    width: '100%',
 
     minHeight: s3,
-    minWidth: s3,
-    padding: `${s1} ${s2}`,
 
-    color: WHITE,
-    // backgroundColor: PRIMARY80,
+    padding: `${s1} 0`,
+
+    color: PRIMARY,
+
     fontWeight: '700',
     textAlign: 'center',
 
-    textDecoration: 'none',
+    textDecoration: 'underline',
     textTransform: 'uppercase',
     // whiteSpace: 'nowrap',
   },
