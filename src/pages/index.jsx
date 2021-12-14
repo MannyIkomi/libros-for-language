@@ -16,10 +16,9 @@ import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
 import { Link, PrimaryLink } from '../components/Link';
-import { GlobalContext } from '../components/GlobalLayout';
+import { GlobalLayout } from '../components/GlobalLayout';
 
 import { FeaturedBook } from '../components/FeaturedBook';
-import { GlobalLayout } from '../components/GlobalLayout';
 
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
@@ -27,7 +26,6 @@ import { Section } from '../components/Section';
 console.clear();
 
 function IndexPage({ data }) {
-  const { navigation } = useContext(GlobalContext);
   const featuredBooks = data.allGraphCmsBook.nodes;
   const topics = data.allGraphCmsTopic.nodes;
 
@@ -109,9 +107,7 @@ function IndexPage({ data }) {
                 })}
             </div>
             <Container css={{ alignSelf: 'center' }}>
-              <PrimaryLink to={navigation.books.path}>
-                Browse All Books{' '}
-              </PrimaryLink>
+              <PrimaryLink to={'/books'}>Browse All Books </PrimaryLink>
             </Container>
           </Section>
 

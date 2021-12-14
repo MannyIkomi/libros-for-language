@@ -2,11 +2,11 @@
 import { useContext } from 'react';
 import { jsx } from '@emotion/react';
 import { flex, s1, s05, PRIMARY20, PRIMARY, s5, WHITE, s075 } from '../styles';
-import { GlobalContext } from './GlobalLayout';
 import { Logo } from './Logo';
 import { List } from './List';
 import { Container } from './Container';
 import { Link } from './Link';
+import { GlobalContext } from './GlobalLayout';
 import { NavigationLink } from './NavigationLink';
 
 export function Footer() {
