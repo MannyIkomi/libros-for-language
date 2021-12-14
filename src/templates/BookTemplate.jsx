@@ -9,16 +9,7 @@ import { GlobalLayout } from '../components/GlobalLayout';
 import { CategoryTag, TopicTag, TextStructureTag } from '../components/Tag';
 
 import Link, { PrimaryLink } from '../components/Link';
-import {
-  ACCENT,
-  onTabletMedia,
-  PRIMARY,
-  s0125,
-  s025,
-  s05,
-  s1,
-  s2,
-} from '../styles';
+import { onTabletMedia, PRIMARY, s0125, s025, s05, s1, s2 } from '../styles';
 import { TagList } from '../components/TagList';
 import { Container, TextContainer } from '../components/Container';
 import { primaryActionStyle } from '../styles/actions.js';
