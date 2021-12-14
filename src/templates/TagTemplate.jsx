@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { graphql } from 'gatsby';
+import * as pluralize from 'pluralize';
+
 import { DebugData } from '../components/DebugData';
 import { UnderConstruction } from '../components/UnderConstruction';
 import { Footer } from '../components/Footer';
@@ -36,7 +38,7 @@ function TagTemplate(props) {
           <Section css={{ minHeight: 'initial' }} key={id}>
             <Container css={{ alignItems: 'flex-start' }}>
               <Heading level={1}>
-                {title} ({books.length})
+                {title} ({pluralize('Book', books.length, 'true')})
               </Heading>
 
               {books.length > 0 ? (

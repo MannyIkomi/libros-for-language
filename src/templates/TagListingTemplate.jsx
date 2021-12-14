@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
+import * as pluralize from 'pluralize';
+
 import { DebugData } from '../components/DebugData';
 import { Footer } from '../components/Footer';
 import { Container } from '../components/Container';
@@ -38,7 +40,7 @@ function TagListingTemplate(props) {
         <main css={{ position: 'relative' }}>
           <Section>
             <Container css={{ alignItems: 'flex-start' }}>
-              <Heading level={1}>{pageContext.title}s</Heading>
+              <Heading level={1}>{pluralize.plural(pageContext.title)}</Heading>
             </Container>
             {tags.map((tag) => {
               const { title, books, id, tagType, slug } = tag;
@@ -116,7 +118,9 @@ function TagListingTemplate(props) {
                             })}
                         </BookList>
                       ) : (
-                        `Sorry, no books available for ${title}`
+                        <p>
+                          Sorry, no books available for <em>{title}</em>
+                        </p>
                       )}
                       {books.length > MAX_BOOK_DISPLAY_AMOUNT && (
                         <SecondaryLink

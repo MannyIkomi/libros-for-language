@@ -86,17 +86,17 @@ export function MainMenu() {
         >
           <NavigationLink
             css={{ color: WHITE, textAlign: 'right' }}
-            to={'/browse'}
+            to={navigation.books.path}
           >
-            Browse
+            {navigation.books.title}
           </NavigationLink>
 
           {navigation.tags.map((c) => {
             return (
               <NavigationLink
-                to={c.slug}
+                to={c.path}
                 css={{ color: WHITE, textAlign: 'right' }}
-                key={c.slug}
+                key={c.path}
               >
                 {c.title}
               </NavigationLink>
@@ -105,9 +105,9 @@ export function MainMenu() {
 
           <NavigationLink
             css={{ color: WHITE, textAlign: 'right' }}
-            to={'/about'}
+            to={navigation.books.path}
           >
-            About
+            {navigation.books.title}
           </NavigationLink>
 
           {/* <a to={'/resources'}>Resources</a> */}

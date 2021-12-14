@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-
+import * as pluralize from 'pluralize';
 import { Global, jsx } from '@emotion/react';
 import HtmlHead from './HtmlHead';
 import {
@@ -78,18 +78,22 @@ export const GlobalLayout = ({ htmlHead, children }) => {
         <GlobalContext.Provider
           value={{
             navigation: {
+              books: {
+                title: 'All Books',
+                path: `/${slugify('books')}`,
+              },
               tags: globalData.tags.enumValues.map((enumerator) => ({
-                title: enumerator.name.replace('_', ' '),
-                slug: `/tags/${slugify(enumerator.name)}s`,
+                title: `by ${enumerator.name.replace('_', ' ')}`,
+                path: `/tags/${slugify(pluralize.plural(enumerator.name))}`,
                 _name: enumerator.name,
               })),
               about: {
                 title: 'About',
-                slug: slugify('About'),
+                path: `/${slugify('About')}`,
               },
               resources: {
                 title: 'Resources',
-                slug: slugify('Resources'),
+                path: `/${slugify('Resources')}`,
               },
             },
           }}

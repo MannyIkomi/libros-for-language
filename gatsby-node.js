@@ -1,4 +1,5 @@
 const path = require(`path`);
+const pluralize = require('pluralize');
 
 function slugify(string) {
   return string.replace('_', '-').replace(' ', '-').toLowerCase();
@@ -50,10 +51,10 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   result.data.tagTypes.enumValues.forEach((typeEnum) => {
-    const typeSlug = slugify(typeEnum.name);
+    const typeSlug = slugify(pluralize.plural(typeEnum.name));
     // const viewName = type.name.replace('_', '-');
     createPage({
-      path: `/tags/${typeSlug}s`,
+      path: `/tags/${typeSlug}`,
       component: TagListingTemplate,
       context: {
         title: typeEnum.name.replace('_', ' '),
@@ -64,10 +65,10 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   result.data.allGraphCmsTag.nodes.forEach((tag) => {
-    const typeSlug = slugify(tag.tagType);
+    const typeSlug = slugify(pluralize.plural(tag.tagType));
     // const viewName = type.name.replace('_', '-');
     createPage({
-      path: `/tags/${typeSlug}s/${tag.slug}`,
+      path: `/tags/${typeSlug}/${tag.slug}`,
       component: TagTemplate,
       context: {
         title: tag.title,
