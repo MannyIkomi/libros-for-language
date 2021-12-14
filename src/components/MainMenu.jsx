@@ -103,13 +103,6 @@ export function MainMenu() {
             );
           })}
 
-          <NavigationLink
-            css={{ color: WHITE, textAlign: 'right' }}
-            to={navigation.books.path}
-          >
-            {navigation.books.title}
-          </NavigationLink>
-
           {/* <a to={'/resources'}>Resources</a> */}
         </List>
       </div>
