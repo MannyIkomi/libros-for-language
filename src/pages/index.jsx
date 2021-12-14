@@ -10,8 +10,10 @@ import {
   grid,
   onTabletMedia,
   onDesktopMedia,
+  WHITE,
+  PRIMARY_WHITE,
 } from '../styles';
-import { TopicTag } from '../components/Tag';
+import { CategoryTag, TopicTag } from '../components/Tag';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
@@ -106,7 +108,7 @@ function IndexPage({ data }) {
                   return <FeaturedBook {...book} />;
                 })}
             </div>
-            <Container css={{ alignSelf: 'center' }}>
+            <Container css={{ alignSelf: 'center', color: PRIMARY_WHITE }}>
               <PrimaryLink to={'/books'}>Browse All Books </PrimaryLink>
             </Container>
           </Section>
@@ -130,7 +132,7 @@ function IndexPage({ data }) {
                         to={`/tags/topics/${slug}`}
                         css={{ textDecoration: 'none' }}
                       >
-                        <TopicTag>{title}</TopicTag>
+                        <CategoryTag>{title}</CategoryTag>
                       </Link>
                     </li>
                   ))}

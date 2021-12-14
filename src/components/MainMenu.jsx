@@ -13,6 +13,7 @@ import {
   s3,
   s10,
   WHITE,
+  PRIMARY_WHITE,
 } from '../styles';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import { NavigationLink } from './NavigationLink';
@@ -63,7 +64,7 @@ export function MainMenu() {
           aria-controls="menuItems"
           onClick={() => setToggled(!toggled)}
           css={{
-            color: WHITE,
+            color: PRIMARY_WHITE,
             width: s2,
             height: s2,
           }}
@@ -75,6 +76,7 @@ export function MainMenu() {
           css={{
             display: toggled ? flex() : 'none',
             alignItems: 'flex-start',
+            color: PRIMARY_WHITE,
             backgroundColor: PRIMARY,
             padding: s1,
 
@@ -85,7 +87,7 @@ export function MainMenu() {
           }}
         >
           <NavigationLink
-            css={{ color: WHITE, textAlign: 'right' }}
+            css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
             to={navigation.books.path}
           >
             {navigation.books.title}
@@ -95,13 +97,19 @@ export function MainMenu() {
             return (
               <NavigationLink
                 to={c.path}
-                css={{ color: WHITE, textAlign: 'right' }}
+                css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
                 key={c.path}
               >
                 {c.title}
               </NavigationLink>
             );
           })}
+          <NavigationLink
+            css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
+            to={navigation.about.path}
+          >
+            {navigation.about.title}
+          </NavigationLink>
 
           {/* <a to={'/resources'}>Resources</a> */}
         </List>

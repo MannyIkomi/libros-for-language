@@ -17,6 +17,9 @@ import {
   PRIMARY,
   PRIMARY20,
   PRIMARY_WHITE,
+  base160,
+  MIN_TOUCH_SIZE,
+  COMPLIMENT20,
 } from '../styles';
 import { boxShadowLg } from '../styles/shadow';
 
@@ -35,13 +38,14 @@ export const Tag = (props) => {
           fontSize: s075,
           fontFamily: MONO_FONT,
           letterSpacing: '0.05rem',
-          whiteSpace: 'nowrap',
+          // whiteSpace: 'nowrap',
 
-          minWidth: s3,
-          width: '100%',
-          maxWidth: 'min-content',
+          // minWidth: s3,
+          minHeight: MIN_TOUCH_SIZE,
+          // width: '100%',
+          // maxWidth: 'min-content',
+          maxWidth: base160,
 
-          minHeight: s2,
           padding: `${s0125} ${s1}`,
           color: textColor ?? WHITE,
           background: background ?? PRIMARY,
@@ -67,8 +71,8 @@ export const CategoryTag = (props) => (
   </Tag>
 );
 
-export const TextStructureTag = (props) => (
-  <Tag textColor={BLACK} background={COMPLIMENT40}>
+export const TypologyTag = (props) => (
+  <Tag textColor={BLACK} background={COMPLIMENT20}>
     {props.children}
   </Tag>
 );

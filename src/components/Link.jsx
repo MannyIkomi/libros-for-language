@@ -26,6 +26,12 @@ export const Link = ({
   }
   const internal = /^\/(?!\/)/.test(to);
 
+  const overridePseudoStyles = {
+    '&:link, &:visited, &:focus, &:hover, &:active': {
+      color: 'inherit',
+    },
+  };
+
   // Use Gatsby Link for internal links, and <a> for others
   if (!to) {
     // removed the <a/> tag and replaced with generic
@@ -38,6 +44,7 @@ export const Link = ({
         to={to}
         // activeClassName={activeClassName}
         // partiallyActive={partiallyActive}
+        css={overridePseudoStyles}
         {...other}
       >
         {children}
@@ -46,7 +53,7 @@ export const Link = ({
   }
 
   return (
-    <a href={to} {...other}>
+    <a href={to} css={overridePseudoStyles} {...other}>
       {children}
     </a>
   );

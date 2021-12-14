@@ -1,7 +1,17 @@
 /** @jsx jsx */
 import { useContext } from 'react';
 import { jsx } from '@emotion/react';
-import { flex, s1, s05, PRIMARY20, PRIMARY, s5, WHITE, s075 } from '../styles';
+import {
+  flex,
+  s1,
+  s05,
+  PRIMARY20,
+  PRIMARY,
+  s5,
+  WHITE,
+  s075,
+  PRIMARY_WHITE,
+} from '../styles';
 import { Logo } from './Logo';
 import { List } from './List';
 import { Container } from './Container';
@@ -19,6 +29,7 @@ export function Footer() {
         padding: s1,
         textAlign: 'left',
         backgroundColor: PRIMARY,
+        color: PRIMARY_WHITE,
       }}
     >
       <Container css={[flex('column', { alignItems: 'flex-start' })]}>

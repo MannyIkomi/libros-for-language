@@ -143,7 +143,7 @@ function BooksPage({ data }) {
           </Section>
           <Section>
             Matches {filteredBooks.length}
-            <DebugData>{userFilters}</DebugData>
+            {/* <DebugData>{userFilters}</DebugData> */}
             {filteredBooks.length > 0
               ? filteredBooks.map((book) => {
                   return (

@@ -80,6 +80,10 @@ export const a = {
   ...notoSans,
   fontSize: 'inherit',
   textDecoration: 'none',
+
+  '&:link, &:visited, &:focus, &:hover, &:active': {
+    color: 'inherit',
+  },
 };
 
 export const headings = {

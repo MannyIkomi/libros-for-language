@@ -37,7 +37,7 @@ export const primaryActionStyle = [
     textTransform: 'uppercase',
     whiteSpace: 'nowrap',
   },
-  onTabletMedia({ maxWidth: s20 }),
+  onTabletMedia({ maxWidth: base320 }),
 ];
 
 export const secondaryActionStyle = [
@@ -63,7 +63,7 @@ export const secondaryActionStyle = [
     textTransform: 'uppercase',
     whiteSpace: 'nowrap',
   },
-  onTabletMedia({ maxWidth: s20 }),
+  onTabletMedia({ maxWidth: base320 }),
 ];
 
 export const tertiaryActionStyle = [
