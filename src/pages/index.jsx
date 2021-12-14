@@ -97,7 +97,7 @@ function IndexPage({ data }) {
                   return (
                     book.bookCover ||
                     console.warn(
-                      `Book: ${book.bookTitle} does not have a cover image`
+                      `Book: ${book.title} does not have a cover image`
                     )
                   );
                 })
@@ -164,7 +164,7 @@ export const query = graphql`
       nodes {
         id
         slug
-        bookTitle
+        title
         updatedAt
         contributors {
           name

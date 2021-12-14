@@ -45,7 +45,7 @@ function TeamMemberBio(props) {
   const {
     id,
     portrait,
-    fullName,
+    name,
     role,
     description,
     webLink,
@@ -101,7 +101,7 @@ function TeamMemberBio(props) {
                 width={portrait?.width}
                 height={portrait?.height}
                 // loading="eager"
-                alt={portrait?.altDescription || `Portrait of ${fullName}`}
+                alt={portrait?.altDescription || `Portrait of ${name}`}
                 css={{
                   display: 'block',
                   width: '100%',
@@ -129,14 +129,7 @@ function TeamMemberBio(props) {
           )}
 
           <Heading level={3} css={{ gridColumn: '2 / -1', margin: '0' }}>
-            {/* {webLink ? (
-              <Link to={webLink} css={{ fontFamily: 'inherit' }}>
-                {fullName}
-              </Link>
-            ) : (
-              fullName
-            )} */}
-            {fullName}
+            {name}
           </Heading>
 
           {role && (
@@ -150,6 +143,16 @@ function TeamMemberBio(props) {
         {description && (
           <TextContainer>
             <p>{description}</p>
+            {webLink && (
+              <p>
+                Learn more about {name}:{' '}
+                {webLinkLabel ? (
+                  <Link to={webLink}>{webLinkLabel}</Link>
+                ) : (
+                  <Link to={webLink}>{webLink}</Link>
+                )}
+              </p>
+            )}
           </TextContainer>
         )}
       </Container>
@@ -307,7 +310,7 @@ export const query = graphql`
     allGraphCmsTeamMember {
       nodes {
         role
-        fullName
+        name
         description
         id
         webLink

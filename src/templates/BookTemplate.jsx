@@ -9,17 +9,26 @@ import { GlobalLayout } from '../components/GlobalLayout';
 import { CategoryTag, TopicTag, TextStructureTag } from '../components/Tag';
 
 import Link, { PrimaryLink } from '../components/Link';
-import { onTabletMedia, PRIMARY, s0125, s025, s05, s1, s2 } from '../styles';
+import {
+  COMPLIMENT,
+  onTabletMedia,
+  PRIMARY,
+  s0125,
+  s025,
+  primaryActionStyle,
+  s05,
+  s1,
+  s2,
+} from '../styles';
 import { TagList } from '../components/TagList';
 import { Container, TextContainer } from '../components/Container';
-import { primaryActionStyle } from '../styles/actions.js';
 import { boxShadow } from '../styles/shadow';
 import { BookImage } from '../components/BookImage';
 import { slugify } from '../utils/slugify';
 
 function BookTemplate({ data }) {
   const {
-    bookTitle,
+    title,
 
     publisherSummary,
     bookCover,
@@ -50,7 +59,7 @@ function BookTemplate({ data }) {
   return (
     <GlobalLayout
       htmlHead={{
-        title: bookTitle,
+        title: title,
         description: publisherSummary,
       }}
     >
@@ -118,12 +127,12 @@ function BookTemplate({ data }) {
               gridArea: 'book-title',
               h2: {
                 marginBottom: s05,
-                color: ACCENT,
+                color: COMPLIMENT,
               },
               maxWidth: 'initial',
             }}
           >
-            <h1 className="book-title">{bookTitle}</h1>
+            <h1 className="book-title">{title}</h1>
             {authors.length > 0 && (
               <dl css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
                 <dt>by</dt>
@@ -339,7 +348,7 @@ function BookTemplate({ data }) {
 export const query = graphql`
   query BookTemplate($slug: String) {
     graphCmsBook(slug: { eq: $slug }) {
-      bookTitle
+      title
       awards
       bookCover {
         altDescription

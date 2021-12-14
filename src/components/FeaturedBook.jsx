@@ -80,7 +80,7 @@ export function FeaturedBook(book) {
                 fontWeight: '400',
               }}
             >
-              {book.bookTitle}
+              {book.title}
             </div>
             <div
               className="book-cover-byline"

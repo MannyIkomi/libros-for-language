@@ -58,6 +58,11 @@ fragment ScheduledOperation on ScheduledOperation {
       remoteId: id
       stage
     }
+    ... on Resource {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
     ... on SiteInformation {
       remoteTypeName: __typename
       remoteId: id

@@ -2,23 +2,10 @@
 import { jsx } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
-import SearchResults from 'react-filter-search';
-import { SearchFilter } from '../components/SearchFilter';
+// import SearchResults from 'react-filter-search';
+// import { SearchFilter } from '../components/SearchFilter';
 
-import {
-  s1,
-  onTabletMedia,
-  flex,
-  BLACK,
-  grid12Columns,
-  onDesktopMedia,
-  s2,
-  PRIMARY20,
-  COMPLIMENT20,
-  secondaryActionStyle,
-  s025,
-  s05,
-} from '../styles';
+import { s1, flex, secondaryActionStyle, s025, s05 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container } from '../components/Container';
@@ -28,6 +15,7 @@ import { GlobalLayout } from '../components/GlobalLayout';
 
 import { BookCover } from '../components/BookCover';
 import { MainMenu } from '../components/MainMenu';
+import { UnderConstruction } from '../components/UnderConstruction';
 import { Section } from '../components/Section';
 import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
@@ -83,6 +71,7 @@ function BooksPage({ data }) {
   return (
     <>
       <GlobalLayout>
+        <UnderConstruction />
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>
@@ -154,7 +143,7 @@ function BooksPage({ data }) {
               ? filteredBooks.map((book) => {
                   return (
                     <BookCover book={book}>
-                      <Heading level={4}>{book.bookTitle}</Heading>
+                      <Heading level={4}>{book.title}</Heading>
                     </BookCover>
                   );
                 })
@@ -199,7 +188,7 @@ export const query = graphql`
     allGraphCmsBook {
       nodes {
         id
-        bookTitle
+        title
         slug
         tags {
           title

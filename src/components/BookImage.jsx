@@ -10,7 +10,7 @@ export function BookImage({ book, ...props }) {
       width={bookCover?.width}
       height={bookCover?.height}
       loading="eager"
-      alt={bookCover?.altDescription || `${book.bookTitle} Book Cover`}
+      alt={bookCover?.altDescription || `${book.title} Book Cover`}
       className="book-image"
       css={{
         display: 'block',

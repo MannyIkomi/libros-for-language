@@ -75,7 +75,7 @@ function TagTemplate(props) {
                             color: COMPLIMENT,
                           }}
                         >
-                          {book.bookTitle}
+                          {book.title}
                         </Heading>
                       </BookCover>
                     );
@@ -102,7 +102,7 @@ export const query = graphql`
       tagType
       id
       books {
-        bookTitle
+        title
         slug
         tags {
           title

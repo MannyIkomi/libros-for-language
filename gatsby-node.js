@@ -20,7 +20,7 @@ exports.createPages = async ({ graphql, actions }) => {
     query CreatePages {
       allGraphCmsBook {
         nodes {
-          bookTitle
+          title
           slug
         }
       }

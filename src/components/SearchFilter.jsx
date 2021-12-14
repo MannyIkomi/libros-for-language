@@ -25,7 +25,7 @@ export function SearchFilter(props) {
       allGraphCmsBook {
         nodes {
           slug
-          name: bookTitle
+          name: title
           id
         }
       }

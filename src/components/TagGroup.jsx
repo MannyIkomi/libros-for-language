@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import { DEPRECATED_ACCENT, s1, s0125, boxShadowLg, PRIMARY } from '../styles';
+import { s1, s0125, boxShadowLg, PRIMARY } from '../styles';
 
 export const TagGroup = (props) => {
   const { background } = props;
