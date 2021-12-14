@@ -46,117 +46,115 @@ function TeamMemberBio(props) {
     id,
     portrait,
     name,
+    firstName,
     role,
     description,
     webLink,
     webLinkLabel,
-    // css,
+
     ...other
   } = props;
 
   return (
-    <Link to={webLink}>
-      <Container
-        key={id}
-        css={[
-          // css,
-          {
-            ...flex('column', {
-              alignItems: 'flex-start',
-            }),
-            width: '100%',
-            padding: s1,
+    <Container
+      key={id}
+      css={[
+        {
+          ...flex('column', {
+            alignItems: 'flex-start',
+          }),
+          width: '100%',
+          padding: s1,
 
-            background: PRIMARY20,
-            borderRadius: `${s025}`,
-            ...boxShadow,
+          background: PRIMARY20,
+          borderRadius: `${s025}`,
+          ...boxShadow,
+        },
+      ]}
+      {...other}
+    >
+      <div
+        css={[
+          {
+            ...grid({
+              gridTemplateColumns: 'max-content 1fr',
+              gridTemplateRows: '1fr min-content',
+              gridColumnGap: s1,
+              placeItems: 'end start',
+            }),
           },
         ]}
-        {...other}
       >
-        <div
-          css={[
-            {
-              ...grid({
-                gridTemplateColumns: 'max-content 1fr',
-                gridTemplateRows: '1fr min-content',
-                gridColumnGap: s1,
-                placeItems: 'end start',
-              }),
-            },
-          ]}
-        >
-          {portrait ? (
-            <div
-              css={{
-                borderRadius: '100%',
-                overflow: 'hidden',
+        {portrait ? (
+          <div
+            css={{
+              borderRadius: '100%',
+              overflow: 'hidden',
 
-                gridColumn: '1 / 2',
-                gridRow: '1 / 3',
-              }}
-            >
-              <img
-                src={portrait?.url}
-                width={portrait?.width}
-                height={portrait?.height}
-                // loading="eager"
-                alt={portrait?.altDescription || `Portrait of ${name}`}
-                css={{
-                  display: 'block',
-                  width: '100%',
-                  height: 'auto',
-                  aspectRatio: `${portrait?.width} / ${portrait?.height}`,
-
-                  maxWidth: base160,
-                  maxHeight: base160,
-                }}
-              />
-            </div>
-          ) : (
-            <div
+              gridColumn: '1 / 2',
+              gridRow: '1 / 3',
+            }}
+          >
+            <img
+              src={portrait?.url}
+              width={portrait?.width}
+              height={portrait?.height}
+              // loading="eager"
+              alt={portrait?.altDescription || `Portrait of ${name}`}
               css={{
                 display: 'block',
-                width: base160,
-                height: base160,
+                width: '100%',
+                height: 'auto',
+                aspectRatio: `${portrait?.width} / ${portrait?.height}`,
 
-                borderRadius: '100%',
-                overflow: 'hidden',
-
-                backgroundColor: PRIMARY40,
+                maxWidth: base160,
+                maxHeight: base160,
               }}
-            ></div>
-          )}
+            />
+          </div>
+        ) : (
+          <div
+            css={{
+              display: 'block',
+              width: base160,
+              height: base160,
 
-          <Heading level={3} css={{ gridColumn: '2 / -1', margin: '0' }}>
-            {name}
-          </Heading>
+              borderRadius: '100%',
+              overflow: 'hidden',
 
-          {role && (
-            <TextContainer css={{ gridColumn: '2 / -1' }}>
-              <p css={{ margin: '0' }}>
-                <strong>{role}</strong>
-              </p>
-            </TextContainer>
-          )}
-        </div>
-        {description && (
-          <TextContainer>
-            <p>{description}</p>
-            {webLink && (
-              <p>
-                Learn more about {name}:{' '}
-                {webLinkLabel ? (
-                  <Link to={webLink}>{webLinkLabel}</Link>
-                ) : (
-                  <Link to={webLink}>{webLink}</Link>
-                )}
-              </p>
-            )}
+              backgroundColor: PRIMARY40,
+            }}
+          ></div>
+        )}
+
+        <Heading level={3} css={{ gridColumn: '2 / -1', margin: '0' }}>
+          {name}
+        </Heading>
+
+        {role && (
+          <TextContainer css={{ gridColumn: '2 / -1' }}>
+            <p css={{ margin: '0' }}>
+              <strong>{role}</strong>
+            </p>
           </TextContainer>
         )}
-      </Container>
-    </Link>
+      </div>
+      {description && (
+        <TextContainer>
+          <p>{description}</p>
+          {webLink && (
+            <p>
+              Learn more about {firstName}:{' '}
+              {webLinkLabel ? (
+                <Link to={webLink}>{webLinkLabel}</Link>
+              ) : (
+                <Link to={webLink}>{webLink}</Link>
+              )}
+            </p>
+          )}
+        </TextContainer>
+      )}
+    </Container>
   );
 }
 
@@ -307,10 +305,12 @@ export const query = graphql`
     allGraphCmsBook {
       totalCount
     }
-    allGraphCmsTeamMember {
+    allGraphCmsTeamMember(sort: { fields: lastName, order: ASC }) {
       nodes {
         role
         name
+        lastName
+        firstName
         description
         id
         webLink
