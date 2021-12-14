@@ -15,6 +15,8 @@ import {
   PRIMARY40,
   COMPLIMENT40,
   PRIMARY,
+  PRIMARY20,
+  PRIMARY_WHITE,
 } from '../styles';
 import { boxShadowLg } from '../styles/shadow';
 
@@ -67,6 +69,17 @@ export const CategoryTag = (props) => (
 
 export const TextStructureTag = (props) => (
   <Tag textColor={BLACK} background={COMPLIMENT40}>
+    {props.children}
+  </Tag>
+);
+
+export const FilterTag = (props) => (
+  <Tag
+    textColor={BLACK}
+    background={PRIMARY_WHITE}
+    {...props}
+    css={{ border: `${s0125} solid ${PRIMARY}` }}
+  >
     {props.children}
   </Tag>
 );

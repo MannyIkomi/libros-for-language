@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
+import * as pluralize from 'pluralize';
 // import SearchResults from 'react-filter-search';
 // import { SearchFilter } from '../components/SearchFilter';
 
@@ -19,6 +20,7 @@ import { UnderConstruction } from '../components/UnderConstruction';
 import { Section } from '../components/Section';
 import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
+import { FilterTag } from '../components/Tag';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -71,12 +73,15 @@ function BooksPage({ data }) {
   return (
     <>
       <GlobalLayout>
-        <UnderConstruction />
         <MainMenu />
         <main css={{ position: 'relative' }}>
+          {/* <UnderConstruction /> */}
           <Section>
             <Container>
-              <Heading level={1}>Books ({filteredBooks.length})</Heading>
+              <Heading level={1}>
+                {pluralize('Book', filteredBooks.length, true)}
+                {/* Books ({filteredBooks.length}) */}
+              </Heading>
               {/* <SearchFilter></SearchFilter> */}
             </Container>
             <aside css={{ position: 'sticky', top: 0 }}>
@@ -110,17 +115,17 @@ function BooksPage({ data }) {
                         <label
                           htmlFor={tag.id}
                           key={tag.id}
-                          css={[
-                            secondaryActionStyle,
-                            {
-                              padding: `${s025} ${s05}`,
-                              '&::focus': {
-                                backgroundColor: 'red',
-                              },
-                            },
-                          ]}
+                          // css={[
+                          //   secondaryActionStyle,
+                          //   {
+                          //     padding: `${s025} ${s05}`,
+                          //     '&::focus': {
+                          //       backgroundColor: 'red',
+                          //     },
+                          //   },
+                          // ]}
                         >
-                          {tag.title}
+                          <FilterTag>{tag.title}</FilterTag>
                         </label>
                       </div>
                     );
