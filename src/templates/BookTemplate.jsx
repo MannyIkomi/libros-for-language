@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { graphql } from 'gatsby';
+import * as pluralize from 'pluralize';
+
 import { DebugData } from '../components/DebugData';
 import { Heading } from '../components/Heading';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
 import { GlobalLayout } from '../components/GlobalLayout';
-import { CategoryTag, TopicTag, TextStructureTag } from '../components/Tag';
+import { CategoryTag, TopicTag, TypologyTag } from '../components/Tag';
 
 import Link, { PrimaryLink } from '../components/Link';
 import {
@@ -19,12 +21,18 @@ import {
   s05,
   s1,
   s2,
+  boxShadowLg,
+  COMPLIMENT20,
+  notoMono,
+  COMPLIMENT40,
+  BLACK,
 } from '../styles';
 import { TagList } from '../components/TagList';
 import { Container, TextContainer } from '../components/Container';
 import { boxShadow } from '../styles/shadow';
 import { BookImage } from '../components/BookImage';
 import { slugify } from '../utils/slugify';
+import { List } from '../components/List';
 
 function BookTemplate({ data }) {
   const {
@@ -50,6 +58,7 @@ function BookTemplate({ data }) {
   // const { altDescription, url, width, height } = bookCover;
 
   const genres = tags.filter((t) => t.tagType === 'Genre');
+  const typologies = tags.filter((t) => t.tagType === 'Typology');
   const grades = tags.filter((t) => t.tagType === 'Grade');
   const languages = tags.filter((t) => t.tagType === 'Language');
   const textStructure = tags.filter((t) => t.tagType === 'Text_Structure');
@@ -134,7 +143,7 @@ function BookTemplate({ data }) {
             <h1 className="book-title">{title}</h1>
             {authors.length > 0 && (
               <dl css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
-                <dt>by</dt>
+                <dt>by </dt>
                 <dd>
                   {authors.length > 1
                     ? authors.map(({ name }) => name).join(', ')
@@ -166,28 +175,43 @@ function BookTemplate({ data }) {
               <p>{publisherSummary}</p>
             </TextContainer>
           )}
-
-          {textStructure.length > 0 && (
+          {typologies.length > 0 && (
             <TextContainer
               id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
               className="translanguaging"
               css={{ gridArea: 'translanguaging-typology' }}
             >
               <Heading level={2}>Translanguaging Typology</Heading>
-              <TagList>
-                {textStructure.map((structure) => {
+
+              <List css={{ listStyle: 'none', color: BLACK }}>
+                {typologies.map((typology) => {
                   return (
                     <Link
-                      to={`/tags/${slugify(structure.tagType)}s/${
-                        structure.slug
+                      to={`/tags/${slugify(typology.tagType)}s/${
+                        typology.slug
                       }`}
                     >
-                      <TextStructureTag>{structure.title}</TextStructureTag>
+                      <div
+                        css={{
+                          padding: s1,
+
+                          background: COMPLIMENT20,
+                          borderRadius: `${s0125} ${s1}`,
+                          ...boxShadow,
+                        }}
+                      >
+                        <span
+                          css={{ ...notoMono, textDecoration: 'underline' }}
+                        >
+                          {typology.title}
+                        </span>
+                        <br />
+                        {typology.definition}
+                      </div>
                     </Link>
                   );
                 })}
-              </TagList>
-              <p>{translanguagingTypology}</p>
+              </List>
             </TextContainer>
           )}
 
@@ -200,11 +224,6 @@ function BookTemplate({ data }) {
               {actionLabel || 'Learn More'}
             </PrimaryLink>
           )}
-          {/* <a
-              href="#"
-              id="w-node-e1ca612b-084f-e346-7c61-be9b5fb748d7-0b286f2c"
-              className="action-button"
-            ></a> */}
         </Container>
       </Section>
 
@@ -232,7 +251,7 @@ function BookTemplate({ data }) {
               gridColumnGap: s1,
               gridRowGap: s1,
               gridTemplateColumns: '1fr',
-              gridTemplateRows: 'min-content auto',
+              // gridTemplateRows: 'min-content auto',
             },
             onTabletMedia({
               gridRowGap: s2,
@@ -240,17 +259,43 @@ function BookTemplate({ data }) {
 
               gridColumnGap: s1,
 
-              gridTemplateAreas: '"Area"',
+              // gridTemplateAreas: '"Area"',
               gridTemplateColumns: '1fr 1fr',
               gridTemplateRows: 'auto auto',
             }),
           ]}
         >
           {/* <section className="container book-grid"> */}
+          {textStructure.length > 0 && (
+            <TextContainer
+              id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
+              className="translanguaging"
+              // css={{ gridArea: 'translanguaging-typology' }}
+            >
+              <Heading level={3}>
+                {pluralize.plural(textStructure[0].tagType.replace('_', ' '))}
+              </Heading>
+              <TagList>
+                {textStructure.map((structure) => {
+                  return (
+                    <Link
+                      to={`/tags/${slugify(structure.tagType)}s/${
+                        structure.slug
+                      }`}
+                    >
+                      <CategoryTag>{structure.title}</CategoryTag>
+                    </Link>
+                  );
+                })}
+              </TagList>
+            </TextContainer>
+          )}
 
           {languages.length > 0 && (
             <TextContainer>
-              <Heading level={3}>Languages</Heading>
+              <Heading level={3}>
+                {pluralize.plural(languages[0].tagType.replace('_', ' '))}
+              </Heading>
               <TagList>
                 {languages.map((language) => {
                   return (
@@ -267,36 +312,24 @@ function BookTemplate({ data }) {
             </TextContainer>
           )}
 
-          {/* <div>
-                <h3>Representation</h3>
-                <div className="w-dyn-list">
-                  <div role="list" className="collection-tags-list w-dyn-items">
-                    <div
-                      role="listitem"
-                      className="collection-tag-item w-dyn-item"
-                    >
-                      <div className="collection-tag category"></div>
-                    </div>
-                  </div>
-                  <div className="w-dyn-empty"></div>
-                </div>
-              </div> */}
-
           {topics.length > 0 && (
             <TextContainer>
-              <Heading level={3}>Topics</Heading>
+              <Heading level={3}>
+                {pluralize.plural(topics[0].tagType.replace('_', ' '))}
+              </Heading>
               <TagList>
                 {topics.map((topic) => {
                   return (
                     <Link to={`/tags/${slugify(topic.tagType)}s/${topic.slug}`}>
-                      <TopicTag>{topic.title}</TopicTag>
+                      <CategoryTag>{topic.title}</CategoryTag>
                     </Link>
                   );
                 })}
               </TagList>
             </TextContainer>
           )}
-
+          {/* EDIT SUGGESTION FORM  */}
+          {/* {email, bookTitle, suggestion} */}
           <TextContainer>
             <dl
               css={{
@@ -355,12 +388,14 @@ export const query = graphql`
         width
         height
       }
-      representations {
-        title
-        slug
-      }
+      # representations {
+      #   title
+      #   slug
+      # }
       tags {
         title
+        definition
+        description
         slug
         tagType
       }
@@ -375,8 +410,6 @@ export const query = graphql`
         type
       }
       slug
-
-      translanguagingTypology
       translator
 
       publisher
