@@ -167,7 +167,11 @@ export const query = graphql`
         slug
         title
         updatedAt
-        contributors {
+        authors {
+          name
+          type
+        }
+        illustrators {
           name
           type
         }

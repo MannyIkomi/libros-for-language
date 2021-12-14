@@ -29,7 +29,14 @@ fragment Contributor on Contributor {
       stage
     }
   }
-  books {
+  booksAuthored {
+    ... on Book {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  bookIllustrated {
     ... on Book {
       remoteTypeName: __typename
       remoteId: id

@@ -38,7 +38,14 @@ fragment Book on Book {
       stage
     }
   }
-  contributors {
+  authors {
+    ... on Contributor {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  illustrators {
     ... on Contributor {
       remoteTypeName: __typename
       remoteId: id

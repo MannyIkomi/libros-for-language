@@ -5,9 +5,7 @@ import { BookImage } from './BookImage';
 import { Link } from './Link';
 
 export function FeaturedBook(book) {
-  const authors = book.contributors.filter((contributor) =>
-    contributor.type.includes('Author')
-  );
+  const authors = book.authors;
   console.log(authors);
 
   const maxDimensions = { maxWidth: '20rem', maxHeight: '20rem' };
@@ -95,7 +93,9 @@ export function FeaturedBook(book) {
                 (authors.length === 1 ? (
                   <p>{`by ${authors[0].name}`}</p>
                 ) : (
-                  <p>{`by ${authors.join(', ')}`}</p>
+                  <p>{`by ${authors
+                    .map((author) => author.name)
+                    .join(', ')}`}</p>
                 ))}
               <p>{book.publisherSummary}</p>
             </div>

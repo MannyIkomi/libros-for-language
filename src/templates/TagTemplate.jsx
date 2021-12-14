@@ -27,7 +27,7 @@ function TagTemplate(props) {
   const { data, pageContext } = props;
   const { graphCmsTag } = data;
 
-  const { title, books, id } = graphCmsTag;
+  const { title, books, id, definition } = graphCmsTag;
   return (
     <div>
       <UnderConstruction />
@@ -40,6 +40,7 @@ function TagTemplate(props) {
               <Heading level={1}>
                 {title} ({pluralize('Book', books.length, 'true')})
               </Heading>
+              {definition && <p>{definition}</p>}
 
               {books.length > 0 ? (
                 <BookList
@@ -103,10 +104,13 @@ export const query = graphql`
       slug
       tagType
       id
+      definition
+
       books {
         title
         slug
         tags {
+          description
           title
         }
         bookCover {

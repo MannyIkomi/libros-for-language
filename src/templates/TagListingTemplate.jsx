@@ -43,7 +43,7 @@ function TagListingTemplate(props) {
               <Heading level={1}>{pluralize.plural(pageContext.title)}</Heading>
             </Container>
             {tags.map((tag) => {
-              const { title, books, id, tagType, slug } = tag;
+              const { title, books, id, tagType, slug, definition } = tag;
 
               return (
                 books.length > 0 && (
@@ -59,8 +59,7 @@ function TagListingTemplate(props) {
                         }),
                       ]}
                     >
-                      <Heading
-                        level={2}
+                      <div
                         css={[
                           onTabletMedia({
                             gridColumn: '1 / 2',
@@ -68,8 +67,9 @@ function TagListingTemplate(props) {
                           }),
                         ]}
                       >
-                        {title}
-                      </Heading>
+                        <Heading level={2}>{title}</Heading>
+                        {definition && <p>{definition}</p>}
+                      </div>
 
                       {/* <DebugData>{books}</DebugData> */}
                       {books.length > 0 ? (
@@ -152,13 +152,10 @@ function TagListingTemplate(props) {
 
 export const query = graphql`
   query TagListingTemplateQuery($slug: String, $type: GraphCMS_TagType) {
-    # graphCmsTopic(slug: { eq: $slug }) {
-    #   title
-    #   slug
-    # }
     graphCmsTag(slug: { eq: $slug }) {
       title
       slug
+      definition
       tagType
       id
     }
@@ -169,6 +166,10 @@ export const query = graphql`
     ) {
       nodes {
         id
+        tagType
+        title
+        slug
+        definition
         books {
           updatedAt
           title
@@ -184,9 +185,6 @@ export const query = graphql`
             height
           }
         }
-        tagType
-        title
-        slug
       }
     }
   }

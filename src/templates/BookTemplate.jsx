@@ -37,7 +37,8 @@ function BookTemplate({ data }) {
     actionLabel,
     actionLink,
     translator,
-    contributors,
+    authors,
+    illustrators,
 
     publisher,
     isbn,
@@ -47,8 +48,6 @@ function BookTemplate({ data }) {
   } = data.graphCmsBook;
 
   // const { altDescription, url, width, height } = bookCover;
-  const authors = contributors.filter((c) => c.type === 'Author');
-  const illustrators = contributors.filter((c) => c.type === 'Illustrator');
 
   const genres = tags.filter((t) => t.tagType === 'Genre');
   const grades = tags.filter((t) => t.tagType === 'Grade');
@@ -365,7 +364,12 @@ export const query = graphql`
         slug
         tagType
       }
-      contributors {
+      authors {
+        name
+        slug
+        type
+      }
+      illustrators {
         name
         slug
         type

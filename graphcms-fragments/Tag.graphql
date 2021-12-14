@@ -5,6 +5,7 @@ fragment Tag on Tag {
   updatedAt
   publishedAt
   title
+  definition
   description
   slug
   createdBy {
