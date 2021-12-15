@@ -22,6 +22,7 @@ import {
   COMPLIMENT20,
 } from '../styles';
 import { boxShadowLg } from '../styles/shadow';
+import { GenreIcon, LanguageIcon, TextStructureIcon, TopicIcon } from './Icons';
 
 export const Tag = (props) => {
   const { textColor, background, children, label, css } = props;
@@ -46,7 +47,7 @@ export const Tag = (props) => {
           // maxWidth: 'min-content',
           maxWidth: base160,
 
-          padding: `${s0125} ${s1}`,
+          padding: `${s0125} ${s05}`,
           color: textColor ?? WHITE,
           background: background ?? PRIMARY,
           borderRadius: `${s00625} ${s05}`,
@@ -60,14 +61,23 @@ export const Tag = (props) => {
 };
 
 export const TopicTag = (props) => (
-  <Tag textColor={BLACK} background={COMPLIMENT40}>
-    {props.children}
+  <Tag textColor={BLACK} background={PRIMARY40}>
+    <TopicIcon css={{ width: s2, height: s2 }} /> {props.children}
   </Tag>
 );
-
-export const CategoryTag = (props) => (
+export const GenreTag = (props) => (
   <Tag textColor={BLACK} background={PRIMARY40}>
-    {props.children}
+    <GenreIcon css={{ width: s2, height: s2 }} /> {props.children}
+  </Tag>
+);
+export const LanguageTag = (props) => (
+  <Tag textColor={BLACK} background={PRIMARY40}>
+    <LanguageIcon css={{ width: s2, height: s2 }} /> {props.children}
+  </Tag>
+);
+export const TextStructureTag = (props) => (
+  <Tag textColor={BLACK} background={PRIMARY40}>
+    <TextStructureIcon css={{ width: s2, height: s2 }} /> {props.children}
   </Tag>
 );
 

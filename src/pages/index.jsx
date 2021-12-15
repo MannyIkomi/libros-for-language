@@ -13,7 +13,7 @@ import {
   WHITE,
   PRIMARY_WHITE,
 } from '../styles';
-import { CategoryTag, TopicTag } from '../components/Tag';
+import { TopicTag } from '../components/Tag';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
@@ -132,7 +132,7 @@ function IndexPage({ data }) {
                         to={`/tags/topics/${slug}`}
                         css={{ textDecoration: 'none' }}
                       >
-                        <CategoryTag>{title}</CategoryTag>
+                        <TopicTag>{title}</TopicTag>
                       </Link>
                     </li>
                   ))}

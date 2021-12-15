@@ -24,6 +24,7 @@ import { BookList } from '../components/BookList';
 import { SecondaryButton } from '../components/Button';
 import { SecondaryLink } from '../components/Link';
 import { slugify } from '../utils/slugify';
+import { Icon } from '../components/Icons';
 
 const MAX_BOOK_DISPLAY_AMOUNT = 4;
 
@@ -40,7 +41,8 @@ function TagListingTemplate(props) {
         <main css={{ position: 'relative' }}>
           <Section>
             <Container css={{ alignItems: 'flex-start' }}>
-              <Heading level={1}>{pluralize.plural(pageContext.title)}</Heading>
+              <Heading level={1}>{pluralize.plural(pageContext.title)}</Heading>{' '}
+              <Icon NAME={pageContext.title} />
             </Container>
             {tags.map((tag) => {
               const { title, books, id, tagType, slug, definition } = tag;

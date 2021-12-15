@@ -8,7 +8,12 @@ import { Heading } from '../components/Heading';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
 import { GlobalLayout } from '../components/GlobalLayout';
-import { CategoryTag, TopicTag, TypologyTag } from '../components/Tag';
+import {
+  LanguageTag,
+  TextStructureTag,
+  TopicTag,
+  TypologyTag,
+} from '../components/Tag';
 
 import Link, { PrimaryLink } from '../components/Link';
 import {
@@ -283,7 +288,7 @@ function BookTemplate({ data }) {
                         structure.slug
                       }`}
                     >
-                      <CategoryTag>{structure.title}</CategoryTag>
+                      <TextStructureTag>{structure.title}</TextStructureTag>
                     </Link>
                   );
                 })}
@@ -304,7 +309,7 @@ function BookTemplate({ data }) {
                         language.slug
                       }`}
                     >
-                      <CategoryTag>{language.title}</CategoryTag>
+                      <LanguageTag>{language.title}</LanguageTag>
                     </Link>
                   );
                 })}
@@ -321,7 +326,7 @@ function BookTemplate({ data }) {
                 {topics.map((topic) => {
                   return (
                     <Link to={`/tags/${slugify(topic.tagType)}s/${topic.slug}`}>
-                      <CategoryTag>{topic.title}</CategoryTag>
+                      <TopicTag>{topic.title}</TopicTag>
                     </Link>
                   );
                 })}
