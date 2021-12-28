@@ -6,7 +6,19 @@ import * as pluralize from 'pluralize';
 // import SearchResults from 'react-filter-search';
 // import { SearchFilter } from '../components/SearchFilter';
 
-import { s1, flex, secondaryActionStyle, s025, s05 } from '../styles';
+import {
+  s1,
+  flex,
+  secondaryActionStyle,
+  s025,
+  base320,
+  s05,
+  onDesktopMedia,
+  onTabletMedia,
+  grid,
+  PRIMARY40,
+  PRIMARY,
+} from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container } from '../components/Container';
@@ -21,6 +33,7 @@ import { Section } from '../components/Section';
 import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
 import { FilterTag } from '../components/Tag';
+import { BookList } from '../components/BookList';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -74,17 +87,43 @@ function BooksPage({ data }) {
     <>
       <GlobalLayout>
         <MainMenu />
-        <main css={{ position: 'relative' }}>
+
+        <main
+          css={[{ position: 'relative', overflow: 'scroll', height: '100vh' }]}
+        >
           {/* <UnderConstruction /> */}
-          <Section>
-            <Container>
+
+          <Section
+            css={[
+              onTabletMedia(
+                grid({
+                  gridTemplateAreas: `
+                "heading heading heading heading heading heading heading heading heading heading heading heading"
+                "filter filter content content content content content content content content content content"
+                `,
+                })
+              ),
+            ]}
+          >
+            <Container css={{ gridArea: 'heading' }}>
               <Heading level={1}>
                 {pluralize('Book', filteredBooks.length, true)}
                 {/* Books ({filteredBooks.length}) */}
               </Heading>
-              {/* <SearchFilter></SearchFilter> */}
             </Container>
-            <aside css={{ position: 'sticky', top: 0 }}>
+            <div
+              css={[
+                { gridArea: 'filter' },
+                onTabletMedia({
+                  position: 'sticky',
+                  placeSelf: 'start',
+                  top: s1,
+                  // left: s1,
+                  width: '100%',
+                  // height: '100vh',
+                }),
+              ]}
+            >
               <List
                 css={{
                   listStyle: 'none',
@@ -109,12 +148,19 @@ function BooksPage({ data }) {
                           id={tag.id}
                           name={tag.slug}
                           value={tag.title}
+                          css={[
+                            {
+                              opacity: '0',
+                              position: 'absolute',
+                            },
+                          ]}
                           onChange={handleFilterChecked(tag)}
                           checked={isChecked}
                         />
                         <label
                           htmlFor={tag.id}
                           key={tag.id}
+
                           // css={[
                           //   secondaryActionStyle,
                           //   {
@@ -125,7 +171,16 @@ function BooksPage({ data }) {
                           //   },
                           // ]}
                         >
-                          <FilterTag>{tag.title}</FilterTag>
+                          <FilterTag
+                            css={[
+                              isChecked && {
+                                backgroundColor: PRIMARY40,
+                                borderColor: PRIMARY,
+                              },
+                            ]}
+                          >
+                            {tag.title}
+                          </FilterTag>
                         </label>
                       </div>
                     );
@@ -139,31 +194,42 @@ function BooksPage({ data }) {
               >
                 Clear All
               </SecondaryButton>
-            </aside>
-          </Section>
-          <Section>
-            Matches {filteredBooks.length}
-            {/* <DebugData>{userFilters}</DebugData> */}
-            {filteredBooks.length > 0
-              ? filteredBooks.map((book) => {
-                  return (
-                    <BookCover book={book}>
-                      <Heading level={4}>{book.title}</Heading>
-                    </BookCover>
-                  );
-                })
-              : `Sorry, we don't have books under: ${userFilters
-                  .map(({ title }) => title)
-                  .join(', ')}`}
-            {/* <SearchResults
-              value={}
-              data={books}
-              renderResults={(results) => {
-                <DebugData>{results}</DebugData>;
-              }}
-            /> */}
+            </div>
+
+            <BookList
+              css={[
+                { listStyle: 'none' },
+                { gridArea: 'content', width: '100%' },
+                flex('row', {
+                  flexWrap: 'wrap',
+                }),
+                // grid({
+                //   gridTemplateColumns: '1fr 1fr',
+                //   gap: s1,
+                //   placeItems: 'end stretch',
+                // }),
+                // onTabletMedia({
+                //   width: '100%',
+                //   gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
+                //   placeItems: 'end center',
+                // }),
+              ]}
+            >
+              {filteredBooks.length > 0
+                ? filteredBooks.map((book) => {
+                    return (
+                      <BookCover book={book}>
+                        <Heading level={4}>{book.title}</Heading>
+                      </BookCover>
+                    );
+                  })
+                : `Sorry, we don't have books under: ${userFilters
+                    .map(({ title }) => title)
+                    .join(', ')}`}
+            </BookList>
           </Section>
         </main>
+
         <Footer />
       </GlobalLayout>
     </>

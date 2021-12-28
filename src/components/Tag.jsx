@@ -52,8 +52,8 @@ export const Tag = (props) => {
           background: background ?? PRIMARY,
           borderRadius: `${s00625} ${s05}`,
         },
-        css,
       ]}
+      {...props}
     >
       {children ?? label}
     </div>
@@ -91,8 +91,8 @@ export const FilterTag = (props) => (
   <Tag
     textColor={BLACK}
     background={PRIMARY_WHITE}
+    css={{ border: `${s0125} solid ${PRIMARY40}` }}
     {...props}
-    css={{ border: `${s0125} solid ${PRIMARY}` }}
   >
     {props.children}
   </Tag>
