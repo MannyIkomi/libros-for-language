@@ -7,17 +7,30 @@ import * as pluralize from 'pluralize';
 // import { SearchFilter } from '../components/SearchFilter';
 
 import {
+  Accordion,
+  AccordionItem,
+  AccordionItemHeading,
+  AccordionItemButton,
+  AccordionItemPanel,
+} from 'react-accessible-accordion';
+
+import {
   s1,
   flex,
   secondaryActionStyle,
   s025,
+  PRIMARY80,
   base320,
+  PRIMARY20,
   s05,
   onDesktopMedia,
   onTabletMedia,
   grid,
   PRIMARY40,
   PRIMARY,
+  MIN_TOUCH_SIZE,
+  s00625,
+  base160,
 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
@@ -46,8 +59,43 @@ function withTagProperties(book) {
   return { ...book, ...tagFilters };
 }
 
+function FilterTagCheckField(props) {
+  const { tag, handleChange, checked } = props;
+  return (
+    <div css={{ padding: s05 }}>
+      {/* convert to accessible custom checkboxes */}
+      <input
+        type={'checkbox'}
+        id={tag.id}
+        name={tag.slug}
+        value={tag.title}
+        css={[
+          {
+            opacity: '0',
+            position: 'absolute',
+          },
+        ]}
+        onChange={handleChange(tag)}
+        checked={checked}
+      />
+      <label htmlFor={tag.id} key={tag.id}>
+        <FilterTag
+          css={[
+            checked && {
+              backgroundColor: PRIMARY40,
+              borderColor: PRIMARY,
+            },
+          ]}
+        >
+          {tag.title}
+        </FilterTag>
+      </label>
+    </div>
+  );
+}
+
 function BooksPage({ data }) {
-  const tagTypes = data.tagTypes.nodes;
+  const tagTypes = data.tagTypes.enumValues;
   const tags = data.allGraphCmsTag.nodes;
   const books = data.allGraphCmsBook.nodes.filter(
     (book) => book.tags.length > 0
@@ -97,6 +145,7 @@ function BooksPage({ data }) {
             css={[
               onTabletMedia(
                 grid({
+                  gridTemplateColumns: 'repeat(12, 1fr)',
                   gridTemplateAreas: `
                 "heading heading heading heading heading heading heading heading heading heading heading heading"
                 "filter filter content content content content content content content content content content"
@@ -105,127 +154,148 @@ function BooksPage({ data }) {
               ),
             ]}
           >
-            <Container css={{ gridArea: 'heading' }}>
+            <Container css={{ gridArea: 'heading', placeSelf: 'center' }}>
               <Heading level={1}>
                 {pluralize('Book', filteredBooks.length, true)}
                 {/* Books ({filteredBooks.length}) */}
               </Heading>
             </Container>
             <div
+              // FILTER MENU OPTIONS
               css={[
-                { gridArea: 'filter' },
+                {
+                  gridArea: 'filter',
+                  width: 'max-content',
+                  minWidth: 'min-content',
+                  // minWidth: base160,
+                  maxHeight: '66vh',
+
+                  overflow: 'scroll',
+                  backgroundColor: PRIMARY20,
+                  borderRadius: `0 ${s1} ${s1} 0`,
+                },
+
                 onTabletMedia({
                   position: 'sticky',
                   placeSelf: 'start',
-                  top: s1,
+                  padding: s1,
+                  top: 0,
                   // left: s1,
                   width: '100%',
                   // height: '100vh',
                 }),
               ]}
             >
-              <List
-                css={{
-                  listStyle: 'none',
-                  ...flex('row', {
-                    flexWrap: 'wrap',
-                    gap: s1,
-                  }),
-                }}
-              >
-                {tags
-                  .filter((tag) => tag.books.length > 0)
-                  .map((tag) => {
-                    const isChecked = userFilters.some(
-                      (filter) => filter.id === tag.id
-                    );
-
-                    return (
-                      <div>
-                        {/* convert to accessible custom checkboxes */}
-                        <input
-                          type={'checkbox'}
-                          id={tag.id}
-                          name={tag.slug}
-                          value={tag.title}
-                          css={[
-                            {
-                              opacity: '0',
-                              position: 'absolute',
-                            },
-                          ]}
-                          onChange={handleFilterChecked(tag)}
-                          checked={isChecked}
-                        />
-                        <label
-                          htmlFor={tag.id}
-                          key={tag.id}
-
-                          // css={[
-                          //   secondaryActionStyle,
-                          //   {
-                          //     padding: `${s025} ${s05}`,
-                          //     '&::focus': {
-                          //       backgroundColor: 'red',
-                          //     },
-                          //   },
-                          // ]}
+              <Accordion allowZeroExpanded={true} allowMultipleExpanded={true}>
+                {tagTypes.map((tagType) => {
+                  return (
+                    <AccordionItem
+                      css={{
+                        width: '100%',
+                        borderBottom: `${s00625} solid ${PRIMARY}`,
+                      }}
+                    >
+                      <AccordionItemHeading>
+                        <AccordionItemButton
+                          css={{
+                            padding: `${s1} 0`,
+                            minHeight: MIN_TOUCH_SIZE,
+                            // backgroundColor: PRIMARY40,
+                          }}
                         >
-                          <FilterTag
-                            css={[
-                              isChecked && {
-                                backgroundColor: PRIMARY40,
-                                borderColor: PRIMARY,
-                              },
-                            ]}
-                          >
-                            {tag.title}
-                          </FilterTag>
-                        </label>
-                      </div>
-                    );
-                  })}
-              </List>
-              <SecondaryButton
-                onClick={() => {
-                  setUserFilters([]);
-                  setFilteredBooks(booksLookup);
-                }}
-              >
-                Clear All
-              </SecondaryButton>
+                          {tagType.name.replace('_', ' ')}
+                        </AccordionItemButton>
+                      </AccordionItemHeading>
+                      <AccordionItemPanel>
+                        <List
+                          css={{
+                            listStyle: 'none',
+                            ...flex('row', {
+                              flexWrap: 'wrap',
+                            }),
+                          }}
+                        >
+                          {tags
+                            // .filter((tag) => tag.books.length > 0)
+                            .filter((tag) => tag.tagType === tagType.name)
+                            .map((tag) => {
+                              const isChecked = userFilters.some(
+                                (filter) => filter.id === tag.id
+                              );
+
+                              return (
+                                <FilterTagCheckField
+                                  tag={tag}
+                                  handleChange={handleFilterChecked}
+                                  checked={isChecked}
+                                />
+                              );
+                            })}
+                        </List>
+                      </AccordionItemPanel>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+              {userFilters.length > 0 && (
+                <SecondaryButton
+                  css={{ position: 'sticky', bottom: 0 }}
+                  onClick={() => {
+                    setUserFilters([]);
+                    setFilteredBooks(booksLookup);
+                  }}
+                >
+                  Clear All
+                </SecondaryButton>
+              )}
             </div>
 
             <BookList
               css={[
-                { listStyle: 'none' },
-                { gridArea: 'content', width: '100%' },
-                flex('row', {
-                  flexWrap: 'wrap',
+                {
+                  listStyle: 'none',
+                  gridArea: 'content',
+                  width: 'max-content',
+                  placeSelf: 'start',
+                },
+
+                grid({
+                  gridTemplateColumns: '1fr 1fr',
+                  gridGap: s1,
+                  placeItems: 'center',
                 }),
-                // grid({
-                //   gridTemplateColumns: '1fr 1fr',
-                //   gap: s1,
-                //   placeItems: 'end stretch',
-                // }),
-                // onTabletMedia({
-                //   width: '100%',
-                //   gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
-                //   placeItems: 'end center',
-                // }),
+
+                onTabletMedia({
+                  padding: s1,
+                  width: '100%',
+                  gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
+                  // placeItems: 'end center',
+                }),
               ]}
             >
-              {filteredBooks.length > 0
-                ? filteredBooks.map((book) => {
-                    return (
-                      <BookCover book={book}>
-                        <Heading level={4}>{book.title}</Heading>
-                      </BookCover>
-                    );
-                  })
-                : `Sorry, we don't have books under: ${userFilters
+              {filteredBooks.length > 0 ? (
+                filteredBooks.map((book) => {
+                  return (
+                    <BookCover book={book}>
+                      <Heading level={4}>{book.title}</Heading>
+                    </BookCover>
+                  );
+                })
+              ) : (
+                <>
+                  {`Sorry, we don't have books under: ${userFilters
                     .map(({ title }) => title)
                     .join(', ')}`}
+                  <SecondaryButton
+                    onClick={() => {
+                      setUserFilters([]);
+                      setFilteredBooks(booksLookup);
+                    }}
+                  >
+                    Clear All Filters
+                  </SecondaryButton>
+                </>
+              )}
             </BookList>
           </Section>
         </main>
