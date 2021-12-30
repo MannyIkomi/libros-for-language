@@ -31,6 +31,7 @@ import {
   MIN_TOUCH_SIZE,
   s00625,
   base160,
+  s2,
 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
@@ -47,6 +48,9 @@ import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
 import { FilterTag } from '../components/Tag';
 import { BookList } from '../components/BookList';
+import FilterActive from '../icons/FilterActive';
+import useToggleSwitch from '../hooks/useToggleSwitch';
+import Icon from '../components/Icons';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -105,6 +109,7 @@ function BooksPage({ data }) {
 
   const [filteredBooks, setFilteredBooks] = useState(booksLookup);
   const [userFilters, setUserFilters] = useState([]);
+  const [isToggled, setToggled] = useToggleSwitch(false);
 
   const withAppliedFilters = booksLookup.filter((book) => {
     return userFilters.every((tagFilter) => {
@@ -143,39 +148,110 @@ function BooksPage({ data }) {
 
           <Section
             css={[
+              grid({
+                gridTemplateAreas: `"heading filterMenu" "results results"`,
+              }),
               onTabletMedia(
                 grid({
                   gridTemplateColumns: 'repeat(12, 1fr)',
                   gridTemplateAreas: `
-                "heading heading heading heading heading heading heading heading heading heading heading heading"
-                "filter filter content content content content content content content content content content"
+                "heading heading choices choices choices choices choices choices choices choices choices choices"
+                "filter filter results results results results results results results results results results"
                 `,
                 })
               ),
             ]}
           >
-            <Container css={{ gridArea: 'heading', placeSelf: 'center' }}>
+            <Container
+              css={[
+                { gridArea: 'heading' },
+                onTabletMedia({ gridArea: 'heading', placeSelf: 'center' }),
+              ]}
+            >
               <Heading level={1}>
                 {pluralize('Book', filteredBooks.length, true)}
                 {/* Books ({filteredBooks.length}) */}
               </Heading>
             </Container>
+            <button
+              onClick={(e) => {
+                setToggled(!isToggled);
+                console.log('TOGGLED:', isToggled);
+              }}
+              css={[
+                {
+                  ...flex('column'),
+                  alignItems: 'center',
+                  width: MIN_TOUCH_SIZE,
+                  height: MIN_TOUCH_SIZE,
+
+                  gridArea: 'filterMenu',
+                  placeSelf: 'center end',
+                  background: 'none',
+                  border: 0,
+                },
+                onTabletMedia({
+                  display: 'none',
+                }),
+              ]}
+            >
+              <FilterActive active={userFilters.length > 0} />
+              <span css={{ fontSize: s05 }}>Filter Menu</span>
+            </button>
+            {userFilters.length > 0 && (
+              <Container
+                css={[
+                  { display: 'none' },
+                  onTabletMedia({
+                    placeSelf: 'end start',
+                    ...flex('row', {
+                      alignItems: 'center',
+                    }),
+                  }),
+                ]}
+              >
+                Active Filters
+                {userFilters.map((tag) => {
+                  const isChecked = userFilters.some(
+                    (filter) => filter.id === tag.id
+                  );
+
+                  return (
+                    <FilterTagCheckField
+                      tag={tag}
+                      handleChange={handleFilterChecked}
+                      checked={isChecked}
+                    />
+                  );
+                })}
+              </Container>
+            )}
+
             <div
               // FILTER MENU OPTIONS
               css={[
                 {
-                  gridArea: 'filter',
-                  width: 'max-content',
-                  minWidth: 'min-content',
-                  // minWidth: base160,
-                  maxHeight: '66vh',
-
-                  overflow: 'scroll',
+                  display: isToggled ? 'block' : 'none',
+                  position: 'fixed',
+                  bottom: 0,
+                  right: 0,
+                  gridRow: '1',
                   backgroundColor: PRIMARY20,
-                  borderRadius: `0 ${s1} ${s1} 0`,
+                  width: '100%',
+                  minWidth: 'min-content',
+                  maxHeight: '50vh',
+                  overflow: 'scroll',
                 },
 
                 onTabletMedia({
+                  display: 'block',
+                  gridArea: 'filter',
+                  maxHeight: '66vh',
+                  // minWidth: base160,
+
+                  overflow: 'scroll',
+                  borderRadius: `0 ${s1} ${s1} 0`,
+
                   position: 'sticky',
                   placeSelf: 'start',
                   padding: s1,
@@ -197,13 +273,23 @@ function BooksPage({ data }) {
                     >
                       <AccordionItemHeading>
                         <AccordionItemButton
-                          css={{
-                            padding: `${s1} 0`,
-                            minHeight: MIN_TOUCH_SIZE,
-                            // backgroundColor: PRIMARY40,
-                          }}
+                          css={[
+                            {
+                              ...flex('row'),
+                              alignItems: 'center',
+                              padding: `${s1} ${s05}`,
+                              minHeight: MIN_TOUCH_SIZE,
+                            },
+                            onTabletMedia({
+                              padding: `${s1} 0`,
+                            }),
+                          ]}
                         >
                           {tagType.name.replace('_', ' ')}
+                          <Icon
+                            name={tagType.name}
+                            css={{ width: s2, height: s2 }}
+                          />
                         </AccordionItemButton>
                       </AccordionItemHeading>
                       <AccordionItemPanel>
@@ -216,7 +302,7 @@ function BooksPage({ data }) {
                           }}
                         >
                           {tags
-                            // .filter((tag) => tag.books.length > 0)
+                            .filter((tag) => tag.books.length > 0)
                             .filter((tag) => tag.tagType === tagType.name)
                             .map((tag) => {
                               const isChecked = userFilters.some(
@@ -250,53 +336,55 @@ function BooksPage({ data }) {
               )}
             </div>
 
-            <BookList
-              css={[
-                {
-                  listStyle: 'none',
-                  gridArea: 'content',
-                  width: 'max-content',
-                  placeSelf: 'start',
-                },
+            {filteredBooks.length ? (
+              <BookList
+                css={[
+                  {
+                    listStyle: 'none',
+                    gridArea: 'results',
+                    padding: s1,
+                    ...grid({
+                      gridTemplateColumns: '1fr',
+                      gridGap: s1,
+                      placeItems: 'center',
+                    }),
+                  },
 
-                grid({
-                  gridTemplateColumns: '1fr 1fr',
-                  gridGap: s1,
-                  placeItems: 'center',
-                }),
+                  onTabletMedia({
+                    gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
+                    width: 'max-content',
+                    placeSelf: 'start',
 
-                onTabletMedia({
-                  padding: s1,
-                  width: '100%',
-                  gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
-                  // placeItems: 'end center',
-                }),
-              ]}
-            >
-              {filteredBooks.length > 0 ? (
-                filteredBooks.map((book) => {
+                    padding: s1,
+                    width: '100%',
+                  }),
+                ]}
+              >
+                {filteredBooks.map((book) => {
                   return (
                     <BookCover book={book}>
                       <Heading level={4}>{book.title}</Heading>
                     </BookCover>
                   );
-                })
-              ) : (
-                <>
+                })}
+              </BookList>
+            ) : (
+              <Container css={{ gridArea: 'results' }}>
+                <p>
                   {`Sorry, we don't have books under: ${userFilters
                     .map(({ title }) => title)
                     .join(', ')}`}
-                  <SecondaryButton
-                    onClick={() => {
-                      setUserFilters([]);
-                      setFilteredBooks(booksLookup);
-                    }}
-                  >
-                    Clear All Filters
-                  </SecondaryButton>
-                </>
-              )}
-            </BookList>
+                </p>
+                <SecondaryButton
+                  onClick={() => {
+                    setUserFilters([]);
+                    setFilteredBooks(booksLookup);
+                  }}
+                >
+                  Clear All Filters
+                </SecondaryButton>
+              </Container>
+            )}
           </Section>
         </main>
 
@@ -326,7 +414,7 @@ export const query = graphql`
       }
     }
 
-    allGraphCmsBook {
+    allGraphCmsBook(sort: { fields: updatedAt, order: DESC }) {
       nodes {
         id
         title
