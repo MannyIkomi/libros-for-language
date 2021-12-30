@@ -14,6 +14,9 @@ import {
   boxShadowLg,
   COMPLIMENT,
   s2,
+  flex,
+  colors,
+  PRIMARY,
 } from '../styles';
 import { GlobalLayout } from '../components/GlobalLayout';
 import { MainMenu } from '../components/MainMenu';
@@ -40,9 +43,14 @@ function TagListingTemplate(props) {
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>
-            <Container css={{ alignItems: 'flex-start' }}>
+            <Container
+              css={{
+                ...flex('row', { alignItems: 'center' }),
+                color: PRIMARY,
+              }}
+            >
               <Heading level={1}>{pluralize.plural(pageContext.title)}</Heading>{' '}
-              <Icon NAME={pageContext.title} />
+              <Icon name={pageContext.type} />
             </Container>
             {tags.map((tag) => {
               const { title, books, id, tagType, slug, definition } = tag;
