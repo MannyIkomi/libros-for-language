@@ -2,43 +2,29 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
 import { jsx } from '@emotion/react';
-import {
-  notoSerif,
-  PRIMARY,
-  s1,
-  COMPLIMENT80,
-  base160,
-  base320,
-  secondaryActionStyle,
-  tertiaryActionStyle,
-  COMPLIMENT20,
-  s025,
-  onTabletMedia,
-  flex,
-  grid,
-  s0125,
-  boxShadowLg,
-  base16,
-  PRIMARY40,
-  COMPLIMENT40,
-  s2,
-  PRIMARY20,
-  boxShadow,
-} from '../styles';
-import { Heading } from '../components/Heading';
+
+import { onTabletMedia, grid, WHITE } from '../styles';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
-import { DebugData } from '../components/DebugData';
 
-import { Link, PrimaryLink, TertiaryLink } from '../components/Link';
+import {
+  Link,
+  PrimaryLink,
+  SecondaryLink,
+  TertiaryLink,
+  d,
+} from '../components/Link';
 
 import { GlobalLayout } from '../components/GlobalLayout';
 
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
+import { List } from '../components/List';
+import RichText from '../components/RichText';
+import { Heading } from '../components/Heading';
 
 function ResourcesPage({ data }) {
-  const typologies = data.allGraphCmsTag.nodes;
+  const resources = data.allGraphCmsResource.nodes;
 
   return (
     <>
@@ -67,9 +53,33 @@ function ResourcesPage({ data }) {
                 }),
               }),
             ]}
+            z
           >
             <Container css={{ gridArea: 'title', alignItems: 'start' }}>
               <h1>Translanguaging Resources</h1>
+            </Container>
+            <Container>
+              <List css={{ listStyle: 'none' }}>
+                {resources.map((resource) => {
+                  const { description, attribution, url } = resource;
+                  return (
+                    <div css={{}}>
+                      <Link to={resource?.url}>
+                        <Heading level={2}>{resource.title}</Heading>
+                      </Link>
+                      {attribution && <span>by {attribution}</span>}
+                      {/* {description && <RichText html={description.html} />} */}
+                      {description?.html && (
+                        <RichText html={description.html} />
+                      )}
+
+                      <SecondaryLink to={url} css={{ color: WHITE }}>
+                        {new URL(url).host}
+                      </SecondaryLink>
+                    </div>
+                  );
+                })}
+              </List>
             </Container>
           </Section>
         </main>
@@ -81,11 +91,14 @@ function ResourcesPage({ data }) {
 
 export const query = graphql`
   query ResourcesPageQuery {
-    allGraphCmsTag(filter: { tagType: { eq: Typology } }) {
+    allGraphCmsResource(sort: { fields: updatedAt, order: DESC }) {
       nodes {
+        attribution
         title
-        definition
-        description
+        description {
+          html
+        }
+        url
       }
     }
   }
