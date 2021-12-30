@@ -31,6 +31,7 @@ import {
   notoMono,
   COMPLIMENT40,
   BLACK,
+  p,
 } from '../styles';
 import { TagList } from '../components/TagList';
 import { Container, TextContainer } from '../components/Container';
@@ -210,8 +211,7 @@ function BookTemplate({ data }) {
                         >
                           {typology.title}
                         </span>
-                        <br />
-                        {typology.definition}
+                        {typology.definition && <p>{typology.definition}</p>}
                       </div>
                     </Link>
                   );

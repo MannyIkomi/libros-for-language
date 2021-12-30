@@ -24,6 +24,7 @@ export const h1 = {
   fontSize: '2.488rem',
   lineHeight: '1.2',
   fontWeight: '300',
+  marginTop: 0,
   marginBottom: s1,
   color: PRIMARY,
 };
