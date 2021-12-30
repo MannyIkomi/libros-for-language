@@ -6,7 +6,35 @@ fragment Resource on Resource {
   publishedAt
   title
   attribution
-  description
+  url
+  description {
+    ... on ResourceDescriptionRichText {
+      raw
+      json
+      html
+      markdown
+      text
+      references {
+        ... on Asset {
+          remoteTypeName: __typename
+          remoteId: id
+          locale
+          stage
+        }
+        ... on Book {
+          remoteTypeName: __typename
+          remoteId: id
+          stage
+        }
+        ... on Resource {
+          remoteTypeName: __typename
+          remoteId: id
+          stage
+        }
+      }
+    }
+  }
+  markdownDescription
   createdBy {
     ... on User {
       remoteTypeName: __typename

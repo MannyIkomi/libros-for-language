@@ -6,7 +6,39 @@ fragment Tag on Tag {
   publishedAt
   title
   definition
-  description
+  details {
+    ... on TagDetailsRichText {
+      raw
+      json
+      html
+      markdown
+      text
+      references {
+        ... on Asset {
+          remoteTypeName: __typename
+          remoteId: id
+          locale
+          stage
+        }
+        ... on Book {
+          remoteTypeName: __typename
+          remoteId: id
+          stage
+        }
+        ... on Resource {
+          remoteTypeName: __typename
+          remoteId: id
+          stage
+        }
+        ... on Tag {
+          remoteTypeName: __typename
+          remoteId: id
+          stage
+        }
+      }
+    }
+  }
+  markdownDescription
   slug
   createdBy {
     ... on User {
