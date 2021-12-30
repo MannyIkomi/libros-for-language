@@ -400,7 +400,6 @@ export const query = graphql`
       tags {
         title
         definition
-        description
         slug
         tagType
       }
