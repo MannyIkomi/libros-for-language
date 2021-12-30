@@ -12,6 +12,7 @@ import {
   AccordionItemHeading,
   AccordionItemButton,
   AccordionItemPanel,
+  AccordionItemState,
 } from 'react-accessible-accordion';
 
 import {
@@ -32,6 +33,7 @@ import {
   s00625,
   base160,
   s2,
+  base24,
 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
@@ -51,6 +53,7 @@ import { BookList } from '../components/BookList';
 import FilterActive from '../icons/FilterActive';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import Icon from '../icons/Icons';
+import MenuDownTriangle, { MenuTriangle } from '../icons/MenuTriangle';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -97,7 +100,6 @@ function FilterTagCheckField(props) {
     </div>
   );
 }
-
 function BooksPage({ data }) {
   const tagTypes = data.tagTypes.enumValues;
   const tags = data.allGraphCmsTag.nodes;
@@ -277,6 +279,8 @@ function BooksPage({ data }) {
                             {
                               ...flex('row'),
                               alignItems: 'center',
+                              justifyContent: 'space-between',
+
                               padding: `${s1} ${s05}`,
                               minHeight: MIN_TOUCH_SIZE,
                             },
@@ -285,11 +289,16 @@ function BooksPage({ data }) {
                             }),
                           ]}
                         >
-                          {tagType.name.replace('_', ' ')}
-                          <Icon
-                            name={tagType.name}
-                            css={{ width: s2, height: s2 }}
-                          />
+                          <div css={{ ...flex('row'), alignItems: 'center' }}>
+                            <Icon
+                              name={tagType.name}
+                              css={{ width: base24, height: base24 }}
+                            />
+                            {tagType.name.replace('_', ' ')}
+                          </div>
+                          <AccordionItemState>
+                            {({ expanded }) => <MenuTriangle open={expanded} />}
+                          </AccordionItemState>
                         </AccordionItemButton>
                       </AccordionItemHeading>
                       <AccordionItemPanel>
