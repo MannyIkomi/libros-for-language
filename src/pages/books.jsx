@@ -50,7 +50,7 @@ import { FilterTag } from '../components/Tag';
 import { BookList } from '../components/BookList';
 import FilterActive from '../icons/FilterActive';
 import useToggleSwitch from '../hooks/useToggleSwitch';
-import Icon from '../components/Icons';
+import Icon from '../icons/Icons';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -383,6 +383,7 @@ function BooksPage({ data }) {
                 >
                   Clear All Filters
                 </SecondaryButton>
+                {/* suggestion form */}
               </Container>
             )}
           </Section>

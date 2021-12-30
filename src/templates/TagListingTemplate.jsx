@@ -27,7 +27,7 @@ import { BookList } from '../components/BookList';
 import { SecondaryButton } from '../components/Button';
 import { SecondaryLink } from '../components/Link';
 import { slugify } from '../utils/slugify';
-import { Icon } from '../components/Icons';
+import { Icon } from '../icons/Icons';
 
 const MAX_BOOK_DISPLAY_AMOUNT = 4;
 

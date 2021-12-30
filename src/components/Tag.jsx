@@ -22,7 +22,12 @@ import {
   COMPLIMENT20,
 } from '../styles';
 import { boxShadowLg } from '../styles/shadow';
-import { GenreIcon, LanguageIcon, TextStructureIcon, TopicIcon } from './Icons';
+import {
+  GenreIcon,
+  LanguageIcon,
+  TextStructureIcon,
+  TopicIcon,
+} from '../icons/Icons';
 
 export const Tag = (props) => {
   const { textColor, background, children, label, css } = props;
