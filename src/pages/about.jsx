@@ -7,30 +7,24 @@ import {
   PRIMARY,
   s1,
   COMPLIMENT80,
-  base160,
   base320,
   secondaryActionStyle,
   tertiaryActionStyle,
   COMPLIMENT20,
-  s025,
   onTabletMedia,
-  flex,
   grid,
   s0125,
   boxShadowLg,
   base16,
-  PRIMARY40,
   COMPLIMENT40,
   s2,
-  PRIMARY20,
-  boxShadow,
 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
 import { DebugData } from '../components/DebugData';
 
-import { Link, PrimaryLink, TertiaryLink } from '../components/Link';
+import { Link, PrimaryLink } from '../components/Link';
 
 import { GlobalLayout } from '../components/GlobalLayout';
 
@@ -40,125 +34,7 @@ import { Section } from '../components/Section';
 import ALALogo from '../images/ALA-Logo.png';
 import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
-
-function TeamMemberBio(props) {
-  const {
-    id,
-    portrait,
-    name,
-    firstName,
-    role,
-    description,
-    webLink,
-    webLinkLabel,
-
-    ...other
-  } = props;
-
-  return (
-    <Container
-      key={id}
-      css={[
-        {
-          ...flex('column', {
-            alignItems: 'flex-start',
-          }),
-          width: '100%',
-          padding: s1,
-
-          background: PRIMARY20,
-          borderRadius: `${s025}`,
-          ...boxShadow,
-        },
-      ]}
-      {...other}
-    >
-      <div
-        css={[
-          {
-            ...grid({
-              gridTemplateColumns: 'max-content 1fr',
-              gridTemplateRows: '1fr min-content',
-              gridColumnGap: s1,
-              placeItems: 'end start',
-            }),
-          },
-        ]}
-      >
-        {portrait ? (
-          <div
-            css={{
-              borderRadius: '100%',
-              overflow: 'hidden',
-
-              gridColumn: '1 / 2',
-              gridRow: '1 / 3',
-            }}
-          >
-            <img
-              src={portrait?.url}
-              width={portrait?.width}
-              height={portrait?.height}
-              // loading="eager"
-              alt={portrait?.altDescription || `Portrait of ${name}`}
-              css={{
-                display: 'block',
-                width: '100%',
-                height: 'auto',
-                aspectRatio: `${portrait?.width} / ${portrait?.height}`,
-
-                maxWidth: base160,
-                maxHeight: base160,
-              }}
-            />
-          </div>
-        ) : (
-          <div
-            css={{
-              display: 'block',
-              width: base160,
-              height: base160,
-
-              borderRadius: '100%',
-              overflow: 'hidden',
-
-              backgroundColor: PRIMARY40,
-            }}
-          ></div>
-        )}
-
-        <Heading level={3} css={{ gridColumn: '2 / -1', margin: '0' }}>
-          {name}
-        </Heading>
-
-        {role && (
-          <TextContainer css={{ gridColumn: '2 / -1' }}>
-            <p css={{ margin: '0' }}>
-              <strong>{role}</strong>
-            </p>
-          </TextContainer>
-        )}
-      </div>
-      {description && (
-        <TextContainer>
-          <p>{description}</p>
-          {webLink && (
-            <p>
-              Learn more about {firstName}:{' '}
-              {webLinkLabel ? (
-                <TertiaryLink to={webLink}>{webLinkLabel}</TertiaryLink>
-              ) : (
-                <TertiaryLink to={webLink}>
-                  {new URL(webLink).host}
-                </TertiaryLink>
-              )}
-            </p>
-          )}
-        </TextContainer>
-      )}
-    </Container>
-  );
-}
+import { TeamMemberBio } from '../components/TeamMemberBio';
 
 function AboutPage({ data }) {
   const teamMembers = data.allGraphCmsTeamMember.nodes;
@@ -236,6 +112,9 @@ function AboutPage({ data }) {
                   academic goals.
                 </p>
               </TextContainer>
+              <PrimaryLink to={'/typology'}>
+                Learn About our Typology
+              </PrimaryLink>
             </Container>
           </Section>
 
