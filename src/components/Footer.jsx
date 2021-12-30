@@ -55,8 +55,23 @@ export function Footer() {
             );
           })}
 
-          <NavigationLink to={navigation.about.path} css={{ color: WHITE }}>
+          <NavigationLink
+            css={{ color: PRIMARY_WHITE }}
+            to={navigation.about.path}
+          >
             {navigation.about.title}
+          </NavigationLink>
+          <NavigationLink
+            css={{ color: PRIMARY_WHITE }}
+            to={navigation.typology.path}
+          >
+            {navigation.typology.title}
+          </NavigationLink>
+          <NavigationLink
+            css={{ color: PRIMARY_WHITE }}
+            to={navigation.resources.path}
+          >
+            {navigation.resources.title}
           </NavigationLink>
         </List>
         <p css={{ color: PRIMARY20, fontSize: s075 }}>
