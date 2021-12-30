@@ -198,7 +198,7 @@ function BooksPage({ data }) {
               ]}
             >
               <FilterActive active={userFilters.length > 0} />
-              <span css={{ fontSize: s05 }}>Filter Menu</span>
+              <span css={{ fontSize: s05 }}>Filter</span>
             </button>
             {userFilters.length > 0 && (
               <Container
