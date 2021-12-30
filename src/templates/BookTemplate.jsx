@@ -193,7 +193,7 @@ function BookTemplate({ data }) {
                 {typologies.map((typology) => {
                   return (
                     <Link
-                      to={`/tags/${slugify(typology.tagType)}s/${
+                      to={`/tags/${slugify(pluralize(typology.tagType))}/${
                         typology.slug
                       }`}
                     >
