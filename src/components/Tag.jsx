@@ -24,6 +24,7 @@ import {
 import { boxShadowLg } from '../styles/shadow';
 import {
   GenreIcon,
+  GradeIcon,
   LanguageIcon,
   TextStructureIcon,
   TopicIcon,
@@ -50,7 +51,7 @@ export const Tag = (props) => {
           minHeight: MIN_TOUCH_SIZE,
           // width: '100%',
           // maxWidth: 'min-content',
-          maxWidth: base160,
+          // maxWidth: base160,
 
           padding: `${s0125} ${s05}`,
           color: textColor ?? WHITE,
@@ -66,22 +67,27 @@ export const Tag = (props) => {
 };
 
 export const TopicTag = (props) => (
-  <Tag textColor={BLACK} background={PRIMARY40}>
+  <Tag textColor={PRIMARY} background={PRIMARY40}>
     <TopicIcon css={{ width: s2, height: s2 }} /> {props.children}
   </Tag>
 );
 export const GenreTag = (props) => (
-  <Tag textColor={BLACK} background={PRIMARY40}>
+  <Tag textColor={PRIMARY} background={PRIMARY40}>
     <GenreIcon css={{ width: s2, height: s2 }} /> {props.children}
   </Tag>
 );
+export const GradeLevelTag = (props) => (
+  <Tag textColor={PRIMARY} background={PRIMARY40}>
+    <GradeIcon css={{ width: s2, height: s2 }} /> {props.children}
+  </Tag>
+);
 export const LanguageTag = (props) => (
-  <Tag textColor={BLACK} background={PRIMARY40}>
+  <Tag textColor={PRIMARY} background={PRIMARY40}>
     <LanguageIcon css={{ width: s2, height: s2 }} /> {props.children}
   </Tag>
 );
 export const TextStructureTag = (props) => (
-  <Tag textColor={BLACK} background={PRIMARY40}>
+  <Tag textColor={PRIMARY} background={PRIMARY40}>
     <TextStructureIcon css={{ width: s2, height: s2 }} /> {props.children}
   </Tag>
 );
