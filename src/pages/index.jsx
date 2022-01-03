@@ -137,7 +137,21 @@ function IndexPage({ data }) {
                     </li>
                   ))}
                 </ul>
+          <Section>
+            <Container>
+              <TextContainer>
+                <Heading level={3}>
+                  Libros for Language is a digital library designed to support
+                  teachers in finding and using translanguaging books.
+                </Heading>
+                <p>
+                  The books on this site are examples of authors and
+                  illustratorswho incorporate LOTE (Languages Other Than
+                  English) in their work, just as all multilingual people do in
+                  their daily lives.
+                </p>
               </TextContainer>
+              <SecondaryLink to={'/about'}>Learn More</SecondaryLink>
             </Container>
           </Section>
         </main>
