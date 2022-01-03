@@ -38,7 +38,6 @@ fragment Tag on Tag {
       }
     }
   }
-  markdownDescription
   slug
   createdBy {
     ... on User {
