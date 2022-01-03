@@ -23,6 +23,7 @@ import { MenuIcon } from './MenuIcon';
 import { List } from './List';
 import { Link } from './Link';
 import { Button } from './Button';
+import { HorizontalRule } from './HorizontalRule';
 
 export function MainMenu() {
   const { navigation } = useContext(GlobalContext);
@@ -93,6 +94,7 @@ export function MainMenu() {
             {navigation.books.title}
           </NavigationLink>
 
+          <HorizontalRule />
           {navigation.tags.map((c) => {
             return (
               <NavigationLink
@@ -104,14 +106,25 @@ export function MainMenu() {
               </NavigationLink>
             );
           })}
+          <HorizontalRule />
           <NavigationLink
             css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
             to={navigation.about.path}
           >
             {navigation.about.title}
           </NavigationLink>
-
-          {/* <a to={'/resources'}>Resources</a> */}
+          <NavigationLink
+            css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
+            to={navigation.typology.path}
+          >
+            {navigation.typology.title}
+          </NavigationLink>
+          <NavigationLink
+            css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
+            to={navigation.resources.path}
+          >
+            {navigation.resources.title}
+          </NavigationLink>
         </List>
       </div>
       {/* </div> */}

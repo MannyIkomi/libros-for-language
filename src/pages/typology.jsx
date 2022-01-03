@@ -36,6 +36,7 @@ import { GlobalLayout } from '../components/GlobalLayout';
 
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
+import RichText from '../components/RichText';
 
 function TypologyPage({ data }) {
   const typologies = data.allGraphCmsTag.nodes;
@@ -70,6 +71,17 @@ function TypologyPage({ data }) {
           >
             <Container css={{ gridArea: 'title', alignItems: 'start' }}>
               <h1>Translanguaging Typology</h1>
+              <p>
+                As we built the site and analyzed high-quality picture books, we
+                noticed that there was variety in the ways authors and
+                illustrators used translanguaging while they wrote and created
+                their visuals. We created a typology that outlines some of these
+                differences. By more closely analyzing the specific ways
+                translanguaging can happen in books, we hope teachers can create
+                a more detailed plan for how to discuss with students the
+                linguistic choices authors make and the ways students can shape
+                and craft their own multilingual writing.
+              </p>
             </Container>
             <Container
               css={[
@@ -82,9 +94,9 @@ function TypologyPage({ data }) {
               ]}
             >
               {typologies
-                .filter((term) => term.description)
+                .filter((term) => term.definition)
                 .map((term) => {
-                  const { title, description, definition } = term;
+                  const { title, details, definition } = term;
                   return (
                     <TextContainer
                       key={title}
@@ -97,8 +109,8 @@ function TypologyPage({ data }) {
                     >
                       <h2>{title}</h2>
                       {definition && <p>{definition}</p>}
+                      {details && <RichText html={details.html} />}
 
-                      {description && <p>{description}</p>}
                       {/* snippet example */}
                       {/* book where snippet is from */}
                     </TextContainer>
@@ -119,7 +131,9 @@ export const query = graphql`
       nodes {
         title
         definition
-        description
+        details {
+          html
+        }
       }
     }
   }

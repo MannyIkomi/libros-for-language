@@ -110,7 +110,10 @@ export const query = graphql`
         title
         slug
         tags {
-          description
+          definition
+          # details {
+          #   html
+          # }
           title
         }
         bookCover {

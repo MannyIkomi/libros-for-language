@@ -82,11 +82,17 @@ export const GlobalLayout = ({ htmlHead, children }) => {
                 title: 'All Books',
                 path: `/${slugify('books')}`,
               },
+              typology: {
+                title: 'Typology Definitions',
+                path: `/${slugify('typology')}`,
+              },
+
               tags: globalData.tags.enumValues.map((enumerator) => ({
                 title: `by ${enumerator.name.replace('_', ' ')}`,
                 path: `/tags/${slugify(pluralize.plural(enumerator.name))}`,
                 _name: enumerator.name,
               })),
+
               about: {
                 title: 'About',
                 path: `/${slugify('About')}`,

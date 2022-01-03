@@ -67,13 +67,23 @@ export function Footer() {
               </NavigationLink>
             );
           })}
-        </List>
-        <List css={{ listStyle: 'none', gridArea: 'links' }}>
           <NavigationLink
             css={{ color: PRIMARY_WHITE }}
             to={navigation.about.path}
           >
             {navigation.about.title}
+          </NavigationLink>
+          <NavigationLink
+            css={{ color: PRIMARY_WHITE }}
+            to={navigation.typology.path}
+          >
+            {navigation.typology.title}
+          </NavigationLink>
+          <NavigationLink
+            css={{ color: PRIMARY_WHITE }}
+            to={navigation.resources.path}
+          >
+            {navigation.resources.title}
           </NavigationLink>
         </List>
         <p

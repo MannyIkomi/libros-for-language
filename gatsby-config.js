@@ -16,8 +16,11 @@ module.exports = {
         stages: [
           process.env.NODE_ENV === 'development' ? 'DRAFT' : 'PUBLISHED',
         ],
+        buildMarkdownNodes: true,
       },
     },
+    `gatsby-plugin-mdx`,
+
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sharp',

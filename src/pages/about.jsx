@@ -18,13 +18,14 @@ import {
   base16,
   COMPLIMENT40,
   s2,
+  WHITE,
 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
 import { DebugData } from '../components/DebugData';
 
-import { Link, PrimaryLink } from '../components/Link';
+import { Link, PrimaryLink, TertiaryLink } from '../components/Link';
 
 import { GlobalLayout } from '../components/GlobalLayout';
 
@@ -112,9 +113,12 @@ function AboutPage({ data }) {
                   academic goals.
                 </p>
               </TextContainer>
-              <PrimaryLink to={'/typology'}>
+              <PrimaryLink to={'/typology'} css={{ color: WHITE }}>
                 Learn About our Typology
               </PrimaryLink>
+              <TertiaryLink to={'/resources'}>
+                Translanguaging Resources
+              </TertiaryLink>
             </Container>
           </Section>
 
