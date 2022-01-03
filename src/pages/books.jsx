@@ -340,7 +340,7 @@ function BooksPage({ data }) {
                     setFilteredBooks(booksLookup);
                   }}
                 >
-                  Clear All
+                  Clear Filters
                 </SecondaryButton>
               )}
             </div>
@@ -390,7 +390,7 @@ function BooksPage({ data }) {
                     setFilteredBooks(booksLookup);
                   }}
                 >
-                  Clear All Filters
+                  Clear Filters
                 </SecondaryButton>
                 {/* suggestion form */}
               </Container>
