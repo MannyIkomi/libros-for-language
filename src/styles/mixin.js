@@ -1,3 +1,5 @@
+import { s1 } from '.';
+
 export const DESKTOP_VIEWPORT = `1200px`;
 export const TABLET_VIEWPORT = `700px`;
 
@@ -56,7 +58,7 @@ export const grid12Columns = (styles = {}) =>
   supportsGrid(
     grid({
       gridTemplateColumns: 'repeat(12, 1fr)',
-      gridGap: '1rem',
+      gridGap: s1,
       ...styles,
     })
   );

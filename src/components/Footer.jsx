@@ -11,7 +11,10 @@ import {
   WHITE,
   s075,
   PRIMARY_WHITE,
+  onTabletMedia,
+  grid,
 } from '../styles';
+
 import { Logo } from './Logo';
 import { List } from './List';
 import { Container } from './Container';
@@ -32,17 +35,27 @@ export function Footer() {
         color: PRIMARY_WHITE,
       }}
     >
-      <Container css={[flex('column', { alignItems: 'flex-start' })]}>
-        <Link to={'/'}>
+      <Container
+        css={[
+          // flex('column', { alignItems: 'flex-start' }),
+
+          grid({
+            gridTemplateColumns: 'repeat(12, 1fr)',
+            gridTemplateRows: 'min-content 1fr min-content',
+            gridTemplateAreas: `"logo logo . . . . . . . . . ." ". . books books tags tags links links links links links links" "disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer"`,
+          }),
+        ]}
+      >
+        <Link to={'/'} css={{ gridArea: 'logo' }}>
           <Logo css={{ width: s5, color: WHITE, margin: s05 }} />
         </Link>
         <NavigationLink
-          css={{ color: WHITE, textAlign: 'right' }}
+          css={{ color: WHITE, gridArea: 'books' }}
           to={navigation.books.path}
         >
           {navigation.books.title}
         </NavigationLink>
-        <List css={{ listStyle: 'none' }}>
+        <List css={{ listStyle: 'none', gridArea: 'tags' }}>
           {navigation.tags.map((tag) => {
             return (
               <NavigationLink
@@ -54,12 +67,26 @@ export function Footer() {
               </NavigationLink>
             );
           })}
-
-          <NavigationLink to={navigation.about.path} css={{ color: WHITE }}>
+        </List>
+        <List css={{ listStyle: 'none', gridArea: 'links' }}>
+          <NavigationLink
+            css={{ color: PRIMARY_WHITE }}
+            to={navigation.about.path}
+          >
             {navigation.about.title}
           </NavigationLink>
         </List>
-        <p css={{ color: PRIMARY20, fontSize: s075 }}>
+        <p
+          css={[
+            {
+              color: PRIMARY20,
+              fontSize: s075,
+              textAlign: 'center',
+              gridArea: 'disclaimer',
+              placeSelf: 'center',
+            },
+          ]}
+        >
           <Link to="https://www.ala.org/" css={{ color: WHITE }}>
             <small css={{ color: 'inherit' }}>
               Funded by the American Library Association
