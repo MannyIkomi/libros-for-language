@@ -24,6 +24,13 @@ import { NavigationLink } from './NavigationLink';
 
 export function Footer() {
   const { navigation } = useContext(GlobalContext);
+  // const outterTags = navigation.tags.filter();
+  const innerTags = navigation.tags.filter(({ group }) => {
+    return group === 'innerTag';
+  });
+  const outterTags = navigation.tags.filter(({ group }) => {
+    return group === 'outterTag';
+  });
   const thisYear = new Date().getFullYear();
 
   return (
@@ -42,14 +49,19 @@ export function Footer() {
           grid({
             gridTemplateColumns: 'repeat(12, 1fr)',
             gridTemplateRows: 'min-content 1fr min-content',
-            gridTemplateAreas: `"logo logo . . . . . . . . . ." ". . books books tags tags links links links links links links" "disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer"`,
+            gridTemplateAreas: `"logo logo . . . . . . . . . ." ". . contentLinks contentLinks librosLinks librosLinks outterTagGroups outterTagGroups innerTagGroups innerTagGroups links links" "disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer"`,
           }),
         ]}
       >
         <Link to={'/'} css={{ gridArea: 'logo' }}>
           <Logo css={{ width: s5, color: WHITE, margin: s05 }} />
         </Link>
-        <List css={{ listStyle: 'none', gridArea: 'books', gridArea: 'books' }}>
+        <List
+          css={{
+            listStyle: 'none',
+            gridArea: 'contentLinks',
+          }}
+        >
           <NavigationLink css={{ color: WHITE }} to={navigation.books.path}>
             {navigation.books.title}
           </NavigationLink>
@@ -63,6 +75,13 @@ export function Footer() {
           >
             {navigation.authorIllustrator.title}
           </NavigationLink>
+        </List>
+        <List
+          css={{
+            listStyle: 'none',
+            gridArea: 'librosLinks',
+          }}
+        >
           <NavigationLink
             css={{ color: PRIMARY_WHITE }}
             to={navigation.about.path}
@@ -82,8 +101,21 @@ export function Footer() {
             {navigation.resources.title}
           </NavigationLink>
         </List>
-        <List css={{ listStyle: 'none', gridArea: 'tags' }}>
-          {navigation.tags.map((tag) => {
+        <List css={{ listStyle: 'none', gridArea: 'outterTagGroups' }}>
+          {outterTags.map((tag) => {
+            return (
+              <NavigationLink
+                to={tag.path}
+                css={{ color: WHITE }}
+                key={tag._name}
+              >
+                {tag.title}
+              </NavigationLink>
+            );
+          })}
+        </List>
+        <List css={{ listStyle: 'none', gridArea: 'innerTagGroups' }}>
+          {innerTags.map((tag) => {
             return (
               <NavigationLink
                 to={tag.path}

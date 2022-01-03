@@ -90,6 +90,7 @@ export const GlobalLayout = ({ htmlHead, children }) => {
                 title: 'Typology Definitions',
                 path: `/${slugify('typology')}`,
               },
+
               authorIllustrator: {
                 title: 'Authors & Illustrators',
                 path: `/${slugify('authors-illustrators')}`,
@@ -103,11 +104,37 @@ export const GlobalLayout = ({ htmlHead, children }) => {
                 path: `/${slugify('Resources')}`,
               },
 
-              tags: globalData.tags.enumValues.map((enumerator) => ({
-                title: `by ${enumerator.name.replace('_', ' ')}`,
-                path: `/tags/${slugify(pluralize.plural(enumerator.name))}`,
-                _name: enumerator.name,
-              })),
+              tags: globalData.tags.enumValues.map((term) => {
+                const base = {
+                  title: `by ${term.name.replace('_', ' ')}`,
+                  path: `/tags/${slugify(pluralize.plural(term.name))}`,
+                  _name: term.name,
+                };
+
+                switch (term.name) {
+                  case 'Grade':
+                    return {
+                      ...base,
+                      group: 'outterTag',
+                    };
+                  case 'Genre':
+                    return {
+                      ...base,
+                      group: 'outterTag',
+                    };
+                  case 'Language':
+                    return {
+                      ...base,
+                      group: 'outterTag',
+                    };
+
+                  default:
+                    return {
+                      ...base,
+                      group: 'innerTag',
+                    };
+                }
+              }),
             },
           }}
         >
