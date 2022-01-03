@@ -82,17 +82,18 @@ export const GlobalLayout = ({ htmlHead, children }) => {
                 title: 'All Books',
                 path: `/${slugify('books')}`,
               },
+              allTags: {
+                title: 'All Tags',
+                path: `/${slugify('tags')}`,
+              },
               typology: {
                 title: 'Typology Definitions',
                 path: `/${slugify('typology')}`,
               },
-
-              tags: globalData.tags.enumValues.map((enumerator) => ({
-                title: `by ${enumerator.name.replace('_', ' ')}`,
-                path: `/tags/${slugify(pluralize.plural(enumerator.name))}`,
-                _name: enumerator.name,
-              })),
-
+              authorIllustrator: {
+                title: 'Authors & Illustrators',
+                path: `/${slugify('authors-illustrators')}`,
+              },
               about: {
                 title: 'About',
                 path: `/${slugify('About')}`,
@@ -101,6 +102,12 @@ export const GlobalLayout = ({ htmlHead, children }) => {
                 title: 'Resources',
                 path: `/${slugify('Resources')}`,
               },
+
+              tags: globalData.tags.enumValues.map((enumerator) => ({
+                title: `by ${enumerator.name.replace('_', ' ')}`,
+                path: `/tags/${slugify(pluralize.plural(enumerator.name))}`,
+                _name: enumerator.name,
+              })),
             },
           }}
         >

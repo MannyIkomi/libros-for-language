@@ -25,15 +25,13 @@ import { MonoFontLink } from '../components/MonoFontLink';
 import { TagList } from '../components/TagList';
 import { TagGroup } from '../components/TagGroup';
 
-function BrowsePage({ data }) {
-  const authors = data.allGraphCmsAuthor.nodes;
-  const illustrators = data.allGraphCmsIllustrator.nodes;
-
+function TagsPage({ data }) {
   const topics = data.allGraphCmsTopic.nodes;
   const genres = data.allGraphCmsGenre.nodes;
   const grades = data.allGraphCmsGrade.nodes;
   const languages = data.allGraphCmsLanguage.nodes;
   const textStructures = data.allGraphCmsTextStructure.nodes;
+  const typologies = data.allGraphCmsTypology.nodes;
   console.log(data);
 
   return (
@@ -76,8 +74,28 @@ function BrowsePage({ data }) {
 
                 <TagList>
                   {languages.map((language) => (
-                    <MonoFontLink to={`tags/languages/${language.slug}`}>
+                    <MonoFontLink to={`/tags/languages/${language.slug}`}>
                       {language.title}
+                    </MonoFontLink>
+                  ))}
+                </TagList>
+              </TagGroup>
+
+              <TagGroup
+                background={PRIMARY20}
+                css={[
+                  { color: BLACK },
+                  onTabletMedia({ gridColumn: `1 / -1` }),
+                ]}
+              >
+                <Heading level={2} css={{ color: BLACK }}>
+                  Typology
+                </Heading>
+
+                <TagList>
+                  {typologies.map((term) => (
+                    <MonoFontLink to={`/tags/typologies/${term.slug}`}>
+                      {term.title}
                     </MonoFontLink>
                   ))}
                 </TagList>
@@ -93,7 +111,7 @@ function BrowsePage({ data }) {
 
                 <TagList>
                   {genres.map((genre) => (
-                    <MonoFontLink to={`tags/genres/${genre.slug}`}>
+                    <MonoFontLink to={`/tags/genres/${genre.slug}`}>
                       {genre.title}
                     </MonoFontLink>
                   ))}
@@ -105,12 +123,14 @@ function BrowsePage({ data }) {
                 css={[onTabletMedia({ gridColumn: '5 / 9' })]}
               >
                 <Heading level={2} css={{ color: BLACK }}>
-                  Text Structures
+                  Text Structure
                 </Heading>
 
                 <TagList>
                   {textStructures.map((structure) => (
-                    <MonoFontLink to={`tags/text-structures/${structure.slug}`}>
+                    <MonoFontLink
+                      to={`/tags/text-structures/${structure.slug}`}
+                    >
                       {structure.title}
                     </MonoFontLink>
                   ))}
@@ -127,7 +147,7 @@ function BrowsePage({ data }) {
 
                 <TagList>
                   {grades.map((grade) => (
-                    <MonoFontLink to={`tags/grades/${grade.slug}`}>
+                    <MonoFontLink to={`/tags/grades/${grade.slug}`}>
                       {grade.title}
                     </MonoFontLink>
                   ))}
@@ -135,7 +155,7 @@ function BrowsePage({ data }) {
               </TagGroup>
 
               <TagGroup
-                background={COMPLIMENT20}
+                background={PRIMARY20}
                 css={[onTabletMedia({ gridColumn: '1 / -1' })]}
               >
                 <Heading level={2} css={{ color: BLACK }}>
@@ -143,41 +163,8 @@ function BrowsePage({ data }) {
                 </Heading>
                 <TagList>
                   {topics.map((topic) => (
-                    <MonoFontLink to={`tags/topics/${topic.slug}`}>
+                    <MonoFontLink to={`/tags/topics/${topic.slug}`}>
                       {topic.title}
-                    </MonoFontLink>
-                  ))}
-                </TagList>
-              </TagGroup>
-
-              <TagGroup
-                background={COMPLIMENT20}
-                css={[onTabletMedia({ gridColumn: '1 / 7' })]}
-              >
-                <Heading level={2} css={{ color: BLACK }}>
-                  Authors
-                </Heading>
-
-                <TagList>
-                  {authors.map((author) => (
-                    <MonoFontLink to={`tags/authors/${author.slug}`}>
-                      {author.name}
-                    </MonoFontLink>
-                  ))}
-                </TagList>
-              </TagGroup>
-              <TagGroup
-                background={COMPLIMENT20}
-                css={[onTabletMedia({ gridColumn: '7 / -1' })]}
-              >
-                <Heading level={2} css={{ color: BLACK }}>
-                  Illustrators
-                </Heading>
-
-                <TagList>
-                  {illustrators.map((illustrator) => (
-                    <MonoFontLink to={`tags/illustrators/${illustrator.slug}`}>
-                      {illustrator.name}
                     </MonoFontLink>
                   ))}
                 </TagList>
@@ -193,7 +180,7 @@ function BrowsePage({ data }) {
 }
 
 export const query = graphql`
-  query BrowsePageQuery {
+  query TagPageQuery {
     categoryNames: __type(name: "GraphCMS_TagType") {
       enumValues {
         name
@@ -238,6 +225,13 @@ export const query = graphql`
         tagType
       }
     }
+    allGraphCmsTypology: allGraphCmsTag(filter: { tagType: { eq: Typology } }) {
+      nodes {
+        title
+        slug
+        tagType
+      }
+    }
 
     allGraphCmsTopic: allGraphCmsTag(filter: { tagType: { eq: Topic } }) {
       nodes {
@@ -246,31 +240,7 @@ export const query = graphql`
         tagType
       }
     }
-
-    allGraphCmsAuthor: allGraphCmsContributor(
-      filter: { type: { eq: Author } }
-      sort: { order: ASC, fields: lastName }
-    ) {
-      nodes {
-        slug
-        name
-        lastName
-        type
-      }
-    }
-
-    allGraphCmsIllustrator: allGraphCmsContributor(
-      filter: { type: { eq: Illustrator } }
-      sort: { order: ASC, fields: lastName }
-    ) {
-      nodes {
-        slug
-        name
-        lastName
-        type
-      }
-    }
   }
 `;
 
-export default BrowsePage;
+export default TagsPage;

@@ -49,24 +49,20 @@ export function Footer() {
         <Link to={'/'} css={{ gridArea: 'logo' }}>
           <Logo css={{ width: s5, color: WHITE, margin: s05 }} />
         </Link>
-        <NavigationLink
-          css={{ color: WHITE, gridArea: 'books' }}
-          to={navigation.books.path}
-        >
-          {navigation.books.title}
-        </NavigationLink>
-        <List css={{ listStyle: 'none', gridArea: 'tags' }}>
-          {navigation.tags.map((tag) => {
-            return (
-              <NavigationLink
-                to={tag.path}
-                css={{ color: WHITE }}
-                key={tag._name}
-              >
-                {tag.title}
-              </NavigationLink>
-            );
-          })}
+        <List css={{ listStyle: 'none', gridArea: 'books', gridArea: 'books' }}>
+          <NavigationLink css={{ color: WHITE }} to={navigation.books.path}>
+            {navigation.books.title}
+          </NavigationLink>
+
+          <NavigationLink css={{ color: WHITE }} to={navigation.allTags.path}>
+            {navigation.allTags.title}
+          </NavigationLink>
+          <NavigationLink
+            css={{ color: WHITE }}
+            to={navigation.authorIllustrator.path}
+          >
+            {navigation.authorIllustrator.title}
+          </NavigationLink>
           <NavigationLink
             css={{ color: PRIMARY_WHITE }}
             to={navigation.about.path}
@@ -85,6 +81,19 @@ export function Footer() {
           >
             {navigation.resources.title}
           </NavigationLink>
+        </List>
+        <List css={{ listStyle: 'none', gridArea: 'tags' }}>
+          {navigation.tags.map((tag) => {
+            return (
+              <NavigationLink
+                to={tag.path}
+                css={{ color: WHITE }}
+                key={tag._name}
+              >
+                {tag.title}
+              </NavigationLink>
+            );
+          })}
         </List>
         <p
           css={[

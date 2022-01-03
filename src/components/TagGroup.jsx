@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import { s1, s0125, boxShadowLg, PRIMARY } from '../styles';
+import { s1, s0125, boxShadowLg, PRIMARY, boxShadow } from '../styles';
 
 export const TagGroup = (props) => {
   const { background } = props;
@@ -12,7 +12,7 @@ export const TagGroup = (props) => {
 
         background: background || PRIMARY,
         borderRadius: `${s0125} ${s1}`,
-        ...boxShadowLg,
+        ...boxShadow,
       }}
       {...props}
     >
