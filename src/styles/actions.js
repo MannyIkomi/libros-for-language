@@ -28,7 +28,7 @@ export const primaryActionStyle = [
     minWidth: s3,
     padding: `${s1} ${s2}`,
 
-    color: WHITE,
+    color: `${WHITE} !important`,
     backgroundColor: PRIMARY,
     fontWeight: '700',
     textAlign: 'center',
@@ -54,7 +54,7 @@ export const secondaryActionStyle = [
     minWidth: s3,
     padding: `${s1} ${s2}`,
 
-    color: WHITE,
+    color: `${WHITE} !important`,
     backgroundColor: PRIMARY80,
     fontWeight: '700',
     textAlign: 'center',
