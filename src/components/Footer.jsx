@@ -13,6 +13,7 @@ import {
   PRIMARY_WHITE,
   onTabletMedia,
   grid,
+  onDesktopMedia,
 } from '../styles';
 
 import { Logo } from './Logo';
@@ -37,19 +38,30 @@ export function Footer() {
     <footer
       css={{
         padding: s1,
-        textAlign: 'left',
         backgroundColor: PRIMARY,
         color: PRIMARY_WHITE,
       }}
     >
       <Container
         css={[
-          // flex('column', { alignItems: 'flex-start' }),
-
+          { margin: 'auto' },
           grid({
             gridTemplateColumns: 'repeat(12, 1fr)',
-            gridTemplateRows: 'min-content 1fr min-content',
-            gridTemplateAreas: `"logo logo . . . . . . . . . ." ". . contentLinks contentLinks librosLinks librosLinks outterTagGroups outterTagGroups innerTagGroups innerTagGroups links links" "disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer"`,
+            gridGap: s1,
+            gridTemplateRows: 'min-content 1fr 1fr min-content',
+            gridTemplateAreas: `"logo logo . . . . . . . . . ."
+            "contentLinks contentLinks contentLinks contentLinks contentLinks contentLinks outterTagGroups outterTagGroups outterTagGroups outterTagGroups outterTagGroups outterTagGroups" "librosLinks librosLinks librosLinks librosLinks librosLinks librosLinks innerTagGroups innerTagGroups innerTagGroups innerTagGroups innerTagGroups innerTagGroups" "disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer"`,
+          }),
+          onTabletMedia({
+            gridTemplateAreas: `"logo logo . . . . . . . . . ."
+            ". . contentLinks contentLinks contentLinks contentLinks outterTagGroups outterTagGroups outterTagGroups outterTagGroups . ." ". . librosLinks librosLinks librosLinks librosLinks innerTagGroups innerTagGroups innerTagGroups innerTagGroups . ." "disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer"`,
+          }),
+          onDesktopMedia({
+            ...grid({
+              gridTemplateColumns: 'repeat(12, 1fr)',
+              gridTemplateRows: 'min-content 1fr min-content',
+              gridTemplateAreas: `"logo logo . . . . . . . . . ." ". . contentLinks contentLinks librosLinks librosLinks outterTagGroups outterTagGroups innerTagGroups innerTagGroups links links" "disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer disclaimer"`,
+            }),
           }),
         ]}
       >
@@ -70,7 +82,7 @@ export function Footer() {
             {navigation.allTags.title}
           </NavigationLink>
           <NavigationLink
-            css={{ color: WHITE }}
+            css={{ color: WHITE, whiteSpace: 'normal' }}
             to={navigation.authorIllustrator.path}
           >
             {navigation.authorIllustrator.title}

@@ -87,7 +87,7 @@ export const GlobalLayout = ({ htmlHead, children }) => {
                 path: `/${slugify('tags')}`,
               },
               typology: {
-                title: 'Typology Definitions',
+                title: 'Our Typology',
                 path: `/${slugify('typology')}`,
               },
 
