@@ -12,24 +12,32 @@ import {
   onDesktopMedia,
   WHITE,
   PRIMARY_WHITE,
+  s2,
+  s4,
+  flex,
 } from '../styles';
-import { TopicTag } from '../components/Tag';
+import { GenreTag, TopicTag, GradeLevelTag } from '../components/Tag';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
-import { Link, PrimaryLink } from '../components/Link';
+import { Link, PrimaryLink, SecondaryLink } from '../components/Link';
 import { GlobalLayout } from '../components/GlobalLayout';
 
 import { FeaturedBook } from '../components/FeaturedBook';
 
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
+import { slugify } from '../utils/slugify';
+import pluralize from 'pluralize';
+import { List } from '../components/List';
 
 console.clear();
 
 function IndexPage({ data }) {
   const featuredBooks = data.allGraphCmsBook.nodes;
   const topics = data.allGraphCmsTopic.nodes;
+  const genres = data.allGraphCmsGenre.nodes;
+  const grades = data.allGraphCmsGrade.nodes;
 
   const tagTypes = data.categoryNames.enumValues;
 
@@ -37,7 +45,14 @@ function IndexPage({ data }) {
     <>
       <GlobalLayout>
         <MainMenu />
-        <main css={{ position: 'relative' }}>
+        <main
+          css={{
+            position: 'relative',
+            section: {
+              minHeight: '75vh',
+            },
+          }}
+        >
           <Section
             css={{
               overflow: 'hidden',
@@ -81,10 +96,18 @@ function IndexPage({ data }) {
                 {
                   minHeight: '33vh',
                   marginBottom: `10vh`,
+                  // ...flex('row', {
+                  //   gap: s1,
+                  //   alignItems: 'end',
+                  //   justifyContent: 'center',
+                  // }),
+
                   ...grid({
                     gridTemplateColumns: 'repeat(2, 1fr)',
-                    gridTemplateRows: '1fr',
+
                     placeItems: 'end center',
+                    gridGap: s1,
+                    gridAutoFlow: 'dense',
                   }),
                 },
                 onTabletMedia({
@@ -114,29 +137,76 @@ function IndexPage({ data }) {
           </Section>
 
           <Section>
-            <Container>
+            <Container css={{ gap: s4 }}>
               <TextContainer>
-                <Heading level={2}>Browse by Topics</Heading>
-                <ul
-                  css={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none' }}
+                <Heading level={2}>Browse by Genre</Heading>
+                <List
+                  css={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    listStyle: 'none',
+                    gap: s1,
+                  }}
                 >
-                  {topics.map(({ slug, title }) => (
-                    <li
+                  {genres.map(({ slug, title, tagType }) => (
+                    <Link
                       key={title}
+                      to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
+                      css={{ textDecoration: 'none' }}
+                    >
+                      <GenreTag>{title}</GenreTag>
+                    </Link>
+                  ))}
+                </List>
+              </TextContainer>
+              <TextContainer>
+                <Heading level={2}>Browse by Grade Level</Heading>
+                <List
+                  css={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    listStyle: 'none',
+                    gap: s1,
+                  }}
+                >
+                  {grades.map(({ slug, title, tagType }) => (
+                    <Link
+                      key={title}
+                      to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
                       css={{
-                        marginBottom: s1,
-                        marginRight: s1,
+                        textDecoration: 'none',
                       }}
                     >
-                      <Link
-                        to={`/tags/topics/${slug}`}
-                        css={{ textDecoration: 'none' }}
-                      >
-                        <TopicTag>{title}</TopicTag>
-                      </Link>
-                    </li>
+                      <GradeLevelTag>{title}</GradeLevelTag>
+                    </Link>
                   ))}
-                </ul>
+                </List>
+              </TextContainer>
+              <TextContainer>
+                <Heading level={2}>Browse by Topic</Heading>
+                <List
+                  css={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    listStyle: 'none',
+                    gap: s1,
+                  }}
+                >
+                  {topics.map(({ slug, title, tagType }) => (
+                    <Link
+                      key={title}
+                      to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
+                      css={{
+                        textDecoration: 'none',
+                      }}
+                    >
+                      <TopicTag>{title}</TopicTag>
+                    </Link>
+                  ))}
+                </List>
+              </TextContainer>
+            </Container>
+          </Section>
           <Section>
             <Container>
               <TextContainer>
