@@ -79,11 +79,11 @@ export const GlobalLayout = ({ htmlHead, children }) => {
           value={{
             navigation: {
               books: {
-                title: 'All Books',
+                title: 'Browse Books',
                 path: `/${slugify('books')}`,
               },
               allTags: {
-                title: 'All Tags',
+                title: 'Browse Tags',
                 path: `/${slugify('tags')}`,
               },
               typology: {
