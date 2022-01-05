@@ -180,8 +180,13 @@ function BookTemplate({ data }) {
                   gridArea: 'book-summary',
                 }}
               >
-                <strong level={2}>Publisher Summary</strong>
-                <p>{publisherSummary}</p>
+                <p>
+                  <strong css={{ fontWeight: 'bold' }}>
+                    Publisher Summary
+                  </strong>{' '}
+                  <br />
+                  {publisherSummary}
+                </p>
               </TextContainer>
             )}
             {typologies.length > 0 && (
