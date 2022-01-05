@@ -72,60 +72,96 @@ export function MainMenu() {
         >
           <MenuIcon />
         </Button>
-        <List
+        <div
           id="menuItems"
-          css={{
-            display: toggled ? flex() : 'none',
-            alignItems: 'flex-start',
-            color: PRIMARY_WHITE,
-            backgroundColor: PRIMARY,
-            padding: s1,
+          css={[
+            // toggled ? {display: ...flex()} : {'none'},
+            {
+              display: toggled ? 'flex' : 'none',
+              flexDirection: 'column',
+              alignItems: 'end',
+              gap: s1,
 
-            position: 'absolute',
-            right: 0,
-            top: '100%',
-            listStyle: 'none',
-          }}
+              color: PRIMARY_WHITE,
+              backgroundColor: PRIMARY,
+
+              position: 'absolute',
+              right: 0,
+              top: '100%',
+              listStyle: 'none',
+              padding: s1,
+            },
+          ]}
         >
-          <NavigationLink
-            css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
-            to={navigation.books.path}
-          >
-            {navigation.books.title}
-          </NavigationLink>
+          <List
+            css={{
+              ...flex(),
+              alignItems: 'end',
 
+              color: PRIMARY_WHITE,
+              backgroundColor: PRIMARY,
+
+              listStyle: 'none',
+            }}
+          >
+            <NavigationLink
+              css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
+              to={navigation.books.path}
+            >
+              {navigation.books.title}
+            </NavigationLink>
+            <NavigationLink css={{ color: WHITE }} to={navigation.allTags.path}>
+              {navigation.allTags.title}
+            </NavigationLink>
+            <NavigationLink
+              css={{ color: WHITE, whiteSpace: 'normal' }}
+              to={navigation.authorIllustrator.path}
+            >
+              {navigation.authorIllustrator.title}
+            </NavigationLink>
+          </List>
           <HorizontalRule />
-          {navigation.tags.map((c) => {
-            return (
-              <NavigationLink
-                to={c.path}
-                css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
-                key={c.path}
-              >
-                {c.title}
-              </NavigationLink>
-            );
-          })}
+          <List
+            css={{
+              listStyle: 'none',
+              ...flex(),
+              alignItems: 'end',
+            }}
+          >
+            {navigation.tags.map((c) => {
+              return (
+                <NavigationLink
+                  to={c.path}
+                  // css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
+                  key={c.path}
+                >
+                  {c.title}
+                </NavigationLink>
+              );
+            })}
+          </List>
           <HorizontalRule />
-          <NavigationLink
-            css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
-            to={navigation.about.path}
-          >
-            {navigation.about.title}
-          </NavigationLink>
-          <NavigationLink
-            css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
-            to={navigation.typology.path}
-          >
-            {navigation.typology.title}
-          </NavigationLink>
-          <NavigationLink
-            css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
-            to={navigation.resources.path}
-          >
-            {navigation.resources.title}
-          </NavigationLink>
-        </List>
+          <List css={{ listStyle: 'none', ...flex(), alignItems: 'end' }}>
+            <NavigationLink
+              // css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
+              to={navigation.about.path}
+            >
+              {navigation.about.title}
+            </NavigationLink>
+            <NavigationLink
+              // css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
+              to={navigation.typology.path}
+            >
+              {navigation.typology.title}
+            </NavigationLink>
+            <NavigationLink
+              // css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
+              to={navigation.resources.path}
+            >
+              {navigation.resources.title}
+            </NavigationLink>
+          </List>
+        </div>
       </div>
       {/* </div> */}
     </nav>
