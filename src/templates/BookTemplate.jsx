@@ -32,6 +32,7 @@ import {
   COMPLIMENT40,
   BLACK,
   p,
+  flex,
 } from '../styles';
 import { TagList } from '../components/TagList';
 import { Container, TextContainer } from '../components/Container';
@@ -189,7 +190,14 @@ function BookTemplate({ data }) {
             >
               <Heading level={2}>Translanguaging Typology</Heading>
 
-              <List css={{ listStyle: 'none', color: BLACK }}>
+              <List
+                css={{
+                  ...flex('column'),
+                  listStyle: 'none',
+                  color: BLACK,
+                  gap: s1,
+                }}
+              >
                 {typologies.map((typology) => {
                   return (
                     <Link
