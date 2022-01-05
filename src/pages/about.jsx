@@ -2,24 +2,7 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
 import { jsx } from '@emotion/react';
-import {
-  notoSerif,
-  PRIMARY,
-  s1,
-  COMPLIMENT80,
-  base320,
-  secondaryActionStyle,
-  tertiaryActionStyle,
-  COMPLIMENT20,
-  onTabletMedia,
-  grid,
-  s0125,
-  boxShadowLg,
-  base16,
-  COMPLIMENT40,
-  s2,
-  WHITE,
-} from '../styles';
+import { s1, base320, onTabletMedia, grid, s2, WHITE } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
