@@ -128,7 +128,7 @@ function IndexPage({ data }) {
                   );
                 })
                 .map((book) => {
-                  return <FeaturedBook {...book} />;
+                  return <FeaturedBook {...book} key={book.id} />;
                 })}
             </div>
             <Container css={{ alignSelf: 'center', color: PRIMARY_WHITE }}>

@@ -31,7 +31,7 @@ import {
 } from '../icons/Icons';
 
 export const Tag = (props) => {
-  const { textColor, background, children, label, css } = props;
+  const { textColor, background, children, label } = props;
   return (
     <div
       css={[

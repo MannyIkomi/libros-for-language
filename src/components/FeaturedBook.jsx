@@ -6,7 +6,6 @@ import { Link } from './Link';
 
 export function FeaturedBook(book) {
   const authors = book.authors;
-  console.log(authors);
 
   const maxDimensions = { maxWidth: '20rem', maxHeight: '20rem' };
 
