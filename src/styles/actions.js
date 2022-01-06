@@ -11,6 +11,7 @@ import {
   PRIMARY,
   PRIMARY80,
   base320,
+  s0125,
 } from '.';
 import { boxShadow2xl } from './shadow';
 
@@ -27,6 +28,7 @@ export const primaryActionStyle = [
     minHeight: s3,
     minWidth: s3,
     padding: `${s1} ${s2}`,
+    borderRadius: s0125,
 
     color: `${WHITE} !important`,
     backgroundColor: PRIMARY,
@@ -53,6 +55,7 @@ export const secondaryActionStyle = [
     minHeight: s3,
     minWidth: s3,
     padding: `${s1} ${s2}`,
+    borderRadius: s0125,
 
     color: `${WHITE} !important`,
     backgroundColor: PRIMARY80,
@@ -75,8 +78,8 @@ export const tertiaryActionStyle = [
     }),
 
     minHeight: s3,
-
     padding: `${s1} 0`,
+    borderRadius: s0125,
 
     color: PRIMARY,
 

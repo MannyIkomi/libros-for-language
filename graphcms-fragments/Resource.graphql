@@ -34,7 +34,6 @@ fragment Resource on Resource {
       }
     }
   }
-  markdownDescription
   createdBy {
     ... on User {
       remoteTypeName: __typename

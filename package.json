@@ -29,6 +29,7 @@
     "react-accessible-accordion": "^4.0.0",
     "react-filter-search": "^1.1.11",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.22.5",
     "react-tag-autocomplete": "^6.3.0",
     "react-tag-input": "^6.7.3",
     "swiper": "^7.2.0"

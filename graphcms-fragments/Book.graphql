@@ -7,6 +7,9 @@ fragment Book on Book {
   title
   slug
   publisherSummary
+  epicLink
+  overdriveLink
+  hooplaLink
   featured
   actionLabel
   actionLink
