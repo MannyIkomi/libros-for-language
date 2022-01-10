@@ -162,14 +162,14 @@ function AboutPage({ data }) {
               </TextContainer>
             </Container>
           </Section>
-          <Section>
+          {/* <Section>
             <Container>
               <TextContainer>
                 <Heading level={1}>Contact Us</Heading>
                 <ContactForm />
               </TextContainer>
             </Container>
-          </Section>
+          </Section> */}
         </main>
         <Footer />
       </GlobalLayout>
