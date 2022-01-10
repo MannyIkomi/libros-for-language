@@ -448,7 +448,6 @@ function BookTemplate({ data }) {
               </TextContainer>
             )}
             {/* EDIT SUGGESTION FORM  */}
-            {/* {email, bookTitle, suggestion} */}
             <TextContainer css={{ gridArea: 'metadata' }}>
               <dl
                 css={{
@@ -502,9 +501,9 @@ function BookTemplate({ data }) {
                 )}
               </dl>
             </TextContainer>
-            <TextContainer css={{ gridArea: 'form' }}>
+            {/* <TextContainer css={{ gridArea: 'form' }}>
               <Heading level={3}>Have a Suggestion?</Heading>
-            </TextContainer>
+            </TextContainer> */}
           </Container>
         </Section>
       </main>

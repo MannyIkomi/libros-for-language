@@ -167,12 +167,11 @@ function BooksPage({ data }) {
             <Container
               css={[
                 { gridArea: 'heading' },
-                onTabletMedia({ gridArea: 'heading', placeSelf: 'center' }),
+                onTabletMedia({ gridArea: 'heading' }),
               ]}
             >
               <Heading level={1}>
                 {pluralize('Book', filteredBooks.length, true)}
-                {/* Books ({filteredBooks.length}) */}
               </Heading>
             </Container>
             <button
@@ -353,16 +352,15 @@ function BooksPage({ data }) {
                     gridArea: 'results',
                     padding: s1,
                     ...grid({
-                      gridTemplateColumns: '1fr',
+                      gridTemplateColumns: '1fr 1fr',
                       gridGap: s1,
-                      placeItems: 'center',
+                      placeItems: 'end center',
                     }),
                   },
 
                   onTabletMedia({
-                    gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
+                    gridTemplateColumns: `repeat(auto-fill, minmax(${base320}, 1fr))`,
                     width: 'max-content',
-                    placeSelf: 'start',
 
                     padding: s1,
                     width: '100%',
@@ -372,7 +370,9 @@ function BooksPage({ data }) {
                 {filteredBooks.map((book) => {
                   return (
                     <BookCover book={book}>
-                      <Heading level={4}>{book.title}</Heading>
+                      <Heading level={2} css={{ fontSize: s1 }}>
+                        {book.title}
+                      </Heading>
                     </BookCover>
                   );
                 })}
@@ -392,7 +392,6 @@ function BooksPage({ data }) {
                 >
                   Clear Filters
                 </SecondaryButton>
-                {/* suggestion form */}
               </Container>
             )}
           </Section>
