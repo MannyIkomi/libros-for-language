@@ -33,6 +33,8 @@ import {
   BLACK,
   flex,
   grid,
+  onDesktopMedia,
+  onHover,
 } from '../styles';
 import { TagList } from '../components/TagList';
 import { Container, TextContainer } from '../components/Container';
@@ -255,7 +257,6 @@ function BookTemplate({ data }) {
                   {availabilityLinks
                     .filter(({ link }) => link)
                     .map(({ link, text }) => {
-                      const ICON = `${text}Icon`;
                       function getIcon(text) {
                         switch (text) {
                           case 'Epic':
@@ -266,35 +267,25 @@ function BookTemplate({ data }) {
                             return <OverdriveIcon />;
                           default:
                             throw new Error(
-                              `${text} did not match an availability icon`
+                              `${text} did not match an availability icon.`
                             );
                         }
                       }
                       return (
-                        <Link to={link} key={link}>
+                        <Link
+                          to={link}
+                          key={link}
+                          css={{
+                            ...onHover({
+                              color: COMPLIMENT,
+                            }),
+                          }}
+                        >
                           {getIcon(text)}
                           <HiddenAccessibleText>{text}</HiddenAccessibleText>
                         </Link>
                       );
                     })}
-                  {/* {epicLink && (
-                    <Link to={epicLink}>
-                      <EpicIcon />
-                      <HiddenAccessibleText>Epic</HiddenAccessibleText>
-                    </Link>
-                  )}
-                  {hooplaLink && (
-                    <Link to={hooplaLink}>
-                      <HooplaIcon />
-                      <HiddenAccessibleText>Hoopla</HiddenAccessibleText>
-                    </Link>
-                  )}
-                  {overdriveLink && (
-                    <Link to={overdriveLink}>
-                      <OverdriveIcon />
-                      <HiddenAccessibleText>Overdrive</HiddenAccessibleText>
-                    </Link>
-                  )} */}
                 </List>
               </TextContainer>
             )}
@@ -338,14 +329,14 @@ function BookTemplate({ data }) {
                 // gridTemplateRows: 'min-content auto',
               },
               onTabletMedia({
+                gridTemplateAreas: `"genre textStructure" "grade topic" "language topic" "metadata ." `,
+                gridRowGap: s1,
+                gridColumnGap: s2,
+              }),
+              onDesktopMedia({
+                gridTemplateAreas: `"genre grade language" "textStructure topic topic" "metadata form form"`,
                 gridRowGap: s2,
-                gridAutoColumns: '1fr',
-
                 gridColumnGap: s1,
-
-                // gridTemplateAreas: '"Area"',
-                gridTemplateColumns: '1fr 1fr',
-                gridTemplateRows: 'auto auto',
               }),
             ]}
           >
@@ -354,7 +345,7 @@ function BookTemplate({ data }) {
               <TextContainer
                 id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
                 className="translanguaging"
-                // css={{ gridArea: 'translanguaging-typology' }}
+                css={{ gridArea: 'genre' }}
               >
                 <Heading level={3}>
                   {pluralize.plural(genres[0].tagType.replace('_', ' '))}
@@ -377,7 +368,7 @@ function BookTemplate({ data }) {
               <TextContainer
                 id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
                 className="translanguaging"
-                // css={{ gridArea: 'translanguaging-typology' }}
+                css={{ gridArea: 'textStructure' }}
               >
                 <Heading level={3}>
                   {pluralize.plural(textStructure[0].tagType.replace('_', ' '))}
@@ -399,7 +390,7 @@ function BookTemplate({ data }) {
             )}
 
             {languages.length > 0 && (
-              <TextContainer>
+              <TextContainer css={{ gridArea: 'language' }}>
                 <Heading level={3}>
                   {pluralize.plural(languages[0].tagType.replace('_', ' '))}
                 </Heading>
@@ -420,7 +411,7 @@ function BookTemplate({ data }) {
             )}
 
             {grades.length > 0 && (
-              <TextContainer>
+              <TextContainer css={{ gridArea: 'grade' }}>
                 <Heading level={3}>
                   {pluralize.plural(grades[0].tagType.replace('_', ' '))}
                 </Heading>
@@ -439,7 +430,7 @@ function BookTemplate({ data }) {
             )}
 
             {topics.length > 0 && (
-              <TextContainer>
+              <TextContainer css={{ gridArea: 'topic' }}>
                 <Heading level={3}>
                   {pluralize.plural(topics[0].tagType.replace('_', ' '))}
                 </Heading>
@@ -458,7 +449,7 @@ function BookTemplate({ data }) {
             )}
             {/* EDIT SUGGESTION FORM  */}
             {/* {email, bookTitle, suggestion} */}
-            <TextContainer>
+            <TextContainer css={{ gridArea: 'metadata' }}>
               <dl
                 css={{
                   dd: { fontWeight: 'bold' },
@@ -510,6 +501,9 @@ function BookTemplate({ data }) {
                   </>
                 )}
               </dl>
+            </TextContainer>
+            <TextContainer css={{ gridArea: 'form' }}>
+              <Heading level={3}>Have a Suggestion?</Heading>
             </TextContainer>
           </Container>
         </Section>
