@@ -19,6 +19,7 @@ import ALALogo from '../images/ALA-Logo.png';
 import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
 import { TeamMemberBio } from '../components/TeamMemberBio';
+import ContactForm from '../components/ContactForm';
 
 function AboutPage({ data }) {
   const teamMembers = data.allGraphCmsTeamMember.nodes;
@@ -158,6 +159,14 @@ function AboutPage({ data }) {
                   resources that will be useful to users of all types of
                   libraries.
                 </p>
+              </TextContainer>
+            </Container>
+          </Section>
+          <Section>
+            <Container>
+              <TextContainer>
+                <Heading level={1}>Contact Us</Heading>
+                <ContactForm />
               </TextContainer>
             </Container>
           </Section>
