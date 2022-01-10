@@ -22,6 +22,7 @@ import {
   base160,
   base320,
 } from '../styles';
+import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 
 function TagTemplate(props) {
   const { data, pageContext } = props;
@@ -29,71 +30,69 @@ function TagTemplate(props) {
 
   const { title, books, id, definition } = graphCmsTag;
   return (
-    <div>
+    <GlobalLayout>
       <UnderConstruction />
+      <GraphCMSPreviewIndicator />
+      <MainMenu />
+      <main css={{ position: 'relative' }}>
+        <Section css={{ minHeight: 'initial' }} key={id}>
+          <Container css={{ alignItems: 'flex-start' }}>
+            <Heading level={1}>
+              {title} ({pluralize('Book', books.length, 'true')})
+            </Heading>
+            {definition && <p>{definition}</p>}
 
-      <GlobalLayout>
-        <MainMenu />
-        <main css={{ position: 'relative' }}>
-          <Section css={{ minHeight: 'initial' }} key={id}>
-            <Container css={{ alignItems: 'flex-start' }}>
-              <Heading level={1}>
-                {title} ({pluralize('Book', books.length, 'true')})
-              </Heading>
-              {definition && <p>{definition}</p>}
+            {books.length > 0 ? (
+              <BookList
+                css={[
+                  // { alignSelf: 'center' },
+                  grid({
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: s1,
+                    placeItems: 'end stretch',
+                  }),
+                  onTabletMedia({
+                    width: '100%',
+                    gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
+                    placeItems: 'end center',
+                  }),
+                ]}
+              >
+                {books.map((book) => {
+                  return (
+                    <BookCover
+                      link={{ to: `/books/${book.slug}` }}
+                      book={book}
+                      css={{ ...boxShadowLg }}
+                      key={book.id}
+                    >
+                      <Heading
+                        level={3}
+                        css={{
+                          position: 'absolute',
+                          opacity: 0,
+                          pointerEvents: 'none',
 
-              {books.length > 0 ? (
-                <BookList
-                  css={[
-                    // { alignSelf: 'center' },
-                    grid({
-                      gridTemplateColumns: '1fr 1fr',
-                      gap: s1,
-                      placeItems: 'end stretch',
-                    }),
-                    onTabletMedia({
-                      width: '100%',
-                      gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
-                      placeItems: 'end center',
-                    }),
-                  ]}
-                >
-                  {books.map((book) => {
-                    return (
-                      <BookCover
-                        link={{ to: `/books/${book.slug}` }}
-                        book={book}
-                        css={{ ...boxShadowLg }}
-                        key={book.id}
+                          fontSize: s1,
+                          fontWeight: 'bold',
+                          color: COMPLIMENT,
+                        }}
                       >
-                        <Heading
-                          level={3}
-                          css={{
-                            position: 'absolute',
-                            opacity: 0,
-                            pointerEvents: 'none',
+                        {book.title}
+                      </Heading>
+                    </BookCover>
+                  );
+                })}
+              </BookList>
+            ) : (
+              `Sorry, no books available for ${title}`
+            )}
+          </Container>
+        </Section>
+      </main>
 
-                            fontSize: s1,
-                            fontWeight: 'bold',
-                            color: COMPLIMENT,
-                          }}
-                        >
-                          {book.title}
-                        </Heading>
-                      </BookCover>
-                    );
-                  })}
-                </BookList>
-              ) : (
-                `Sorry, no books available for ${title}`
-              )}
-            </Container>
-          </Section>
-        </main>
-        <DebugData>{data}</DebugData>
-        <Footer />
-      </GlobalLayout>
-    </div>
+      <Footer />
+    </GlobalLayout>
   );
 }
 

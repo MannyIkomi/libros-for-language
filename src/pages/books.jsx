@@ -54,6 +54,7 @@ import FilterActive from '../icons/FilterActive';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import Icon from '../icons/Icons';
 import MenuDownTriangle, { MenuTriangle } from '../icons/MenuTriangle';
+import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -141,6 +142,7 @@ function BooksPage({ data }) {
   return (
     <>
       <GlobalLayout>
+        <GraphCMSPreviewIndicator />
         <MainMenu />
 
         <main

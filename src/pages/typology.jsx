@@ -37,6 +37,8 @@ import { GlobalLayout } from '../components/GlobalLayout';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
 import RichText from '../components/RichText';
+import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { UnderConstruction } from '../components/UnderConstruction';
 
 function TypologyPage({ data }) {
   const typologies = data.allGraphCmsTag.nodes;
@@ -44,6 +46,8 @@ function TypologyPage({ data }) {
   return (
     <>
       <GlobalLayout>
+        <UnderConstruction />
+        <GraphCMSPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section

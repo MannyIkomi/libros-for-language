@@ -25,6 +25,9 @@ import { Section } from '../components/Section';
 import { MonoFontLink } from '../components/MonoFontLink';
 import { TagList } from '../components/TagList';
 import { TagGroup } from '../components/TagGroup';
+import { isUnderContruction } from '../utils/environment';
+import { UnderConstruction } from '../components/UnderConstruction';
+import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 
 function AuthorIllustratorPage({ data }) {
   const authors = data.allGraphCmsAuthor.nodes;
@@ -33,6 +36,8 @@ function AuthorIllustratorPage({ data }) {
   return (
     <>
       <GlobalLayout>
+        <UnderConstruction />
+        <GraphCMSPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>

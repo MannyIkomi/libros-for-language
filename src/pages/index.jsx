@@ -15,6 +15,7 @@ import {
   s2,
   s4,
   flex,
+  base320,
 } from '../styles';
 import { GenreTag, TopicTag, GradeLevelTag } from '../components/Tag';
 import { Heading } from '../components/Heading';
@@ -30,6 +31,7 @@ import { Section } from '../components/Section';
 import { slugify } from '../utils/slugify';
 import pluralize from 'pluralize';
 import { List } from '../components/List';
+import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 
 console.clear();
 
@@ -44,6 +46,7 @@ function IndexPage({ data }) {
   return (
     <>
       <GlobalLayout>
+        <GraphCMSPreviewIndicator />
         <MainMenu />
         <main
           css={{

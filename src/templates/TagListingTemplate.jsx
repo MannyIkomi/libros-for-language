@@ -28,6 +28,7 @@ import { SecondaryButton } from '../components/Button';
 import { SecondaryLink } from '../components/Link';
 import { slugify } from '../utils/slugify';
 import { Icon } from '../icons/Icons';
+import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 
 const MAX_BOOK_DISPLAY_AMOUNT = 4;
 
@@ -38,125 +39,122 @@ function TagListingTemplate(props) {
   const tags = allGraphCmsTag.nodes;
 
   return (
-    <div>
-      <GlobalLayout>
-        <MainMenu />
-        <main css={{ position: 'relative' }}>
-          <Section>
-            <Container
-              css={{
-                ...flex('row', { alignItems: 'center' }),
-                color: PRIMARY,
-              }}
-            >
-              <Heading level={1}>{pluralize.plural(pageContext.title)}</Heading>{' '}
-              <Icon name={pageContext.type} />
-            </Container>
-            {tags.map((tag) => {
-              const { title, books, id, tagType, slug, definition } = tag;
+    <GlobalLayout>
+      <GraphCMSPreviewIndicator />
+      <MainMenu />
+      <main css={{ position: 'relative' }}>
+        <Section>
+          <Container
+            css={{
+              ...flex('row', { alignItems: 'center' }),
+              color: PRIMARY,
+            }}
+          >
+            <Heading level={1}>{pluralize.plural(pageContext.title)}</Heading>{' '}
+            <Icon name={pageContext.type} />
+          </Container>
+          {tags.map((tag) => {
+            const { title, books, id, tagType, slug, definition } = tag;
 
-              return (
-                books.length > 0 && (
-                  <Section css={{ minHeight: 'initial' }} key={id}>
-                    <Container
+            return (
+              books.length > 0 && (
+                <Section css={{ minHeight: 'initial' }} key={id}>
+                  <Container
+                    css={[
+                      { alignItems: 'flex-start', gap: s1 },
+                      onTabletMedia({
+                        ...grid({
+                          gridTemplateColumns: '1fr 1fr',
+                          gridTemplateRows: 'min-content 1fr',
+                        }),
+                      }),
+                    ]}
+                  >
+                    <div
                       css={[
-                        { alignItems: 'flex-start', gap: s1 },
                         onTabletMedia({
-                          ...grid({
-                            gridTemplateColumns: '1fr 1fr',
-                            gridTemplateRows: 'min-content 1fr',
-                          }),
+                          gridColumn: '1 / 2',
+                          gridRow: '1 / 2',
                         }),
                       ]}
                     >
-                      <div
+                      <Heading level={2}>{title}</Heading>
+                      {definition && <p>{definition}</p>}
+                    </div>
+
+                    {/* <DebugData>{books}</DebugData> */}
+                    {books.length > 0 ? (
+                      <BookList
                         css={[
+                          // { alignSelf: 'center' },
+                          grid({
+                            gridTemplateColumns: '1fr 1fr',
+                            gridGap: s1,
+                            placeItems: 'end stretch',
+                          }),
                           onTabletMedia({
-                            gridColumn: '1 / 2',
-                            gridRow: '1 / 2',
+                            width: '100%',
+                            gridTemplateColumns: `repeat(auto-fit, minmax(${base160}, 1fr))`,
+                            placeItems: 'end center',
+                            gridColumn: '1 / -1',
                           }),
                         ]}
                       >
-                        <Heading level={2}>{title}</Heading>
-                        {definition && <p>{definition}</p>}
-                      </div>
+                        {books.slice(0, MAX_BOOK_DISPLAY_AMOUNT).map((book) => {
+                          return (
+                            <BookCover
+                              link={{ to: `/books/${book.slug}` }}
+                              book={book}
+                              css={{ ...boxShadowLg }}
+                              key={book.id}
+                            >
+                              <Heading
+                                level={3}
+                                css={{
+                                  position: 'absolute',
+                                  opacity: 0,
+                                  pointerEvents: 'none',
 
-                      {/* <DebugData>{books}</DebugData> */}
-                      {books.length > 0 ? (
-                        <BookList
-                          css={[
-                            // { alignSelf: 'center' },
-                            grid({
-                              gridTemplateColumns: '1fr 1fr',
-                              gridGap: s1,
-                              placeItems: 'end stretch',
-                            }),
-                            onTabletMedia({
-                              width: '100%',
-                              gridTemplateColumns: `repeat(auto-fit, minmax(${base160}, 1fr))`,
-                              placeItems: 'end center',
-                              gridColumn: '1 / -1',
-                            }),
-                          ]}
-                        >
-                          {books
-                            .slice(0, MAX_BOOK_DISPLAY_AMOUNT)
-                            .map((book) => {
-                              return (
-                                <BookCover
-                                  link={{ to: `/books/${book.slug}` }}
-                                  book={book}
-                                  css={{ ...boxShadowLg }}
-                                  key={book.id}
-                                >
-                                  <Heading
-                                    level={3}
-                                    css={{
-                                      position: 'absolute',
-                                      opacity: 0,
-                                      pointerEvents: 'none',
+                                  fontSize: s1,
+                                  fontWeight: 'bold',
+                                  color: COMPLIMENT,
+                                }}
+                              >
+                                {book.title}
+                              </Heading>
+                            </BookCover>
+                          );
+                        })}
+                      </BookList>
+                    ) : (
+                      <p>
+                        Sorry, no books available for <em>{title}</em>
+                      </p>
+                    )}
+                    {books.length > MAX_BOOK_DISPLAY_AMOUNT && (
+                      <SecondaryLink
+                        to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
+                        css={[
+                          onTabletMedia({
+                            gridColumn: '2 / -1',
+                            gridRow: '1 / 2',
+                            placeSelf: 'start end',
+                          }),
+                        ]}
+                      >
+                        More {title} books ({books.length})
+                      </SecondaryLink>
+                    )}
+                  </Container>
+                </Section>
+              )
+            );
+          })}
+        </Section>
+      </main>
 
-                                      fontSize: s1,
-                                      fontWeight: 'bold',
-                                      color: COMPLIMENT,
-                                    }}
-                                  >
-                                    {book.title}
-                                  </Heading>
-                                </BookCover>
-                              );
-                            })}
-                        </BookList>
-                      ) : (
-                        <p>
-                          Sorry, no books available for <em>{title}</em>
-                        </p>
-                      )}
-                      {books.length > MAX_BOOK_DISPLAY_AMOUNT && (
-                        <SecondaryLink
-                          to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
-                          css={[
-                            onTabletMedia({
-                              gridColumn: '2 / -1',
-                              gridRow: '1 / 2',
-                              placeSelf: 'start end',
-                            }),
-                          ]}
-                        >
-                          More {title} books ({books.length})
-                        </SecondaryLink>
-                      )}
-                    </Container>
-                  </Section>
-                )
-              );
-            })}
-          </Section>
-        </main>
-        <DebugData>{props}</DebugData>
-        <Footer />
-      </GlobalLayout>
-    </div>
+      <Footer />
+    </GlobalLayout>
   );
 }
 

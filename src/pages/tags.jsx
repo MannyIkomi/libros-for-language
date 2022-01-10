@@ -24,6 +24,7 @@ import { Section } from '../components/Section';
 import { MonoFontLink } from '../components/MonoFontLink';
 import { TagList } from '../components/TagList';
 import { TagGroup } from '../components/TagGroup';
+import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 
 function TagsPage({ data }) {
   const topics = data.allGraphCmsTopic.nodes;
@@ -37,6 +38,7 @@ function TagsPage({ data }) {
   return (
     <>
       <GlobalLayout>
+        <GraphCMSPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>

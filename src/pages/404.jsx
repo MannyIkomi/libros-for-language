@@ -13,7 +13,9 @@ function NotFoundPage() {
       <main>
         <Section>
           <Container>
-            <TextContainer css={{ textAlign: 'center', gap: s2 }}>
+            <TextContainer
+              css={{ textAlign: 'center', gap: s2, alignItems: 'center' }}
+            >
               <h1>Sorry we couldn't find that page!</h1>
               <PrimaryLink to="/">Back to Home</PrimaryLink>
             </TextContainer>

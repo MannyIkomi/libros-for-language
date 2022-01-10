@@ -47,6 +47,7 @@ import HooplaIcon from '../icons/Hoopla';
 import { HiddenAccessibleText } from '../components/HiddenAccessibleText';
 import EpicIcon from '../icons/Epic';
 import OverdriveIcon from '../icons/Overdrive';
+import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 
 function BookTemplate({ data }) {
   const {
@@ -94,6 +95,7 @@ function BookTemplate({ data }) {
         description: publisherSummary,
       }}
     >
+      <GraphCMSPreviewIndicator />
       <MainMenu />
       <main>
         <Section>
