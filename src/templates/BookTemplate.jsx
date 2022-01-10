@@ -41,15 +41,21 @@ import { BookImage } from '../components/BookImage';
 import { slugify } from '../utils/slugify';
 import { List } from '../components/List';
 import { Footer } from '../components/Footer';
+import HooplaIcon from '../icons/Hoopla';
+import { HiddenAccessibleText } from '../components/HiddenAccessibleText';
+import EpicIcon from '../icons/Epic';
+import OverdriveIcon from '../icons/Overdrive';
 
 function BookTemplate({ data }) {
   const {
     title,
+    epicLink,
+    hooplaLink,
+    overdriveLink,
 
     publisherSummary,
     bookCover,
     tags,
-
     actionLabel,
     actionLink,
     translator,
@@ -64,6 +70,13 @@ function BookTemplate({ data }) {
   } = data.graphCmsBook;
 
   // const { altDescription, url, width, height } = bookCover;
+
+  const hasAvailabilityLink = epicLink || hooplaLink || overdriveLink;
+  const availabilityLinks = [
+    { link: epicLink, text: 'Epic' },
+    { link: hooplaLink, text: 'Hoopla' },
+    { link: overdriveLink, text: 'Overdrive' },
+  ];
 
   const genres = tags.filter((t) => t.tagType === 'Genre');
   const typologies = tags.filter((t) => t.tagType === 'Typology');
@@ -161,7 +174,7 @@ function BookTemplate({ data }) {
                 </dl>
               )}
 
-              {illustrators > 0 && (
+              {illustrators.length > 0 && (
                 <dl css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
                   <dt>Illustrator:</dt>
                   <dd>
@@ -231,6 +244,57 @@ function BookTemplate({ data }) {
                       </Link>
                     );
                   })}
+                </List>
+              </TextContainer>
+            )}
+
+            {hasAvailabilityLink && (
+              <TextContainer>
+                <Heading level={2}>Available On…</Heading>
+                <List css={{ listStyle: 'none', ...flex('row'), gap: s2 }}>
+                  {availabilityLinks
+                    .filter(({ link }) => link)
+                    .map(({ link, text }) => {
+                      const ICON = `${text}Icon`;
+                      function getIcon(text) {
+                        switch (text) {
+                          case 'Epic':
+                            return <EpicIcon />;
+                          case 'Hoopla':
+                            return <HooplaIcon />;
+                          case 'Overdrive':
+                            return <OverdriveIcon />;
+                          default:
+                            throw new Error(
+                              `${text} did not match an availability icon`
+                            );
+                        }
+                      }
+                      return (
+                        <Link to={link} key={link}>
+                          {getIcon(text)}
+                          <HiddenAccessibleText>{text}</HiddenAccessibleText>
+                        </Link>
+                      );
+                    })}
+                  {/* {epicLink && (
+                    <Link to={epicLink}>
+                      <EpicIcon />
+                      <HiddenAccessibleText>Epic</HiddenAccessibleText>
+                    </Link>
+                  )}
+                  {hooplaLink && (
+                    <Link to={hooplaLink}>
+                      <HooplaIcon />
+                      <HiddenAccessibleText>Hoopla</HiddenAccessibleText>
+                    </Link>
+                  )}
+                  {overdriveLink && (
+                    <Link to={overdriveLink}>
+                      <OverdriveIcon />
+                      <HiddenAccessibleText>Overdrive</HiddenAccessibleText>
+                    </Link>
+                  )} */}
                 </List>
               </TextContainer>
             )}
@@ -488,7 +552,9 @@ export const query = graphql`
       }
       slug
       translator
-
+      epicLink
+      hooplaLink
+      overdriveLink
       publisher
       publisherSummary
       isbn

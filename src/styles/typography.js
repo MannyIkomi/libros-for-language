@@ -6,6 +6,18 @@ export const SANS_FONT = `Noto Sans, sans-serif`;
 export const SERIF_FONT = `Noto Serif, serif`;
 export const MONO_FONT = `Noto Sans Mono, monospace`;
 
+export const hiddenAccessible = {
+  position: 'absolute',
+  width: '1px',
+  height: '1px',
+  padding: '0',
+  margin: '-1px',
+  overflow: 'hidden',
+  clip: 'rect(0, 0, 0, 0)',
+  whiteSpace: 'nowrap',
+  border: '0',
+};
+
 export const notoSans = {
   fontFamily: SANS_FONT,
 };
