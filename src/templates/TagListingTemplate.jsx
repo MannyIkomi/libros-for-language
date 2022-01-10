@@ -134,7 +134,7 @@ function TagListingTemplate(props) {
                       )}
                       {books.length > MAX_BOOK_DISPLAY_AMOUNT && (
                         <SecondaryLink
-                          to={`/tags/${slugify(tagType)}s/${slug}`}
+                          to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
                           css={[
                             onTabletMedia({
                               gridColumn: '2 / -1',
