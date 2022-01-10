@@ -309,24 +309,13 @@ function BookTemplate({ data }) {
             css={[
               {
                 h3: {
-                  marginTop: s1,
-                  marginBottom: s025,
+                  marginBottom: s05,
                   color: PRIMARY,
                 },
-                display: 'grid',
-
-                justifyContent: 'stretch',
-                justifyItems: 'start',
-                alignItems: 'start',
-                alignContent: 'start',
-
-                gridAutoFlow: 'row',
-                gridAutoColumns: '1fr',
-                gridAutoRows: 'min-content',
-                gridColumnGap: s1,
-                gridRowGap: s1,
-                gridTemplateColumns: '1fr',
-                // gridTemplateRows: 'min-content auto',
+                ...grid({
+                  gridTemplateAreas: `"genre" "textStructure" "grade" "language" "topic" "metadata" `,
+                  gridGap: s2,
+                }),
               },
               onTabletMedia({
                 gridTemplateAreas: `"genre textStructure" "grade topic" "language topic" "metadata ." `,
