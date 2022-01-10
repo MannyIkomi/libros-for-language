@@ -39,7 +39,7 @@ export const primaryActionStyle = [
     textTransform: 'uppercase',
     whiteSpace: 'nowrap',
   },
-  onTabletMedia({ maxWidth: base320 }),
+  onTabletMedia({ width: 'initial' }),
 ];
 
 export const secondaryActionStyle = [
@@ -66,7 +66,7 @@ export const secondaryActionStyle = [
     textTransform: 'uppercase',
     whiteSpace: 'nowrap',
   },
-  onTabletMedia({ maxWidth: base320 }),
+  onTabletMedia({ width: 'initial' }),
 ];
 
 export const tertiaryActionStyle = [
@@ -90,5 +90,5 @@ export const tertiaryActionStyle = [
     textTransform: 'uppercase',
     // whiteSpace: 'nowrap',
   },
-  onTabletMedia({ maxWidth: base320 }),
+  onTabletMedia({ width: 'initial' }),
 ];
