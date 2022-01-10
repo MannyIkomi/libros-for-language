@@ -23,7 +23,7 @@ export function ContactForm(props) {
       name={'Contact Us'}
       method="POST"
       data-netlify={true}
-      onSubmit={handleSubmit(onSubmit)}
+      // onSubmit={handleSubmit(onSubmit)}
       css={[
         grid({
           gridTemplateColumns: '1fr',
