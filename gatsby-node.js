@@ -12,6 +12,9 @@ exports.onPostBuild = ({ reporter }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const BookTemplate = path.resolve(`src/templates/BookTemplate.jsx`);
+  const ContributorTemplate = path.resolve(
+    `src/templates/ContributorTemplate.jsx`
+  );
   const TagTemplate = path.resolve(`src/templates/TagTemplate.jsx`);
   const TagListingTemplate = path.resolve(
     `src/templates/TagListingTemplate.jsx`
@@ -37,6 +40,14 @@ exports.createPages = async ({ graphql, actions }) => {
           tagType
         }
       }
+      allGraphCmsContributor {
+        nodes {
+          id
+          firstName
+          lastName
+          slug
+        }
+      }
     }
   `);
 
@@ -46,6 +57,21 @@ exports.createPages = async ({ graphql, actions }) => {
       component: BookTemplate,
       context: {
         ...book,
+      },
+    });
+  });
+
+  result.data.allGraphCmsContributor.nodes.forEach((contributor) => {
+    const { lastName, firstName } = contributor;
+
+    createPage({
+      path: `/authors-illustrators/${
+        contributor?.slug ||
+        `${slugify(`${slugify(firstName)} ${slugify(lastName)}`)}`
+      }`,
+      component: ContributorTemplate,
+      context: {
+        ...contributor,
       },
     });
   });

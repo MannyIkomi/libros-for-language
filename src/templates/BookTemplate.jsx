@@ -48,6 +48,7 @@ import { HiddenAccessibleText } from '../components/HiddenAccessibleText';
 import EpicIcon from '../icons/Epic';
 import OverdriveIcon from '../icons/Overdrive';
 import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { MonoFontLink } from '../components/MonoFontLink';
 
 function BookTemplate({ data }) {
   const {
@@ -171,14 +172,19 @@ function BookTemplate({ data }) {
                 <dl css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
                   <dt>by </dt>
                   <dd>
-                    {authors.length > 1
-                      ? authors
-                          .map(
-                            ({ lastName, firstName }) =>
-                              `${firstName} ${lastName}`
-                          )
-                          .join(', ')
-                      : `${authors[0]?.firstName} ${authors[0]?.lastName}`}
+                    {authors.map(({ lastName, firstName, slug }, index) => {
+                      return (
+                        <>
+                          <MonoFontLink
+                            to={`/authors-illustrators/${slug}`}
+                            css={{ padding: 0, marginLeft: '1ch' }}
+                          >
+                            {firstName} {lastName}
+                          </MonoFontLink>
+                          {authors.length !== index + 1 && ','}
+                        </>
+                      );
+                    })}
                   </dd>
                 </dl>
               )}
@@ -187,14 +193,21 @@ function BookTemplate({ data }) {
                 <dl css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
                   <dt>Illustrator:</dt>
                   <dd>
-                    {illustrators.length > 1
-                      ? illustrators
-                          .map(
-                            ({ lastName, firstName }) =>
-                              `${firstName} ${lastName}`
-                          )
-                          .join(', ')
-                      : `${illustrators[0]?.firstName} ${illustrators[0]?.lastName}`}
+                    {illustrators.map(
+                      ({ lastName, firstName, slug }, index) => {
+                        return (
+                          <>
+                            <MonoFontLink
+                              to={`/authors-illustrators/${slug}`}
+                              css={{ padding: 0, marginLeft: '1ch' }}
+                            >
+                              {firstName} {lastName}
+                            </MonoFontLink>
+                            {illustrators.length !== index + 1 && ','}
+                          </>
+                        );
+                      }
+                    )}
                   </dd>
                 </dl>
               )}

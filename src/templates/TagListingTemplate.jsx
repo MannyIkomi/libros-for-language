@@ -84,22 +84,7 @@ function TagListingTemplate(props) {
 
                     {/* <DebugData>{books}</DebugData> */}
                     {books.length > 0 ? (
-                      <BookList
-                        css={[
-                          // { alignSelf: 'center' },
-                          grid({
-                            gridTemplateColumns: '1fr 1fr',
-                            gridGap: s1,
-                            placeItems: 'end stretch',
-                          }),
-                          onTabletMedia({
-                            width: '100%',
-                            gridTemplateColumns: `repeat(auto-fit, minmax(${base160}, 1fr))`,
-                            placeItems: 'end center',
-                            gridColumn: '1 / -1',
-                          }),
-                        ]}
-                      >
+                      <BookList>
                         {books.slice(0, MAX_BOOK_DISPLAY_AMOUNT).map((book) => {
                           return (
                             <BookCover

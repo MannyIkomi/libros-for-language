@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { graphql } from 'gatsby';
 import { jsx } from '@emotion/react';
 import {
@@ -28,6 +28,7 @@ import { TagGroup } from '../components/TagGroup';
 import { isUnderContruction } from '../utils/environment';
 import { UnderConstruction } from '../components/UnderConstruction';
 import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { DebugData } from '../components/DebugData';
 
 function AuthorIllustratorPage({ data }) {
   const authors = data.allGraphCmsAuthor.nodes;
@@ -72,7 +73,7 @@ function AuthorIllustratorPage({ data }) {
 
                 <TagList>
                   {authors.map((author) => (
-                    <MonoFontLink to={`tags/authors/${author.slug}`}>
+                    <MonoFontLink to={`/authors-illustrators/${author.slug}`}>
                       {`${author.firstName} ${author.lastName}`}
                     </MonoFontLink>
                   ))}
@@ -88,7 +89,9 @@ function AuthorIllustratorPage({ data }) {
 
                 <TagList>
                   {illustrators.map((illustrator) => (
-                    <MonoFontLink to={`tags/illustrators/${illustrator.slug}`}>
+                    <MonoFontLink
+                      to={`/authors-illustrators/${illustrator.slug}`}
+                    >
                       {`${illustrator.firstName} ${illustrator.lastName}`}
                     </MonoFontLink>
                   ))}
@@ -97,7 +100,7 @@ function AuthorIllustratorPage({ data }) {
             </Container>
           </Section>
         </main>
-
+        <DebugData>{data.pageContext}</DebugData>
         <Footer />
       </GlobalLayout>
     </>
