@@ -27,13 +27,6 @@ fragment Representation on Representation {
       stage
     }
   }
-  books {
-    ... on Book {
-      remoteTypeName: __typename
-      remoteId: id
-      stage
-    }
-  }
   scheduledIn {
     ... on ScheduledOperation {
       remoteTypeName: __typename

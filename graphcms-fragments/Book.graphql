@@ -18,7 +18,6 @@ fragment Book on Book {
   isbn
   awards
   copyrightYear
-  translanguagingTypology
   chapterBook
   createdBy {
     ... on User {
@@ -65,13 +64,6 @@ fragment Book on Book {
   }
   tags {
     ... on Tag {
-      remoteTypeName: __typename
-      remoteId: id
-      stage
-    }
-  }
-  representations {
-    ... on Representation {
       remoteTypeName: __typename
       remoteId: id
       stage

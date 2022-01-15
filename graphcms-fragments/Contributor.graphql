@@ -6,7 +6,6 @@ fragment Contributor on Contributor {
   publishedAt
   firstName
   lastName
-  name
   slug
   createdBy {
     ... on User {
