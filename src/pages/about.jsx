@@ -25,6 +25,9 @@ import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator
 function AboutPage({ data }) {
   const teamMembers = data.allGraphCmsTeamMember.nodes;
   const totalBooks = data.allGraphCmsBook.totalCount;
+  const bookCount = data.allGraphCmsBook.nodes.filter(
+    (book) => book.tags.length > 0
+  ).length;
 
   return (
     <>
@@ -56,7 +59,7 @@ function AboutPage({ data }) {
             >
               <TextContainer>
                 <Heading level={1}>
-                  A Curated Collection of {totalBooks ? totalBooks : ''}{' '}
+                  A Curated Collection of {bookCount}
                   Translanguaging Books
                 </Heading>
                 <p>
@@ -213,6 +216,11 @@ export const query = graphql`
   query AboutPageQuery {
     allGraphCmsBook {
       totalCount
+      nodes {
+        tags {
+          title
+        }
+      }
     }
     allGraphCmsTeamMember(sort: { fields: lastName, order: ASC }) {
       nodes {

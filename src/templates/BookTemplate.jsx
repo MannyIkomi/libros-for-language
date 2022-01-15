@@ -49,6 +49,8 @@ import EpicIcon from '../icons/Epic';
 import OverdriveIcon from '../icons/Overdrive';
 import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 import { ContributorLinks } from '../components/ContributorLinks';
+import SuggestionForm from '../components/SuggestionForm';
+import { isDevEnv } from '../utils/environment';
 
 function BookTemplate({ data }) {
   const {
@@ -319,17 +321,18 @@ function BookTemplate({ data }) {
                   color: PRIMARY,
                 },
                 ...grid({
-                  gridTemplateAreas: `"genre" "textStructure" "grade" "language" "topic" "metadata" `,
+                  gridTemplateAreas: `"genre" "textStructure" "grade" "language" "topic" "metadata" "suggestion" `,
                   gridGap: s2,
+                  placeItems: 'start',
                 }),
               },
               onTabletMedia({
-                gridTemplateAreas: `"genre textStructure" "grade topic" "language topic" "metadata ." `,
+                gridTemplateAreas: `"genre textStructure" "grade topic" "language topic" "metadata suggestion" `,
                 gridRowGap: s1,
                 gridColumnGap: s2,
               }),
               onDesktopMedia({
-                gridTemplateAreas: `"genre grade language" "textStructure topic topic" "metadata form form"`,
+                gridTemplateAreas: `"genre grade language" "textStructure topic topic" "metadata suggestion suggestion"`,
                 gridRowGap: s2,
                 gridColumnGap: s1,
               }),
@@ -501,13 +504,18 @@ function BookTemplate({ data }) {
                 )}
               </dl>
             </TextContainer>
-            <TextContainer css={{ gridArea: 'form' }}>
-              <Heading level={3}>Have a Suggestion?</Heading>
-              <p>
-                We do invite you to submit your ideas, lesson plans, vignettes,
-                and other work to be included on our book pages.
-              </p>
-            </TextContainer>
+            {isDevEnv && (
+              <Container css={{ gridArea: 'suggestion', padding: 0 }}>
+                <TextContainer css={{ alignSelf: 'start' }}>
+                  <Heading level={3}>Have a Suggestion?</Heading>
+                  <p>
+                    We do invite you to submit your ideas, lesson plans,
+                    vignettes, and other work to be included on our book pages.
+                  </p>
+                </TextContainer>
+                <SuggestionForm bookTitle={title} />
+              </Container>
+            )}
           </Container>
         </Section>
       </main>
