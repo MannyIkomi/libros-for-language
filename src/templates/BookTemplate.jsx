@@ -211,8 +211,8 @@ function BookTemplate({ data }) {
             )}
             {typologies.length > 0 && (
               <TextContainer
-                id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
-                className="translanguaging"
+                // id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
+                // className="translanguaging"
                 css={{ gridArea: 'translanguaging-typology' }}
               >
                 <Heading level={2}>Translanguaging Typology</Heading>
@@ -231,6 +231,7 @@ function BookTemplate({ data }) {
                         to={`/tags/${slugify(pluralize(typology.tagType))}/${
                           typology.slug
                         }`}
+                        css={{ textDecoration: 'none' }}
                       >
                         <div
                           css={{

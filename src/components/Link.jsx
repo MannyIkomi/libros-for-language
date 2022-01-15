@@ -44,7 +44,7 @@ export const Link = ({
         to={to}
         // activeClassName={activeClassName}
         // partiallyActive={partiallyActive}
-        css={overridePseudoStyles}
+        css={[overridePseudoStyles, { textDecoration: 'underline' }]}
         {...other}
       >
         {children}

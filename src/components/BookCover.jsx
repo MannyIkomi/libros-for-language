@@ -9,7 +9,10 @@ export function BookCover(props) {
   const { link, css, book, children, ...moreProps } = props;
 
   return (
-    <Link to={link?.to || `/books/${book.slug}`}>
+    <Link
+      to={link?.to || `/books/${book.slug}`}
+      css={{ textDecoration: 'none' }}
+    >
       <article {...moreProps} css={{ maxWidth: base320 }}>
         {book?.bookCover?.url ? (
           <BookImage book={book} />

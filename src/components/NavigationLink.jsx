@@ -8,6 +8,7 @@ export function NavigationLink({ children, ...props }) {
     <Link
       css={{
         ...flex(),
+        textDecoration: 'none',
         color: PRIMARY_WHITE,
         justifyContent: 'center',
         minHeight: s2,
