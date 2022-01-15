@@ -145,16 +145,18 @@ function AboutPage({ data }) {
           <Section>
             <Container>
               <TextContainer>
-                <Heading level={2}>How to Use This Site</Heading>
+                <Heading level={2}>
+                  Libros for Language is a resource for both monolingual and
+                  bilingual teachers.
+                </Heading>
                 <p>
-                  We created this site as a resource for both monolingual and
-                  bilingual teachers to find high-quality picture books that
-                  would help them support translanguaging in their classrooms.
                   If you are trying to incorporate quality mentor texts into
-                  your existing curricular units, try browsing by topic or grade
-                  level. If you have only one or two languages represented in
-                  your classroom, searching by language may be preferable so you
-                  can best meet the needs of your students.
+                  your existing curricular units, try browsing{' '}
+                  <Link to={`/tags/topics`}>by topic</Link> or{' '}
+                  <Link to={`/tags/grades`}>grade level</Link>. If you have only
+                  one or two languages represented in your classroom, searching{' '}
+                  <Link to={`/tags/languages`}>by language</Link> may be
+                  preferable so you can best meet the needs of your students.
                 </p>
                 <p>
                   This site is meant to serve as a digital bibliography with
@@ -163,15 +165,16 @@ function AboutPage({ data }) {
                   texts, because we believe the best way to implement a book
                   will depend on the needs of particular students, teachers, and
                   contexts. We also believe in teacher autonomy and expertise,
-                  and offer a variety of resources [link to resource page] to
-                  help guide your study of translanguaging.
+                  and offer a variety of{' '}
+                  <Link to={'/resources'}>
+                    resources to help guide your study of translanguaging
+                  </Link>
+                  .
                 </p>
                 <p>
-                  We do invite you to submit [link to page] your ideas, lesson
-                  plans, vignettes, and other work to be included on our book
-                  pages. Over time, we hope the site can become a repository for
-                  the exchange of teachers’ and librarians’ collective knowledge
-                  and expertise in utilizing mentor texts.
+                  Over time, we hope the site can become a repository for the
+                  exchange of teachers’ and librarians’ collective knowledge and
+                  expertise in utilizing mentor texts.
                 </p>
               </TextContainer>
             </Container>
@@ -199,14 +202,14 @@ function AboutPage({ data }) {
               </TextContainer>
             </Container>
           </Section>
-          {/* <Section>
+          <Section>
             <Container>
               <TextContainer>
                 <Heading level={1}>Contact Us</Heading>
                 <ContactForm />
               </TextContainer>
             </Container>
-          </Section> */}
+          </Section>
         </main>
         <Footer />
       </GlobalLayout>
