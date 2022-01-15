@@ -166,14 +166,19 @@ function BookTemplate({ data }) {
                 maxWidth: 'initial',
               }}
             >
-              <h1 className="book-title">{title}</h1>
+              <h1>{title}</h1>
               {authors.length > 0 && (
                 <dl css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
                   <dt>by </dt>
                   <dd>
                     {authors.length > 1
-                      ? authors.map(({ name }) => name).join(', ')
-                      : authors[0]?.name}
+                      ? authors
+                          .map(
+                            ({ lastName, firstName }) =>
+                              `${firstName} ${lastName}`
+                          )
+                          .join(', ')
+                      : `${authors[0]?.firstName} ${authors[0]?.lastName}`}
                   </dd>
                 </dl>
               )}
@@ -183,8 +188,13 @@ function BookTemplate({ data }) {
                   <dt>Illustrator:</dt>
                   <dd>
                     {illustrators.length > 1
-                      ? illustrators.map(({ name }) => name).join(', ')
-                      : illustrators[0]?.name}
+                      ? illustrators
+                          .map(
+                            ({ lastName, firstName }) =>
+                              `${firstName} ${lastName}`
+                          )
+                          .join(', ')
+                      : `${illustrators[0]?.firstName} ${illustrators[0]?.lastName}`}
                   </dd>
                 </dl>
               )}
@@ -514,10 +524,6 @@ export const query = graphql`
         width
         height
       }
-      # representations {
-      #   title
-      #   slug
-      # }
       tags {
         title
         definition
@@ -525,12 +531,15 @@ export const query = graphql`
         tagType
       }
       authors {
-        name
+        lastName
+        firstName
         slug
         type
       }
       illustrators {
-        name
+        lastName
+        firstName
+
         slug
         type
       }

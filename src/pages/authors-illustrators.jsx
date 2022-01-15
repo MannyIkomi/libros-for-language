@@ -73,7 +73,7 @@ function AuthorIllustratorPage({ data }) {
                 <TagList>
                   {authors.map((author) => (
                     <MonoFontLink to={`tags/authors/${author.slug}`}>
-                      {author.name}
+                      {`${author.firstName} ${author.lastName}`}
                     </MonoFontLink>
                   ))}
                 </TagList>
@@ -89,7 +89,7 @@ function AuthorIllustratorPage({ data }) {
                 <TagList>
                   {illustrators.map((illustrator) => (
                     <MonoFontLink to={`tags/illustrators/${illustrator.slug}`}>
-                      {illustrator.name}
+                      {`${illustrator.firstName} ${illustrator.lastName}`}
                     </MonoFontLink>
                   ))}
                 </TagList>
@@ -125,8 +125,8 @@ export const query = graphql`
     ) {
       nodes {
         slug
-        name
         lastName
+        firstName
         type
       }
     }
@@ -137,8 +137,8 @@ export const query = graphql`
     ) {
       nodes {
         slug
-        name
         lastName
+        firstName
         type
       }
     }

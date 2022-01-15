@@ -257,11 +257,9 @@ export const query = graphql`
         title
         updatedAt
         authors {
-          name
           type
         }
         illustrators {
-          name
           type
         }
         publisherSummary
