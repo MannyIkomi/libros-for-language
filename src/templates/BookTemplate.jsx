@@ -349,6 +349,7 @@ function BookTemplate({ data }) {
                   {genres.map((genre) => {
                     return (
                       <Link
+                        css={{ textDecoration: 'none' }}
                         to={`/tags/${slugify(genre.tagType)}s/${genre.slug}`}
                       >
                         <TextStructureTag>{genre.title}</TextStructureTag>
@@ -372,6 +373,7 @@ function BookTemplate({ data }) {
                   {textStructure.map((structure) => {
                     return (
                       <Link
+                        css={{ textDecoration: 'none' }}
                         to={`/tags/${slugify(structure.tagType)}s/${
                           structure.slug
                         }`}
@@ -393,6 +395,7 @@ function BookTemplate({ data }) {
                   {languages.map((language) => {
                     return (
                       <Link
+                        css={{ textDecoration: 'none' }}
                         to={`/tags/${slugify(language.tagType)}s/${
                           language.slug
                         }`}
@@ -414,6 +417,7 @@ function BookTemplate({ data }) {
                   {grades.map((grade) => {
                     return (
                       <Link
+                        css={{ textDecoration: 'none' }}
                         to={`/tags/${slugify(grade.tagType)}s/${grade.slug}`}
                       >
                         <LanguageTag>{grade.title}</LanguageTag>
@@ -433,6 +437,7 @@ function BookTemplate({ data }) {
                   {topics.map((topic) => {
                     return (
                       <Link
+                        css={{ textDecoration: 'none' }}
                         to={`/tags/${slugify(topic.tagType)}s/${topic.slug}`}
                       >
                         <TopicTag>{topic.title}</TopicTag>
