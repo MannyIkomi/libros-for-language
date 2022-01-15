@@ -145,6 +145,41 @@ function AboutPage({ data }) {
           <Section>
             <Container>
               <TextContainer>
+                <Heading level={2}>How to Use This Site</Heading>
+                <p>
+                  We created this site as a resource for both monolingual and
+                  bilingual teachers to find high-quality picture books that
+                  would help them support translanguaging in their classrooms.
+                  If you are trying to incorporate quality mentor texts into
+                  your existing curricular units, try browsing by topic or grade
+                  level. If you have only one or two languages represented in
+                  your classroom, searching by language may be preferable so you
+                  can best meet the needs of your students.
+                </p>
+                <p>
+                  This site is meant to serve as a digital bibliography with
+                  some key information to guide your selections. We do not offer
+                  specific curriculum ideas or lesson plans to accompany the
+                  texts, because we believe the best way to implement a book
+                  will depend on the needs of particular students, teachers, and
+                  contexts. We also believe in teacher autonomy and expertise,
+                  and offer a variety of resources [link to resource page] to
+                  help guide your study of translanguaging.
+                </p>
+                <p>
+                  We do invite you to submit [link to page] your ideas, lesson
+                  plans, vignettes, and other work to be included on our book
+                  pages. Over time, we hope the site can become a repository for
+                  the exchange of teachers’ and librarians’ collective knowledge
+                  and expertise in utilizing mentor texts.
+                </p>
+              </TextContainer>
+            </Container>
+          </Section>
+
+          <Section>
+            <Container>
+              <TextContainer>
                 <img
                   css={{ maxWidth: base320 }}
                   src={ALALogo}
