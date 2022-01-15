@@ -4,8 +4,15 @@ import { jsx } from '@emotion/react';
 import { useForm, useController } from 'react-hook-form';
 import { flex, MIN_TOUCH_SIZE, s05, s1 } from '../styles';
 
-export function TextField(props) {
-  const { control, name, defaultValue, input, label, style } = props;
+export function TextField({
+  control,
+  name,
+  defaultValue,
+  input,
+  label,
+  style,
+  ...props
+}) {
   const { id, placeholder, type } = input;
 
   const {
@@ -15,7 +22,7 @@ export function TextField(props) {
   } = useController({
     name,
     control,
-    defaultValue: '',
+    defaultValue: defaultValue || '',
   });
 
   return (
