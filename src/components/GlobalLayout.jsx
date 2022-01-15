@@ -111,6 +111,10 @@ export const GlobalLayout = ({ htmlHead, children }) => {
                 title: 'Resources',
                 path: `/${slugify('Resources')}`,
               },
+              contact: {
+                title: 'Contact Us',
+                path: `/${slugify('Contact')}`,
+              },
 
               tags: globalData.tags.enumValues.map((term) => {
                 const base = {
