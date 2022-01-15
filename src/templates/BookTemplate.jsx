@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { graphql } from 'gatsby';
 import React from 'react';
+import { graphql } from 'gatsby';
 
 import * as pluralize from 'pluralize';
 
@@ -48,7 +48,7 @@ import { HiddenAccessibleText } from '../components/HiddenAccessibleText';
 import EpicIcon from '../icons/Epic';
 import OverdriveIcon from '../icons/Overdrive';
 import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
-import { MonoFontLink } from '../components/MonoFontLink';
+import { ContributorLinks } from '../components/ContributorLinks';
 
 function BookTemplate({ data }) {
   const {
@@ -172,19 +172,10 @@ function BookTemplate({ data }) {
                 <dl css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
                   <dt>by </dt>
                   <dd>
-                    {authors.map(({ lastName, firstName, slug }, index) => {
-                      return (
-                        <>
-                          <MonoFontLink
-                            to={`/authors-illustrators/${slug}`}
-                            css={{ padding: 0, marginLeft: '1ch' }}
-                          >
-                            {firstName} {lastName}
-                          </MonoFontLink>
-                          {authors.length !== index + 1 && ','}
-                        </>
-                      );
-                    })}
+                    <ContributorLinks
+                      contributors={authors}
+                      css={{ padding: 0, marginLeft: '1ch' }}
+                    />
                   </dd>
                 </dl>
               )}
@@ -193,21 +184,10 @@ function BookTemplate({ data }) {
                 <dl css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
                   <dt>Illustrator:</dt>
                   <dd>
-                    {illustrators.map(
-                      ({ lastName, firstName, slug }, index) => {
-                        return (
-                          <>
-                            <MonoFontLink
-                              to={`/authors-illustrators/${slug}`}
-                              css={{ padding: 0, marginLeft: '1ch' }}
-                            >
-                              {firstName} {lastName}
-                            </MonoFontLink>
-                            {illustrators.length !== index + 1 && ','}
-                          </>
-                        );
-                      }
-                    )}
+                    <ContributorLinks
+                      contributors={illustrators}
+                      css={{ padding: 0, marginLeft: '1ch' }}
+                    />
                   </dd>
                 </dl>
               )}
@@ -515,9 +495,13 @@ function BookTemplate({ data }) {
                 )}
               </dl>
             </TextContainer>
-            {/* <TextContainer css={{ gridArea: 'form' }}>
+            <TextContainer css={{ gridArea: 'form' }}>
               <Heading level={3}>Have a Suggestion?</Heading>
-            </TextContainer> */}
+              <p>
+                We do invite you to submit your ideas, lesson plans, vignettes,
+                and other work to be included on our book pages.
+              </p>
+            </TextContainer>
           </Container>
         </Section>
       </main>

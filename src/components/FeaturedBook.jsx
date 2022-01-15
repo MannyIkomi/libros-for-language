@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/react';
 import { notoSerif, PRIMARY, notoSans, onHover, WHITE } from '../styles';
 import { BookImage } from './BookImage';
+import { ContributorLinks } from './ContributorLinks';
 import { Link } from './Link';
 
 export function FeaturedBook(book) {
@@ -88,18 +89,15 @@ export function FeaturedBook(book) {
                 fontSize: '1rem',
               }}
             >
-              {authors.length >= 1 &&
-                (authors.length === 1 ? (
-                  <p>{`by ${authors[0].name}`}</p>
-                ) : (
-                  <p>{`by ${authors
-                    .map((author) => author.name)
-                    .join(', ')}`}</p>
-                ))}
+              {authors.length > 0 && (
+                <ContributorLinks
+                  contributors={authors}
+                  css={[notoSans, { padding: 0 }]}
+                />
+              )}
               <p>{book.publisherSummary}</p>
             </div>
             <div
-              className="fade-paragraph"
               css={{
                 position: 'absolute',
                 bottom: 0,
@@ -120,11 +118,9 @@ export function FeaturedBook(book) {
                 'transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out',
               objectFit: 'contain',
             }}
-            className={'book-image'}
           />
         </div>
         <div
-          className="book-camera shadow"
           css={{
             position: 'relative',
             backfaceVisibility: 'hidden',
@@ -135,7 +131,6 @@ export function FeaturedBook(book) {
           }}
         >
           <div
-            className="shadow-illusion"
             css={{
               position: 'absolute',
               left: '0%',

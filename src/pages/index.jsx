@@ -110,7 +110,6 @@ function IndexPage({ data }) {
 
                     placeItems: 'end center',
                     gridGap: s1,
-                    gridAutoFlow: 'dense',
                   }),
                 },
                 onTabletMedia({
@@ -257,9 +256,13 @@ export const query = graphql`
         title
         updatedAt
         authors {
+          lastName
+          firstName
           type
         }
         illustrators {
+          lastName
+          firstName
           type
         }
         publisherSummary
