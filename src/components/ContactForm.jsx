@@ -52,7 +52,7 @@ export function ContactForm(props) {
         name={'email'}
         label={{ children: 'Email' }}
         input={{
-          placeholder: 'youremail@domain.com"',
+          placeholder: 'youremail@domain.com',
           id: 'email',
           type: 'email',
         }}
