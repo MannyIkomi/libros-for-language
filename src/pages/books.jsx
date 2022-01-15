@@ -350,17 +350,13 @@ function BooksPage({ data }) {
               <BookList
                 css={[
                   {
-                    listStyle: 'none',
                     gridArea: 'results',
+                    // listStyle: 'none',
                     padding: s1,
-                    ...grid({
-                      gridTemplateColumns: '1fr 1fr',
-                      gridGap: s1,
-                      placeItems: 'end center',
-                    }),
                   },
 
                   onTabletMedia({
+                    gridArea: 'results',
                     gridTemplateColumns: `repeat(auto-fill, minmax(${base320}, 1fr))`,
                     width: 'max-content',
 

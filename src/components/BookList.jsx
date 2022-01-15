@@ -10,7 +10,7 @@ export const BookList = ({ children, ...props }) => (
       grid({
         gridTemplateColumns: '1fr 1fr',
         gridGap: s1,
-        placeItems: 'end stretch',
+        placeItems: 'end center',
       }),
       onTabletMedia({
         width: '100%',
