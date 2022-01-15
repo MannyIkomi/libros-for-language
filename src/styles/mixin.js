@@ -1,10 +1,10 @@
-import { s1 } from '.';
+import { base1280, base640, s1 } from './spacing';
 
-export const DESKTOP_VIEWPORT = `1200px`;
-export const TABLET_VIEWPORT = `700px`;
+export const DESKTOP_VIEWPORT = base1280;
+export const TABLET_VIEWPORT = base640;
 
-export const tabletMediaQuery = `@media screen and (min-width: ${TABLET_VIEWPORT})`;
-export const desktopMediaQuery = `@media screen and (min-width: ${DESKTOP_VIEWPORT})`;
+export const tabletMediaQuery = `@media (min-width: ${TABLET_VIEWPORT})`;
+export const desktopMediaQuery = `@media (min-width: ${DESKTOP_VIEWPORT})`;
 
 export const onMedia = (query = '', styles = {}) => ({
   [`@media (${query})`]: {
