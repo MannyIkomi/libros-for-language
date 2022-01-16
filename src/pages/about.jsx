@@ -48,7 +48,7 @@ function AboutPage({ data }) {
           >
             <Container
               css={[
-                { alignSelf: 'center' },
+                { alignSelf: 'center', gap: s2 },
                 // onTabletMedia({
                 //   ...grid({
                 //     gridTemplateColumns: '1fr 1fr',
@@ -102,7 +102,7 @@ function AboutPage({ data }) {
                 </p>
               </TextContainer>
               <PrimaryLink to={'/typology'} css={{ color: WHITE }}>
-                Learn About our Typology
+                Learn About Our Typology
               </PrimaryLink>
               <TertiaryLink to={'/resources'}>
                 Translanguaging Resources

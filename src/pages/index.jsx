@@ -26,7 +26,12 @@ import {
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
-import { Link, PrimaryLink, SecondaryLink } from '../components/Link';
+import {
+  Link,
+  PrimaryLink,
+  SecondaryLink,
+  TertiaryLink,
+} from '../components/Link';
 import { GlobalLayout } from '../components/GlobalLayout';
 
 import { FeaturedBook } from '../components/FeaturedBook';
@@ -222,7 +227,7 @@ function IndexPage({ data }) {
             </Container>
           </Section>
           <Section>
-            <Container>
+            <Container css={{ gap: s2 }}>
               <TextContainer>
                 <Heading level={3}>
                   Libros for Language is a digital library designed to support
@@ -235,7 +240,10 @@ function IndexPage({ data }) {
                   their daily lives.
                 </p>
               </TextContainer>
-              <SecondaryLink to={'/about'}>Learn More</SecondaryLink>
+              <SecondaryLink to={'/about'}>About Us</SecondaryLink>
+              <TertiaryLink to={'/typology'}>
+                Learn About Our Typology
+              </TertiaryLink>
             </Container>
           </Section>
         </main>
