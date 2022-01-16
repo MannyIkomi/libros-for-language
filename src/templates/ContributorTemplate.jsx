@@ -63,7 +63,7 @@ function ContributorTemplate(props) {
   const { data, pageContext } = props;
   const { graphCmsContributor } = data;
 
-  const { lastName, firstName, bookIllustrated, booksAuthored } =
+  const { lastName, firstName, booksIllustrated, booksAuthored } =
     graphCmsContributor;
 
   return (
@@ -89,12 +89,12 @@ function ContributorTemplate(props) {
               <BookList>{booksAuthored.map(renderBook)}</BookList>
             </Container>
           )}
-          {bookIllustrated.length > 0 && (
+          {booksIllustrated.length > 0 && (
             <Container>
               <Heading level={2} css={{ alignSelf: 'start' }}>
                 Books Illustrated
               </Heading>
-              <BookList>{bookIllustrated.map(renderBook)}</BookList>
+              <BookList>{booksIllustrated.map(renderBook)}</BookList>
             </Container>
           )}
         </Section>
@@ -113,7 +113,7 @@ export const query = graphql`
       lastName
       slug
       type
-      bookIllustrated {
+      booksIllustrated {
         updatedAt
         title
         slug

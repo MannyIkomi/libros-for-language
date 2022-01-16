@@ -35,7 +35,7 @@ fragment Contributor on Contributor {
       stage
     }
   }
-  bookIllustrated {
+  booksIllustrated {
     ... on Book {
       remoteTypeName: __typename
       remoteId: id
