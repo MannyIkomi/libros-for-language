@@ -31,10 +31,10 @@ function ResourcesPage({ data }) {
 
   return (
     <GlobalLayout>
-      <UnderConstruction />
       <GraphCMSPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
+        <UnderConstruction />
         <Section
           css={[
             {

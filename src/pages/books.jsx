@@ -143,8 +143,6 @@ function BooksPage({ data }) {
         <main
           css={[{ position: 'relative', overflow: 'scroll', height: '100vh' }]}
         >
-          {/* <UnderConstruction /> */}
-
           <Section
             css={[
               grid({

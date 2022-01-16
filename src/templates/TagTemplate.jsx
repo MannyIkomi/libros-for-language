@@ -4,7 +4,6 @@ import { graphql } from 'gatsby';
 import * as pluralize from 'pluralize';
 
 import { DebugData } from '../components/DebugData';
-import { UnderConstruction } from '../components/UnderConstruction';
 import { Footer } from '../components/Footer';
 import { Container } from '../components/Container';
 import { GlobalLayout } from '../components/GlobalLayout';
@@ -31,7 +30,6 @@ function TagTemplate(props) {
   const { title, books, id, definition } = graphCmsTag;
   return (
     <GlobalLayout>
-      <UnderConstruction />
       <GraphCMSPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
