@@ -26,6 +26,9 @@ exports.createPages = async ({ graphql, actions }) => {
         nodes {
           title
           slug
+          tags {
+            title
+          }
         }
       }
       tagTypes: __type(name: "GraphCMS_TagType") {
@@ -46,34 +49,58 @@ exports.createPages = async ({ graphql, actions }) => {
           firstName
           lastName
           slug
+          booksAuthored {
+            id
+          }
+          booksIllustrated {
+            id
+          }
         }
       }
     }
   `);
 
   result.data.allGraphCmsBook.nodes.forEach((book) => {
-    createPage({
-      path: `/books/${book.slug}`,
-      component: BookTemplate,
-      context: {
-        ...book,
-      },
-    });
+    if (book.tags.length > 0) {
+      createPage({
+        path: `/books/${book.slug}`,
+        component: BookTemplate,
+        context: {
+          ...book,
+        },
+      });
+
+      return;
+    }
+
+    console.warn(
+      book.title,
+      'Does not have any tags assigned and will not be rendered on the site.'
+    );
   });
 
   result.data.allGraphCmsContributor.nodes.forEach((contributor) => {
-    const { lastName, firstName } = contributor;
+    const { firstName, lastName, booksAuthored, booksIllustrated, slug } =
+      contributor;
 
-    createPage({
-      path: `/authors-illustrators/${
-        contributor?.slug ||
-        `${slugify(`${slugify(firstName)} ${slugify(lastName)}`)}`
-      }`,
-      component: ContributorTemplate,
-      context: {
-        ...contributor,
-      },
-    });
+    const name = `${firstName} ${lastName}`;
+
+    if (slug) {
+      createPage({
+        path: `/authors-illustrators/${slug}`,
+        component: ContributorTemplate,
+        context: {
+          name,
+          ...contributor,
+        },
+      });
+      return;
+    }
+
+    console.warn(
+      name,
+      'Does not have any books assigned and will not be rendered on the site.'
+    );
   });
 
   result.data.tagTypes.enumValues.forEach((typeEnum) => {
