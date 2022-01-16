@@ -123,11 +123,6 @@ function BooksPage({ data }) {
 
   const handleFilterChecked = (option) => (e) => {
     const checked = e.target.checked;
-
-    console.log('BOOKS', filteredBooks);
-    console.log('FILTERS', userFilters);
-    console.log(option.title, checked);
-
     checked
       ? setUserFilters([...userFilters, option])
       : setUserFilters(userFilters.filter((tag) => tag.id !== option.id));
@@ -172,7 +167,7 @@ function BooksPage({ data }) {
                 onTabletMedia({ gridArea: 'heading' }),
               ]}
             >
-              <Heading level={1}>
+              <Heading level={1} css={{ placeSelf: 'start' }}>
                 {pluralize('Book', filteredBooks.length, true)}
               </Heading>
             </Container>
@@ -368,7 +363,13 @@ function BooksPage({ data }) {
                 {filteredBooks.map((book) => {
                   return (
                     <BookCover book={book}>
-                      <Heading level={2} css={{ fontSize: s1 }}>
+                      <Heading
+                        level={2}
+                        css={[
+                          { fontSize: s1 },
+                          onTabletMedia({ fontSize: s1 }),
+                        ]}
+                      >
                         {book.title}
                       </Heading>
                     </BookCover>
