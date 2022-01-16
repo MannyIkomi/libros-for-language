@@ -17,7 +17,12 @@ import {
   flex,
   base320,
 } from '../styles';
-import { GenreTag, TopicTag, GradeLevelTag } from '../components/Tag';
+import {
+  GenreTag,
+  TopicTag,
+  GradeLevelTag,
+  LanguageTag,
+} from '../components/Tag';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
@@ -37,9 +42,18 @@ console.clear();
 
 function IndexPage({ data }) {
   const featuredBooks = data.allGraphCmsBook.nodes;
-  const topics = data.allGraphCmsTopic.nodes;
-  const genres = data.allGraphCmsGenre.nodes;
-  const grades = data.allGraphCmsGrade.nodes;
+  const topics = data.allGraphCmsTopic.nodes.filter(
+    (topic) => topic.books.length > 0
+  );
+  const genres = data.allGraphCmsGenre.nodes.filter(
+    (genre) => genre.books.length > 0
+  );
+  const grades = data.allGraphCmsGrade.nodes.filter(
+    (grade) => grade.books.length > 0
+  );
+  const languages = data.allGraphCmsLanguage.nodes.filter(
+    (language) => language.books.length > 0
+  );
 
   const tagTypes = data.categoryNames.enumValues;
 
@@ -141,6 +155,27 @@ function IndexPage({ data }) {
           <Section>
             <Container css={{ gap: s4 }}>
               <TextContainer>
+                <Heading level={2}>Browse by Language</Heading>
+                <List
+                  css={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    listStyle: 'none',
+                    gap: s1,
+                  }}
+                >
+                  {languages.map(({ slug, title, tagType }) => (
+                    <Link
+                      key={title}
+                      to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
+                      css={{ textDecoration: 'none' }}
+                    >
+                      <LanguageTag>{title}</LanguageTag>
+                    </Link>
+                  ))}
+                </List>
+              </TextContainer>
+              <TextContainer>
                 <Heading level={2}>Browse by Genre</Heading>
                 <List
                   css={{
@@ -180,29 +215,6 @@ function IndexPage({ data }) {
                       }}
                     >
                       <GradeLevelTag>{title}</GradeLevelTag>
-                    </Link>
-                  ))}
-                </List>
-              </TextContainer>
-              <TextContainer>
-                <Heading level={2}>Browse by Topic</Heading>
-                <List
-                  css={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    listStyle: 'none',
-                    gap: s1,
-                  }}
-                >
-                  {topics.map(({ slug, title, tagType }) => (
-                    <Link
-                      key={title}
-                      to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
-                      css={{
-                        textDecoration: 'none',
-                      }}
-                    >
-                      <TopicTag>{title}</TopicTag>
                     </Link>
                   ))}
                 </List>
@@ -281,6 +293,9 @@ export const query = graphql`
         title
         slug
         tagType
+        books {
+          title
+        }
       }
     }
     allGraphCmsGenre: allGraphCmsTag(filter: { tagType: { eq: Genre } }) {
@@ -288,15 +303,23 @@ export const query = graphql`
         title
         slug
         tagType
+        books {
+          title
+        }
       }
     }
+
     allGraphCmsLanguage: allGraphCmsTag(filter: { tagType: { eq: Language } }) {
       nodes {
         title
         slug
         tagType
+        books {
+          title
+        }
       }
     }
+
     allGraphCmsText_Structure: allGraphCmsTag(
       filter: { tagType: { eq: Text_Structure } }
     ) {
@@ -304,6 +327,9 @@ export const query = graphql`
         title
         slug
         tagType
+        books {
+          title
+        }
       }
     }
     allGraphCmsTopic: allGraphCmsTag(filter: { tagType: { eq: Topic } }) {
@@ -311,6 +337,9 @@ export const query = graphql`
         title
         slug
         tagType
+        books {
+          title
+        }
       }
     }
   }
