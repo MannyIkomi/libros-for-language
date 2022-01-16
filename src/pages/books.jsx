@@ -44,7 +44,6 @@ import { GlobalLayout } from '../components/GlobalLayout';
 
 import { BookCover } from '../components/BookCover';
 import { MainMenu } from '../components/MainMenu';
-import { UnderConstruction } from '../components/UnderConstruction';
 import { Section } from '../components/Section';
 import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';

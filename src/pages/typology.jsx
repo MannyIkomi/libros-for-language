@@ -111,7 +111,7 @@ function TypologyPage({ data }) {
                         ...boxShadow,
                       }}
                     >
-                      <h2>{title}</h2>
+                      <Heading level={2}>{title}</Heading>
                       {definition && <p>{definition}</p>}
                       {details && <RichText html={details.html} />}
 
