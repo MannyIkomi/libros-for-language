@@ -113,10 +113,12 @@ function BookTemplate({ data }) {
 
                 gridAutoFlow: 'column',
                 gridTemplateAreas: `
-              "book-image"
-              "book-title"
-              "book-summary"
-              "translanguaging-typology"
+              "cover"
+              "title"
+              "summary"
+              "actionLink"              
+              "typology"
+              "availability"
               `,
                 gridTemplateColumns: '1fr',
                 gridTemplateRows:
@@ -124,33 +126,33 @@ function BookTemplate({ data }) {
               },
               onTabletMedia({
                 display: 'grid',
-
                 alignSelf: 'center',
-                gridAutoColumns: '1fr',
+
+                // gridAutoColumns: '1fr',
                 gridColumnGap: '1rem',
                 gridRowGap: '2rem',
-                gridTemplateAreas: `
-              "book-title book-title"
-              "book-image book-summary"
-              "book-image translanguaging-typology"
-              "book-image ."
-              "book-image ."`,
 
                 gridTemplateColumns: '1fr 1fr',
-
                 gridTemplateRows:
                   'min-content min-content min-content min-content auto',
+
+                gridTemplateAreas: `
+              "title title"
+              "cover summary"
+              "cover typology"
+              "availability actionLink"
+              `,
               }),
             ]}
           >
             {bookCover && (
               <BookImage
                 loading="eager"
-                className="book-image full-height"
+                className="cover full-height"
                 book={data.graphCmsBook}
                 css={{
                   ...boxShadow,
-                  gridArea: 'book-image',
+                  gridArea: 'cover',
                   maxWidth: 'initial',
                   maxHeight: 'initial',
                   placeSelf: 'start stretch',
@@ -161,7 +163,7 @@ function BookTemplate({ data }) {
               id="w-node-_99a0eb45-7fae-4bf9-8d9d-f3ee27a955eb-0b286f2c"
               className="book-info"
               css={{
-                gridArea: 'book-title',
+                gridArea: 'title',
                 h2: {
                   marginBottom: s05,
                   color: COMPLIMENT,
@@ -196,10 +198,8 @@ function BookTemplate({ data }) {
             </TextContainer>
             {publisherSummary && (
               <TextContainer
-                id="w-node-_13bdeb9c-bc2f-92fc-08a1-a5356c9e3859-0b286f2c"
-                className="publisher-summary"
                 css={{
-                  gridArea: 'book-summary',
+                  gridArea: 'summary',
                 }}
               >
                 <p>
@@ -211,11 +211,21 @@ function BookTemplate({ data }) {
                 </p>
               </TextContainer>
             )}
+
+            {actionLink && (
+              <PrimaryLink
+                to={actionLink}
+                css={[primaryActionStyle, { gridArea: 'actionLink' }]}
+              >
+                {actionLabel || 'Learn More'}
+              </PrimaryLink>
+            )}
+
             {typologies.length > 0 && (
               <TextContainer
                 // id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
                 // className="translanguaging"
-                css={{ gridArea: 'translanguaging-typology' }}
+                css={{ gridArea: 'typology' }}
               >
                 <Heading level={2}>Translanguaging Typology</Heading>
 
@@ -259,7 +269,7 @@ function BookTemplate({ data }) {
             )}
 
             {hasAvailabilityLink && (
-              <TextContainer>
+              <TextContainer css={{ gridArea: 'availability' }}>
                 <Heading level={2}>Available On…</Heading>
                 <List css={{ listStyle: 'none', ...flex('row'), gap: s2 }}>
                   {availabilityLinks
@@ -297,16 +307,6 @@ function BookTemplate({ data }) {
                 </List>
               </TextContainer>
             )}
-
-            {actionLink && (
-              <PrimaryLink
-                to={actionLink}
-                className="action-button"
-                css={primaryActionStyle}
-              >
-                {actionLabel || 'Learn More'}
-              </PrimaryLink>
-            )}
           </Container>
         </Section>
 
@@ -332,6 +332,7 @@ function BookTemplate({ data }) {
                 gridColumnGap: s2,
               }),
               onDesktopMedia({
+                gridTemplateColumns: '1fr 1fr 1fr',
                 gridTemplateAreas: `"genre grade language" "textStructure topic topic" "metadata suggestion suggestion"`,
                 gridRowGap: s2,
                 gridColumnGap: s1,
@@ -529,6 +530,8 @@ export const query = graphql`
     graphCmsBook(slug: { eq: $slug }) {
       title
       awards
+      actionLink
+      actionLabel
       bookCover {
         altDescription
         url
