@@ -19,7 +19,7 @@ export function BookCover(props) {
         ) : (
           <img
             src={BookCoverPlaceholder}
-            alt={`Placeholder Bookcover for ${book.title}`}
+            alt={`Placeholder book cover for ${book.title}`}
           />
         )}
         {children}
