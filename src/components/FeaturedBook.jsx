@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { notoSerif, PRIMARY, notoSans, onHover, WHITE } from '../styles';
+import { notoSerif, PRIMARY, notoSans, onHover, WHITE, BLACK } from '../styles';
 import { BookImage } from './BookImage';
 import { ContributorLinks } from './ContributorLinks';
 import { Link } from './Link';
@@ -18,13 +18,13 @@ export function FeaturedBook(book) {
       css={{
         ...onHover({
           '&:hover': {
-            '.book-image': {
+            '.cover': {
               transform: 'rotateY(-180deg)',
             },
-            '.book-summary': {
+            '.summary': {
               transform: 'rotateY(0deg)',
             },
-            '.shadow-illusion': {
+            '.shadow': {
               transform: 'rotateY(-180deg)',
             },
           },
@@ -43,8 +43,19 @@ export function FeaturedBook(book) {
             transformStyle: 'preserve-3d',
           }}
         >
+          <BookImage
+            className={'cover'}
+            book={book}
+            css={{
+              backfaceVisibility: 'hidden',
+              transform: 'rotate(0deg)',
+              transition:
+                'transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out',
+              objectFit: 'contain',
+            }}
+          />
           <div
-            className="book-summary"
+            className="summary"
             css={{
               position: 'absolute',
               left: 0,
@@ -109,16 +120,6 @@ export function FeaturedBook(book) {
               }}
             ></div>
           </div>
-          <BookImage
-            book={book}
-            css={{
-              backfaceVisibility: 'hidden',
-              transform: 'rotate(0deg)',
-              transition:
-                'transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out',
-              objectFit: 'contain',
-            }}
-          />
         </div>
         <div
           css={{
@@ -131,6 +132,7 @@ export function FeaturedBook(book) {
           }}
         >
           <div
+            className="shadow"
             css={{
               position: 'absolute',
               left: '0%',
@@ -141,7 +143,7 @@ export function FeaturedBook(book) {
               width: '100%',
               ...maxDimensions,
               height: '5rem',
-              backgroundColor: '#1c2431',
+              backgroundColor: BLACK,
               opacity: '0.5',
 
               filter: 'blur(2rem)',

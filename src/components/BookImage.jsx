@@ -11,7 +11,7 @@ export function BookImage({ book, ...props }) {
       height={bookCover?.height}
       loading="eager"
       alt={bookCover?.altDescription || `${book.title} Book Cover`}
-      className="book-image"
+      className="book-image" // important for hover effect
       css={{
         display: 'block',
         width: '100%',
