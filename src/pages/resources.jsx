@@ -60,7 +60,7 @@ function ResourcesPage({ data }) {
           z
         >
           <Container css={{ gridArea: 'title', alignItems: 'start' }}>
-            <h1>Translanguaging Resources</h1>
+            <Heading level={1}>Translanguaging Resources</Heading>
           </Container>
           <Container>
             <List css={{ listStyle: 'none' }}>

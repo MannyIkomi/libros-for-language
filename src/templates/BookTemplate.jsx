@@ -171,7 +171,7 @@ function BookTemplate({ data }) {
                 maxWidth: 'initial',
               }}
             >
-              <h1>{title}</h1>
+              <Heading level={1}>{title}</Heading>
               {authors.length > 0 && (
                 <dl css={{ display: 'flex', gap: s0125, marginBottom: s05 }}>
                   <dt>by </dt>

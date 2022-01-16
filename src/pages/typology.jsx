@@ -74,7 +74,7 @@ function TypologyPage({ data }) {
             ]}
           >
             <Container css={{ gridArea: 'title', alignItems: 'start' }}>
-              <h1>Translanguaging Typology</h1>
+              <Heading level={1}>Translanguaging Typology</Heading>
               <p>
                 As we built the site and analyzed high-quality picture books, we
                 noticed that there was variety in the ways authors and
