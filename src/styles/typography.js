@@ -108,24 +108,25 @@ export const headings = {
 };
 
 export const headingsDesktop = {
+  // https://type-scale.com/?size=16&scale=1.250&text=A%20Visual%20Type%20Scale&font=Noto%20Serif&fontweight=400&bodyfont=Noto%2BSans&bodyfontweight=400&lineheight=1.75&backgroundcolor=%23ffffff&fontcolor=%23000000&preview=false
   h1: {
     ...h1,
-    fontSize: '4.209rem',
+    fontSize: '3.052rem',
   },
   h2: {
     ...h2,
-    fontSize: '3.157rem',
+    fontSize: '2.441rem',
   },
   h3: {
     ...h3,
-    fontSize: '2.369rem',
+    fontSize: '1.953rem',
   },
   h4: {
     ...h4,
-    fontSize: '1.777rem',
+    fontSize: '1.563rem',
   },
   h5: {
     ...h5,
-    fontSize: '1.333rem',
+    fontSize: '1.25rem',
   },
 };
