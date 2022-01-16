@@ -64,7 +64,7 @@ export const secondaryActionStyle = [
 
     textDecoration: 'none',
     textTransform: 'uppercase',
-    whiteSpace: 'nowrap',
+    // whiteSpace: 'nowrap',
   },
   onTabletMedia({ width: 'initial' }),
 ];
