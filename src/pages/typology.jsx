@@ -39,6 +39,8 @@ import { Section } from '../components/Section';
 import RichText from '../components/RichText';
 import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 import { UnderConstruction } from '../components/UnderConstruction';
+import { MonoFontLink } from '../components/MonoFontLink';
+import { List } from '../components/List';
 
 function TypologyPage({ data }) {
   const typologies = data.allGraphCmsTag.nodes;
@@ -55,71 +57,114 @@ function TypologyPage({ data }) {
               {
                 ...grid({
                   gridTemplateColumns: '1fr',
-                  gridTemplateAreas: `"title" "term"`,
+                  gridTemplateAreas: `"title" "glossary" "terms"`,
+                  placeItems: 'start',
                 }),
 
                 minHeight: '80vh',
                 marginBottom: '10vh',
-
-                alignItems: 'initial',
-                flexDirection: 'column',
-                justifyContent: 'center',
               },
               onTabletMedia({
-                ...grid({
-                  gridTemplateColumns: '1fr',
-                  gridTemplateAreas: `"title" "terms"`,
-                }),
+                placeItems: 'start',
+                gridTemplateColumns: 'min-content 1fr',
+                gridTemplateRows: 'min-content 1fr',
+                gridTemplateAreas: `"title terms" "glossary terms"`,
               }),
             ]}
           >
             <Container css={{ gridArea: 'title', alignItems: 'start' }}>
               <Heading level={1}>Translanguaging Typology</Heading>
               <p>
-                As we built the site and analyzed high-quality picture books, we
-                noticed that there was variety in the ways authors and
-                illustrators used translanguaging while they wrote and created
-                their visuals. We created a typology that outlines some of these
-                differences. By more closely analyzing the specific ways
-                translanguaging can happen in books, we hope teachers can create
-                a more detailed plan for how to discuss with students the
-                linguistic choices authors make and the ways students can shape
-                and craft their own multilingual writing.
+                There are a variety of ways authors and illustrators use
+                translanguaging when they write and create their visuals. We
+                created a typology that outlines some of these differences. By
+                more closely analyzing the specific ways translanguaging can
+                happen in books, we hope teachers can create a more detailed
+                plan for how to discuss with students the linguistic choices
+                authors make and the ways students can shape and craft their own
+                multilingual writing.
               </p>
             </Container>
             <Container
-              css={[
-                onTabletMedia({
-                  gridArea: 'terms',
-                  ...grid({ gridTemplateColumns: '1fr 1fr' }),
-                  gridGap: `${s2} ${s2}`,
-                  placeItems: 'start',
-                }),
-              ]}
+              css={{
+                gridArea: 'glossary',
+                alignSelf: 'start',
+                alignItems: 'start',
+              }}
             >
-              {typologies
-                .filter((term) => term.definition)
-                .map((term) => {
-                  const { title, details, definition } = term;
+              <Heading level={2}>Glossary</Heading>
+              <List css={{ listStyle: 'none' }}>
+                {typologies.map((term) => {
                   return (
-                    <TextContainer
-                      key={title}
-                      css={{
-                        padding: s1,
-                        background: COMPLIMENT20,
-                        borderRadius: `${s0125} ${s1}`,
-                        ...boxShadow,
-                      }}
+                    <MonoFontLink
+                      to={`#${term.slug}`}
+                      css={{ whiteSpace: 'normal' }}
                     >
-                      <Heading level={2}>{title}</Heading>
-                      {definition && <p>{definition}</p>}
-                      {details && <RichText html={details.html} />}
-
-                      {/* snippet example */}
-                      {/* book where snippet is from */}
-                    </TextContainer>
+                      {term.title}
+                    </MonoFontLink>
                   );
                 })}
+              </List>
+            </Container>
+            <Container
+              css={{
+                gridArea: 'terms',
+              }}
+            >
+              <dl
+                css={[
+                  grid({
+                    gridTemplateColumns: '1fr',
+                    gridTemplateColumns: `repeat(auto-fit, 1fr)`,
+                    gridGap: `${s2} ${s2}`,
+                    placeItems: 'center',
+                  }),
+                  // onTabletMedia({
+                  // }),
+                ]}
+              >
+                {typologies
+                  .filter((term) => term.definition)
+                  .map((term) => {
+                    const { title, details, definition, slug } = term;
+                    return (
+                      <TextContainer
+                        key={title}
+                        css={{
+                          padding: s1,
+                          background: COMPLIMENT20,
+                          borderRadius: `${s0125} ${s1}`,
+                          ...boxShadow,
+                        }}
+                      >
+                        <dt>
+                          <MonoFontLink
+                            to={`/tags/typologies/${slug}`}
+                            css={{ padding: 0, whiteSpace: 'normal' }}
+                          >
+                            <Heading
+                              level={3}
+                              id={term.slug}
+                              css={{
+                                fontSize: 'inherit',
+                                scrollMargin: '25vh 0',
+                              }}
+                            ></Heading>
+                            {title}
+                          </MonoFontLink>
+                          {/* <Heading
+                            level={2}
+                            css={{ fontSize: `${s1} !important` }}
+                          ></Heading> */}
+                        </dt>
+                        <dd>
+                          {definition && <p>{definition}</p>}
+                          {details && <RichText html={details.html} />}
+                        </dd>
+                      </TextContainer>
+                    );
+                  })}
+              </dl>
             </Container>
           </Section>
         </main>
@@ -135,6 +180,8 @@ export const query = graphql`
       nodes {
         title
         definition
+        slug
+        id
         details {
           html
         }
