@@ -59,8 +59,7 @@ function AboutPage({ data }) {
             >
               <TextContainer>
                 <Heading level={1}>
-                  A Curated Collection of {bookCount}
-                  Translanguaging Books
+                  A Curated Collection of {bookCount} Translanguaging Books
                 </Heading>
                 <p>
                   Libros for Language is a digital library designed to support
