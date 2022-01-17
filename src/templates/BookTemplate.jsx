@@ -140,24 +140,33 @@ function BookTemplate({ data }) {
               "title title"
               "cover summary"
               "cover typology"
-              "availability actionLink"
+              "cover actionLink"
+              "cover availability"
               `,
               }),
             ]}
           >
             {bookCover && (
-              <BookImage
-                loading="eager"
-                className="cover full-height"
-                book={data.graphCmsBook}
+              <div
                 css={{
-                  ...boxShadow,
+                  // position: 'relative',
                   gridArea: 'cover',
-                  maxWidth: 'initial',
-                  maxHeight: 'initial',
-                  placeSelf: 'start stretch',
+                  placeSelf: 'stretch',
                 }}
-              />
+              >
+                <BookImage
+                  loading="eager"
+                  className="cover full-height"
+                  book={data.graphCmsBook}
+                  css={{
+                    ...boxShadow,
+                    position: 'sticky',
+                    top: s1,
+                    maxWidth: 'initial',
+                    maxHeight: 'initial',
+                  }}
+                />
+              </div>
             )}
             <TextContainer
               id="w-node-_99a0eb45-7fae-4bf9-8d9d-f3ee27a955eb-0b286f2c"
