@@ -1,7 +1,7 @@
-import { base1280, base640, s1 } from './spacing';
+import { base1280, base640, s1, base700 } from './spacing';
 
 export const DESKTOP_VIEWPORT = base1280;
-export const TABLET_VIEWPORT = base640;
+export const TABLET_VIEWPORT = base700;
 
 export const tabletMediaQuery = `@media (min-width: ${TABLET_VIEWPORT})`;
 export const desktopMediaQuery = `@media (min-width: ${DESKTOP_VIEWPORT})`;
