@@ -3,7 +3,18 @@ import * as React from 'react';
 import { graphql } from 'gatsby';
 import { jsx } from '@emotion/react';
 
-import { onTabletMedia, grid, WHITE } from '../styles';
+import {
+  onTabletMedia,
+  grid,
+  WHITE,
+  s2,
+  flex,
+  PRIMARY20,
+  s1,
+  s05,
+  boxShadow,
+  s5,
+} from '../styles';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
 
@@ -40,36 +51,67 @@ function ResourcesPage({ data }) {
             {
               ...grid({
                 gridTemplateColumns: '1fr',
-                gridTemplateAreas: `"title" "term"`,
+                gridTemplateAreas: `"title" "resources"`,
               }),
 
               minHeight: '80vh',
               marginBottom: '10vh',
 
-              alignItems: 'initial',
+              placeItems: 'start center',
               flexDirection: 'column',
               justifyContent: 'center',
             },
             onTabletMedia({
               ...grid({
                 gridTemplateColumns: '1fr',
-                gridTemplateAreas: `"title" "terms"`,
+                gridTemplateAreas: `"title" "resources"`,
               }),
             }),
           ]}
-          z
         >
-          <Container css={{ gridArea: 'title', alignItems: 'start' }}>
+          <Container
+            css={{ gridArea: 'title', alignItems: 'start', margin: `${s2} 0` }}
+          >
             <Heading level={1}>Translanguaging Resources</Heading>
           </Container>
-          <Container>
-            <List css={{ listStyle: 'none' }}>
+          <Container css={{ gridArea: 'resources' }}>
+            <List
+              css={[
+                {
+                  listStyle: 'none',
+                  ...grid({
+                    gridGap: s2,
+                    gridTemplateColumns: '1fr',
+                  }),
+                },
+                onTabletMedia({
+                  gridTemplateColumns: '1fr 1fr',
+                }),
+              ]}
+            >
               {resources.map((resource) => {
                 const { description, attribution, url } = resource;
                 return (
-                  <div css={{}}>
+                  <div
+                    css={{
+                      ...flex('column'),
+                      gap: s1,
+                      backgroundColor: PRIMARY20,
+                      padding: s1,
+                      borderRadius: s05,
+                      ...boxShadow,
+                    }}
+                  >
                     <Link to={resource?.url}>
-                      <Heading level={2}>{resource.title}</Heading>
+                      <Heading
+                        level={2}
+                        css={[
+                          { marginBottom: 0 },
+                          onTabletMedia({ marginBottom: 0 }),
+                        ]}
+                      >
+                        {resource.title}
+                      </Heading>
                     </Link>
                     {attribution && <span>by {attribution}</span>}
                     {/* {description && <RichText html={description.html} />} */}
@@ -94,12 +136,13 @@ export const query = graphql`
   query ResourcesPageQuery {
     allGraphCmsResource(sort: { fields: updatedAt, order: DESC }) {
       nodes {
-        attribution
         title
+        attribution
+        url
+        stage
         description {
           html
         }
-        url
       }
     }
   }
