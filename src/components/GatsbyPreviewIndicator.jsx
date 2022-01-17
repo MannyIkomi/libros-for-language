@@ -7,7 +7,7 @@ import { isDevEnv, isGatsbyPreview } from '../utils/environment';
 
 export function GatsbyPreviewIndicator() {
   return (
-    isGatsbyPreview && (
+    (isGatsbyPreview || isDevEnv) && (
       <div
         css={{
           padding: `${s05} ${s1}`,
