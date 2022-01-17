@@ -69,16 +69,14 @@ exports.createPages = async ({ graphql, actions }) => {
   `);
 
   result.data.allGraphCmsBook.nodes.forEach((book) => {
-    if (isDevEnv || isGatsbyPreview) {
-      createPage({
-        path: `/books/${book.slug}`,
-        component: BookTemplate,
-        context: {
-          ...book,
-        },
-      });
-      return;
-    }
+    createPage({
+      path: `/books/${book.slug}`,
+      component: BookTemplate,
+      context: {
+        ...book,
+      },
+    });
+    return;
 
     // books without tags get dropped unless the environment is development
   });
