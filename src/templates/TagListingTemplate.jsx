@@ -48,6 +48,7 @@ function TagListingTemplate(props) {
             css={{
               ...flex('row', { alignItems: 'center' }),
               color: PRIMARY,
+              margin: `${s2} 0`,
             }}
           >
             <Heading level={1}>{pluralize.plural(pageContext.title)}</Heading>{' '}
@@ -58,7 +59,13 @@ function TagListingTemplate(props) {
 
             return (
               books.length > 0 && (
-                <Section css={{ minHeight: 'initial' }} key={id}>
+                <Section
+                  key={id}
+                  css={[
+                    { minHeight: 'initial' },
+                    onTabletMedia({ minHeight: 'initial' }),
+                  ]}
+                >
                   <Container
                     css={[
                       { alignItems: 'flex-start', gap: s1 },

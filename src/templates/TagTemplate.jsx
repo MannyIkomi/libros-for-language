@@ -20,6 +20,7 @@ import {
   COMPLIMENT,
   base160,
   base320,
+  s2,
 } from '../styles';
 import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
 
@@ -34,12 +35,13 @@ function TagTemplate(props) {
       <MainMenu />
       <main css={{ position: 'relative' }}>
         <Section css={{ minHeight: 'initial' }} key={id}>
-          <Container css={{ alignItems: 'flex-start' }}>
+          <Container css={{ alignItems: 'flex-start', margin: `${s2} 0` }}>
             <Heading level={1}>
               {title} ({pluralize('Book', books.length, 'true')})
             </Heading>
             {definition && <p>{definition}</p>}
-
+          </Container>
+          <Container>
             {books.length > 0 ? (
               <BookList
                 css={[
