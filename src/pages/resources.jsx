@@ -33,7 +33,7 @@ import { Section } from '../components/Section';
 import { List } from '../components/List';
 import RichText from '../components/RichText';
 import { Heading } from '../components/Heading';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { isUnderContruction } from '../utils/environment';
 import { UnderConstruction } from '../components/UnderConstruction';
 
@@ -42,10 +42,9 @@ function ResourcesPage({ data }) {
 
   return (
     <GlobalLayout>
-      <GraphCMSPreviewIndicator />
+      <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
-        <UnderConstruction />
         <Section
           css={[
             {

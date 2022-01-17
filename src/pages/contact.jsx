@@ -20,7 +20,7 @@ import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
 import { TeamMemberBio } from '../components/TeamMemberBio';
 import ContactForm from '../components/ContactForm';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { UnderConstruction } from '../components/UnderConstruction';
 
 function ContactPage({ data }) {
@@ -31,7 +31,7 @@ function ContactPage({ data }) {
     <>
       <UnderConstruction />
       <GlobalLayout>
-        <GraphCMSPreviewIndicator />
+        <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>

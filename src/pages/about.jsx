@@ -20,7 +20,7 @@ import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
 import { TeamMemberBio } from '../components/TeamMemberBio';
 import ContactForm from '../components/ContactForm';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 
 function AboutPage({ data }) {
   const teamMembers = data.allGraphCmsTeamMember.nodes;
@@ -32,7 +32,7 @@ function AboutPage({ data }) {
   return (
     <>
       <GlobalLayout>
-        <GraphCMSPreviewIndicator />
+        <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section

@@ -37,7 +37,7 @@ import { GlobalLayout } from '../components/GlobalLayout';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
 import RichText from '../components/RichText';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { UnderConstruction } from '../components/UnderConstruction';
 import { MonoFontLink } from '../components/MonoFontLink';
 import { List } from '../components/List';
@@ -48,8 +48,7 @@ function TypologyPage({ data }) {
   return (
     <>
       <GlobalLayout>
-        <UnderConstruction />
-        <GraphCMSPreviewIndicator />
+        <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section

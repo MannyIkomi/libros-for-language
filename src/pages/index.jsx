@@ -41,7 +41,7 @@ import { Section } from '../components/Section';
 import { slugify } from '../utils/slugify';
 import pluralize from 'pluralize';
 import { List } from '../components/List';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 
 console.clear();
 
@@ -65,7 +65,7 @@ function IndexPage({ data }) {
   return (
     <>
       <GlobalLayout>
-        <GraphCMSPreviewIndicator />
+        <GatsbyPreviewIndicator />
         <MainMenu />
         <main
           css={{

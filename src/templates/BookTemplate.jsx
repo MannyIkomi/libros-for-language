@@ -47,7 +47,7 @@ import HooplaIcon from '../icons/Hoopla';
 import { HiddenAccessibleText } from '../components/HiddenAccessibleText';
 import EpicIcon from '../icons/Epic';
 import OverdriveIcon from '../icons/Overdrive';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { ContributorLinks } from '../components/ContributorLinks';
 import SuggestionForm from '../components/SuggestionForm';
 import { isDevEnv } from '../utils/environment';
@@ -98,7 +98,7 @@ function BookTemplate({ data }) {
         description: publisherSummary,
       }}
     >
-      <GraphCMSPreviewIndicator />
+      <GatsbyPreviewIndicator />
       <MainMenu />
       <main>
         <Section>

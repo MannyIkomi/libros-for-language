@@ -22,7 +22,7 @@ import {
   base320,
   s2,
 } from '../styles';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 
 function TagTemplate(props) {
   const { data, pageContext } = props;
@@ -31,7 +31,7 @@ function TagTemplate(props) {
   const { title, books, id, definition } = graphCmsTag;
   return (
     <GlobalLayout>
-      <GraphCMSPreviewIndicator />
+      <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
         <Section css={{ minHeight: 'initial' }} key={id}>
@@ -54,7 +54,7 @@ function TagTemplate(props) {
                   onTabletMedia({
                     width: '100%',
                     gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
-                    placeItems: 'end center',
+                    placeItems: 'end start',
                   }),
                 ]}
               >

@@ -28,7 +28,7 @@ import { SecondaryButton } from '../components/Button';
 import { SecondaryLink } from '../components/Link';
 import { slugify } from '../utils/slugify';
 import { Icon } from '../icons/Icons';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 
 const MAX_BOOK_DISPLAY_AMOUNT = 4;
 
@@ -40,7 +40,7 @@ function TagListingTemplate(props) {
 
   return (
     <GlobalLayout>
-      <GraphCMSPreviewIndicator />
+      <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
         <Section>

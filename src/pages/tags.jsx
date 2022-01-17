@@ -24,7 +24,7 @@ import { Section } from '../components/Section';
 import { MonoFontLink } from '../components/MonoFontLink';
 import { TagList } from '../components/TagList';
 import { TagGroup } from '../components/TagGroup';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 
 function TagsPage({ data }) {
   const topics = data.allGraphCmsTopic.nodes;
@@ -38,11 +38,11 @@ function TagsPage({ data }) {
   return (
     <>
       <GlobalLayout>
-        <GraphCMSPreviewIndicator />
+        <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>
-            <Container>
+            <Container css={{ margin: `${s2} 0` }}>
               <Heading level={1}>Tags</Heading>
             </Container>
 

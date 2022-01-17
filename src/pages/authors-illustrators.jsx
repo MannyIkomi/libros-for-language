@@ -27,7 +27,7 @@ import { TagList } from '../components/TagList';
 import { TagGroup } from '../components/TagGroup';
 import { isUnderContruction } from '../utils/environment';
 import { UnderConstruction } from '../components/UnderConstruction';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { DebugData } from '../components/DebugData';
 
 function AuthorIllustratorPage({ data }) {
@@ -37,12 +37,11 @@ function AuthorIllustratorPage({ data }) {
   return (
     <>
       <GlobalLayout>
-        <UnderConstruction />
-        <GraphCMSPreviewIndicator />
+        <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>
-            <Container>
+            <Container css={{ margin: `${s2} 0` }}>
               <Heading level={1}>Author & Illustrator Directory</Heading>
             </Container>
 
@@ -109,19 +108,6 @@ function AuthorIllustratorPage({ data }) {
 
 export const query = graphql`
   query AuthorIllustratorPageQuery {
-    categoryNames: __type(name: "GraphCMS_TagType") {
-      enumValues {
-        name
-      }
-    }
-    allGraphCmsTag {
-      nodes {
-        tagType
-        slug
-        title
-      }
-    }
-
     allGraphCmsAuthor: allGraphCmsContributor(
       filter: { type: { eq: Author } }
       sort: { order: ASC, fields: lastName }

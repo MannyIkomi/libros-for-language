@@ -3,11 +3,12 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import { s1, s05, WHITE } from '../styles';
-import { isDevEnv } from '../utils/environment';
+import { isDevEnv, isGatsbyPreview } from '../utils/environment';
 
-export function GraphCMSPreviewIndicator() {
+export function GatsbyPreviewIndicator() {
   return (
-    isDevEnv && (
+    isDevEnv &&
+    isGatsbyPreview && (
       <div
         css={{
           padding: `${s05} ${s1}`,

@@ -28,7 +28,7 @@ import { SecondaryButton } from '../components/Button';
 import { SecondaryLink } from '../components/Link';
 import { slugify } from '../utils/slugify';
 import { Icon } from '../icons/Icons';
-import { GraphCMSPreviewIndicator } from '../components/GraphCMSPreviewIndicator';
+import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { List } from '../components/List';
 
 // const MAX_BOOK_DISPLAY_AMOUNT = 4;
@@ -68,7 +68,7 @@ function ContributorTemplate(props) {
 
   return (
     <GlobalLayout>
-      <GraphCMSPreviewIndicator />
+      <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
         <Section>
