@@ -3,13 +3,13 @@ import { jsx } from '@emotion/react';
 import Link from './Link';
 import { Logo } from './Logo';
 import { flex, s4, s025, h1, onSupport } from '../styles';
-import { isDevEnv, isUnderContruction } from '../utils/environment';
+import { isDevEnv, showUnderContruction } from '../utils/environment';
 import { Heading } from './Heading';
 import { HiddenAccessibleText } from './HiddenAccessibleText';
 
 export function UnderConstruction(props) {
   return (
-    isUnderContruction && (
+    showUnderContruction && (
       <div
         css={[
           flex('column', { alignItems: 'center', justifyContent: 'center' }),

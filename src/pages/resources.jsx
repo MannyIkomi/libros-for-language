@@ -34,7 +34,7 @@ import { List } from '../components/List';
 import RichText from '../components/RichText';
 import { Heading } from '../components/Heading';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
-import { isUnderContruction } from '../utils/environment';
+import { showUnderContruction } from '../utils/environment';
 import { UnderConstruction } from '../components/UnderConstruction';
 
 function ResourcesPage({ data }) {

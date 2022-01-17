@@ -1,6 +1,6 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
-import { isDevEnv, isUnderContruction } from '../utils/environment';
+import { isDevEnv, showUnderContruction } from '../utils/environment';
 
 export const DebugData = (props) => {
   return (

@@ -25,7 +25,7 @@ import { Section } from '../components/Section';
 import { MonoFontLink } from '../components/MonoFontLink';
 import { TagList } from '../components/TagList';
 import { TagGroup } from '../components/TagGroup';
-import { isUnderContruction } from '../utils/environment';
+import { showUnderContruction } from '../utils/environment';
 import { UnderConstruction } from '../components/UnderConstruction';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { DebugData } from '../components/DebugData';
