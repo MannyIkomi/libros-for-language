@@ -96,7 +96,10 @@ function TagsPage({ data }) {
 
                 <TagList>
                   {typologies.map((term) => (
-                    <MonoFontLink to={`/tags/typologies/${term.slug}`}>
+                    <MonoFontLink
+                      to={`/tags/typologies/${term.slug}`}
+                      css={{ whiteSpace: 'normal' }}
+                    >
                       {term.title}
                     </MonoFontLink>
                   ))}
