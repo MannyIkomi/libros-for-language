@@ -7,7 +7,6 @@ import { isDevEnv, isGatsbyPreview } from '../utils/environment';
 
 export function GatsbyPreviewIndicator() {
   return (
-    isDevEnv &&
     isGatsbyPreview && (
       <div
         css={{
@@ -21,7 +20,7 @@ export function GatsbyPreviewIndicator() {
           color: WHITE,
         }}
       >
-        GraphCMS Draft Preview Site
+        Draft Preview Site (GraphCMS & Gatsby)
       </div>
     )
   );
