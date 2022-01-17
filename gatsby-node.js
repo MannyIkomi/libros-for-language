@@ -1,5 +1,13 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 const path = require(`path`);
 const pluralize = require('pluralize');
+
+const isDevEnv = process.env.NODE_ENV === 'development';
+const isGatsbyPreview = process.env.GATSBY_CLOUD === 'preview';
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('Gatsby Preview:', isGatsbyPreview);
 
 function slugify(string) {
   return string.replace('_', '-').replace(' ', '-').toLowerCase();
@@ -61,6 +69,16 @@ exports.createPages = async ({ graphql, actions }) => {
   `);
 
   result.data.allGraphCmsBook.nodes.forEach((book) => {
+    if (isDevEnv || isGatsbyPreview) {
+      createPage({
+        path: `/books/${book.slug}`,
+        component: BookTemplate,
+        context: {
+          ...book,
+        },
+      });
+      return;
+    }
     if (book.tags.length > 0) {
       createPage({
         path: `/books/${book.slug}`,
@@ -70,22 +88,24 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       });
 
+      console.warn(
+        book.title,
+        'Does not have any tags assigned and will not be rendered on the site.',
+        'Environment',
+        process.env.NODE_ENV
+      );
       return;
     }
 
-    console.warn(
-      book.title,
-      'Does not have any tags assigned and will not be rendered on the site.'
-    );
+    // books without tags get dropped unless the environment is development
   });
 
   result.data.allGraphCmsContributor.nodes.forEach((contributor) => {
     const { firstName, lastName, booksAuthored, booksIllustrated, slug } =
       contributor;
-
     const name = `${firstName} ${lastName}`;
 
-    if (slug) {
+    if (isDevEnv || isGatsbyPreview) {
       createPage({
         path: `/authors-illustrators/${slug}`,
         component: ContributorTemplate,
@@ -97,10 +117,24 @@ exports.createPages = async ({ graphql, actions }) => {
       return;
     }
 
-    console.warn(
-      name,
-      'Does not have any books assigned and will not be rendered on the site.'
-    );
+    if (
+      (slug && booksAuthored.length > 0) ||
+      (slug && booksIllustrated.length > 0)
+    ) {
+      createPage({
+        path: `/authors-illustrators/${slug}`,
+        component: ContributorTemplate,
+        context: {
+          name,
+          ...contributor,
+        },
+      });
+      console.warn(
+        name,
+        'Does not have any books assigned and will not be rendered on the site.'
+      );
+      return;
+    }
   });
 
   result.data.tagTypes.enumValues.forEach((typeEnum) => {
