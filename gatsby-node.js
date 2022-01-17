@@ -79,23 +79,6 @@ exports.createPages = async ({ graphql, actions }) => {
       });
       return;
     }
-    if (book.tags.length > 0) {
-      createPage({
-        path: `/books/${book.slug}`,
-        component: BookTemplate,
-        context: {
-          ...book,
-        },
-      });
-
-      console.warn(
-        book.title,
-        'Does not have any tags assigned and will not be rendered on the site.',
-        'Environment',
-        process.env.NODE_ENV
-      );
-      return;
-    }
 
     // books without tags get dropped unless the environment is development
   });
