@@ -6,24 +6,34 @@ import { flex, grid, onTabletMedia, s1, s2 } from '../styles';
 import { TextareaField } from './TextareaField';
 import { TextField } from './TextField';
 import { SubmitButton } from './SubmitButton';
+import { encode } from '../utils/encode';
+import { navigate } from 'gatsby';
 
 export function ContactForm(props) {
-  const {
-    register,
-    control,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, control, handleSubmit, watch, formState } = useForm();
 
-  const onSubmit = (data) => alert(JSON.stringify(data));
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+    const form = e.target;
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': form.getAttribute('name'),
+        ...data,
+      }),
+    })
+      .then(() => navigate(form.getAttribute('action')))
+      .catch((error) => alert(error));
+  };
 
   return (
     <form
-      name={'Contact Us'}
+      name={'contact'}
       method="POST"
-      data-netlify={true}
-      // onSubmit={handleSubmit(onSubmit)}
+      data-netlify={'true'}
+      action="/thanks"
+      onSubmit={handleSubmit(onSubmit, (error, e) => console.error(error, e))}
       css={[
         grid({
           gridTemplateColumns: '1fr',
@@ -40,6 +50,8 @@ export function ContactForm(props) {
       ]}
       {...props}
     >
+      <input type="hidden" name="contact" value="contact" />
+
       <TextField
         name={'name'}
         label={{ children: 'Name' }}
