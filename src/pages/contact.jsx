@@ -31,7 +31,7 @@ function ContactPage({ data }) {
     <>
       <UnderConstruction />
       <GlobalLayout>
-        <GatsbyPreviewIndicator />
+        {/* <GatsbyPreviewIndicator /> */}
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>
