@@ -5,9 +5,16 @@ import { jsx } from '@emotion/react';
 import { useForm, useController } from 'react-hook-form';
 import { flex } from '../styles';
 
-export function TextareaField(props) {
-  const { control, name, defaultValue, textarea, label, style } = props;
-  const { id, placeholder, cols, rows } = textarea;
+export function TextareaField({
+  control,
+  name,
+  defaultValue,
+  textarea,
+  label,
+  style,
+  ...props
+}) {
+  const { id, placeholder, cols, rows, required, ...restTextarea } = textarea;
 
   const {
     field,
@@ -17,6 +24,7 @@ export function TextareaField(props) {
     name,
     control,
     defaultValue: '',
+    rules: { required },
   });
 
   return (
@@ -35,8 +43,8 @@ export function TextareaField(props) {
       </label>
       <textarea
         id={id || name}
-        cols={'30' || cols}
-        rows={'10' || rows}
+        cols={cols || '30'}
+        rows={rows || '10'}
         placeholder={'Placeholder' || placeholder}
         {...textarea}
         name={field.name} // send down the input name
@@ -44,6 +52,7 @@ export function TextareaField(props) {
         onBlur={field.onBlur} // notify when input is touched/blur
         value={field.value} // input value
         inputRef={field.ref} // send input ref, so we can focus on input when error appear
+        {...restTextarea}
       ></textarea>
     </div>
   );

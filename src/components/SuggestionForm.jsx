@@ -6,24 +6,18 @@ import { flex, grid, onTabletMedia, s1, s2 } from '../styles';
 import { TextareaField } from './TextareaField';
 import { TextField } from './TextField';
 import { SubmitButton } from './SubmitButton';
+import { onSubmit } from '../utils/onSubmit';
+import { DebugData } from './DebugData';
 
 export function SuggestionForm({ bookTitle, ...props }) {
-  const {
-    register,
-    control,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => alert(JSON.stringify(data));
-
+  const { register, control, handleSubmit, watch, formState } = useForm();
+  console.log(formState);
   return (
     <form
-      name={'Suggestion'}
+      name={'suggestion'}
       method="POST"
-      data-netlify={true}
-      // onSubmit={handleSubmit(onSubmit)}
+      data-netlify={'true'}
+      onSubmit={handleSubmit(onSubmit, (error, e) => console.error(error, e))}
       css={[
         grid({
           gridTemplateColumns: '1fr',
@@ -40,54 +34,65 @@ export function SuggestionForm({ bookTitle, ...props }) {
       ]}
       {...props}
     >
-      <TextField
-        name={'name'}
-        label={{ children: 'Name' }}
-        input={{ placeholder: 'Your Name', id: 'name' }}
-        control={control}
-        style={{ gridArea: 'name' }}
-      />
+      <input type="hidden" name="suggestion" value="suggestion" />
 
-      <TextField
-        name={'email'}
-        label={{ children: 'Email' }}
-        input={{
-          placeholder: 'youremail@domain.com',
-          id: 'email',
-          type: 'email',
-        }}
-        control={control}
-        style={{ gridArea: 'email' }}
-      />
-      <TextField
-        name={'bookTitle'}
-        label={{ children: 'Book Title' }}
-        input={{
-          // placeholder: 'youremail@domain.com"',
-          id: 'bookTitle',
-          type: 'text',
-        }}
-        control={control}
-        defaultValue={bookTitle}
-        style={{ gridArea: 'bookTitle' }}
-      />
+      {formState.isSubmitSuccessful ? (
+        <div>
+          Your suggestion has been recieved, <br /> Thank you!
+        </div>
+      ) : (
+        <>
+          <TextField
+            name={'name'}
+            label={{ children: 'Name' }}
+            input={{ placeholder: 'Your Name', id: 'name', required: true }}
+            control={control}
+            style={{ gridArea: 'name' }}
+          />
 
-      <TextareaField
-        name="message"
-        label={{ children: 'Message' }}
-        textarea={{
-          id: 'messageField',
-          cols: '30',
-          rows: '10',
-          placeholder: 'Your suggestion…',
-        }}
-        control={control}
-        style={{ gridArea: 'message' }}
-      />
+          <TextField
+            name={'email'}
+            label={{ children: 'Email' }}
+            input={{
+              placeholder: 'youremail@domain.com',
+              id: 'email',
+              type: 'email',
+              required: true,
+            }}
+            control={control}
+            style={{ gridArea: 'email' }}
+          />
+          <TextField
+            name={'bookTitle'}
+            label={{ children: 'Book Title' }}
+            input={{
+              id: 'bookTitle',
+              type: 'text',
+            }}
+            control={control}
+            defaultValue={bookTitle}
+            style={{ gridArea: 'bookTitle' }}
+          />
 
-      <SubmitButton style={{ gridArea: 'submit', placeSelf: 'center' }}>
-        Send Message
-      </SubmitButton>
+          <TextareaField
+            name="message"
+            label={{ children: 'Message' }}
+            textarea={{
+              id: 'messageField',
+              cols: '30',
+              rows: '10',
+              placeholder: 'Your suggestion…',
+              required: true,
+            }}
+            control={control}
+            style={{ gridArea: 'message' }}
+          />
+
+          <SubmitButton style={{ gridArea: 'submit', placeSelf: 'center' }}>
+            Send Message
+          </SubmitButton>
+        </>
+      )}
     </form>
   );
 }
