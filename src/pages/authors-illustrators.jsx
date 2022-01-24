@@ -29,7 +29,7 @@ import { TagGroup } from '../components/TagGroup';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { DebugData } from '../components/DebugData';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+// import 'react-tabs/style/react-tabs.css';
 
 function AuthorIllustratorPage({ data }) {
   const authors = data.allGraphCmsAuthor.nodes;
@@ -68,7 +68,7 @@ function AuthorIllustratorPage({ data }) {
               <Heading level={1}>Directory</Heading>
             </Container>
             <Container>
-              <Tabs>
+              <Tabs css={{ width: '100%' }}>
                 <TabList>
                   <Tab>
                     <Heading level={2}>Authors</Heading>
