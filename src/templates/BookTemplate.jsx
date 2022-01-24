@@ -514,18 +514,17 @@ function BookTemplate({ data }) {
                 )}
               </dl>
             </TextContainer>
-            {isDevEnv && (
-              <Container css={{ gridArea: 'suggestion', padding: 0 }}>
-                <TextContainer css={{ alignSelf: 'start' }}>
-                  <Heading level={3}>Have a Suggestion?</Heading>
-                  <p>
-                    We do invite you to submit your ideas, lesson plans,
-                    vignettes, and other work to be included on our book pages.
-                  </p>
-                </TextContainer>
-                <SuggestionForm bookTitle={title} />
-              </Container>
-            )}
+
+            <Container css={{ gridArea: 'suggestion', padding: 0 }}>
+              <TextContainer css={{ alignSelf: 'start' }}>
+                <Heading level={3}>Have a Suggestion?</Heading>
+                <p>
+                  We do invite you to submit your ideas, lesson plans,
+                  vignettes, and other work to be included on our book pages.
+                </p>
+              </TextContainer>
+              <SuggestionForm bookTitle={title} />
+            </Container>
           </Container>
         </Section>
       </main>
