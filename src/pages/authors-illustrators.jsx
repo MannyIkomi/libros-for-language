@@ -118,59 +118,6 @@ function AuthorIllustratorPage({ data }) {
                 </TabPanel>
               </Tabs>
             </Container>
-
-            <Container
-              css={[
-                {
-                  ...flex('column', {
-                    alignItems: 'stretch',
-                  }),
-                  gap: s1,
-                },
-                onTabletMedia({
-                  ...grid12Columns({ gridTemplateRows: `auto` }),
-                  gridAutoFlow: `row dense`,
-                }),
-                onDesktopMedia({
-                  gap: s2,
-                }),
-              ]}
-            >
-              <TagGroup
-                background={PRIMARY20}
-                css={[onTabletMedia({ gridColumn: '1 / 7' })]}
-              >
-                <Heading level={2} css={{ color: PRIMARY }}>
-                  Authors
-                </Heading>
-
-                <TagList>
-                  {authors.map((author) => (
-                    <MonoFontLink to={`/authors-illustrators/${author.slug}`}>
-                      {`${author.firstName} ${author.lastName}`}
-                    </MonoFontLink>
-                  ))}
-                </TagList>
-              </TagGroup>
-              <TagGroup
-                background={PRIMARY20}
-                css={[onTabletMedia({ gridColumn: '7 / -1' })]}
-              >
-                <Heading level={2} css={{ color: PRIMARY }}>
-                  Illustrators
-                </Heading>
-
-                <TagList>
-                  {illustrators.map((illustrator) => (
-                    <MonoFontLink
-                      to={`/authors-illustrators/${illustrator.slug}`}
-                    >
-                      {`${illustrator.firstName} ${illustrator.lastName}`}
-                    </MonoFontLink>
-                  ))}
-                </TagList>
-              </TagGroup>
-            </Container>
           </Section>
         </main>
         <DebugData>{data.pageContext}</DebugData>
