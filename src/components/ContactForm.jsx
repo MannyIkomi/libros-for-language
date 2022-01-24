@@ -6,33 +6,18 @@ import { flex, grid, onTabletMedia, s1, s2 } from '../styles';
 import { TextareaField } from './TextareaField';
 import { TextField } from './TextField';
 import { SubmitButton } from './SubmitButton';
-import { encode } from '../utils/encode';
-import { navigate } from 'gatsby';
+import { onSubmit } from '../utils/onSubmit';
+import { DebugData } from './DebugData';
 
 export function ContactForm(props) {
-  const { register, control, handleSubmit, watch, formState } = useForm();
-
-  const onSubmit = (data, e) => {
-    e.preventDefault();
-    const form = e.target;
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': form.getAttribute('name'),
-        ...data,
-      }),
-    })
-      .then(() => navigate(form.getAttribute('action')))
-      .catch((error) => alert(error));
-  };
+  const { register, control, handleSubmit, watch, formState, setValue } =
+    useForm();
 
   return (
     <form
       name={'contact'}
       method="POST"
       data-netlify={'true'}
-      action="/thanks"
       onSubmit={handleSubmit(onSubmit, (error, e) => console.error(error, e))}
       css={[
         grid({
@@ -52,42 +37,55 @@ export function ContactForm(props) {
     >
       <input type="hidden" name="contact" value="contact" />
 
-      <TextField
-        name={'name'}
-        label={{ children: 'Name' }}
-        input={{ placeholder: 'Your Name', id: 'name' }}
-        control={control}
-        style={{ gridArea: 'name' }}
-      />
+      {formState.isSubmitSuccessful ? (
+        <div>
+          Your message has been recieved, <br /> Thank you!
+        </div>
+      ) : (
+        <>
+          <TextField
+            name={'name'}
+            label={{ children: 'Name' }}
+            input={{ placeholder: 'Your Name', id: 'name', required: true }}
+            control={control}
+            style={{ gridArea: 'name' }}
+          />
 
-      <TextField
-        name={'email'}
-        label={{ children: 'Email' }}
-        input={{
-          placeholder: 'youremail@domain.com',
-          id: 'email',
-          type: 'email',
-        }}
-        control={control}
-        style={{ gridArea: 'email' }}
-      />
+          <TextField
+            name={'email'}
+            label={{ children: 'Email' }}
+            input={{
+              placeholder: 'youremail@domain.com',
+              id: 'email',
+              type: 'email',
+              required: true,
+            }}
+            control={control}
+            style={{ gridArea: 'email' }}
+          />
 
-      <TextareaField
-        name="message"
-        label={{ children: 'Message' }}
-        textarea={{
-          id: 'messageField',
-          cols: '30',
-          rows: '10',
-          placeholder: 'Your message…',
-        }}
-        control={control}
-        style={{ gridArea: 'message' }}
-      />
+          <TextareaField
+            name="message"
+            label={{ children: 'Message' }}
+            textarea={{
+              id: 'messageField',
+              cols: '30',
+              rows: '10',
+              placeholder: 'Your message…',
+              required: true,
+            }}
+            control={control}
+            style={{ gridArea: 'message' }}
+          />
 
-      <SubmitButton style={{ gridArea: 'submit', placeSelf: 'center' }}>
-        Send Message
-      </SubmitButton>
+          <SubmitButton
+            style={{ gridArea: 'submit', placeSelf: 'center' }}
+            disabled={formState.isSubmitting}
+          >
+            {formState.isSubmitting ? 'Sending…' : 'Send Message'}
+          </SubmitButton>
+        </>
+      )}
     </form>
   );
 }

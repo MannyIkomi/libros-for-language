@@ -25,14 +25,37 @@ import { Section } from '../components/Section';
 import { MonoFontLink } from '../components/MonoFontLink';
 import { TagList } from '../components/TagList';
 import { TagGroup } from '../components/TagGroup';
-import { showUnderContruction } from '../utils/environment';
-import { UnderConstruction } from '../components/UnderConstruction';
+
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { DebugData } from '../components/DebugData';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+// import 'react-tabs/style/react-tabs.css';
 
 function AuthorIllustratorPage({ data }) {
   const authors = data.allGraphCmsAuthor.nodes;
   const illustrators = data.allGraphCmsIllustrator.nodes;
+
+  const groupByFirstLetter = (previousVal, currentVal) => {
+    // get first letter of name of current element
+    let group = currentVal.lastName[0].toUpperCase();
+
+    if (!previousVal[group]) {
+      // if there is no property in accumulator with this letter create it
+      // previousVal[group] = { group, children: [currentVal] };
+      previousVal[group] = [currentVal];
+    }
+
+    // if there is push current element to children array for that letter
+    else {
+      previousVal[group].push(currentVal);
+    }
+    // return accumulator
+    return previousVal;
+  };
+  const alphaAuthors = Object.entries(authors.reduce(groupByFirstLetter, {}));
+  const alphaIllustrators = Object.entries(
+    illustrators.reduce(groupByFirstLetter, {})
+  );
 
   return (
     <>
@@ -42,7 +65,58 @@ function AuthorIllustratorPage({ data }) {
         <main css={{ position: 'relative' }}>
           <Section>
             <Container css={{ margin: `${s2} 0` }}>
-              <Heading level={1}>Author & Illustrator Directory</Heading>
+              <Heading level={1}>Directory</Heading>
+            </Container>
+            <Container>
+              <Tabs css={{ width: '100%' }}>
+                <TabList>
+                  <Tab>
+                    <Heading level={2}>Authors</Heading>
+                  </Tab>
+                  <Tab>
+                    <Heading level={2}>Illustrators</Heading>
+                  </Tab>
+                </TabList>
+
+                <TabPanel>
+                  {alphaAuthors.map((list) => {
+                    const [letter, authors] = list;
+                    return (
+                      <>
+                        <Heading level={3}>{letter}</Heading>
+                        <TagList>
+                          {authors.map((author) => (
+                            <MonoFontLink
+                              to={`/authors-illustrators/${author.slug}`}
+                            >
+                              {`${author.firstName} ${author.lastName}`}
+                            </MonoFontLink>
+                          ))}
+                        </TagList>
+                      </>
+                    );
+                  })}
+                </TabPanel>
+                <TabPanel>
+                  {alphaIllustrators.map((list) => {
+                    const [letter, illustrators] = list;
+                    return (
+                      <>
+                        <Heading level={3}>{letter}</Heading>
+                        <TagList>
+                          {illustrators.map((illustrator) => (
+                            <MonoFontLink
+                              to={`/authors-illustrators/${illustrator.slug}`}
+                            >
+                              {`${illustrator.firstName} ${illustrator.lastName}`}
+                            </MonoFontLink>
+                          ))}
+                        </TagList>
+                      </>
+                    );
+                  })}
+                </TabPanel>
+              </Tabs>
             </Container>
 
             <Container

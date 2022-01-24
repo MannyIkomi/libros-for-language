@@ -13,12 +13,12 @@ export function TextField({
   style,
   ...props
 }) {
-  const { id, placeholder, type } = input;
+  const { id, placeholder, type, required, ...restInput } = input;
 
   const {
     field,
-    fieldState: { invalid, isTouched, isDirty },
-    formState: { touchedFields, dirtyFields },
+    fieldState: { error, invalid, isTouched, isDirty },
+    formState: { isSubmitting },
   } = useController({
     name,
     control,
@@ -35,6 +35,7 @@ export function TextField({
         },
         style,
       ]}
+      {...props}
     >
       <label htmlFor={input.id || name}>{label.children}</label>
       <input
@@ -47,7 +48,10 @@ export function TextField({
         value={field.value} // input value
         name={field.name} // send down the input name
         inputRef={field.ref} // send input ref, so we can focus on input when error appear
+        disabled={isSubmitting}
+        {...restInput}
       />
+      {error && <p>{error?.message}</p>}
     </div>
   );
 }

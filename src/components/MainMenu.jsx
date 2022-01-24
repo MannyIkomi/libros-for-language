@@ -142,22 +142,16 @@ export function MainMenu() {
           </List>
           <HorizontalRule />
           <List css={{ listStyle: 'none', ...flex(), alignItems: 'end' }}>
-            <NavigationLink
-              // css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
-              to={navigation.about.path}
-            >
+            <NavigationLink to={navigation.about.path}>
               {navigation.about.title}
             </NavigationLink>
-            <NavigationLink
-              // css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
-              to={navigation.typology.path}
-            >
+            <NavigationLink to={navigation.contact.path}>
+              {navigation.contact.title}
+            </NavigationLink>
+            <NavigationLink to={navigation.typology.path}>
               {navigation.typology.title}
             </NavigationLink>
-            <NavigationLink
-              // css={{ color: PRIMARY_WHITE, textAlign: 'right' }}
-              to={navigation.resources.path}
-            >
+            <NavigationLink to={navigation.resources.path}>
               {navigation.resources.title}
             </NavigationLink>
           </List>

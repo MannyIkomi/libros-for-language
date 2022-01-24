@@ -54,6 +54,7 @@ import useToggleSwitch from '../hooks/useToggleSwitch';
 import Icon from '../icons/Icons';
 import MenuDownTriangle, { MenuTriangle } from '../icons/MenuTriangle';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
+import { HiddenAccessibleText } from '../components/HiddenAccessibleText';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -343,13 +344,13 @@ function BooksPage({ data }) {
                 css={[
                   {
                     gridArea: 'results',
-                    // listStyle: 'none',
                     padding: s1,
                   },
 
                   onTabletMedia({
                     gridArea: 'results',
                     gridTemplateColumns: `repeat(auto-fill, minmax(${base320}, 1fr))`,
+                    gridGap: s2,
                     width: 'max-content',
 
                     padding: s1,
@@ -360,15 +361,18 @@ function BooksPage({ data }) {
                 {filteredBooks.map((book) => {
                   return (
                     <BookCover book={book}>
-                      <Heading
-                        level={2}
-                        css={[
-                          { fontSize: s1 },
-                          onTabletMedia({ fontSize: s1 }),
-                        ]}
-                      >
-                        {book.title}
-                      </Heading>
+                      <HiddenAccessibleText>
+                        <Heading
+                          level={2}
+                          css={[
+                            { fontSize: s1 },
+
+                            onTabletMedia({ fontSize: s1 }),
+                          ]}
+                        >
+                          {book.title}
+                        </Heading>
+                      </HiddenAccessibleText>
                     </BookCover>
                   );
                 })}
