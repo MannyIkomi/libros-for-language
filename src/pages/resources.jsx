@@ -36,9 +36,20 @@ import { Heading } from '../components/Heading';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { showUnderContruction } from '../utils/environment';
 import { UnderConstruction } from '../components/UnderConstruction';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import { DebugData } from '../components/DebugData';
+import {
+  tabListStyle,
+  tabPanelSelectedStyle,
+  tabPanelStyle,
+  tabStyle,
+} from '../styles/tabs';
+import pluralize from 'pluralize';
 
 function ResourcesPage({ data }) {
   const resources = data.allGraphCmsResource.nodes;
+  const resourceTypes = data.resourceTypes.enumValues;
 
   return (
     <GlobalLayout>
@@ -49,8 +60,9 @@ function ResourcesPage({ data }) {
           css={[
             {
               ...grid({
-                gridTemplateColumns: '1fr',
                 gridTemplateAreas: `"title" "resources"`,
+                gridTemplateColumns: '1fr',
+                gridTemplateRows: 'min-content 1fr',
               }),
 
               minHeight: '80vh',
@@ -62,8 +74,9 @@ function ResourcesPage({ data }) {
             },
             onTabletMedia({
               ...grid({
-                gridTemplateColumns: '1fr',
                 gridTemplateAreas: `"title" "resources"`,
+                gridTemplateColumns: '1fr',
+                gridTemplateRows: 'min-content 1fr',
               }),
             }),
           ]}
@@ -73,56 +86,77 @@ function ResourcesPage({ data }) {
           >
             <Heading level={1}>Translanguaging Resources</Heading>
           </Container>
-          <Container css={{ gridArea: 'resources' }}>
-            <List
-              css={[
-                {
-                  listStyle: 'none',
-                  ...grid({
-                    gridGap: s2,
-                    gridTemplateColumns: '1fr',
-                  }),
-                },
-                onTabletMedia({
-                  gridTemplateColumns: '1fr 1fr',
-                }),
-              ]}
-            >
-              {resources.map((resource) => {
-                const { description, attribution, url } = resource;
-                return (
-                  <div
-                    css={{
-                      ...flex('column'),
-                      gap: s1,
-                      backgroundColor: PRIMARY20,
-                      padding: s1,
-                      borderRadius: s05,
-                      ...boxShadow,
-                    }}
-                  >
-                    <Link to={resource?.url}>
-                      <Heading
-                        level={2}
-                        css={[
-                          { marginBottom: 0 },
-                          onTabletMedia({ marginBottom: 0 }),
-                        ]}
-                      >
-                        {resource.title}
-                      </Heading>
-                    </Link>
-                    {attribution && <span>by {attribution}</span>}
-                    {/* {description && <RichText html={description.html} />} */}
-                    {description?.html && <RichText html={description.html} />}
 
-                    <SecondaryLink to={url} css={{ color: WHITE }}>
-                      {new URL(url).host}
-                    </SecondaryLink>
-                  </div>
+          <Container css={[{ gridArea: 'resources' }]}>
+            <Tabs style={{ width: '100%' }}>
+              <TabList>
+                {resourceTypes.map(({ name: type }) => {
+                  return (
+                    <Tab>
+                      <Heading level={2}>{pluralize(type)}</Heading>
+                    </Tab>
+                  );
+                })}
+              </TabList>
+
+              {resourceTypes.map(({ name: type }) => {
+                return (
+                  <TabPanel>
+                    {/* <Heading level={2}>{type} Resources</Heading> */}
+                    <div
+                      css={[
+                        { ...flex('column'), gap: s2 },
+                        onTabletMedia({
+                          ...grid({
+                            gridTemplateColumns: '1fr 1fr',
+                            placeItems: 'start stretch',
+                          }),
+                        }),
+                      ]}
+                    >
+                      {resources
+                        .filter(({ resourceType }) => resourceType === type)
+                        .map((resource) => {
+                          const { description, attribution, url } = resource;
+                          return (
+                            <div
+                              css={{
+                                ...flex('column'),
+                                gap: s1,
+                                backgroundColor: PRIMARY20,
+                                padding: s1,
+                                borderRadius: s05,
+                                ...boxShadow,
+                              }}
+                            >
+                              <Link to={resource?.url}>
+                                <Heading
+                                  level={3}
+                                  css={[
+                                    { marginBottom: 0 },
+                                    onTabletMedia({ marginBottom: 0 }),
+                                  ]}
+                                >
+                                  {resource.title}
+                                </Heading>
+                              </Link>
+                              {attribution && <span>by {attribution}</span>}
+
+                              {description?.html && (
+                                <RichText html={description.html} />
+                              )}
+
+                              <SecondaryLink to={url} css={{ color: WHITE }}>
+                                {new URL(url).host}
+                              </SecondaryLink>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </TabPanel>
                 );
               })}
-            </List>
+            </Tabs>
           </Container>
         </Section>
       </main>
@@ -136,12 +170,33 @@ export const query = graphql`
     allGraphCmsResource(sort: { fields: updatedAt, order: DESC }) {
       nodes {
         title
+        resourceType
         attribution
         url
         stage
         description {
           html
         }
+      }
+    }
+    # allGraphCmsResource {
+    #   group(field: resourceType) {
+    #     fieldValue
+    #     nodes {
+    #       attribution
+    #       url
+    #       stage
+    #       description {
+    #         html
+    #       }
+    #       title
+    #       resourceType
+    #     }
+    #   }
+    # }
+    resourceTypes: __type(name: "GraphCMS_ResourceType") {
+      enumValues {
+        name
       }
     }
   }
