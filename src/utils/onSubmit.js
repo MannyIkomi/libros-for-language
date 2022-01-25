@@ -12,7 +12,7 @@ export const onSubmit = (data, e) => {
     }),
   })
     .then(() => {
-      console.log('FORM SUCCESS');
+      console.log('FORM SUBMIT SUCCESS');
     })
     .catch((error) => alert(error));
 };

@@ -172,7 +172,6 @@ function BooksPage({ data }) {
             <button
               onClick={(e) => {
                 setToggled(!isToggled);
-                console.log('TOGGLED:', isToggled);
               }}
               css={[
                 {

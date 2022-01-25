@@ -11,7 +11,6 @@ import { DebugData } from './DebugData';
 
 export function SuggestionForm({ bookTitle, ...props }) {
   const { register, control, handleSubmit, watch, formState } = useForm();
-  console.log(formState);
   return (
     <form
       name={'suggestion'}

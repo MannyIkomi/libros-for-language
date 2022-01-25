@@ -33,7 +33,6 @@ function TagsPage({ data }) {
   const languages = data.allGraphCmsLanguage.nodes;
   const textStructures = data.allGraphCmsTextStructure.nodes;
   const typologies = data.allGraphCmsTypology.nodes;
-  console.log(data);
 
   return (
     <>

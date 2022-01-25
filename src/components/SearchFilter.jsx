@@ -48,7 +48,6 @@ export function SearchFilter(props) {
     const t = tags.slice(0);
     t.splice(i, 1);
     tags.splice(tags);
-    console.log('onDelete', t);
 
     setTags(t);
   };
