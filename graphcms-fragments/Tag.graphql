@@ -6,6 +6,7 @@ fragment Tag on Tag {
   publishedAt
   title
   definition
+  sequence
   details {
     ... on TagDetailsRichText {
       raw
@@ -68,6 +69,7 @@ fragment Tag on Tag {
     }
   }
   tagType
+  tagSubType
   scheduledIn {
     ... on ScheduledOperation {
       remoteTypeName: __typename

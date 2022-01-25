@@ -29,29 +29,13 @@ import { TagGroup } from '../components/TagGroup';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { DebugData } from '../components/DebugData';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-// import 'react-tabs/style/react-tabs.css';
+import { concatFullName } from '../utils/concatFullName';
+import { groupByFirstLetter } from '../utils/groupByFirstLetter';
 
 function AuthorIllustratorPage({ data }) {
-  const authors = data.allGraphCmsAuthor.nodes;
-  const illustrators = data.allGraphCmsIllustrator.nodes;
+  const authors = data.allGraphCmsAuthor.nodes.map(concatFullName);
+  const illustrators = data.allGraphCmsIllustrator.nodes.map(concatFullName);
 
-  const groupByFirstLetter = (previousVal, currentVal) => {
-    // get first letter of name of current element
-    let group = currentVal.lastName[0].toUpperCase();
-
-    if (!previousVal[group]) {
-      // if there is no property in accumulator with this letter create it
-      // previousVal[group] = { group, children: [currentVal] };
-      previousVal[group] = [currentVal];
-    }
-
-    // if there is push current element to children array for that letter
-    else {
-      previousVal[group].push(currentVal);
-    }
-    // return accumulator
-    return previousVal;
-  };
   const alphaAuthors = Object.entries(authors.reduce(groupByFirstLetter, {}));
   const alphaIllustrators = Object.entries(
     illustrators.reduce(groupByFirstLetter, {})
@@ -89,7 +73,7 @@ function AuthorIllustratorPage({ data }) {
                             <MonoFontLink
                               to={`/authors-illustrators/${author.slug}`}
                             >
-                              {`${author.firstName} ${author.lastName}`}
+                              {author.name}
                             </MonoFontLink>
                           ))}
                         </TagList>
@@ -108,7 +92,7 @@ function AuthorIllustratorPage({ data }) {
                             <MonoFontLink
                               to={`/authors-illustrators/${illustrator.slug}`}
                             >
-                              {`${illustrator.firstName} ${illustrator.lastName}`}
+                              {illustrator.name}
                             </MonoFontLink>
                           ))}
                         </TagList>
@@ -135,8 +119,9 @@ export const query = graphql`
     ) {
       nodes {
         slug
-        lastName
         firstName
+        middleName
+        lastName
         type
       }
     }
@@ -147,8 +132,9 @@ export const query = graphql`
     ) {
       nodes {
         slug
-        lastName
         firstName
+        middleName
+        lastName
         type
       }
     }

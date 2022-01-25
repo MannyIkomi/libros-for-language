@@ -235,7 +235,7 @@ function IndexPage({ data }) {
                 </Heading>
                 <p>
                   The books on this site are examples of authors and
-                  illustratorswho incorporate LOTE (Languages Other Than
+                  illustrators who incorporate LOTE (Languages Other Than
                   English) in their work, just as all multilingual people do in
                   their daily lives.
                 </p>

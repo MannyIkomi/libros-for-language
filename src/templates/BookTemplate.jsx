@@ -51,6 +51,7 @@ import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { ContributorLinks } from '../components/ContributorLinks';
 import SuggestionForm from '../components/SuggestionForm';
 import { isDevEnv } from '../utils/environment';
+import { concatFullName } from '../utils/concatFullName';
 
 function BookTemplate({ data }) {
   const {
@@ -186,7 +187,7 @@ function BookTemplate({ data }) {
                   <dt>by </dt>
                   <dd>
                     <ContributorLinks
-                      contributors={authors}
+                      contributors={authors.map(concatFullName)}
                       css={{ padding: 0, marginLeft: '1ch' }}
                     />
                   </dd>
@@ -198,7 +199,7 @@ function BookTemplate({ data }) {
                   <dt>Illustrator:</dt>
                   <dd>
                     <ContributorLinks
-                      contributors={illustrators}
+                      contributors={illustrators.map(concatFullName)}
                       css={{ padding: 0, marginLeft: '1ch' }}
                     />
                   </dd>
@@ -554,14 +555,15 @@ export const query = graphql`
       }
       authors {
         lastName
+        middleName
         firstName
         slug
         type
       }
       illustrators {
         lastName
+        middleName
         firstName
-
         slug
         type
       }

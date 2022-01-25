@@ -30,6 +30,7 @@ import { slugify } from '../utils/slugify';
 import { Icon } from '../icons/Icons';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { List } from '../components/List';
+import { concatFullName } from '../utils/concatFullName';
 
 // const MAX_BOOK_DISPLAY_AMOUNT = 4;
 
@@ -63,8 +64,8 @@ function ContributorTemplate(props) {
   const { data, pageContext } = props;
   const { graphCmsContributor } = data;
 
-  const { lastName, firstName, booksIllustrated, booksAuthored } =
-    graphCmsContributor;
+  const { lastName, name, firstName, booksIllustrated, booksAuthored } =
+    concatFullName(graphCmsContributor);
 
   return (
     <GlobalLayout>
@@ -78,7 +79,7 @@ function ContributorTemplate(props) {
               color: PRIMARY,
             }}
           >
-            <Heading level={1}>{`${firstName} ${lastName}`}</Heading>{' '}
+            <Heading level={1}>{name}</Heading>{' '}
           </Container>
 
           {booksAuthored.length > 0 && (
@@ -110,6 +111,7 @@ export const query = graphql`
     graphCmsContributor(id: { eq: $id }) {
       id
       firstName
+      middleName
       lastName
       slug
       type

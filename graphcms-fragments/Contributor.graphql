@@ -5,6 +5,7 @@ fragment Contributor on Contributor {
   updatedAt
   publishedAt
   firstName
+  middleName
   lastName
   slug
   createdBy {
