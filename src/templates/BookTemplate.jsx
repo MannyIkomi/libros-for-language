@@ -500,7 +500,7 @@ function BookTemplate({ data }) {
                       {awards.length > 1
                         ? awards.map((award) => (
                             <>
-                              {award} <br />{' '}
+                              {award},<br />{' '}
                             </>
                           ))
                         : awards[0]}
