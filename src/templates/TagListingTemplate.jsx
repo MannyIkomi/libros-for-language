@@ -36,7 +36,7 @@ function TagListingTemplate(props) {
   const { data, pageContext } = props;
   const { allGraphCmsTag } = data;
 
-  const tags = allGraphCmsTag.nodes;
+  const tags = allGraphCmsTag.nodes.sort((a, b) => a.sequence - b.sequence);
 
   return (
     <GlobalLayout>
@@ -92,31 +92,34 @@ function TagListingTemplate(props) {
                     {/* <DebugData>{books}</DebugData> */}
                     {books.length > 0 ? (
                       <BookList>
-                        {books.slice(0, MAX_BOOK_DISPLAY_AMOUNT).map((book) => {
-                          return (
-                            <BookCover
-                              link={{ to: `/books/${book.slug}` }}
-                              book={book}
-                              css={{ ...boxShadowLg }}
-                              key={book.id}
-                            >
-                              <Heading
-                                level={3}
-                                css={{
-                                  position: 'absolute',
-                                  opacity: 0,
-                                  pointerEvents: 'none',
-
-                                  fontSize: s1,
-                                  fontWeight: 'bold',
-                                  color: COMPLIMENT,
-                                }}
+                        {books
+                          .sort((a, b) => a.featured - b.featured)
+                          .slice(0, MAX_BOOK_DISPLAY_AMOUNT)
+                          .map((book) => {
+                            return (
+                              <BookCover
+                                link={{ to: `/books/${book.slug}` }}
+                                book={book}
+                                css={{ ...boxShadowLg }}
+                                key={book.id}
                               >
-                                {book.title}
-                              </Heading>
-                            </BookCover>
-                          );
-                        })}
+                                <Heading
+                                  level={3}
+                                  css={{
+                                    position: 'absolute',
+                                    opacity: 0,
+                                    pointerEvents: 'none',
+
+                                    fontSize: s1,
+                                    fontWeight: 'bold',
+                                    color: COMPLIMENT,
+                                  }}
+                                >
+                                  {book.title}
+                                </Heading>
+                              </BookCover>
+                            );
+                          })}
                       </BookList>
                     ) : (
                       <p>
@@ -169,6 +172,7 @@ export const query = graphql`
         tagType
         title
         slug
+        sequence
         definition
         books {
           updatedAt

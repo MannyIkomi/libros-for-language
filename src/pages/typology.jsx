@@ -24,6 +24,7 @@ import {
   s2,
   PRIMARY20,
   boxShadow,
+  s4,
 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
@@ -43,7 +44,14 @@ import { MonoFontLink } from '../components/MonoFontLink';
 import { List } from '../components/List';
 
 function TypologyPage({ data }) {
-  const typologies = data.allGraphCmsTag.nodes;
+  const subTypeNames = data.subTypeNames.enumValues;
+  const typologies = data.allGraphCmsTag.nodes.sort(
+    (a, b) => (a.sequence || Infinity) - (b.sequence || Infinity)
+  );
+
+  const typologiesFilterNotSubType = typologies.filter(
+    (term) => !term.tagSubType
+  );
 
   return (
     <>
@@ -58,12 +66,14 @@ function TypologyPage({ data }) {
                   gridTemplateColumns: '1fr',
                   gridTemplateAreas: `"title" "glossary" "terms"`,
                   placeItems: 'start',
+                  gridGap: s1,
                 }),
 
                 minHeight: '80vh',
                 marginBottom: '10vh',
               },
               onTabletMedia({
+                gridGap: s2,
                 placeItems: 'start',
                 gridTemplateColumns: 'min-content 1fr',
                 gridTemplateRows: 'min-content 1fr',
@@ -89,13 +99,41 @@ function TypologyPage({ data }) {
                 gridArea: 'glossary',
                 alignSelf: 'start',
                 alignItems: 'start',
+                gap: s2,
               }}
             >
-              <Heading level={2}>Glossary</Heading>
+              <Heading
+                level={2}
+                css={[{ marginBottom: 0 }, onTabletMedia({ marginBottom: 0 })]}
+              >
+                Glossary
+              </Heading>
+              {subTypeNames.map(({ name: subType }) => {
+                return (
+                  <List css={{ listStyle: 'none' }}>
+                    <Heading level={3}>{subType} Tags</Heading>
+                    {typologies
+                      .filter((term) => term.tagSubType === subType)
+                      .map((term) => {
+                        return (
+                          <MonoFontLink
+                            key={term.slug}
+                            to={`#${term.slug}`}
+                            css={{ whiteSpace: 'normal' }}
+                          >
+                            {term.title}
+                          </MonoFontLink>
+                        );
+                      })}
+                  </List>
+                );
+              })}
+
               <List css={{ listStyle: 'none' }}>
-                {typologies.map((term) => {
+                {typologiesFilterNotSubType.map((term) => {
                   return (
                     <MonoFontLink
+                      key={term.slug}
                       to={`#${term.slug}`}
                       css={{ whiteSpace: 'normal' }}
                     >
@@ -105,68 +143,130 @@ function TypologyPage({ data }) {
                 })}
               </List>
             </Container>
+
             <Container
               css={{
                 gridArea: 'terms',
+                gap: s4,
               }}
             >
-              <dl
-                css={[
-                  grid({
-                    gridTemplateColumns: '1fr',
-                    gridTemplateColumns: `repeat(auto-fit, 1fr)`,
-                    gridGap: `${s2} ${s2}`,
-                    placeItems: 'center',
-                  }),
-                  // onTabletMedia({
-                  // }),
-                ]}
-              >
-                {typologies
-                  .filter((term) => term.definition)
-                  .map((term) => {
-                    const { title, details, definition, slug } = term;
-                    return (
-                      <TextContainer
-                        key={title}
-                        css={{
-                          padding: s1,
-                          background: COMPLIMENT20,
-                          borderRadius: `${s0125} ${s1}`,
-                          ...boxShadow,
-                        }}
-                      >
-                        <dt>
-                          <MonoFontLink
-                            to={`/tags/typologies/${slug}`}
-                            css={{ padding: 0, whiteSpace: 'normal' }}
+              {subTypeNames.map(({ name: subType }) => {
+                return (
+                  <dl
+                    key={subType}
+                    css={[
+                      grid({
+                        gridTemplateColumns: '1fr',
+                        gridTemplateColumns: `repeat(auto-fit, 1fr)`,
+                        gridGap: `${s2} ${s2}`,
+                        placeItems: 'center',
+                      }),
+                    ]}
+                  >
+                    <Heading
+                      level={3}
+                      css={[
+                        { marginBottom: 0 },
+                        onTabletMedia({ marginBottom: 0 }),
+                      ]}
+                    >
+                      {subType}
+                    </Heading>
+                    {typologies
+                      .filter((term) => term.definition)
+                      .filter((term) => term.tagSubType === subType)
+                      .map((term) => {
+                        const { title, details, definition, slug } = term;
+                        return (
+                          <TextContainer
+                            key={title}
+                            css={{
+                              padding: s1,
+                              background: COMPLIMENT20,
+                              borderRadius: `${s0125} ${s1}`,
+                              ...boxShadow,
+                            }}
                           >
-                            <Heading
-                              level={3}
-                              id={term.slug}
-                              css={{
-                                fontSize: 'inherit',
-                                scrollMargin: '25vh 0',
-                              }}
-                            ></Heading>
-                            {title}
-                          </MonoFontLink>
-                          {/* <Heading
-                            level={2}
-                            css={{ fontSize: `${s1} !important` }}
-                          ></Heading> */}
-                        </dt>
-                        <dd>
-                          {definition && <p>{definition}</p>}
-                          {details && <RichText html={details.html} />}
-                        </dd>
-                      </TextContainer>
-                    );
-                  })}
-              </dl>
+                            <dt>
+                              <MonoFontLink
+                                to={`/tags/typologies/${slug}`}
+                                css={{ padding: 0, whiteSpace: 'normal' }}
+                              >
+                                <Heading
+                                  level={3}
+                                  id={term.slug}
+                                  css={{
+                                    fontSize: 'inherit',
+                                    scrollMargin: '25vh 0',
+                                  }}
+                                ></Heading>
+                                {title}
+                              </MonoFontLink>
+                            </dt>
+                            <dd>
+                              {definition && <p>{definition}</p>}
+                              {details && <RichText html={details.html} />}
+                            </dd>
+                          </TextContainer>
+                        );
+                      })}
+                  </dl>
+                );
+              })}
+              {typologiesFilterNotSubType && (
+                <dl
+                  css={[
+                    grid({
+                      gridTemplateColumns: '1fr',
+                      gridTemplateColumns: `repeat(auto-fit, 1fr)`,
+                      gridGap: `${s2} ${s2}`,
+                      placeItems: 'center',
+                    }),
+                  ]}
+                >
+                  {typologiesFilterNotSubType
+                    .filter((term) => term.definition)
+                    .map((term) => {
+                      const { title, details, definition, slug } = term;
+                      return (
+                        <TextContainer
+                          key={title}
+                          css={{
+                            padding: s1,
+                            background: COMPLIMENT20,
+                            borderRadius: `${s0125} ${s1}`,
+                            ...boxShadow,
+                          }}
+                        >
+                          <dt>
+                            <MonoFontLink
+                              to={`/tags/typologies/${slug}`}
+                              css={{ padding: 0, whiteSpace: 'normal' }}
+                            >
+                              <Heading
+                                level={3}
+                                id={term.slug}
+                                css={{
+                                  fontSize: 'inherit',
+                                  scrollMargin: '25vh 0',
+                                }}
+                              ></Heading>
+                              {title}
+                            </MonoFontLink>
+                          </dt>
+                          <dd>
+                            {definition && <p>{definition}</p>}
+                            {details && <RichText html={details.html} />}
+                          </dd>
+                        </TextContainer>
+                      );
+                    })}
+                </dl>
+              )}
             </Container>
           </Section>
         </main>
+
         <Footer />
       </GlobalLayout>
     </>
@@ -175,7 +275,10 @@ function TypologyPage({ data }) {
 
 export const query = graphql`
   query TypologyPageQuery {
-    allGraphCmsTag(filter: { tagType: { eq: Typology } }) {
+    allGraphCmsTag(
+      filter: { tagType: { eq: Typology } }
+      sort: { order: DESC, fields: updatedAt }
+    ) {
       nodes {
         title
         definition
@@ -184,6 +287,13 @@ export const query = graphql`
         details {
           html
         }
+        tagSubType
+        sequence
+      }
+    }
+    subTypeNames: __type(name: "GraphCMS_TagSubType") {
+      enumValues {
+        name
       }
     }
   }
