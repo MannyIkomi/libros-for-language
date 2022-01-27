@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { notoSerif, PRIMARY, notoSans, onHover, WHITE, BLACK } from '../styles';
+import { concatFullName } from '../utils/concatFullName';
 import { BookImage } from './BookImage';
 import { ContributorLinks } from './ContributorLinks';
 import { Link } from './Link';
 
 export function FeaturedBook(book) {
-  const authors = book.authors;
+  const authors = book.authors.map(concatFullName);
 
   const maxDimensions = { maxWidth: '20rem', maxHeight: '20rem' };
 

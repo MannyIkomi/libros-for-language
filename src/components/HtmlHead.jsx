@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { graphql, useStaticQuery } from 'gatsby';
+
 import '../fonts/fonts.css';
 import '../styles/normalize.css';
 
@@ -16,12 +17,14 @@ const HtmlHead = ({ title, description, image, imageDescription }) => {
       }
     }
   `);
+
   const {
     title: siteTitle,
     siteDescription,
     image: siteImage,
     imageDescription: siteImageDescription,
   } = graphCmsSiteInformation;
+
   const pageTitle = title ?? siteTitle;
   const pageDescription = description ?? siteDescription;
   const pageImage = image ?? siteImage;

@@ -12,7 +12,7 @@ export function ContributorLinks({ contributors, ...props }) {
             <MonoFontLink to={`/authors-illustrators/${slug}`} {...props}>
               {name}
             </MonoFontLink>
-            {contributors.length !== index + 1 && ','}
+            {contributors.length !== index + 1 && ', '}
           </>
         );
       })}
