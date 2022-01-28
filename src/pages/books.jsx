@@ -3,8 +3,6 @@ import { jsx } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
 import * as pluralize from 'pluralize';
-// import SearchResults from 'react-filter-search';
-// import { SearchFilter } from '../components/SearchFilter';
 
 import {
   Accordion,
@@ -14,6 +12,8 @@ import {
   AccordionItemPanel,
   AccordionItemState,
 } from 'react-accessible-accordion';
+import FilterResults from 'react-filter-search';
+import { useForm } from 'react-hook-form';
 
 import {
   s1,
@@ -39,9 +39,7 @@ import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container } from '../components/Container';
 import { DebugData } from '../components/DebugData';
-
 import { GlobalLayout } from '../components/GlobalLayout';
-
 import { BookCover } from '../components/BookCover';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
@@ -52,9 +50,10 @@ import { BookList } from '../components/BookList';
 import FilterActive from '../icons/FilterActive';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import Icon from '../icons/Icons';
-import MenuDownTriangle, { MenuTriangle } from '../icons/MenuTriangle';
+import { MenuTriangle } from '../icons/MenuTriangle';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { HiddenAccessibleText } from '../components/HiddenAccessibleText';
+import { TextField } from '../components/TextField';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -101,6 +100,7 @@ function FilterTagCheckField(props) {
     </div>
   );
 }
+
 function BooksPage({ data }) {
   const tagTypes = data.tagTypes.enumValues;
   const tags = data.allGraphCmsTag.nodes;
@@ -109,8 +109,11 @@ function BooksPage({ data }) {
   );
 
   const booksLookup = books.map(withTagProperties);
+  const { control, watch, setValue } = useForm();
+  const searchValue = watch('search');
 
-  const [filteredBooks, setFilteredBooks] = useState(booksLookup);
+  const [filteredBooksByTag, setFilteredBooksByTag] = useState(booksLookup);
+  const [booksAmount, setBooksAmount] = useState(filteredBooksByTag.length);
   const [userFilters, setUserFilters] = useState([]);
   const [isToggled, setToggled] = useToggleSwitch(false);
 
@@ -130,10 +133,18 @@ function BooksPage({ data }) {
 
   useEffect(() => {
     userFilters.length === 0
-      ? setFilteredBooks(booksLookup)
-      : setFilteredBooks(withAppliedFilters);
+      ? setFilteredBooksByTag(booksLookup)
+      : setFilteredBooksByTag(withAppliedFilters);
   }, [userFilters]);
 
+  const userCriteriaString = [
+    searchValue,
+    ...userFilters.map(({ title }) => title),
+  ]
+    .filter((book) => book) // remove searchValue if undefined
+    .join(', ');
+
+  const hasUserCriteria = userFilters.length > 0 || searchValue;
   return (
     <>
       <GlobalLayout>
@@ -152,7 +163,8 @@ function BooksPage({ data }) {
                 grid({
                   gridTemplateColumns: 'repeat(12, 1fr)',
                   gridTemplateAreas: `
-                "heading heading choices choices choices choices choices choices choices choices choices choices"
+                ". . heading heading heading heading heading heading heading heading heading heading"
+                ". . choices choices choices choices choices choices choices choices choices choices"
                 "filter filter results results results results results results results results results results"
                 `,
                 })
@@ -166,7 +178,7 @@ function BooksPage({ data }) {
               ]}
             >
               <Heading level={1} css={{ placeSelf: 'start' }}>
-                {pluralize('Book', filteredBooks.length, true)}
+                {pluralize('Book', filteredBooksByTag.length, true)}
               </Heading>
             </Container>
             <button
@@ -190,14 +202,16 @@ function BooksPage({ data }) {
                 }),
               ]}
             >
-              <FilterActive active={userFilters.length > 0} />
+              <FilterActive active={hasUserCriteria} />
               <span css={{ fontSize: s05 }}>Filter</span>
             </button>
-            {userFilters.length > 0 && (
+
+            {hasUserCriteria && (
               <Container
                 css={[
                   { display: 'none' },
                   onTabletMedia({
+                    gridArea: 'choices',
                     placeSelf: 'end start',
                     ...flex('row', {
                       alignItems: 'center',
@@ -205,20 +219,20 @@ function BooksPage({ data }) {
                   }),
                 ]}
               >
-                Active Filters
-                {userFilters.map((tag) => {
-                  const isChecked = userFilters.some(
-                    (filter) => filter.id === tag.id
-                  );
+                Criteria: {userCriteriaString}
+                {/* {userFilters.map((tag) => {
+                    const isChecked = userFilters.some(
+                      (filter) => filter.id === tag.id
+                    );
 
-                  return (
-                    <FilterTagCheckField
-                      tag={tag}
-                      handleChange={handleFilterChecked}
-                      checked={isChecked}
-                    />
-                  );
-                })}
+                    return (
+                      <FilterTagCheckField
+                        tag={tag}
+                        handleChange={handleFilterChecked}
+                        checked={isChecked}
+                      />
+                    );
+                  })} */}
               </Container>
             )}
 
@@ -257,6 +271,18 @@ function BooksPage({ data }) {
                 }),
               ]}
             >
+              <form role={'search'}>
+                <TextField
+                  name={'search'}
+                  label={{ children: 'Search' }}
+                  input={{
+                    placeholder: 'Title, ISBN, Publisher',
+                    id: 'search',
+                    type: 'search',
+                  }}
+                  control={control}
+                />
+              </form>
               <Accordion allowZeroExpanded={true} allowMultipleExpanded={true}>
                 {tagTypes.map((tagType) => {
                   return (
@@ -325,12 +351,13 @@ function BooksPage({ data }) {
                   );
                 })}
               </Accordion>
-              {userFilters.length > 0 && (
+              {hasUserCriteria && (
                 <SecondaryButton
                   css={{ position: 'sticky', bottom: 0 }}
                   onClick={() => {
                     setUserFilters([]);
-                    setFilteredBooks(booksLookup);
+                    setValue('search', '');
+                    setFilteredBooksByTag(booksLookup);
                   }}
                 >
                   Clear Filters
@@ -338,61 +365,67 @@ function BooksPage({ data }) {
               )}
             </div>
 
-            {filteredBooks.length ? (
-              <BookList
-                css={[
-                  {
-                    gridArea: 'results',
-                    padding: s1,
-                  },
+            <FilterResults
+              value={searchValue || ''}
+              data={filteredBooksByTag}
+              pick={['title', 'isbn', 'publisher']}
+              renderResults={(results) => {
+                return results.length > 0 ? (
+                  <BookList
+                    css={[
+                      {
+                        gridArea: 'results',
+                        padding: s1,
+                      },
 
-                  onTabletMedia({
-                    gridArea: 'results',
-                    gridTemplateColumns: `repeat(auto-fill, minmax(${base320}, 1fr))`,
-                    gridGap: s2,
-                    width: 'max-content',
+                      onTabletMedia({
+                        gridArea: 'results',
+                        gridTemplateColumns: `repeat(auto-fill, minmax(${base320}, 1fr))`,
+                        gridGap: s2,
+                        width: 'max-content',
 
-                    padding: s1,
-                    width: '100%',
-                  }),
-                ]}
-              >
-                {filteredBooks.map((book) => {
-                  return (
-                    <BookCover book={book}>
-                      <HiddenAccessibleText>
-                        <Heading
-                          level={2}
-                          css={[
-                            { fontSize: s1 },
+                        padding: s1,
+                        width: '100%',
+                      }),
+                    ]}
+                  >
+                    {results.map((book) => {
+                      return (
+                        <BookCover book={book}>
+                          <HiddenAccessibleText>
+                            <Heading
+                              level={2}
+                              css={[
+                                { fontSize: s1 },
 
-                            onTabletMedia({ fontSize: s1 }),
-                          ]}
-                        >
-                          {book.title}
-                        </Heading>
-                      </HiddenAccessibleText>
-                    </BookCover>
-                  );
-                })}
-              </BookList>
-            ) : (
-              <Container css={{ gridArea: 'results' }}>
-                <p>
-                  {`Sorry, we don't have books under: ${userFilters
-                    .map(({ title }) => title)
-                    .join(', ')}`}
-                </p>
-                <SecondaryButton
-                  onClick={() => {
-                    setUserFilters([]);
-                    setFilteredBooks(booksLookup);
-                  }}
-                >
-                  Clear Filters
-                </SecondaryButton>
-              </Container>
-            )}
+                                onTabletMedia({ fontSize: s1 }),
+                              ]}
+                            >
+                              {book.title}
+                            </Heading>
+                          </HiddenAccessibleText>
+                        </BookCover>
+                      );
+                    })}
+                  </BookList>
+                ) : (
+                  <Container css={{ gridArea: 'results' }}>
+                    <p>
+                      {`Sorry, we don't have books that match your search: ${userCriteriaString}`}
+                    </p>
+                    <SecondaryButton
+                      onClick={() => {
+                        setUserFilters([]);
+                        setValue('search', '');
+                        setFilteredBooksByTag(booksLookup);
+                      }}
+                    >
+                      Clear Filters
+                    </SecondaryButton>
+                  </Container>
+                );
+              }}
+            />
           </Section>
         </main>
 
@@ -427,6 +460,10 @@ export const query = graphql`
         id
         title
         slug
+        awards
+        publisher
+        isbn
+
         tags {
           title
           slug

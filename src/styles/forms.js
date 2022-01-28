@@ -18,7 +18,7 @@ export const label = {
 };
 
 export const input = {
-  '&[type="text"], &[type="email"], &[type="number"]': {
+  '&[type="text"], &[type="email"], &[type="number"], &[type="search"]': {
     width: '100%',
     minHeight: MIN_TOUCH_SIZE,
     padding: `0 ${s05}`,

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { flex, onTabletMedia, s1 } from '../styles';
+import { flex, onTabletMedia, s1, s4 } from '../styles';
 
 export const Section = ({ children, ...props }) => {
   return (
@@ -14,6 +14,8 @@ export const Section = ({ children, ...props }) => {
           ...flex('column', { alignItems: 'center', justifyContent: 'center' }),
         },
         onTabletMedia({
+          marginTop: s4,
+          marginBottom: s4,
           minHeight: '75vh',
         }),
         onTabletMedia({
