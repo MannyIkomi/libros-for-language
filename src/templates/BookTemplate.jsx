@@ -170,8 +170,6 @@ function BookTemplate({ data }) {
               </div>
             )}
             <TextContainer
-              id="w-node-_99a0eb45-7fae-4bf9-8d9d-f3ee27a955eb-0b286f2c"
-              className="book-info"
               css={{
                 gridArea: 'title',
                 h2: {
@@ -232,11 +230,7 @@ function BookTemplate({ data }) {
             )}
 
             {typologies.length > 0 && (
-              <TextContainer
-                // id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
-                // className="translanguaging"
-                css={{ gridArea: 'typology' }}
-              >
+              <TextContainer css={{ gridArea: 'typology' }}>
                 <Heading level={2}>Translanguaging Typology</Heading>
 
                 <List
@@ -299,6 +293,7 @@ function BookTemplate({ data }) {
                             );
                         }
                       }
+                      console.log('ICON TEXT', text);
                       return (
                         <Link
                           to={link}
@@ -322,7 +317,6 @@ function BookTemplate({ data }) {
 
         {/* meta data stuff… */}
         <Section css={{ alignItems: 'center' }}>
-          {/* <section className="book-metadata wf-section"> */}
           <Container
             css={[
               {
@@ -351,11 +345,7 @@ function BookTemplate({ data }) {
           >
             {/* <section className="container book-grid"> */}
             {genres.length > 0 && (
-              <TextContainer
-                id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
-                className="translanguaging"
-                css={{ gridArea: 'genre' }}
-              >
+              <TextContainer css={{ gridArea: 'genre' }}>
                 <Heading level={3}>
                   {pluralize.plural(genres[0].tagType.replace('_', ' '))}
                 </Heading>
@@ -375,11 +365,7 @@ function BookTemplate({ data }) {
             )}
 
             {textStructure.length > 0 && (
-              <TextContainer
-                id="w-node-aa56faaf-4d29-5ad8-4b7d-9de5df1602f2-0b286f2c"
-                className="translanguaging"
-                css={{ gridArea: 'textStructure' }}
-              >
+              <TextContainer css={{ gridArea: 'textStructure' }}>
                 <Heading level={3}>
                   {pluralize.plural(textStructure[0].tagType.replace('_', ' '))}
                 </Heading>
