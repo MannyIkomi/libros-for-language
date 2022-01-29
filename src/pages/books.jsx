@@ -271,7 +271,13 @@ function BooksPage({ data }) {
                 }),
               ]}
             >
-              <form role={'search'}>
+              <form
+                role={'search'}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
+              >
                 <TextField
                   name={'search'}
                   label={{ children: 'Search' }}
