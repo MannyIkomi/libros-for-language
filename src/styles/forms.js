@@ -56,4 +56,8 @@ export const button = {
     width: '100%',
     minHeight: MIN_TOUCH_SIZE,
   },
+  '&:focus': {
+    borderColor: COMPLIMENT,
+    outlineColor: COMPLIMENT,
+  },
 };
