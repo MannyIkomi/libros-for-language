@@ -30,21 +30,17 @@ import { slugify } from '../utils/slugify';
 import { TagIcon } from '../icons/Icons';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { LineRule } from '../components/LineRule';
-import {
-  sort1toN,
-  sortNewToOld,
-  sortNto1,
-  sortWithDate,
-  sortWithProperty,
-} from '../utils/sort';
+import { sortWithDate, sortWithProperty } from '../utils/sort';
 
-const MAX_BOOK_DISPLAY_AMOUNT = 4;
+export const MAX_BOOK_DISPLAY_AMOUNT = 4;
 
 function TagListingTemplate(props) {
   const { data, pageContext } = props;
   const { allGraphCmsTag } = data;
 
-  const tags = allGraphCmsTag.nodes.sort((a, b) => a.sequence - b.sequence);
+  const tags = allGraphCmsTag.nodes.sort(
+    sortWithProperty({ property: 'sequence' })
+  );
 
   return (
     <GlobalLayout>
