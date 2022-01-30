@@ -3,14 +3,14 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { headings, headingsDesktop, onTabletMedia } from '../styles';
 
-export const Heading = ({ level = 1, children, css, ...props }) => {
+export const Heading = ({ level = 1, children, ...props }) => {
   const HeadingTag = `h${level || 1}`;
 
   switch (level) {
     case 1:
       return (
         <HeadingTag
-          css={[headings.h1, onTabletMedia(headingsDesktop.h1), css]}
+          css={[headings.h1, onTabletMedia(headingsDesktop.h1)]}
           {...props}
         >
           {children}
