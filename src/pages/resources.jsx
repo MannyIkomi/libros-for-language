@@ -14,6 +14,7 @@ import {
   s05,
   boxShadow,
   s5,
+  PRIMARY,
 } from '../styles';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
@@ -129,24 +130,23 @@ function ResourcesPage({ data }) {
                                 ...boxShadow,
                               }}
                             >
-                              <Link to={resource?.url}>
-                                <Heading
-                                  level={3}
-                                  css={[
-                                    { marginBottom: 0 },
-                                    onTabletMedia({ marginBottom: 0 }),
-                                  ]}
-                                >
-                                  {resource.title}
-                                </Heading>
-                              </Link>
+                              <Heading
+                                level={3}
+                                css={[
+                                  { marginBottom: 0 },
+                                  onTabletMedia({ marginBottom: 0 }),
+                                ]}
+                              >
+                                {resource.title}
+                              </Heading>
+
                               {attribution && <span>by {attribution}</span>}
 
                               {description?.html && (
                                 <RichText html={description.html} />
                               )}
 
-                              <SecondaryLink to={url} css={{ color: WHITE }}>
+                              <SecondaryLink to={url} css={{ color: PRIMARY }}>
                                 {new URL(url).host}
                               </SecondaryLink>
                             </div>
