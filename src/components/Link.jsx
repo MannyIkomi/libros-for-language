@@ -6,7 +6,11 @@ import {
   secondaryActionStyle,
   tertiaryActionStyle,
   COMPLIMENT80,
+  COMPLIMENT,
   s0125,
+  onHover,
+  onFocus,
+  PRIMARY,
 } from '../styles/';
 
 // Since DOM elements <a> cannot receive activeClassName
@@ -18,7 +22,8 @@ export const Link = ({
   href,
   activeClassName,
   partiallyActive,
-  ...other
+
+  ...props
 }) => {
   // Tailor the following test to your environment.
   // This example assumes that any internal link (intended for Gatsby)
@@ -29,20 +34,22 @@ export const Link = ({
   const internal = /^\/(?!\/)/.test(to);
 
   const overridePseudoStyles = {
-    // '&:link, &:visited, &:focus, &:hover, &:active': {
-    //   color: 'inherit',
-    // },
-    '&:focus': {
+    color: PRIMARY,
+    ...onHover({
+      color: COMPLIMENT,
+    }),
+    ...onFocus({
+      color: COMPLIMENT,
       outlineColor: COMPLIMENT80,
       outlineStyle: 'solid',
       outlineWidth: s0125,
-    },
+    }),
   };
 
   // Use Gatsby Link for internal links, and <a> for others
   if (!to) {
     // removed the <a/> tag and replaced with generic
-    return <span {...other}>{children}</span>;
+    return <span {...props}>{children}</span>;
   }
 
   if (internal) {
@@ -51,8 +58,8 @@ export const Link = ({
         to={to}
         // activeClassName={activeClassName}
         // partiallyActive={partiallyActive}
-        css={[overridePseudoStyles, { textDecoration: 'underline' }]}
-        {...other}
+        css={{ ...overridePseudoStyles, textDecoration: 'underline' }}
+        {...props}
       >
         {children}
       </GatsbyLink>
@@ -60,7 +67,7 @@ export const Link = ({
   }
 
   return (
-    <a href={to} css={overridePseudoStyles} {...other}>
+    <a href={to} css={overridePseudoStyles} {...props}>
       {children}
     </a>
   );

@@ -2,10 +2,10 @@
 import React from 'react';
 
 import { jsx } from '@emotion/react';
-import { PRIMARY, notoMono, s05 } from '../styles';
+import { PRIMARY, notoMono, s05, COMPLIMENT } from '../styles';
 import { Link } from './Link';
 
-export const MonoFontLink = (props) => (
+export const MonoFontLink = ({ children, ...props }) => (
   <Link
     css={{
       ...notoMono,
@@ -15,10 +15,10 @@ export const MonoFontLink = (props) => (
       display: 'inline-block',
       padding: s05,
       marginBottom: s05,
-      whiteSpace: 'nowrap',
+      // whiteSpace: 'nowrap',
     }}
     {...props}
   >
-    {props.children}
+    {children}
   </Link>
 );

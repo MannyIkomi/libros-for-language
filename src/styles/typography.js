@@ -91,11 +91,8 @@ export const p = {
 export const a = {
   ...notoSans,
   fontSize: 'inherit',
-  textDecoration: 'none',
-
-  '&:link, &:visited, &:focus, &:hover, &:active': {
-    color: 'inherit',
-  },
+  color: PRIMARY,
+  // textDecoration: 'none',
 };
 
 export const headings = {

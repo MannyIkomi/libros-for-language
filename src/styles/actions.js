@@ -12,6 +12,12 @@ import {
   PRIMARY80,
   base320,
   s0125,
+  onHover,
+  COMPLIMENT80,
+  COMPLIMENT,
+  onFocus,
+  COMPLIMENT_WHITE,
+  PRIMARY_WHITE,
 } from '.';
 import { boxShadow2xl } from './shadow';
 
@@ -30,14 +36,25 @@ export const primaryActionStyle = [
     padding: `${s1} ${s2}`,
     borderRadius: s0125,
 
-    color: `${WHITE} !important`,
+    color: `${PRIMARY_WHITE}`,
     backgroundColor: PRIMARY,
+
     fontWeight: '700',
     textAlign: 'center',
 
     textDecoration: 'none',
     textTransform: 'uppercase',
-    whiteSpace: 'nowrap',
+    // whiteSpace: 'nowrap',
+
+    ...onHover({
+      color: COMPLIMENT_WHITE,
+      backgroundColor: COMPLIMENT,
+    }),
+    ...onFocus({
+      outlineStyle: 'solid',
+      outlineColor: COMPLIMENT,
+      outlineWidth: s0125,
+    }),
   },
   onTabletMedia({ width: 'initial' }),
 ];
@@ -49,7 +66,6 @@ export const secondaryActionStyle = [
       alignItems: 'center',
     }),
     ...boxShadow2xl,
-
     width: '100%',
 
     minHeight: s3,
@@ -57,14 +73,27 @@ export const secondaryActionStyle = [
     padding: `${s1} ${s2}`,
     borderRadius: s0125,
 
-    color: `${WHITE} !important`,
-    backgroundColor: PRIMARY80,
+    // color: `${WHITE} !important`,
+    // backgroundColor: PRIMARY80,
+    color: PRIMARY,
+    backgroundColor: PRIMARY_WHITE,
+    border: `${s025} solid ${PRIMARY}`,
     fontWeight: '700',
     textAlign: 'center',
 
     textDecoration: 'none',
     textTransform: 'uppercase',
-    // whiteSpace: 'nowrap',
+
+    ...onHover({
+      color: COMPLIMENT,
+      backgroundColor: COMPLIMENT_WHITE,
+      borderColor: COMPLIMENT,
+    }),
+    ...onFocus({
+      outlineStyle: 'solid',
+      outlineColor: COMPLIMENT,
+      outlineWidth: s0125,
+    }),
   },
   onTabletMedia({ width: 'initial' }),
 ];
@@ -88,7 +117,16 @@ export const tertiaryActionStyle = [
 
     textDecoration: 'underline',
     textTransform: 'uppercase',
-    // whiteSpace: 'nowrap',
+    ...onHover({
+      color: COMPLIMENT,
+      // backgroundColor: COMPLIMENT_WHITE,
+      // borderColor: COMPLIMENT,
+    }),
+    ...onFocus({
+      outlineStyle: 'solid',
+      outlineColor: COMPLIMENT,
+      outlineWidth: s0125,
+    }),
   },
   onTabletMedia({ width: 'initial' }),
 ];

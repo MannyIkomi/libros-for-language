@@ -14,6 +14,7 @@ export const onMedia = (query = '', styles = {}) => ({
 
 export const onHover = (styles = {}) =>
   onMedia('hover: hover', { '&:hover': { ...styles } });
+export const onFocus = (styles = {}) => ({ '&:focus': { ...styles } });
 
 export const onSupport = (query = '', styles = {}) => ({
   [`@supports (${query})`]: {

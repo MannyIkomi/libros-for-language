@@ -11,6 +11,7 @@ import {
   boxShadow,
   s2,
   boxShadow2xl,
+  onFocus,
 } from '../styles';
 import { concatFullName } from '../utils/concatFullName';
 import { BookImage } from './BookImage';
@@ -37,19 +38,6 @@ export function FeaturedBook({ book, ...props }) {
       className="book-preview"
       css={{
         ...onHover({
-          '&:hover': {
-            '.cover': {
-              transform: 'rotateY(-180deg)',
-            },
-            '.summary': {
-              transform: 'rotateY(0deg)',
-            },
-            '.shadow': {
-              transform: 'rotateY(-180deg)',
-            },
-          },
-        }),
-        '&:focus': {
           '.cover': {
             transform: 'rotateY(-180deg)',
           },
@@ -59,7 +47,18 @@ export function FeaturedBook({ book, ...props }) {
           '.shadow': {
             transform: 'rotateY(-180deg)',
           },
-        },
+        }),
+        ...onFocus({
+          '.cover': {
+            transform: 'rotateY(-180deg)',
+          },
+          '.summary': {
+            transform: 'rotateY(0deg)',
+          },
+          '.shadow': {
+            transform: 'rotateY(-180deg)',
+          },
+        }),
       }}
       {...props}
     >
