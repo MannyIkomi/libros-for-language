@@ -16,6 +16,8 @@ import {
   s4,
   flex,
   base320,
+  base160,
+  s3,
 } from '../styles';
 import {
   GenreTag,
@@ -77,10 +79,6 @@ function IndexPage({ data }) {
         >
           <Section
             css={{
-              overflow: 'hidden',
-              // minHeight: '80vh',
-              // marginBottom: '10vh',
-
               alignItems: 'initial',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -91,8 +89,8 @@ function IndexPage({ data }) {
               <Heading
                 level={1}
                 css={{
-                  width: '100%',
                   ...notoSerif,
+                  width: '100%',
                   color: PRIMARY,
 
                   textAlign: 'left',
@@ -116,25 +114,20 @@ function IndexPage({ data }) {
               css={[
                 {
                   minHeight: '33vh',
-                  // margin: `10vh 0`,
-                  // ...flex('row', {
-                  //   gap: s1,
-                  //   alignItems: 'end',
-                  //   justifyContent: 'center',
-                  // }),
 
                   ...grid({
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-
+                    gridTemplateColumns: `repeat(2, minmax(80px, 1fr))`,
                     placeItems: 'end center',
                     gridGap: s1,
                   }),
                 },
                 onTabletMedia({
-                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gridGap: s2,
+                  gridTemplateColumns: `repeat(auto-fit, minmax(${base160}, 1fr))`,
                 }),
                 onDesktopMedia({
-                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gridGap: s3,
+                  gridTemplateColumns: `repeat(auto-fit, minmax(${base160}, 1fr))`,
                 }),
               ]}
             >
@@ -148,7 +141,13 @@ function IndexPage({ data }) {
                   );
                 })
                 .map((book) => {
-                  return <FeaturedBook {...book} key={book.id} />;
+                  return (
+                    <FeaturedBook
+                      css={[onTabletMedia({ gridRow: `1 / 2` })]}
+                      book={book}
+                      key={book.id}
+                    />
+                  );
                 })}
             </div>
             <Container css={{ alignSelf: 'center', color: PRIMARY_WHITE }}>
