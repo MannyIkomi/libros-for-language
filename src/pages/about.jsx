@@ -111,40 +111,6 @@ function AboutPage({ data }) {
           </Section>
 
           <Section>
-            <Container
-              css={{
-                alignItems: 'flex-start',
-              }}
-            >
-              <Heading level={2}>Meet the Team</Heading>
-            </Container>
-            <Container>
-              <List
-                css={[
-                  { listStyle: 'none' },
-                  onTabletMedia({
-                    ...grid({
-                      gridTemplateColumns: '1fr 1fr',
-                      gridTempalteRows: '1fr 1fr',
-
-                      placeItems: 'start',
-                      gridGap: s2,
-                    }),
-                  }),
-                ]}
-              >
-                {teamMembers.map((person) => (
-                  <TeamMemberBio
-                    {...person}
-                    key={person.id}
-                    css={{ marginBottom: s1 }}
-                  />
-                ))}
-              </List>
-            </Container>
-          </Section>
-
-          <Section>
             <Container>
               <TextContainer>
                 <Heading level={2}>
@@ -179,6 +145,40 @@ function AboutPage({ data }) {
                   expertise in utilizing mentor texts.
                 </p>
               </TextContainer>
+            </Container>
+          </Section>
+
+          <Section>
+            <Container
+              css={{
+                alignItems: 'flex-start',
+              }}
+            >
+              <Heading level={2}>Meet the Team</Heading>
+            </Container>
+            <Container>
+              <List
+                css={[
+                  { listStyle: 'none' },
+                  onTabletMedia({
+                    ...grid({
+                      gridTemplateColumns: '1fr 1fr',
+                      gridTempalteRows: '1fr 1fr',
+
+                      placeItems: 'start',
+                      gridGap: s2,
+                    }),
+                  }),
+                ]}
+              >
+                {teamMembers.map((person) => (
+                  <TeamMemberBio
+                    {...person}
+                    key={person.id}
+                    css={{ marginBottom: s1 }}
+                  />
+                ))}
+              </List>
             </Container>
           </Section>
 
