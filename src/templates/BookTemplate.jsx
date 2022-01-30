@@ -338,7 +338,7 @@ function BookTemplate({ data }) {
                   color: PRIMARY,
                 },
                 ...grid({
-                  gridTemplateAreas: `"genre" "textStructure" "grade" "language" "topic" "metadata" "suggestion" `,
+                  gridTemplateAreas: `"genre" "language" "grade" "textStructure" "topic" "metadata" "suggestion" `,
                   gridGap: s2,
                   placeItems: 'start',
                 }),
@@ -370,28 +370,6 @@ function BookTemplate({ data }) {
                         to={`/tags/${slugify(genre.tagType)}s/${genre.slug}`}
                       >
                         <TextStructureTag>{genre.title}</TextStructureTag>
-                      </Link>
-                    );
-                  })}
-                </TagList>
-              </TextContainer>
-            )}
-
-            {textStructure.length > 0 && (
-              <TextContainer css={{ gridArea: 'textStructure' }}>
-                <Heading level={3}>
-                  {pluralize.plural(textStructure[0].tagType.replace('_', ' '))}
-                </Heading>
-                <TagList>
-                  {textStructure.map((structure) => {
-                    return (
-                      <Link
-                        css={{ textDecoration: 'none' }}
-                        to={`/tags/${slugify(structure.tagType)}s/${
-                          structure.slug
-                        }`}
-                      >
-                        <TextStructureTag>{structure.title}</TextStructureTag>
                       </Link>
                     );
                   })}
@@ -434,6 +412,27 @@ function BookTemplate({ data }) {
                         to={`/tags/${slugify(grade.tagType)}s/${grade.slug}`}
                       >
                         <LanguageTag>{grade.title}</LanguageTag>
+                      </Link>
+                    );
+                  })}
+                </TagList>
+              </TextContainer>
+            )}
+            {textStructure.length > 0 && (
+              <TextContainer css={{ gridArea: 'textStructure' }}>
+                <Heading level={3}>
+                  {pluralize.plural(textStructure[0].tagType.replace('_', ' '))}
+                </Heading>
+                <TagList>
+                  {textStructure.map((structure) => {
+                    return (
+                      <Link
+                        css={{ textDecoration: 'none' }}
+                        to={`/tags/${slugify(structure.tagType)}s/${
+                          structure.slug
+                        }`}
+                      >
+                        <TextStructureTag>{structure.title}</TextStructureTag>
                       </Link>
                     );
                   })}
