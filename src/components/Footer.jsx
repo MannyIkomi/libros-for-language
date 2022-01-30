@@ -22,6 +22,7 @@ import { Container } from './Container';
 import { Link } from './Link';
 import { GlobalContext } from './GlobalLayout';
 import { NavigationLink } from './NavigationLink';
+import { HiddenAccessibleText } from './HiddenAccessibleText';
 
 export function Footer() {
   const { navigation } = useContext(GlobalContext);
@@ -67,6 +68,7 @@ export function Footer() {
       >
         <Link to={'/'} css={{ gridArea: 'logo' }}>
           <Logo css={{ width: s5, color: WHITE, margin: s05 }} />
+          <HiddenAccessibleText>Libros for Language</HiddenAccessibleText>
         </Link>
         <List
           css={{

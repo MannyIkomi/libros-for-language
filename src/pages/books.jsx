@@ -279,11 +279,10 @@ function BooksPage({ data }) {
                 }}
               >
                 <TextField
-                  name={'search'}
                   label={{ children: 'Search' }}
                   input={{
-                    placeholder: 'Title, ISBN, Publisher',
-                    id: 'search',
+                    name: 'search',
+                    placeholder: 'Title, ISBN, Publisher…',
                     type: 'search',
                   }}
                   control={control}

@@ -14,6 +14,10 @@ import {
   s10,
   WHITE,
   PRIMARY_WHITE,
+  onTabletMedia,
+  s5,
+  s8,
+  s80,
 } from '../styles';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import { NavigationLink } from './NavigationLink';
@@ -24,6 +28,8 @@ import { List } from './List';
 import { Link } from './Link';
 import { Button } from './Button';
 import { HorizontalRule } from './HorizontalRule';
+import { HiddenAccessibleText } from './HiddenAccessibleText';
+import IconLabel from './IconLabel';
 
 export function MainMenu() {
   const { navigation } = useContext(GlobalContext);
@@ -51,26 +57,34 @@ export function MainMenu() {
       >
         <Link to={'/'}>
           <Logo
-            css={{
-              color: COMPLIMENT40,
-              width: s10,
-              margin: s1,
-              aspectRatio: `${LOGO_WIDTH} / ${LOGO_HEIGHT}`,
-            }}
+            css={[
+              {
+                color: COMPLIMENT40,
+                width: s5,
+                margin: s05,
+
+                aspectRatio: `${LOGO_WIDTH} / ${LOGO_HEIGHT}`,
+              },
+              onTabletMedia({ width: s10, margin: s1 }),
+            ]}
           />
+          <HiddenAccessibleText>Libros for Language</HiddenAccessibleText>
         </Link>
         <Button
           id="menuButton"
           aria-expanded={toggled}
-          aria-controls="menuItems"
+          aria-controls={'menuItems'}
           onClick={() => setToggled(!toggled)}
           css={{
             color: PRIMARY_WHITE,
             width: s2,
             height: s2,
+            position: 'relative',
+            ...flex('column', { alignItems: 'center' }),
           }}
         >
           <MenuIcon />
+          <IconLabel css={{ position: 'absolute', bottom: 0 }}>Menu</IconLabel>
         </Button>
         <div
           id="menuItems"

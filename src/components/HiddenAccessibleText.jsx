@@ -6,7 +6,7 @@ import { hiddenAccessible } from '../styles';
 export function HiddenAccessibleText({ children, ...props }) {
   return (
     <span css={hiddenAccessible} {...props}>
-      {props.children}
+      {children}
     </span>
   );
 }
