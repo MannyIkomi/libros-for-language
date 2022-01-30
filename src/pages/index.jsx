@@ -78,25 +78,24 @@ function IndexPage({ data }) {
           <Section
             css={{
               overflow: 'hidden',
-              minHeight: '80vh',
-              marginBottom: '10vh',
+              // minHeight: '80vh',
+              // marginBottom: '10vh',
 
               alignItems: 'initial',
               flexDirection: 'column',
               justifyContent: 'center',
+              gap: s4,
             }}
           >
             <Container css={{ alignSelf: 'center' }}>
               <Heading
                 level={1}
                 css={{
-                  marginTop: '0px',
-                  marginBottom: '2rem',
                   width: '100%',
                   ...notoSerif,
                   color: PRIMARY,
 
-                  textAlign: 'center',
+                  textAlign: 'left',
                 }}
               >
                 Empowering teachers with{' '}
@@ -117,7 +116,7 @@ function IndexPage({ data }) {
               css={[
                 {
                   minHeight: '33vh',
-                  marginBottom: `10vh`,
+                  // margin: `10vh 0`,
                   // ...flex('row', {
                   //   gap: s1,
                   //   alignItems: 'end',
@@ -278,11 +277,13 @@ export const query = graphql`
         authors {
           lastName
           firstName
+          slug
           type
         }
         illustrators {
           lastName
           firstName
+          slug
           type
         }
         publisherSummary
