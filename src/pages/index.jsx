@@ -155,11 +155,30 @@ function IndexPage({ data }) {
               <PrimaryLink to={'/books'}>Browse All Books </PrimaryLink>
             </Container>
           </Section>
-
+          <Section>
+            <Container css={{ gap: s2 }}>
+              <TextContainer>
+                <Heading level={2}>
+                  Libros for Language is a digital library designed to support
+                  teachers in finding and using translanguaging books.
+                </Heading>
+                <p>
+                  The books on this site are examples of authors and
+                  illustrators who incorporate LOTE (Languages Other Than
+                  English) in their work, just as all multilingual people do in
+                  their daily lives.
+                </p>
+              </TextContainer>
+              <PrimaryLink to={'/about'}>About Us</PrimaryLink>
+              <TertiaryLink to={'/typology'}>
+                Learn About Our Typology
+              </TertiaryLink>
+            </Container>
+          </Section>
           <Section>
             <Container css={{ gap: s4 }}>
               <TextContainer>
-                <Heading level={2}>Browse by Language</Heading>
+                <Heading level={3}>Browse by Language</Heading>
                 <List
                   css={{
                     display: 'flex',
@@ -180,7 +199,7 @@ function IndexPage({ data }) {
                 </List>
               </TextContainer>
               <TextContainer>
-                <Heading level={2}>Browse by Genre</Heading>
+                <Heading level={3}>Browse by Genre</Heading>
                 <List
                   css={{
                     display: 'flex',
@@ -201,7 +220,7 @@ function IndexPage({ data }) {
                 </List>
               </TextContainer>
               <TextContainer>
-                <Heading level={2}>Browse by Grade Level</Heading>
+                <Heading level={3}>Browse by Grade Level</Heading>
                 <List
                   css={{
                     display: 'flex',
@@ -223,26 +242,6 @@ function IndexPage({ data }) {
                   ))}
                 </List>
               </TextContainer>
-            </Container>
-          </Section>
-          <Section>
-            <Container css={{ gap: s2 }}>
-              <TextContainer>
-                <Heading level={3}>
-                  Libros for Language is a digital library designed to support
-                  teachers in finding and using translanguaging books.
-                </Heading>
-                <p>
-                  The books on this site are examples of authors and
-                  illustrators who incorporate LOTE (Languages Other Than
-                  English) in their work, just as all multilingual people do in
-                  their daily lives.
-                </p>
-              </TextContainer>
-              <SecondaryLink to={'/about'}>About Us</SecondaryLink>
-              <TertiaryLink to={'/typology'}>
-                Learn About Our Typology
-              </TertiaryLink>
             </Container>
           </Section>
         </main>
