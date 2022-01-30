@@ -20,6 +20,8 @@ import { DebugData } from '../components/DebugData';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { concatFullName } from '../utils/concatFullName';
 import { groupByFirstLetter } from '../utils/groupByFirstLetter';
+import { LineRule } from '../components/LineRule';
+import { PRIMARY60 } from '../styles';
 
 function AuthorIllustratorPage({ data }) {
   const authors = data.allGraphCmsAuthor.nodes.map(concatFullName);
@@ -59,18 +61,19 @@ function AuthorIllustratorPage({ data }) {
                   {alphaAuthors.map((list) => {
                     const [letter, authors] = list;
                     return (
-                      <>
+                      <Container css={{ alignItems: 'start' }} key={letter}>
                         <Heading level={3}>{letter}</Heading>
                         <TagList>
                           {authors.map((author) => (
                             <MonoFontLink
                               to={`/authors-illustrators/${author.slug}`}
+                              key={author.slug}
                             >
                               {author.name}
                             </MonoFontLink>
                           ))}
                         </TagList>
-                      </>
+                      </Container>
                     );
                   })}
                 </TabPanel>
@@ -78,18 +81,20 @@ function AuthorIllustratorPage({ data }) {
                   {alphaIllustrators.map((list) => {
                     const [letter, illustrators] = list;
                     return (
-                      <>
+                      <Container css={{ alignItems: 'start' }} key={letter}>
                         <Heading level={3}>{letter}</Heading>
                         <TagList>
                           {illustrators.map((illustrator) => (
                             <MonoFontLink
                               to={`/authors-illustrators/${illustrator.slug}`}
+                              key={illustrator.slug}
                             >
                               {illustrator.name}
                             </MonoFontLink>
                           ))}
                         </TagList>
-                      </>
+                        {/* <LineRule css={{ borderColor: PRIMARY60 }} /> */}
+                      </Container>
                     );
                   })}
                 </TabPanel>
