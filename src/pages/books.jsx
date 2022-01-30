@@ -3,7 +3,6 @@ import { jsx } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
 import * as pluralize from 'pluralize';
-
 import {
   Accordion,
   AccordionItem,
@@ -43,17 +42,18 @@ import { GlobalLayout } from '../components/GlobalLayout';
 import { BookCover } from '../components/BookCover';
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
-import { SecondaryButton } from '../components/Button';
+import { Button, SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
 import { FilterTag } from '../components/Tag';
 import { BookList } from '../components/BookList';
-import FilterActive from '../icons/FilterActive';
+import FilterIconSVG from '../icons/Filter';
 import useToggleSwitch from '../hooks/useToggleSwitch';
-import Icon from '../icons/Icons';
+import TagIcon from '../icons/Icons';
 import { MenuTriangle } from '../icons/MenuTriangle';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { HiddenAccessibleText } from '../components/HiddenAccessibleText';
 import { TextField } from '../components/TextField';
+import { IconLabel } from '../components/IconLabel';
 
 function withTagProperties(book) {
   if (book.tags === 0) {
@@ -119,7 +119,6 @@ function BooksPage({ data }) {
 
   const withAppliedFilters = booksLookup.filter((book) => {
     return userFilters.every((tagFilter) => {
-      console.log(tagFilter.title, 'on', book);
       return book[tagFilter.slug] === true ? true : false;
     });
   });
@@ -178,10 +177,10 @@ function BooksPage({ data }) {
               ]}
             >
               <Heading level={1} css={{ placeSelf: 'start' }}>
-                {pluralize('Book', filteredBooksByTag.length, true)}
+                {pluralize('Book', booksAmount, true)}
               </Heading>
             </Container>
-            <button
+            <Button
               onClick={(e) => {
                 setToggled(!isToggled);
               }}
@@ -202,9 +201,11 @@ function BooksPage({ data }) {
                 }),
               ]}
             >
-              <FilterActive active={hasUserCriteria} />
-              <span css={{ fontSize: s05 }}>Filter</span>
-            </button>
+              <FilterIconSVG hasActiveFilters={hasUserCriteria} />
+              <IconLabel css={{ position: 'absolute', bottom: 0 }}>
+                Search & Filter
+              </IconLabel>
+            </Button>
 
             {hasUserCriteria && (
               <Container
@@ -219,20 +220,7 @@ function BooksPage({ data }) {
                   }),
                 ]}
               >
-                Criteria: {userCriteriaString}
-                {/* {userFilters.map((tag) => {
-                    const isChecked = userFilters.some(
-                      (filter) => filter.id === tag.id
-                    );
-
-                    return (
-                      <FilterTagCheckField
-                        tag={tag}
-                        handleChange={handleFilterChecked}
-                        checked={isChecked}
-                      />
-                    );
-                  })} */}
+                <p>"{userCriteriaString}"</p>
               </Container>
             )}
 
@@ -277,6 +265,10 @@ function BooksPage({ data }) {
                   e.preventDefault();
                   return false;
                 }}
+                css={[
+                  { padding: s05, margin: `${s1} 0` },
+                  onTabletMedia({ padding: 0 }),
+                ]}
               >
                 <TextField
                   label={{ children: 'Search' }}
@@ -288,6 +280,7 @@ function BooksPage({ data }) {
                   control={control}
                 />
               </form>
+              <div css={{ borderBottom: `${s00625} solid ${PRIMARY}` }} />
               <Accordion allowZeroExpanded={true} allowMultipleExpanded={true}>
                 {tagTypes.map((tagType) => {
                   return (
@@ -314,7 +307,7 @@ function BooksPage({ data }) {
                           ]}
                         >
                           <div css={{ ...flex('row'), alignItems: 'center' }}>
-                            <Icon
+                            <TagIcon
                               name={tagType.name}
                               css={{ width: base24, height: base24 }}
                             />
@@ -375,6 +368,7 @@ function BooksPage({ data }) {
               data={filteredBooksByTag}
               pick={['title', 'isbn', 'publisher']}
               renderResults={(results) => {
+                setBooksAmount(results.length);
                 return results.length > 0 ? (
                   <BookList
                     css={[
@@ -385,7 +379,7 @@ function BooksPage({ data }) {
 
                       onTabletMedia({
                         gridArea: 'results',
-                        gridTemplateColumns: `repeat(auto-fill, minmax(${base320}, 1fr))`,
+                        // gridTemplateColumns: `repeat(auto-fill, minmax(${base320}, 1fr))`,
                         gridGap: s2,
                         width: 'max-content',
 
@@ -396,7 +390,7 @@ function BooksPage({ data }) {
                   >
                     {results.map((book) => {
                       return (
-                        <BookCover book={book}>
+                        <BookCover book={book} key={book.id}>
                           <HiddenAccessibleText>
                             <Heading
                               level={2}
@@ -415,8 +409,9 @@ function BooksPage({ data }) {
                   </BookList>
                 ) : (
                   <Container css={{ gridArea: 'results' }}>
-                    <p>
-                      {`Sorry, we don't have books that match your search: ${userCriteriaString}`}
+                    <p css={{ textAlign: 'center' }}>
+                      Sorry, we don't have books that match your criteria:{' '}
+                      <br />"{userCriteriaString}"
                     </p>
                     <SecondaryButton
                       onClick={() => {
