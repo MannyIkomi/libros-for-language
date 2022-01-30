@@ -17,7 +17,7 @@ import { BookImage } from './BookImage';
 import { ContributorLinks } from './ContributorLinks';
 import { Link } from './Link';
 
-export function FeaturedBook(book) {
+export function FeaturedBook({ book, ...props }) {
   const authors = book.authors.map(concatFullName);
 
   const maxDimensions = { maxWidth: '20rem', maxHeight: '20rem' };
@@ -34,7 +34,7 @@ export function FeaturedBook(book) {
     <Link
       to={`/books/${book.slug}`}
       key={book.slug}
-      className="book-preview w-dyn-item"
+      className="book-preview"
       css={{
         ...onHover({
           '&:hover': {
@@ -61,12 +61,11 @@ export function FeaturedBook(book) {
           },
         },
       }}
+      {...props}
     >
       <article>
         <div css={[book3dCameraStyle]}>
-          <div
-            className="book-camera w-inline-block" /* css={book3dCameraStyle} */
-          >
+          <div className="book-camera">
             <BookImage
               className={'cover'}
               book={book}
@@ -149,25 +148,6 @@ export function FeaturedBook(book) {
               ></div>
             </div>
           </div>
-          {/* <div
-            className="shadow"
-            css={{
-              left: 0,
-              bottom: 0,
-              right: 0,
-
-              position: 'absolute',
-              zIndex: '-5',
-              width: '100%',
-              height: s2,
-              backgroundColor: BLACK,
-              opacity: '0.5',
-
-              filter: 'blur(2rem)',
-              transform: 'rotate(0deg)',
-              transition: 'transform 300ms ease-in-out',
-            }}
-          /> */}
         </div>
       </article>
     </Link>

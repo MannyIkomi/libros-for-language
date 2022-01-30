@@ -7,17 +7,15 @@ export const Section = ({ children, ...props }) => {
     <section
       css={[
         {
-          marginTop: s2,
-          marginBottom: s2,
+          margin: `${s2} 0`,
           width: '100%',
           minHeight: '75vh',
-          ...flex('column', { alignItems: 'center', justifyContent: 'center' }),
+          ...flex('column', {
+            alignItems: 'center',
+            justifyContent: 'center',
+          }),
         },
-        onTabletMedia({
-          marginTop: s4,
-          marginBottom: s4,
-          minHeight: '75vh',
-        }),
+
         onTabletMedia({
           minHeight: '66vh',
         }),

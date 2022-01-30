@@ -42,11 +42,12 @@ import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { UnderConstruction } from '../components/UnderConstruction';
 import { MonoFontLink } from '../components/MonoFontLink';
 import { List } from '../components/List';
+import { sortWithProperty } from '../utils/sort';
 
 function TypologyPage({ data }) {
   const subTypeNames = data.subTypeNames.enumValues;
   const typologies = data.allGraphCmsTag.nodes.sort(
-    (a, b) => (a.sequence || Infinity) - (b.sequence || Infinity)
+    sortWithProperty({ property: 'sequence' })
   );
 
   const typologiesFilterNotSubType = typologies.filter(

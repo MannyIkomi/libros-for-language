@@ -1,6 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { base160, grid, onTabletMedia, s1 } from '../styles';
+import {
+  base160,
+  grid,
+  onDesktopMedia,
+  onTabletMedia,
+  s1,
+  s2,
+  s3,
+} from '../styles';
 import { List } from './List';
 
 export const BookList = ({ children, ...props }) => (
@@ -14,9 +22,12 @@ export const BookList = ({ children, ...props }) => (
       }),
       onTabletMedia({
         width: '100%',
-        gridTemplateColumns: 'repeat(4,1fr)',
-        placeItems: 'end center',
-        gridColumn: '1 / -1',
+        gridGap: s2,
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        // placeItems: 'end center',
+      }),
+      onDesktopMedia({
+        gridGap: s3,
       }),
     ]}
     {...props}

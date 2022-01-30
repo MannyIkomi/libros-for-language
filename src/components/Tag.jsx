@@ -30,8 +30,7 @@ import {
   TopicIcon,
 } from '../icons/Icons';
 
-export const Tag = (props) => {
-  const { textColor, background, children, label } = props;
+export const Tag = ({ textColor, background, children, label, ...props }) => {
   return (
     <div
       css={[

@@ -16,15 +16,10 @@ export const Container = ({ children, ...props }) => {
       css={[
         flex('column', {
           alignItems: 'center',
-        }),
-        {
           width: '100%',
           ...maxViewWidth,
-          // marginRight: 'auto',
-          // marginLeft: 'auto',
-          paddingLeft: s1,
-          paddingRight: s1,
-        },
+          padding: `0 ${s1}`,
+        }),
       ]}
       {...props}
     >
@@ -33,7 +28,7 @@ export const Container = ({ children, ...props }) => {
   );
 };
 
-export const TextContainer = ({ css, ...props }) => (
+export const TextContainer = ({ css, children, ...props }) => (
   <Container
     css={{
       fontSize: base16,
@@ -44,6 +39,6 @@ export const TextContainer = ({ css, ...props }) => (
     }}
     {...props}
   >
-    {props.children}
+    {children}
   </Container>
 );
