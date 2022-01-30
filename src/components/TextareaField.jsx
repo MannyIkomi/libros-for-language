@@ -7,18 +7,18 @@ import { flex } from '../styles';
 
 export function TextareaField({
   control,
-  name,
   defaultValue,
   textarea,
   label,
   style,
   ...props
 }) {
-  const { id, placeholder, cols, rows, required, ...restTextarea } = textarea;
+  const { id, placeholder, cols, rows, name, required, ...textareaProps } =
+    textarea;
 
   const {
     field,
-    fieldState: { invalid, isTouched, isDirty },
+    fieldState: { invalid, isTouched, isDirty, error },
     formState: { touchedFields, dirtyFields },
   } = useController({
     name,
@@ -38,22 +38,22 @@ export function TextareaField({
         style,
       ]}
     >
-      <label htmlFor={textarea.id || name} {...label}>
-        {label.children}
+      <label htmlFor={id || name} {...label}>
+        {label.children} {!required && '(optional)'}
       </label>
       <textarea
         id={id || name}
         cols={cols || '30'}
         rows={rows || '10'}
         placeholder={'Placeholder' || placeholder}
-        {...textarea}
         name={field.name} // send down the input name
         onChange={field.onChange} // send value to hook form
         onBlur={field.onBlur} // notify when input is touched/blur
         value={field.value} // input value
         inputRef={field.ref} // send input ref, so we can focus on input when error appear
-        {...restTextarea}
+        {...textareaProps}
       ></textarea>
+      {error && <p>{error?.message}</p>}
     </div>
   );
 }

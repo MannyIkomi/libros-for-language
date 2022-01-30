@@ -44,18 +44,22 @@ export function ContactForm(props) {
       ) : (
         <>
           <TextField
-            name={'name'}
             label={{ children: 'Name' }}
-            input={{ placeholder: 'Your Name', id: 'name', required: true }}
+            input={{
+              name: 'name',
+              placeholder: 'Your Name',
+              id: 'name',
+              required: true,
+            }}
             control={control}
             style={{ gridArea: 'name' }}
           />
 
           <TextField
-            name={'email'}
             label={{ children: 'Email' }}
             input={{
               placeholder: 'youremail@domain.com',
+              name: 'email',
               id: 'email',
               type: 'email',
               required: true,
@@ -65,9 +69,9 @@ export function ContactForm(props) {
           />
 
           <TextareaField
-            name="message"
             label={{ children: 'Message' }}
             textarea={{
+              name: 'message',
               id: 'messageField',
               cols: '30',
               rows: '10',
