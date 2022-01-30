@@ -2,18 +2,7 @@
 import React, { useContext } from 'react';
 import { graphql } from 'gatsby';
 import { jsx } from '@emotion/react';
-import {
-  s1,
-  onTabletMedia,
-  flex,
-  BLACK,
-  grid12Columns,
-  onDesktopMedia,
-  s2,
-  PRIMARY20,
-  COMPLIMENT20,
-  PRIMARY,
-} from '../styles';
+
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container } from '../components/Container';
@@ -48,7 +37,11 @@ function AuthorIllustratorPage({ data }) {
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>
-            <Container css={{ margin: `${s2} 0` }}>
+            <Container
+              css={{
+                alignItems: 'start',
+              }}
+            >
               <Heading level={1}>Directory</Heading>
             </Container>
             <Container>
@@ -104,7 +97,6 @@ function AuthorIllustratorPage({ data }) {
             </Container>
           </Section>
         </main>
-        <DebugData>{data.pageContext}</DebugData>
         <Footer />
       </GlobalLayout>
     </>
