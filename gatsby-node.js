@@ -24,8 +24,8 @@ exports.createPages = async ({ graphql, actions }) => {
     `src/templates/ContributorTemplate.jsx`
   );
   const TagTemplate = path.resolve(`src/templates/TagTemplate.jsx`);
-  const TagListingTemplate = path.resolve(
-    `src/templates/TagListingTemplate.jsx`
+  const TagCategoryTemplate = path.resolve(
+    `src/templates/TagCategoryTemplate.jsx`
   );
 
   const result = await graphql(`
@@ -123,7 +123,7 @@ exports.createPages = async ({ graphql, actions }) => {
     // const viewName = type.name.replace('_', '-');
     createPage({
       path: `/tags/${typeSlug}`,
-      component: TagListingTemplate,
+      component: TagCategoryTemplate,
       context: {
         title: typeEnum.name.replace('_', ' '),
         slug: typeSlug,

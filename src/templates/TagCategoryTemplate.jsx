@@ -54,7 +54,7 @@ function TagListingTemplate(props) {
                 color: PRIMARY,
                 margin: `${s2} 0`,
                 ...grid({
-                  gridTemplateColumns: 'max-content 1fr',
+                  gridTemplateColumns: 'minmax(max-content, min-content) 1fr',
                   gridTemplateAreas: `"title icon" "rule rule"`,
                   placeItems: 'center start',
                 }),

@@ -44,8 +44,8 @@ function TagTemplate(props) {
               {
                 margin: `${s2} 0`,
                 ...grid({
-                  gridTemplateColumns: 'max-content 1fr',
-                  gridTemplateAreas: `"title icon" "definition definition" "rule rule"`,
+                  gridTemplateColumns: '1fr',
+                  gridTemplateAreas: `"title" "definition" "rule"`,
                   placeItems: 'center start',
                 }),
               },
