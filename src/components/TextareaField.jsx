@@ -45,7 +45,7 @@ export function TextareaField({
         id={id || name}
         cols={cols || '30'}
         rows={rows || '10'}
-        placeholder={'Placeholder' || placeholder}
+        placeholder={placeholder || 'Placeholder'}
         name={field.name} // send down the input name
         onChange={field.onChange} // send value to hook form
         onBlur={field.onBlur} // notify when input is touched/blur
