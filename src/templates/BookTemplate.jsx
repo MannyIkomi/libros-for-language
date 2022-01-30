@@ -52,6 +52,7 @@ import { ContributorLinks } from '../components/ContributorLinks';
 import SuggestionForm from '../components/SuggestionForm';
 import { isDevEnv } from '../utils/environment';
 import { concatFullName } from '../utils/concatFullName';
+import { sortWithProperty } from '../utils/sort';
 
 function BookTemplate({ data }) {
   const {
@@ -85,12 +86,24 @@ function BookTemplate({ data }) {
     { link: overdriveLink, text: 'Overdrive' },
   ];
 
-  const genres = tags.filter((t) => t.tagType === 'Genre');
-  const typologies = tags.filter((t) => t.tagType === 'Typology');
-  const grades = tags.filter((t) => t.tagType === 'Grade');
-  const languages = tags.filter((t) => t.tagType === 'Language');
-  const textStructure = tags.filter((t) => t.tagType === 'Text_Structure');
-  const topics = tags.filter((t) => t.tagType === 'Topic');
+  const genres = tags
+    .filter((t) => t.tagType === 'Genre')
+    .sort(sortWithProperty({ property: 'sequence' }));
+  const typologies = tags
+    .filter((t) => t.tagType === 'Typology')
+    .sort(sortWithProperty({ property: 'sequence' }));
+  const grades = tags
+    .filter((t) => t.tagType === 'Grade')
+    .sort(sortWithProperty({ property: 'sequence' }));
+  const languages = tags
+    .filter((t) => t.tagType === 'Language')
+    .sort(sortWithProperty({ property: 'sequence' }));
+  const textStructure = tags
+    .filter((t) => t.tagType === 'Text_Structure')
+    .sort(sortWithProperty({ property: 'sequence' }));
+  const topics = tags
+    .filter((t) => t.tagType === 'Topic')
+    .sort(sortWithProperty({ property: 'sequence' }));
 
   return (
     <GlobalLayout
@@ -536,6 +549,7 @@ export const query = graphql`
       tags {
         title
         definition
+        sequence
         slug
         tagType
       }

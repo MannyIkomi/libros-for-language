@@ -25,14 +25,28 @@ import { MonoFontLink } from '../components/MonoFontLink';
 import { TagList } from '../components/TagList';
 import { TagGroup } from '../components/TagGroup';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
+import { sortWithProperty } from '../utils/sort';
 
 function TagsPage({ data }) {
-  const topics = data.allGraphCmsTopic.nodes;
-  const genres = data.allGraphCmsGenre.nodes;
-  const grades = data.allGraphCmsGrade.nodes;
-  const languages = data.allGraphCmsLanguage.nodes;
-  const textStructures = data.allGraphCmsTextStructure.nodes;
-  const typologies = data.allGraphCmsTypology.nodes;
+  const topics = data.allGraphCmsTopic.nodes.sort(
+    sortWithProperty({ property: 'sequence' })
+  );
+  const genres = data.allGraphCmsGenre.nodes.sort(
+    sortWithProperty({ property: 'sequence' })
+  );
+  const grades = data.allGraphCmsGrade.nodes.sort(
+    sortWithProperty({ property: 'sequence' })
+  );
+
+  const languages = data.allGraphCmsLanguage.nodes.sort(
+    sortWithProperty({ property: 'sequence' })
+  );
+  const textStructures = data.allGraphCmsTextStructure.nodes.sort(
+    sortWithProperty({ property: 'sequence' })
+  );
+  const typologies = data.allGraphCmsTypology.nodes.sort(
+    sortWithProperty({ property: 'sequence' })
+  );
 
   return (
     <>
@@ -41,7 +55,12 @@ function TagsPage({ data }) {
         <MainMenu />
         <main css={{ position: 'relative' }}>
           <Section>
-            <Container css={{ margin: `${s2} 0` }}>
+            <Container
+              css={[
+                { margin: `${s2} 0`, alignItems: 'start' },
+                onTabletMedia({ alignItems: 'start' }),
+              ]}
+            >
               <Heading level={1}>Tags</Heading>
             </Container>
 
@@ -194,52 +213,75 @@ export const query = graphql`
     allGraphCmsTag {
       nodes {
         tagType
+        sequence
         slug
         title
       }
     }
 
-    allGraphCmsGrade: allGraphCmsTag(filter: { tagType: { eq: Grade } }) {
+    allGraphCmsGrade: allGraphCmsTag(
+      filter: { tagType: { eq: Grade } }
+      sort: { fields: updatedAt, order: DESC }
+    ) {
       nodes {
+        title
+        sequence
+        slug
+        tagType
+      }
+    }
+    allGraphCmsGenre: allGraphCmsTag(
+      filter: { tagType: { eq: Genre } }
+      sort: { fields: updatedAt, order: DESC }
+    ) {
+      nodes {
+        sequence
         title
         slug
         tagType
       }
     }
-    allGraphCmsGenre: allGraphCmsTag(filter: { tagType: { eq: Genre } }) {
+    allGraphCmsLanguage: allGraphCmsTag(
+      filter: { tagType: { eq: Language } }
+      sort: { fields: updatedAt, order: DESC }
+    ) {
       nodes {
         title
         slug
-        tagType
-      }
-    }
-    allGraphCmsLanguage: allGraphCmsTag(filter: { tagType: { eq: Language } }) {
-      nodes {
-        title
-        slug
+        sequence
         tagType
       }
     }
     allGraphCmsTextStructure: allGraphCmsTag(
       filter: { tagType: { eq: Text_Structure } }
+      sort: { fields: updatedAt, order: DESC }
     ) {
       nodes {
         title
         slug
+        sequence
         tagType
       }
     }
-    allGraphCmsTypology: allGraphCmsTag(filter: { tagType: { eq: Typology } }) {
+    allGraphCmsTypology: allGraphCmsTag(
+      filter: { tagType: { eq: Typology } }
+      sort: { fields: updatedAt, order: DESC }
+    ) {
       nodes {
         title
+        sequence
         slug
         tagType
       }
     }
 
-    allGraphCmsTopic: allGraphCmsTag(filter: { tagType: { eq: Topic } }) {
+    allGraphCmsTopic: allGraphCmsTag(
+      filter: { tagType: { eq: Topic } }
+      sort: { fields: updatedAt, order: DESC }
+    ) {
       nodes {
         title
+        sequence
         slug
         tagType
       }

@@ -44,23 +44,24 @@ import { slugify } from '../utils/slugify';
 import pluralize from 'pluralize';
 import { List } from '../components/List';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
+import { sortWithProperty } from '../utils/sort';
 
 console.clear();
 
 function IndexPage({ data }) {
   const featuredBooks = data.allGraphCmsBook.nodes;
-  const topics = data.allGraphCmsTopic.nodes.filter(
-    (topic) => topic.books.length > 0
-  );
-  const genres = data.allGraphCmsGenre.nodes.filter(
-    (genre) => genre.books.length > 0
-  );
-  const grades = data.allGraphCmsGrade.nodes.filter(
-    (grade) => grade.books.length > 0
-  );
-  const languages = data.allGraphCmsLanguage.nodes.filter(
-    (language) => language.books.length > 0
-  );
+
+  const genres = data.allGraphCmsGenre.nodes
+    .filter((genre) => genre.books.length > 0)
+    .sort(sortWithProperty({ property: 'sequence' }));
+
+  const grades = data.allGraphCmsGrade.nodes
+    .filter((grade) => grade.books.length > 0)
+    .sort(sortWithProperty({ property: 'sequence' }));
+
+  const languages = data.allGraphCmsLanguage.nodes
+    .filter((language) => language.books.length > 0)
+    .sort(sortWithProperty({ property: 'sequence' }));
 
   const tagTypes = data.categoryNames.enumValues;
 
@@ -300,6 +301,7 @@ export const query = graphql`
       nodes {
         title
         slug
+        sequence
         tagType
         books {
           title
@@ -311,6 +313,7 @@ export const query = graphql`
         title
         slug
         tagType
+        sequence
         books {
           title
         }
@@ -321,6 +324,7 @@ export const query = graphql`
       nodes {
         title
         slug
+        sequence
         tagType
         books {
           title
@@ -328,28 +332,30 @@ export const query = graphql`
       }
     }
 
-    allGraphCmsText_Structure: allGraphCmsTag(
-      filter: { tagType: { eq: Text_Structure } }
-    ) {
-      nodes {
-        title
-        slug
-        tagType
-        books {
-          title
-        }
-      }
-    }
-    allGraphCmsTopic: allGraphCmsTag(filter: { tagType: { eq: Topic } }) {
-      nodes {
-        title
-        slug
-        tagType
-        books {
-          title
-        }
-      }
-    }
+    # allGraphCmsText_Structure: allGraphCmsTag(
+    #   filter: { tagType: { eq: Text_Structure } }
+    # ) {
+    #   nodes {
+    #     title
+    #     slug
+    #     tagType
+    #     sequence
+    #     books {
+    #       title
+    #     }
+    #   }
+    # }
+    # allGraphCmsTopic: allGraphCmsTag(filter: { tagType: { eq: Topic } }) {
+    #   nodes {
+    #     title
+    #     slug
+    #     sequence
+    #     tagType
+    #     books {
+    #       title
+    #     }
+    #   }
+    # }
   }
 `;
 
