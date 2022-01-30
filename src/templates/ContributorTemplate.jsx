@@ -27,10 +27,11 @@ import { BookList } from '../components/BookList';
 import { SecondaryButton } from '../components/Button';
 import { SecondaryLink } from '../components/Link';
 import { slugify } from '../utils/slugify';
-import { Icon } from '../icons/Icons';
+import { TagIcon } from '../icons/Icons';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { List } from '../components/List';
 import { concatFullName } from '../utils/concatFullName';
+import { LineRule } from '../components/LineRule';
 
 // const MAX_BOOK_DISPLAY_AMOUNT = 4;
 
@@ -72,14 +73,15 @@ function ContributorTemplate(props) {
       <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
-        <Section>
+        <Section css={{ gap: s2 }}>
           <Container
             css={{
-              ...flex('row', { alignItems: 'center' }),
+              ...flex('column', { alignItems: 'flex-start' }),
               color: PRIMARY,
             }}
           >
-            <Heading level={1}>{name}</Heading>{' '}
+            <Heading level={1}>{name}</Heading>
+            <LineRule />
           </Container>
 
           {booksAuthored.length > 0 && (

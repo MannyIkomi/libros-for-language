@@ -21,8 +21,12 @@ import {
   base160,
   base320,
   s2,
+  s4,
+  onDesktopMedia,
+  s3,
 } from '../styles';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
+import { LineRule } from '../components/LineRule';
 
 function TagTemplate(props) {
   const { data, pageContext } = props;
@@ -34,28 +38,38 @@ function TagTemplate(props) {
       <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
-        <Section css={{ minHeight: 'initial' }} key={id}>
-          <Container css={{ alignItems: 'flex-start', margin: `${s2} 0` }}>
+        <Section /* css={{ minHeight: 'initial' }} */ key={id}>
+          <Container
+            css={[
+              {
+                margin: `${s2} 0`,
+                ...grid({
+                  gridTemplateColumns: 'max-content 1fr',
+                  gridTemplateAreas: `"title icon" "definition definition" "rule rule"`,
+                  placeItems: 'center start',
+                }),
+              },
+            ]}
+          >
             <Heading level={1}>
               {title} ({pluralize('Book', books.length, 'true')})
             </Heading>
-            {definition && <p>{definition}</p>}
+            {definition && <p css={{ gridArea: 'definition' }}>{definition}</p>}
+            <LineRule css={{ gridArea: 'rule' }} />
           </Container>
+
           <Container>
             {books.length > 0 ? (
               <BookList
                 css={[
-                  // { alignSelf: 'center' },
                   grid({
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: s1,
-                    placeItems: 'end stretch',
+                    gridGap: s1,
                   }),
                   onTabletMedia({
                     width: '100%',
-                    gridTemplateColumns: `repeat(auto-fit, minmax(${base320}, 1fr))`,
-                    placeItems: 'end start',
+                    gridGap: s2,
                   }),
+                  onDesktopMedia({ gridGap: s3 }),
                 ]}
               >
                 {books.map((book) => {

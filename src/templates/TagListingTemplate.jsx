@@ -8,15 +8,15 @@ import { Footer } from '../components/Footer';
 import { Container } from '../components/Container';
 import {
   grid,
-  base160,
   onTabletMedia,
   s1,
   boxShadowLg,
   COMPLIMENT,
   s2,
   flex,
-  colors,
   PRIMARY,
+  PRIMARY80,
+  PRIMARY60,
 } from '../styles';
 import { GlobalLayout } from '../components/GlobalLayout';
 import { MainMenu } from '../components/MainMenu';
@@ -27,8 +27,16 @@ import { BookList } from '../components/BookList';
 import { SecondaryButton } from '../components/Button';
 import { SecondaryLink } from '../components/Link';
 import { slugify } from '../utils/slugify';
-import { Icon } from '../icons/Icons';
+import { TagIcon } from '../icons/Icons';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
+import { LineRule } from '../components/LineRule';
+import {
+  sort1toN,
+  sortNewToOld,
+  sortNto1,
+  sortWithDate,
+  sortWithProperty,
+} from '../utils/sort';
 
 const MAX_BOOK_DISPLAY_AMOUNT = 4;
 
@@ -45,26 +53,36 @@ function TagListingTemplate(props) {
       <main css={{ position: 'relative' }}>
         <Section>
           <Container
-            css={{
-              ...flex('row', { alignItems: 'center' }),
-              color: PRIMARY,
-              margin: `${s2} 0`,
-            }}
+            css={[
+              {
+                color: PRIMARY,
+                margin: `${s2} 0`,
+                ...grid({
+                  gridTemplateColumns: 'max-content 1fr',
+                  gridTemplateAreas: `"title icon" "rule rule"`,
+                  placeItems: 'center start',
+                }),
+              },
+            ]}
           >
-            <Heading level={1}>{pluralize.plural(pageContext.title)}</Heading>{' '}
-            <Icon name={pageContext.type} />
+            <Heading
+              level={1}
+              css={[{ margin: 0 }, onTabletMedia({ margin: 0 })]}
+            >
+              {pluralize.plural(pageContext.title)}
+            </Heading>
+            <TagIcon name={pageContext.type} css={{ gridArea: 'icon' }} />
+            <LineRule css={{ gridArea: 'rule' }} />
           </Container>
-          {tags.map((tag) => {
+
+          {tags.sort(sortWithProperty({ property: 'sequence' })).map((tag) => {
             const { title, books, id, tagType, slug, definition } = tag;
 
             return (
               books.length > 0 && (
                 <Section
+                  css={[{ minHeight: 'initial' }, onTabletMedia({ margin: 0 })]}
                   key={id}
-                  css={[
-                    { minHeight: 'initial' },
-                    onTabletMedia({ minHeight: 'initial' }),
-                  ]}
                 >
                   <Container
                     css={[
@@ -72,7 +90,9 @@ function TagListingTemplate(props) {
                       onTabletMedia({
                         ...grid({
                           gridTemplateColumns: '1fr 1fr',
-                          gridTemplateRows: 'min-content 1fr',
+                          gridTemplateRows: 'min-content 1fr min-content',
+                          gridGap: s2,
+                          gridTemplateAreas: `"title link" "books books" "rule rule"`,
                         }),
                       }),
                     ]}
@@ -80,20 +100,28 @@ function TagListingTemplate(props) {
                     <div
                       css={[
                         onTabletMedia({
-                          gridColumn: '1 / 2',
-                          gridRow: '1 / 2',
+                          gridArea: 'title',
                         }),
                       ]}
                     >
-                      <Heading level={2}>{title}</Heading>
+                      <Heading
+                        level={2}
+                        css={[{ margin: 0 }, onTabletMedia({ margin: 0 })]}
+                      >
+                        {title}
+                      </Heading>
                       {definition && <p>{definition}</p>}
                     </div>
 
-                    {/* <DebugData>{books}</DebugData> */}
                     {books.length > 0 ? (
-                      <BookList>
+                      <BookList css={{ gridArea: 'books' }}>
                         {books
-                          .sort((a, b) => a.featured - b.featured)
+                          .sort(
+                            sortWithDate({
+                              order: 'desc',
+                              property: 'updatedAt',
+                            })
+                          )
                           .slice(0, MAX_BOOK_DISPLAY_AMOUNT)
                           .map((book) => {
                             return (
@@ -109,7 +137,7 @@ function TagListingTemplate(props) {
                                     position: 'absolute',
                                     opacity: 0,
                                     pointerEvents: 'none',
-
+                                    margin: 0,
                                     fontSize: s1,
                                     fontWeight: 'bold',
                                     color: COMPLIMENT,
@@ -131,8 +159,7 @@ function TagListingTemplate(props) {
                         to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
                         css={[
                           onTabletMedia({
-                            gridColumn: '2 / -1',
-                            gridRow: '1 / 2',
+                            gridArea: 'link',
                             placeSelf: 'start end',
                           }),
                         ]}
@@ -140,6 +167,9 @@ function TagListingTemplate(props) {
                         More {title} books ({books.length})
                       </SecondaryLink>
                     )}
+                    <LineRule
+                      css={{ gridArea: 'rule', borderColor: PRIMARY60 }}
+                    />
                   </Container>
                 </Section>
               )
@@ -159,6 +189,7 @@ export const query = graphql`
       title
       slug
       definition
+      sequence
       tagType
       id
     }
