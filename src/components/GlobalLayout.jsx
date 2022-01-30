@@ -17,6 +17,13 @@ import {
   s1,
   onTabletMedia,
   headingsDesktop,
+  COMPLIMENT,
+  COMPLIMENT60,
+  s00625,
+  s05,
+  s025,
+  COMPLIMENT80,
+  s0125,
 } from '../styles';
 import 'normalize.css/normalize.css';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -50,8 +57,6 @@ export const GlobalLayout = ({ htmlHead, children }) => {
               boxSizing: 'border-box',
               margin: 0,
               padding: 0,
-              //   color: BLACK,
-              //   fontFamily: SANS_FONT,
             },
             body: {
               ...notoSans,
@@ -62,6 +67,9 @@ export const GlobalLayout = ({ htmlHead, children }) => {
             },
             svg: {
               fill: 'currentcolor',
+            },
+            hr: {
+              borderStyle: 'none',
             },
             ...headings,
             a,
