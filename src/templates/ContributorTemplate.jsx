@@ -102,7 +102,7 @@ function ContributorTemplate(props) {
           )}
         </Section>
       </main>
-      <DebugData>{graphCmsContributor}</DebugData>
+
       <Footer />
     </GlobalLayout>
   );
