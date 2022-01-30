@@ -5,7 +5,9 @@ import {
   primaryActionStyle,
   secondaryActionStyle,
   tertiaryActionStyle,
-} from '../styles/actions';
+  COMPLIMENT80,
+  s0125,
+} from '../styles/';
 
 // Since DOM elements <a> cannot receive activeClassName
 // and partiallyActive, destructure the prop here and
@@ -27,8 +29,13 @@ export const Link = ({
   const internal = /^\/(?!\/)/.test(to);
 
   const overridePseudoStyles = {
-    '&:link, &:visited, &:focus, &:hover, &:active': {
-      color: 'inherit',
+    // '&:link, &:visited, &:focus, &:hover, &:active': {
+    //   color: 'inherit',
+    // },
+    '&:focus': {
+      outlineColor: COMPLIMENT80,
+      outlineStyle: 'solid',
+      outlineWidth: s0125,
     },
   };
 

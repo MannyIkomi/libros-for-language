@@ -1,4 +1,4 @@
-import { base4, onTabletMedia, PRIMARY, s0125 } from '.';
+import { base4, COMPLIMENT, onTabletMedia, PRIMARY, s0125 } from '.';
 import { s05, MIN_TOUCH_SIZE, s025 } from './spacing';
 import { notoSans } from './typography';
 
@@ -12,9 +12,13 @@ export const label = {
   fontSize: '0.75rem',
   lineHeight: 1,
   marginBottom: s025,
-  // display: 'flex',
-  // alignItems: 'center',
   textTransform: 'capitalize',
+
+  '&:focus': {
+    color: COMPLIMENT,
+    borderColor: COMPLIMENT,
+    outlineColor: COMPLIMENT,
+  },
 };
 
 export const input = {
@@ -24,6 +28,10 @@ export const input = {
     padding: `0 ${s05}`,
     border: `${s0125} solid ${PRIMARY}`,
     borderRadius: s0125,
+  },
+  '&:focus': {
+    borderColor: COMPLIMENT,
+    outlineColor: COMPLIMENT,
   },
   // '&[type="checkbox"], &[type="radio"]': {},
 };
@@ -36,6 +44,11 @@ export const textarea = {
   resize: 'vertical',
   border: `${s0125} solid ${PRIMARY}`,
   borderRadius: s0125,
+
+  '&:focus': {
+    borderColor: COMPLIMENT,
+    outlineColor: COMPLIMENT,
+  },
 };
 
 export const button = {
