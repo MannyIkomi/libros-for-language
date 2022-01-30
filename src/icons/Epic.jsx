@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-export function EpicIcon({ color, ...props }) {
+export function EpicIconSVG({ color, ...props }) {
   return (
     <svg
       width="48"
@@ -19,4 +19,4 @@ export function EpicIcon({ color, ...props }) {
   );
 }
 
-export default EpicIcon;
+export default EpicIconSVG;

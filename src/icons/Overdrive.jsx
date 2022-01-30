@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-export function OverdriveIcon({ color, ...props }) {
+export function OverdriveIconSVG({ color, ...props }) {
   return (
     <svg
       width="121"
@@ -25,4 +25,4 @@ export function OverdriveIcon({ color, ...props }) {
   );
 }
 
-export default OverdriveIcon;
+export default OverdriveIconSVG;

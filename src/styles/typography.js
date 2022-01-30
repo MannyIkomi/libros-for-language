@@ -36,8 +36,7 @@ export const h1 = {
   fontSize: '2.488rem',
   lineHeight: '1.2',
   fontWeight: '300',
-  marginTop: 0,
-  marginBottom: s1,
+  margin: `0 0 ${s1} 0`,
   color: PRIMARY,
 };
 
@@ -47,7 +46,7 @@ export const h2 = {
   fontSize: '2.074rem',
   fontWeight: '300',
   lineHeight: '1.2',
-  marginBottom: s1,
+  margin: `0 0 ${s1} 0`,
   color: PRIMARY,
 };
 
@@ -57,7 +56,7 @@ export const h3 = {
   fontSize: '1.728rem',
   lineHeight: '1.2',
   fontWeight: '300',
-  marginBottom: s1,
+  margin: `0 0 ${s1} 0`,
   color: PRIMARY,
 };
 
@@ -66,7 +65,7 @@ export const h4 = {
   fontSize: '1.444rem',
   lineHeight: '1.2',
   fontWeight: '300',
-  marginBottom: s1,
+  margin: `0 0 ${s1} 0`,
   color: PRIMARY,
 };
 
@@ -75,7 +74,7 @@ export const h5 = {
   fontSize: '1.2rem',
   lineHeight: '1.2',
   fontWeight: '300',
-  marginBottom: s1,
+  margin: `0 0 ${s1} 0`,
   color: PRIMARY,
 };
 

@@ -43,10 +43,10 @@ import { BookImage } from '../components/BookImage';
 import { slugify } from '../utils/slugify';
 import { List } from '../components/List';
 import { Footer } from '../components/Footer';
-import HooplaIcon from '../icons/Hoopla';
+import HooplaIconSVG from '../icons/Hoopla';
 import { HiddenAccessibleText } from '../components/HiddenAccessibleText';
-import EpicIcon from '../icons/Epic';
-import OverdriveIcon from '../icons/Overdrive';
+import EpicIconSVG from '../icons/Epic';
+import OverdriveIconSVG from '../icons/Overdrive';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { ContributorLinks } from '../components/ContributorLinks';
 import SuggestionForm from '../components/SuggestionForm';
@@ -282,11 +282,11 @@ function BookTemplate({ data }) {
                       function getIcon(text) {
                         switch (text) {
                           case 'Epic':
-                            return <EpicIcon />;
+                            return <EpicIconSVG />;
                           case 'Hoopla':
-                            return <HooplaIcon />;
+                            return <HooplaIconSVG />;
                           case 'Overdrive':
-                            return <OverdriveIcon />;
+                            return <OverdriveIconSVG />;
                           default:
                             throw new Error(
                               `${text} did not match an availability icon.`

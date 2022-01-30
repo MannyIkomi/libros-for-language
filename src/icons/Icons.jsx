@@ -119,7 +119,7 @@ export function TextStructureIcon(props) {
   );
 }
 
-export function Icon(props) {
+export function TagIcon(props) {
   const { name } = props;
 
   switch (name) {
@@ -140,4 +140,4 @@ export function Icon(props) {
   }
 }
 
-export default Icon;
+export default TagIcon;

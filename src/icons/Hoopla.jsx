@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-export function HooplaIcon({ color, ...props }) {
+export function HooplaIconSVG({ color, ...props }) {
   return (
     <svg
       width="61"
@@ -17,4 +17,4 @@ export function HooplaIcon({ color, ...props }) {
   );
 }
 
-export default HooplaIcon;
+export default HooplaIconSVG;

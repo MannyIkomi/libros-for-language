@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-export function FilterActiveFalse(props) {
+export function FilterActiveFalseSVG(props) {
   return (
     <svg
       width="24"
@@ -16,7 +16,7 @@ export function FilterActiveFalse(props) {
     </svg>
   );
 }
-export function FilterActiveTrue(props) {
+export function FilterActiveTrueSVG(props) {
   return (
     <svg
       width="24"
@@ -32,12 +32,12 @@ export function FilterActiveTrue(props) {
   );
 }
 
-export function FilterActive({ active, ...props }) {
-  return active ? (
-    <FilterActiveTrue {...props} />
+export function FilterIconSVG({ hasActiveFilters, ...props }) {
+  return hasActiveFilters ? (
+    <FilterActiveTrueSVG {...props} />
   ) : (
-    <FilterActiveFalse {...props} />
+    <FilterActiveFalseSVG {...props} />
   );
 }
 
-export default FilterActive;
+export default FilterIconSVG;

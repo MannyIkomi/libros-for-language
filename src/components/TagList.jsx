@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import { onTabletMedia, flex, s05, grid, s1, s2 } from '../styles';
 import { List } from '../components/List';
 
-export const TagList = (props) => (
+export const TagList = ({ children, ...props }) => (
   <List
     css={[
       { listStyle: 'none' },
@@ -18,6 +18,6 @@ export const TagList = (props) => (
     ]}
     {...props}
   >
-    {props.children}
+    {children}
   </List>
 );
