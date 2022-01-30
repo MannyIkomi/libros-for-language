@@ -1,6 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { notoSerif, PRIMARY, notoSans, onHover, WHITE, BLACK } from '../styles';
+import {
+  notoSerif,
+  PRIMARY,
+  notoSans,
+  onHover,
+  WHITE,
+  BLACK,
+  s5,
+  boxShadow,
+  s2,
+  boxShadow2xl,
+} from '../styles';
 import { concatFullName } from '../utils/concatFullName';
 import { BookImage } from './BookImage';
 import { ContributorLinks } from './ContributorLinks';
@@ -10,6 +21,14 @@ export function FeaturedBook(book) {
   const authors = book.authors.map(concatFullName);
 
   const maxDimensions = { maxWidth: '20rem', maxHeight: '20rem' };
+
+  const book3dCameraStyle = {
+    position: 'relative',
+    backfaceVisibility: 'hidden',
+    perspective: '1500px',
+    transform: 'rotateX(5deg) rotateY(10deg) rotateZ(-5deg)',
+    transformStyle: 'preserve-3d',
+  };
 
   return (
     <Link
@@ -30,131 +49,125 @@ export function FeaturedBook(book) {
             },
           },
         }),
+        '&:focus': {
+          '.cover': {
+            transform: 'rotateY(-180deg)',
+          },
+          '.summary': {
+            transform: 'rotateY(0deg)',
+          },
+          '.shadow': {
+            transform: 'rotateY(-180deg)',
+          },
+        },
       }}
     >
       <article>
-        <div
-          className="book-camera w-inline-block"
-          css={{
-            position: 'relative',
-            backfaceVisibility: 'hidden',
-
-            perspective: '1500px',
-            transform: 'rotateX(5deg) rotateY(10deg) rotateZ(-5deg)',
-            transformStyle: 'preserve-3d',
-          }}
-        >
-          <BookImage
-            className={'cover'}
-            book={book}
-            css={{
-              backfaceVisibility: 'hidden',
-              transform: 'rotate(0deg)',
-              transition:
-                'transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out',
-              objectFit: 'contain',
-            }}
-          />
+        <div css={[book3dCameraStyle]}>
           <div
-            className="summary"
-            css={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-
-              display: 'block',
-              overflow: 'hidden',
-              // width: '100%',
-              height: '100%',
-              ...maxDimensions,
-              // minWidth: '15rem',
-              padding: '1rem',
-              backgroundColor: WHITE,
-              backfaceVisibility: 'hidden',
-
-              transform: 'rotateX(0deg) rotateY(180deg) rotateZ(0deg)',
-
-              transition:
-                'transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out',
-              transformStyle: 'preserve-3d',
-            }}
+            className="book-camera w-inline-block" /* css={book3dCameraStyle} */
           >
-            <div
-              className="book-cover-title"
+            <BookImage
+              className={'cover'}
+              book={book}
               css={{
-                marginBottom: '0.5rem',
-                ...notoSerif,
-                color: PRIMARY,
-                fontSize: '1.5rem',
-                lineHeight: '1.4',
-                fontWeight: '400',
+                ...boxShadow2xl,
+                backfaceVisibility: 'hidden',
+                transform: 'rotate(0deg)',
+                transition:
+                  'transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out',
+                objectFit: 'contain',
               }}
-            >
-              {book.title}
-            </div>
+            />
             <div
-              className="book-cover-byline"
-              css={{
-                marginBottom: '0.5rem',
-                ...notoSans,
-                color: PRIMARY,
-                fontSize: '1rem',
-              }}
+              className="summary"
+              css={[
+                boxShadow2xl,
+                {
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+
+                  display: 'block',
+                  overflow: 'hidden',
+                  // width: '100%',
+                  height: '100%',
+                  ...maxDimensions,
+                  // minWidth: '15rem',
+                  padding: '1rem',
+                  backgroundColor: WHITE,
+                  backfaceVisibility: 'hidden',
+
+                  transform: 'rotateX(0deg) rotateY(180deg) rotateZ(0deg)',
+
+                  transition:
+                    'transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out',
+                  transformStyle: 'preserve-3d',
+                },
+              ]}
             >
-              {authors.length > 0 && (
+              <div
+                className="book-cover-title"
+                css={{
+                  marginBottom: '0.5rem',
+                  ...notoSerif,
+                  color: PRIMARY,
+                  fontSize: '1.5rem',
+                  lineHeight: '1.4',
+                  fontWeight: '400',
+                }}
+              >
+                {book.title}
+              </div>
+              <div
+                className="book-cover-byline"
+                css={{
+                  marginBottom: '0.5rem',
+                  ...notoSans,
+                  color: PRIMARY,
+                  fontSize: '1rem',
+                }}
+              >
+                {/* {authors.length > 0 && (
                 <ContributorLinks
                   contributors={authors}
                   css={[notoSans, { padding: 0 }]}
                 />
-              )}
-              <p>{book.publisherSummary}</p>
+              )} */}
+                <p>{book.publisherSummary}</p>
+              </div>
+              <div
+                css={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '10rem',
+                  backgroundImage:
+                    'linear-gradient(180deg, rgba(244, 247, 251, 0), #f4f7fb 90%)',
+                }}
+              ></div>
             </div>
-            <div
-              css={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                height: '10rem',
-                backgroundImage:
-                  'linear-gradient(180deg, rgba(244, 247, 251, 0), #f4f7fb 90%)',
-              }}
-            ></div>
           </div>
-        </div>
-        <div
-          css={{
-            position: 'relative',
-            backfaceVisibility: 'hidden',
-            perspective: '1500px',
-            transform: 'rotateX(5deg) rotateY(10deg) rotateZ(-5deg)',
-            transformStyle: 'preserve-3d',
-            zIndex: '-1',
-          }}
-        >
-          <div
+          {/* <div
             className="shadow"
             css={{
+              left: 0,
+              bottom: 0,
+              right: 0,
+
               position: 'absolute',
-              left: '0%',
-              top: 'auto',
-              right: '0%',
-              bottom: '-10%',
-              zIndex: '-2',
+              zIndex: '-5',
               width: '100%',
-              ...maxDimensions,
-              height: '5rem',
+              height: s2,
               backgroundColor: BLACK,
               opacity: '0.5',
 
               filter: 'blur(2rem)',
-
               transform: 'rotate(0deg)',
-
-              transition:
-                'transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out',
+              transition: 'transform 300ms ease-in-out',
             }}
-          ></div>
+          /> */}
         </div>
       </article>
     </Link>
