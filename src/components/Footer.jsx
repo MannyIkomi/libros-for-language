@@ -14,6 +14,8 @@ import {
   onTabletMedia,
   grid,
   onDesktopMedia,
+  onHover,
+  COMPLIMENT20,
 } from '../styles';
 
 import { Logo } from './Logo';
@@ -152,13 +154,15 @@ export function Footer() {
             },
           ]}
         >
-          <Link to="https://www.ala.org/" css={{ color: WHITE }}>
-            <small css={{ color: 'inherit' }}>
-              Funded by the American Library Association
-            </small>
-          </Link>{' '}
-          <br />
-          <small css={{ color: 'inherit' }}>
+          <small>
+            Funded by the{' '}
+            <Link
+              to="https://www.ala.org/"
+              css={{ color: PRIMARY20, ...onHover({ color: COMPLIMENT20 }) }}
+            >
+              American Library Association
+            </Link>{' '}
+            <br />
             Copyright © {thisYear} Libros for Language. All rights reserved.
           </small>
         </p>
