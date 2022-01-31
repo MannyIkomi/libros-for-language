@@ -127,8 +127,9 @@ export const headingsDesktop = {
   },
 };
 
-export const strongBold = {
-  'strong, b': {
-    fontWeight: 'bold',
-  },
+export const strong = {
+  fontWeight: 'bold',
+};
+export const b = {
+  fontWeight: 'bold',
 };
