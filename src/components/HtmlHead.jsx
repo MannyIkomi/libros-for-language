@@ -23,7 +23,7 @@ const HtmlHead = ({ title, description, image, imageDescription }) => {
 
   const {
     title: siteTitle,
-    siteDescription,
+    description: siteDescription,
     image: siteImage,
     imageDescription: siteImageDescription,
   } = allGraphCmsSiteInformation.nodes[0];
