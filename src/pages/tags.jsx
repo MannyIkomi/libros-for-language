@@ -27,7 +27,7 @@ import { TagGroup } from '../components/TagGroup';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { sortWithProperty } from '../utils/sort';
 
-function TagsPage({ data }) {
+function TagsPage({ data, location }) {
   const topics = data.allGraphCmsTopic.nodes.sort(
     sortWithProperty({ property: 'sequence' })
   );
@@ -50,7 +50,7 @@ function TagsPage({ data }) {
 
   return (
     <>
-      <GlobalLayout>
+      <GlobalLayout htmlHead={{ url: location.href }}>
         <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>

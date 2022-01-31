@@ -45,10 +45,11 @@ import pluralize from 'pluralize';
 import { List } from '../components/List';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { sortWithProperty } from '../utils/sort';
+import { DebugData } from '../components/DebugData';
 
 console.clear();
 
-function IndexPage({ data }) {
+function IndexPage({ data, location }) {
   const featuredBooks = data.allGraphCmsBook.nodes;
 
   const genres = data.allGraphCmsGenre.nodes
@@ -63,191 +64,186 @@ function IndexPage({ data }) {
     .filter((language) => language.books.length > 0)
     .sort(sortWithProperty({ property: 'sequence' }));
 
-  const tagTypes = data.categoryNames.enumValues;
-
   return (
-    <>
-      <GlobalLayout>
-        <GatsbyPreviewIndicator />
-        <MainMenu />
-        <main
+    <GlobalLayout htmlHead={{ url: location.href }}>
+      <GatsbyPreviewIndicator />
+      <MainMenu />
+      <main
+        css={{
+          position: 'relative',
+          section: {
+            minHeight: '75vh',
+          },
+        }}
+      >
+        <Section
           css={{
-            position: 'relative',
-            section: {
-              minHeight: '75vh',
-            },
+            alignItems: 'initial',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: s4,
           }}
         >
-          <Section
-            css={{
-              alignItems: 'initial',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              gap: s4,
-            }}
-          >
-            <Container css={{ alignSelf: 'center' }}>
-              <Heading
-                level={1}
-                css={{
-                  ...notoSerif,
-                  width: '100%',
-                  color: PRIMARY,
+          <Container css={{ alignSelf: 'center' }}>
+            <Heading
+              level={1}
+              css={{
+                ...notoSerif,
+                width: '100%',
+                color: PRIMARY,
 
-                  textAlign: 'left',
+                textAlign: 'left',
+              }}
+            >
+              Empowering teachers with{' '}
+              <span
+                css={{
+                  color: COMPLIMENT80,
+                  fontFamily: 'inherit',
                 }}
               >
-                Empowering teachers with{' '}
-                <span
-                  css={{
-                    color: COMPLIMENT80,
-                    fontFamily: 'inherit',
-                  }}
-                >
-                  {' '}
-                  translanguaging books
-                </span>{' '}
-                for their multilingual classrooms.
+                {' '}
+                translanguaging books
+              </span>{' '}
+              for their multilingual classrooms.
+            </Heading>
+          </Container>
+
+          <div
+            css={[
+              {
+                minHeight: '33vh',
+
+                ...grid({
+                  gridTemplateColumns: `repeat(2, minmax(80px, 1fr))`,
+                  placeItems: 'end center',
+                  gridGap: s1,
+                }),
+              },
+              onTabletMedia({
+                gridGap: s2,
+                gridTemplateColumns: `repeat(auto-fit, minmax(${base160}, 1fr))`,
+              }),
+              onDesktopMedia({
+                gridGap: s3,
+                gridTemplateColumns: `repeat(auto-fit, minmax(${base160}, 1fr))`,
+              }),
+            ]}
+          >
+            {featuredBooks
+              .filter((book) => {
+                return (
+                  book.bookCover ||
+                  console.warn(
+                    `Book: ${book.title} does not have a cover image`
+                  )
+                );
+              })
+              .map((book) => {
+                return (
+                  <FeaturedBook
+                    css={[onTabletMedia({ gridRow: `1 / 2` })]}
+                    book={book}
+                    key={book.id}
+                  />
+                );
+              })}
+          </div>
+          <Container css={{ alignSelf: 'center', color: PRIMARY_WHITE }}>
+            <PrimaryLink to={'/books'}>Browse All Books </PrimaryLink>
+          </Container>
+        </Section>
+        <Section>
+          <Container css={{ gap: s2 }}>
+            <TextContainer>
+              <Heading level={2}>
+                Libros for Language is a digital library designed to support
+                teachers in finding and using translanguaging books.
               </Heading>
-            </Container>
-
-            <div
-              css={[
-                {
-                  minHeight: '33vh',
-
-                  ...grid({
-                    gridTemplateColumns: `repeat(2, minmax(80px, 1fr))`,
-                    placeItems: 'end center',
-                    gridGap: s1,
-                  }),
-                },
-                onTabletMedia({
-                  gridGap: s2,
-                  gridTemplateColumns: `repeat(auto-fit, minmax(${base160}, 1fr))`,
-                }),
-                onDesktopMedia({
-                  gridGap: s3,
-                  gridTemplateColumns: `repeat(auto-fit, minmax(${base160}, 1fr))`,
-                }),
-              ]}
-            >
-              {featuredBooks
-                .filter((book) => {
-                  return (
-                    book.bookCover ||
-                    console.warn(
-                      `Book: ${book.title} does not have a cover image`
-                    )
-                  );
-                })
-                .map((book) => {
-                  return (
-                    <FeaturedBook
-                      css={[onTabletMedia({ gridRow: `1 / 2` })]}
-                      book={book}
-                      key={book.id}
-                    />
-                  );
-                })}
-            </div>
-            <Container css={{ alignSelf: 'center', color: PRIMARY_WHITE }}>
-              <PrimaryLink to={'/books'}>Browse All Books </PrimaryLink>
-            </Container>
-          </Section>
-          <Section>
-            <Container css={{ gap: s2 }}>
-              <TextContainer>
-                <Heading level={2}>
-                  Libros for Language is a digital library designed to support
-                  teachers in finding and using translanguaging books.
-                </Heading>
-                <p>
-                  The books on this site are examples of authors and
-                  illustrators who incorporate LOTE (Languages Other Than
-                  English) in their work, just as all multilingual people do in
-                  their daily lives.
-                </p>
-              </TextContainer>
-              <PrimaryLink to={'/about'}>About Us</PrimaryLink>
-              <TertiaryLink to={'/typology'}>
-                Learn About Our Typology
-              </TertiaryLink>
-            </Container>
-          </Section>
-          <Section>
-            <Container css={{ gap: s4 }}>
-              <TextContainer>
-                <Heading level={3}>Browse by Language</Heading>
-                <List
-                  css={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    listStyle: 'none',
-                    gap: s1,
-                  }}
-                >
-                  {languages.map(({ slug, title, tagType }) => (
-                    <Link
-                      key={title}
-                      to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
-                      css={{ textDecoration: 'none' }}
-                    >
-                      <LanguageTag>{title}</LanguageTag>
-                    </Link>
-                  ))}
-                </List>
-              </TextContainer>
-              <TextContainer>
-                <Heading level={3}>Browse by Genre</Heading>
-                <List
-                  css={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    listStyle: 'none',
-                    gap: s1,
-                  }}
-                >
-                  {genres.map(({ slug, title, tagType }) => (
-                    <Link
-                      key={title}
-                      to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
-                      css={{ textDecoration: 'none' }}
-                    >
-                      <GenreTag>{title}</GenreTag>
-                    </Link>
-                  ))}
-                </List>
-              </TextContainer>
-              <TextContainer>
-                <Heading level={3}>Browse by Grade Level</Heading>
-                <List
-                  css={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    listStyle: 'none',
-                    gap: s1,
-                  }}
-                >
-                  {grades.map(({ slug, title, tagType }) => (
-                    <Link
-                      key={title}
-                      to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
-                      css={{
-                        textDecoration: 'none',
-                      }}
-                    >
-                      <GradeLevelTag>{title}</GradeLevelTag>
-                    </Link>
-                  ))}
-                </List>
-              </TextContainer>
-            </Container>
-          </Section>
-        </main>
-        <Footer />
-      </GlobalLayout>
-    </>
+              <p>
+                The books on this site are examples of authors and illustrators
+                who incorporate LOTE (Languages Other Than English) in their
+                work, just as all multilingual people do in their daily lives.
+              </p>
+            </TextContainer>
+            <PrimaryLink to={'/about'}>About Us</PrimaryLink>
+            <TertiaryLink to={'/typology'}>
+              Learn About Our Typology
+            </TertiaryLink>
+          </Container>
+        </Section>
+        <Section>
+          <Container css={{ gap: s4 }}>
+            <TextContainer>
+              <Heading level={3}>Browse by Language</Heading>
+              <List
+                css={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  listStyle: 'none',
+                  gap: s1,
+                }}
+              >
+                {languages.map(({ slug, title, tagType }) => (
+                  <Link
+                    key={title}
+                    to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
+                    css={{ textDecoration: 'none' }}
+                  >
+                    <LanguageTag>{title}</LanguageTag>
+                  </Link>
+                ))}
+              </List>
+            </TextContainer>
+            <TextContainer>
+              <Heading level={3}>Browse by Genre</Heading>
+              <List
+                css={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  listStyle: 'none',
+                  gap: s1,
+                }}
+              >
+                {genres.map(({ slug, title, tagType }) => (
+                  <Link
+                    key={title}
+                    to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
+                    css={{ textDecoration: 'none' }}
+                  >
+                    <GenreTag>{title}</GenreTag>
+                  </Link>
+                ))}
+              </List>
+            </TextContainer>
+            <TextContainer>
+              <Heading level={3}>Browse by Grade Level</Heading>
+              <List
+                css={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  listStyle: 'none',
+                  gap: s1,
+                }}
+              >
+                {grades.map(({ slug, title, tagType }) => (
+                  <Link
+                    key={title}
+                    to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
+                    css={{
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <GradeLevelTag>{title}</GradeLevelTag>
+                  </Link>
+                ))}
+              </List>
+            </TextContainer>
+          </Container>
+        </Section>
+      </main>
+      <Footer />
+    </GlobalLayout>
   );
 }
 

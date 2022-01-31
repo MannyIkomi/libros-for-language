@@ -48,7 +48,7 @@ import {
 } from '../styles/tabs';
 import pluralize from 'pluralize';
 
-function ResourcesPage({ data }) {
+function ResourcesPage({ data, location }) {
   const resources = data.allGraphCmsResource.nodes;
   const resourceTypes = data.resourceTypes.enumValues;
 
@@ -57,6 +57,7 @@ function ResourcesPage({ data }) {
       htmlHead={{
         title: 'Translanguaging Resources',
         description: `These resources offer an excellent foundation in translanguaging, including real-life classroom vignettes about the many ways to implement a translanguaging pedagogy. In addition to instructional strategies and a variety of other issues that emerge in creating a multilingual classroom environment.`,
+        url: location.href,
       }}
     >
       <GatsbyPreviewIndicator />

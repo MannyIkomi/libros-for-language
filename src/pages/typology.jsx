@@ -47,7 +47,7 @@ import { sortWithProperty } from '../utils/sort';
 import { LineRule } from '../components/LineRule';
 import TagIcon, { TranslanguagingIcon } from '../icons/Icons';
 
-function TypologyPage({ data }) {
+function TypologyPage({ data, location }) {
   const subTypeNames = data.subTypeNames.enumValues;
   const typologies = data.allGraphCmsTag.nodes.sort(
     sortWithProperty({ property: 'sequence' })
@@ -67,6 +67,7 @@ There are a variety of ways authors and illustrators use translanguaging when th
         htmlHead={{
           title: 'Translanguaging Typology',
           description: `We created a typology that outlines how authors and illustrators use translanguaging when they write and create their visuals.`,
+          url: location.href,
         }}
       >
         <GatsbyPreviewIndicator />

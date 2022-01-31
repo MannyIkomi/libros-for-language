@@ -33,8 +33,7 @@ import { LineRule } from '../components/LineRule';
 import { sortWithDate, sortWithProperty } from '../utils/sort';
 import { MAX_BOOK_DISPLAY_AMOUNT } from '../utils/environment';
 
-function TagListingTemplate(props) {
-  const { data, pageContext } = props;
+function TagListingTemplate({ data, pageContext, location, ...props }) {
   const { allGraphCmsTag } = data;
 
   const tags = allGraphCmsTag.nodes.sort(
@@ -42,7 +41,13 @@ function TagListingTemplate(props) {
   );
 
   return (
-    <GlobalLayout htmlHead={{ title: pageContext.title, description: '' }}>
+    <GlobalLayout
+      htmlHead={{
+        title: pageContext.title,
+        description: '',
+        url: location.href,
+      }}
+    >
       <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>

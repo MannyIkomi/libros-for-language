@@ -28,16 +28,16 @@ import {
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { LineRule } from '../components/LineRule';
 
-function TagTemplate(props) {
-  const { data, pageContext } = props;
+function TagTemplate({ data, location, ...props }) {
   const { graphCmsTag } = data;
-
   const { title, books, id, definition, tagType } = graphCmsTag;
+
   return (
     <GlobalLayout
       htmlHead={{
         title: `${title} (${tagType.replace('_', ' ')})`,
         description: definition,
+        url: location.href,
       }}
     >
       <GatsbyPreviewIndicator />

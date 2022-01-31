@@ -23,7 +23,12 @@ module.exports = {
 
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sharp',
+    {
+      resolve: 'gatsby-plugin-sharp',
+      options: {
+        icon: './src/images/favicon.svg',
+      },
+    },
     // 'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-source-filesystem',

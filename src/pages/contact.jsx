@@ -23,14 +23,14 @@ import ContactForm from '../components/ContactForm';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { UnderConstruction } from '../components/UnderConstruction';
 
-function ContactPage({ data }) {
+function ContactPage({ data, location }) {
   const teamMembers = data.allGraphCmsTeamMember.nodes;
   const totalBooks = data.allGraphCmsBook.totalCount;
 
   return (
     <>
       {/* <UnderConstruction /> */}
-      <GlobalLayout>
+      <GlobalLayout htmlHead={{ url: location.href }}>
         <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>

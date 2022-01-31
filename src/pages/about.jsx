@@ -22,7 +22,7 @@ import { TeamMemberBio } from '../components/TeamMemberBio';
 import ContactForm from '../components/ContactForm';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 
-function AboutPage({ data }) {
+function AboutPage({ data, location }) {
   const teamMembers = data.allGraphCmsTeamMember.nodes;
   const totalBooks = data.allGraphCmsBook.totalCount;
   const bookCount = data.allGraphCmsBook.nodes.filter(
@@ -35,6 +35,7 @@ function AboutPage({ data }) {
         htmlHead={{
           title: 'About Libros for Language',
           description: `The books on this site are examples of authors and illustrators who incorporate LOTE (Languages Other Than English) in their work, just as all multilingual people do in their daily lives.`,
+          url: location.href,
         }}
       >
         <GatsbyPreviewIndicator />

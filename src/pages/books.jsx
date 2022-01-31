@@ -101,7 +101,7 @@ function FilterTagCheckField(props) {
   );
 }
 
-function BooksPage({ data }) {
+function BooksPage({ data, location }) {
   const tagTypes = data.tagTypes.enumValues;
   const tags = data.allGraphCmsTag.nodes;
   const books = data.allGraphCmsBook.nodes.filter(
@@ -145,295 +145,299 @@ function BooksPage({ data }) {
 
   const hasUserCriteria = userFilters.length > 0 || searchValue;
   return (
-    <>
-      <GlobalLayout>
-        <GatsbyPreviewIndicator />
-        <MainMenu />
+    <GlobalLayout
+      htmlHead={{
+        title: 'Translanguaging Books',
+        description: '',
+        url: location.href,
+      }}
+    >
+      <GatsbyPreviewIndicator />
+      <MainMenu />
 
-        <main
-          css={[{ position: 'relative', overflow: 'scroll', height: '100vh' }]}
-        >
-          <Section
-            css={[
+      <main
+        css={[{ position: 'relative', overflow: 'scroll', height: '100vh' }]}
+      >
+        <Section
+          css={[
+            grid({
+              gridTemplateAreas: `"heading filterMenu" "results results"`,
+            }),
+            onTabletMedia(
               grid({
-                gridTemplateAreas: `"heading filterMenu" "results results"`,
-              }),
-              onTabletMedia(
-                grid({
-                  gridTemplateColumns: 'repeat(12, 1fr)',
-                  gridTemplateAreas: `
+                gridTemplateColumns: 'repeat(12, 1fr)',
+                gridTemplateAreas: `
                 ". . heading heading heading heading heading heading heading heading heading heading"
                 ". . choices choices choices choices choices choices choices choices choices choices"
                 "filter filter results results results results results results results results results results"
                 `,
-                })
-              ),
+              })
+            ),
+          ]}
+        >
+          <Container
+            css={[
+              { gridArea: 'heading' },
+              onTabletMedia({ gridArea: 'heading' }),
             ]}
           >
+            <Heading level={1} css={{ placeSelf: 'start' }}>
+              {pluralize('Book', booksAmount, true)}
+            </Heading>
+          </Container>
+          <Button
+            onClick={(e) => {
+              setToggled(!isToggled);
+            }}
+            css={[
+              {
+                ...flex('column'),
+                alignItems: 'center',
+                width: MIN_TOUCH_SIZE,
+                height: MIN_TOUCH_SIZE,
+
+                gridArea: 'filterMenu',
+                placeSelf: 'center end',
+                background: 'none',
+                border: 0,
+              },
+              onTabletMedia({
+                display: 'none',
+              }),
+            ]}
+          >
+            <FilterIconSVG hasActiveFilters={hasUserCriteria} />
+            <IconLabel css={{ position: 'absolute', bottom: 0 }}>
+              Search & Filter
+            </IconLabel>
+          </Button>
+
+          {hasUserCriteria && (
             <Container
               css={[
-                { gridArea: 'heading' },
-                onTabletMedia({ gridArea: 'heading' }),
-              ]}
-            >
-              <Heading level={1} css={{ placeSelf: 'start' }}>
-                {pluralize('Book', booksAmount, true)}
-              </Heading>
-            </Container>
-            <Button
-              onClick={(e) => {
-                setToggled(!isToggled);
-              }}
-              css={[
-                {
-                  ...flex('column'),
-                  alignItems: 'center',
-                  width: MIN_TOUCH_SIZE,
-                  height: MIN_TOUCH_SIZE,
-
-                  gridArea: 'filterMenu',
-                  placeSelf: 'center end',
-                  background: 'none',
-                  border: 0,
-                },
+                { display: 'none' },
                 onTabletMedia({
-                  display: 'none',
-                }),
-              ]}
-            >
-              <FilterIconSVG hasActiveFilters={hasUserCriteria} />
-              <IconLabel css={{ position: 'absolute', bottom: 0 }}>
-                Search & Filter
-              </IconLabel>
-            </Button>
-
-            {hasUserCriteria && (
-              <Container
-                css={[
-                  { display: 'none' },
-                  onTabletMedia({
-                    gridArea: 'choices',
-                    placeSelf: 'end start',
-                    ...flex('row', {
-                      alignItems: 'center',
-                    }),
+                  gridArea: 'choices',
+                  placeSelf: 'end start',
+                  ...flex('row', {
+                    alignItems: 'center',
                   }),
-                ]}
-              >
-                <p>"{userCriteriaString}"</p>
-              </Container>
-            )}
-
-            <div
-              // FILTER MENU OPTIONS
-              css={[
-                {
-                  display: isToggled ? 'block' : 'none',
-                  position: 'fixed',
-                  bottom: 0,
-                  right: 0,
-                  gridRow: '1',
-                  backgroundColor: PRIMARY20,
-                  width: '100%',
-                  minWidth: 'min-content',
-                  maxHeight: '50vh',
-                  overflow: 'scroll',
-                },
-
-                onTabletMedia({
-                  display: 'block',
-                  gridArea: 'filter',
-                  maxHeight: '66vh',
-                  // minWidth: base160,
-
-                  overflow: 'scroll',
-                  borderRadius: `0 ${s1} ${s1} 0`,
-
-                  position: 'sticky',
-                  placeSelf: 'start',
-                  padding: s1,
-                  top: 0,
-                  // left: s1,
-                  width: '100%',
-                  // height: '100vh',
                 }),
               ]}
             >
-              <form
-                role={'search'}
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  return false;
-                }}
-                css={[
-                  { padding: s05, margin: `${s1} 0` },
-                  onTabletMedia({ padding: 0 }),
-                ]}
-              >
-                <TextField
-                  label={{ children: 'Search' }}
-                  input={{
-                    name: 'search',
-                    placeholder: 'Title, ISBN, Publisher…',
-                    type: 'search',
-                  }}
-                  control={control}
-                />
-              </form>
-              <div css={{ borderBottom: `${s00625} solid ${PRIMARY}` }} />
-              <Accordion allowZeroExpanded={true} allowMultipleExpanded={true}>
-                {tagTypes.map((tagType) => {
-                  return (
-                    <AccordionItem
-                      css={{
-                        width: '100%',
-                        borderBottom: `${s00625} solid ${PRIMARY}`,
-                      }}
-                      key={tagType}
-                    >
-                      <AccordionItemHeading>
-                        <AccordionItemButton
-                          css={[
-                            {
-                              ...flex('row'),
-                              alignItems: 'center',
-                              justifyContent: 'space-between',
+              <p>"{userCriteriaString}"</p>
+            </Container>
+          )}
 
-                              padding: `${s1} ${s05}`,
-                              minHeight: MIN_TOUCH_SIZE,
-                            },
-                            onTabletMedia({
-                              padding: `${s1} 0`,
-                            }),
-                          ]}
-                        >
-                          <div css={{ ...flex('row'), alignItems: 'center' }}>
-                            <TagIcon
-                              name={tagType.name}
-                              css={{ width: base24, height: base24 }}
-                            />
-                            {tagType.name.replace('_', ' ')}
-                          </div>
-                          <AccordionItemState>
-                            {({ expanded }) => <MenuTriangle open={expanded} />}
-                          </AccordionItemState>
-                        </AccordionItemButton>
-                      </AccordionItemHeading>
-                      <AccordionItemPanel>
-                        <List
-                          css={{
-                            listStyle: 'none',
-                            ...flex('row', {
-                              flexWrap: 'wrap',
-                            }),
-                          }}
-                        >
-                          {tags
-                            .filter((tag) => tag.books.length > 0)
-                            .filter((tag) => tag.tagType === tagType.name)
-                            .map((tag) => {
-                              const isChecked = userFilters.some(
-                                (filter) => filter.id === tag.id
-                              );
+          <div
+            // FILTER MENU OPTIONS
+            css={[
+              {
+                display: isToggled ? 'block' : 'none',
+                position: 'fixed',
+                bottom: 0,
+                right: 0,
+                gridRow: '1',
+                backgroundColor: PRIMARY20,
+                width: '100%',
+                minWidth: 'min-content',
+                maxHeight: '50vh',
+                overflow: 'scroll',
+              },
 
-                              return (
-                                <FilterTagCheckField
-                                  key={tag.id}
-                                  tag={tag}
-                                  handleChange={handleFilterChecked}
-                                  checked={isChecked}
-                                />
-                              );
-                            })}
-                        </List>
-                      </AccordionItemPanel>
-                    </AccordionItem>
-                  );
-                })}
-              </Accordion>
-              {hasUserCriteria && (
-                <SecondaryButton
-                  css={{ position: 'sticky', bottom: 0 }}
-                  onClick={() => {
-                    setUserFilters([]);
-                    setValue('search', '');
-                    setFilteredBooksByTag(booksLookup);
-                  }}
-                >
-                  Clear Filters
-                </SecondaryButton>
-              )}
-            </div>
+              onTabletMedia({
+                display: 'block',
+                gridArea: 'filter',
+                maxHeight: '66vh',
+                // minWidth: base160,
 
-            <FilterResults
-              value={searchValue || ''}
-              data={filteredBooksByTag}
-              pick={['title', 'isbn', 'publisher']}
-              renderResults={(results) => {
-                setBooksAmount(results.length);
-                return results.length > 0 ? (
-                  <BookList
-                    css={[
-                      {
-                        gridArea: 'results',
-                        padding: s1,
-                      },
+                overflow: 'scroll',
+                borderRadius: `0 ${s1} ${s1} 0`,
 
-                      onTabletMedia({
-                        gridArea: 'results',
-                        // gridTemplateColumns: `repeat(auto-fill, minmax(${base320}, 1fr))`,
-                        gridGap: s2,
-                        width: 'max-content',
-
-                        padding: s1,
-                        width: '100%',
-                      }),
-                    ]}
-                  >
-                    {results.map((book) => {
-                      return (
-                        <BookCover book={book} key={book.id}>
-                          <HiddenAccessibleText>
-                            <Heading
-                              level={2}
-                              css={[
-                                { fontSize: s1 },
-
-                                onTabletMedia({ fontSize: s1 }),
-                              ]}
-                            >
-                              {book.title}
-                            </Heading>
-                          </HiddenAccessibleText>
-                        </BookCover>
-                      );
-                    })}
-                  </BookList>
-                ) : (
-                  <Container css={{ gridArea: 'results' }}>
-                    <p css={{ textAlign: 'center' }}>
-                      Sorry, we don't have books that match your criteria:{' '}
-                      <br />"{userCriteriaString}"
-                    </p>
-                    <SecondaryButton
-                      onClick={() => {
-                        setUserFilters([]);
-                        setValue('search', '');
-                        setFilteredBooksByTag(booksLookup);
-                      }}
-                    >
-                      Clear Filters
-                    </SecondaryButton>
-                  </Container>
-                );
+                position: 'sticky',
+                placeSelf: 'start',
+                padding: s1,
+                top: 0,
+                // left: s1,
+                width: '100%',
+                // height: '100vh',
+              }),
+            ]}
+          >
+            <form
+              role={'search'}
+              onSubmit={(e) => {
+                e.preventDefault();
+                return false;
               }}
-            />
-          </Section>
-        </main>
+              css={[
+                { padding: s05, margin: `${s1} 0` },
+                onTabletMedia({ padding: 0 }),
+              ]}
+            >
+              <TextField
+                label={{ children: 'Search' }}
+                input={{
+                  name: 'search',
+                  placeholder: 'Title, ISBN, Publisher…',
+                  type: 'search',
+                }}
+                control={control}
+              />
+            </form>
+            <div css={{ borderBottom: `${s00625} solid ${PRIMARY}` }} />
+            <Accordion allowZeroExpanded={true} allowMultipleExpanded={true}>
+              {tagTypes.map((tagType) => {
+                return (
+                  <AccordionItem
+                    css={{
+                      width: '100%',
+                      borderBottom: `${s00625} solid ${PRIMARY}`,
+                    }}
+                    key={tagType}
+                  >
+                    <AccordionItemHeading>
+                      <AccordionItemButton
+                        css={[
+                          {
+                            ...flex('row'),
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
 
-        <Footer />
-      </GlobalLayout>
-    </>
+                            padding: `${s1} ${s05}`,
+                            minHeight: MIN_TOUCH_SIZE,
+                          },
+                          onTabletMedia({
+                            padding: `${s1} 0`,
+                          }),
+                        ]}
+                      >
+                        <div css={{ ...flex('row'), alignItems: 'center' }}>
+                          <TagIcon
+                            name={tagType.name}
+                            css={{ width: base24, height: base24 }}
+                          />
+                          {tagType.name.replace('_', ' ')}
+                        </div>
+                        <AccordionItemState>
+                          {({ expanded }) => <MenuTriangle open={expanded} />}
+                        </AccordionItemState>
+                      </AccordionItemButton>
+                    </AccordionItemHeading>
+                    <AccordionItemPanel>
+                      <List
+                        css={{
+                          listStyle: 'none',
+                          ...flex('row', {
+                            flexWrap: 'wrap',
+                          }),
+                        }}
+                      >
+                        {tags
+                          .filter((tag) => tag.books.length > 0)
+                          .filter((tag) => tag.tagType === tagType.name)
+                          .map((tag) => {
+                            const isChecked = userFilters.some(
+                              (filter) => filter.id === tag.id
+                            );
+
+                            return (
+                              <FilterTagCheckField
+                                key={tag.id}
+                                tag={tag}
+                                handleChange={handleFilterChecked}
+                                checked={isChecked}
+                              />
+                            );
+                          })}
+                      </List>
+                    </AccordionItemPanel>
+                  </AccordionItem>
+                );
+              })}
+            </Accordion>
+            {hasUserCriteria && (
+              <SecondaryButton
+                css={{ position: 'sticky', bottom: 0 }}
+                onClick={() => {
+                  setUserFilters([]);
+                  setValue('search', '');
+                  setFilteredBooksByTag(booksLookup);
+                }}
+              >
+                Clear Filters
+              </SecondaryButton>
+            )}
+          </div>
+
+          <FilterResults
+            value={searchValue || ''}
+            data={filteredBooksByTag}
+            pick={['title', 'isbn', 'publisher']}
+            renderResults={(results) => {
+              setBooksAmount(results.length);
+              return results.length > 0 ? (
+                <BookList
+                  css={[
+                    {
+                      gridArea: 'results',
+                      padding: s1,
+                    },
+
+                    onTabletMedia({
+                      gridArea: 'results',
+                      // gridTemplateColumns: `repeat(auto-fill, minmax(${base320}, 1fr))`,
+                      gridGap: s2,
+                      width: 'max-content',
+
+                      padding: s1,
+                      width: '100%',
+                    }),
+                  ]}
+                >
+                  {results.map((book) => {
+                    return (
+                      <BookCover book={book} key={book.id}>
+                        <HiddenAccessibleText>
+                          <Heading
+                            level={2}
+                            css={[
+                              { fontSize: s1 },
+
+                              onTabletMedia({ fontSize: s1 }),
+                            ]}
+                          >
+                            {book.title}
+                          </Heading>
+                        </HiddenAccessibleText>
+                      </BookCover>
+                    );
+                  })}
+                </BookList>
+              ) : (
+                <Container css={{ gridArea: 'results' }}>
+                  <p css={{ textAlign: 'center' }}>
+                    Sorry, we don't have books that match your criteria: <br />"
+                    {userCriteriaString}"
+                  </p>
+                  <SecondaryButton
+                    onClick={() => {
+                      setUserFilters([]);
+                      setValue('search', '');
+                      setFilteredBooksByTag(booksLookup);
+                    }}
+                  >
+                    Clear Filters
+                  </SecondaryButton>
+                </Container>
+              );
+            }}
+          />
+        </Section>
+      </main>
+
+      <Footer />
+    </GlobalLayout>
   );
 }
 

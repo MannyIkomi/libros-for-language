@@ -57,7 +57,7 @@ import { concatFullName } from '../utils/concatFullName';
 import { sortWithProperty } from '../utils/sort';
 import TagIcon from '../icons/Icons';
 
-function BookTemplate({ data }) {
+function BookTemplate({ data, location, ...props }) {
   const {
     title,
     epicLink,
@@ -115,6 +115,7 @@ function BookTemplate({ data }) {
         description: publisherSummary,
         image: bookCover.url,
         imageDescription: bookCover.altDescription,
+        url: location.href,
       }}
     >
       <GatsbyPreviewIndicator />

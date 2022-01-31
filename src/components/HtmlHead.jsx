@@ -5,9 +5,14 @@ import { graphql, useStaticQuery } from 'gatsby';
 import '../fonts/fonts.css';
 import '../styles/normalize.css';
 
-const HtmlHead = ({ title, description, image, imageDescription }) => {
-  const { allGraphCmsSiteInformation } = useStaticQuery(graphql`
-    query MyQuery {
+const HtmlHead = ({ title, description, image, imageDescription, url }) => {
+  const { allGraphCmsSiteInformation, site } = useStaticQuery(graphql`
+    query HtmlHeadQuery {
+      site {
+        siteMetadata {
+          siteUrl
+        }
+      }
       allGraphCmsSiteInformation {
         nodes {
           title
@@ -27,10 +32,17 @@ const HtmlHead = ({ title, description, image, imageDescription }) => {
     image: siteImage,
     imageDescription: siteImageDescription,
   } = allGraphCmsSiteInformation.nodes[0];
+
   const pageTitle = title ?? siteTitle;
   const pageDescription = description ?? siteDescription;
   const pageImage = image ?? siteImage.url;
   const pageImageDescription = imageDescription ?? siteImageDescription;
+  const pageUrl = url ?? site.siteMetadata.url;
+
+  // console.log(pageUrl);
+  // console.log(pageDescription);
+  // console.log(pageImage);
+  // console.log(pageImageDescription);
 
   return (
     <Helmet htmlAttributes={{ lang: 'en' }}>
@@ -39,7 +51,7 @@ const HtmlHead = ({ title, description, image, imageDescription }) => {
       <meta name="description" content={pageDescription} />
 
       {/* OPEN GRAPH */}
-      <meta property="og:url" content={''} />
+      <meta property="og:url" content={pageUrl} />
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={pageDescription} />
       <meta property="og:image" content={pageImage} />

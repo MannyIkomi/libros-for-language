@@ -59,15 +59,16 @@ function renderBook(book) {
   );
 }
 
-function ContributorTemplate(props) {
-  const { data, pageContext } = props;
+function ContributorTemplate({ data, location, ...props }) {
   const { graphCmsContributor } = data;
 
   const { lastName, name, firstName, booksIllustrated, booksAuthored } =
     concatFullName(graphCmsContributor);
 
   return (
-    <GlobalLayout htmlHead={{ title: name, description: '' }}>
+    <GlobalLayout
+      htmlHead={{ title: name, description: '', url: location.href }}
+    >
       <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>

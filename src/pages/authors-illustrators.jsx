@@ -23,7 +23,7 @@ import { groupByFirstLetter } from '../utils/groupByFirstLetter';
 import { LineRule } from '../components/LineRule';
 import { PRIMARY60 } from '../styles';
 
-function AuthorIllustratorPage({ data }) {
+function AuthorIllustratorPage({ data, location }) {
   const authors = data.allGraphCmsAuthor.nodes.map(concatFullName);
   const illustrators = data.allGraphCmsIllustrator.nodes.map(concatFullName);
 
@@ -38,6 +38,7 @@ function AuthorIllustratorPage({ data }) {
         htmlHead={{
           title: 'Authors and Illustrators of Translanguaging Books',
           description: '',
+          url: location.href,
         }}
       >
         <GatsbyPreviewIndicator />
