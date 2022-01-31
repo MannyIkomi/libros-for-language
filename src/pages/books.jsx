@@ -289,6 +289,7 @@ function BooksPage({ data }) {
                         width: '100%',
                         borderBottom: `${s00625} solid ${PRIMARY}`,
                       }}
+                      key={tagType}
                     >
                       <AccordionItemHeading>
                         <AccordionItemButton
@@ -337,6 +338,7 @@ function BooksPage({ data }) {
 
                               return (
                                 <FilterTagCheckField
+                                  key={tag.id}
                                   tag={tag}
                                   handleChange={handleFilterChecked}
                                   checked={isChecked}

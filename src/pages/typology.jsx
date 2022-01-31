@@ -111,18 +111,18 @@ function TypologyPage({ data }) {
               </Heading>
               {subTypeNames.map(({ name: subType }) => {
                 return (
-                  <List css={{ listStyle: 'none' }}>
+                  <List css={{ listStyle: 'none' }} key={subType}>
                     <Heading level={3}>{subType} Tags</Heading>
                     {typologies
                       .filter((term) => term.tagSubType === subType)
-                      .map((term) => {
+                      .map(({ title, slug, ...term }) => {
                         return (
                           <MonoFontLink
-                            key={term.slug}
-                            to={`#${term.slug}`}
+                            key={slug}
+                            to={`#${slug}`}
                             css={{ whiteSpace: 'normal' }}
                           >
-                            {term.title}
+                            {title}
                           </MonoFontLink>
                         );
                       })}
@@ -180,7 +180,7 @@ function TypologyPage({ data }) {
                         const { title, details, definition, slug } = term;
                         return (
                           <TextContainer
-                            key={title}
+                            key={slug}
                             css={{
                               padding: s1,
                               background: COMPLIMENT20,
@@ -231,7 +231,7 @@ function TypologyPage({ data }) {
                       const { title, details, definition, slug } = term;
                       return (
                         <TextContainer
-                          key={title}
+                          key={slug}
                           css={{
                             padding: s1,
                             background: COMPLIMENT20,

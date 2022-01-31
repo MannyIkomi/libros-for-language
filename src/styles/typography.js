@@ -126,3 +126,9 @@ export const headingsDesktop = {
     fontSize: '1.25rem',
   },
 };
+
+export const strongBold = {
+  'strong, b': {
+    fontWeight: 'bold',
+  },
+};

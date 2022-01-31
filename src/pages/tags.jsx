@@ -93,9 +93,9 @@ function TagsPage({ data }) {
                 </Heading>
 
                 <TagList>
-                  {languages.map((language) => (
-                    <MonoFontLink to={`/tags/languages/${language.slug}`}>
-                      {language.title}
+                  {languages.map(({ slug, title, ...language }) => (
+                    <MonoFontLink to={`/tags/languages/${slug}`} key={slug}>
+                      {title}
                     </MonoFontLink>
                   ))}
                 </TagList>
@@ -113,10 +113,11 @@ function TagsPage({ data }) {
                 </Heading>
 
                 <TagList>
-                  {typologies.map((term) => (
+                  {typologies.map(({ slug, ...term }) => (
                     <MonoFontLink
-                      to={`/tags/typologies/${term.slug}`}
+                      to={`/tags/typologies/${slug}`}
                       css={{ whiteSpace: 'normal' }}
+                      key={slug}
                     >
                       {term.title}
                     </MonoFontLink>
@@ -133,9 +134,9 @@ function TagsPage({ data }) {
                 </Heading>
 
                 <TagList>
-                  {genres.map((genre) => (
-                    <MonoFontLink to={`/tags/genres/${genre.slug}`}>
-                      {genre.title}
+                  {genres.map(({ slug, title, ...genre }) => (
+                    <MonoFontLink to={`/tags/genres/${slug}`} key={slug}>
+                      {title}
                     </MonoFontLink>
                   ))}
                 </TagList>
@@ -150,11 +151,12 @@ function TagsPage({ data }) {
                 </Heading>
 
                 <TagList>
-                  {textStructures.map((structure) => (
+                  {textStructures.map(({ title, slug, ...structure }) => (
                     <MonoFontLink
-                      to={`/tags/text-structures/${structure.slug}`}
+                      to={`/tags/text-structures/${slug}`}
+                      key={slug}
                     >
-                      {structure.title}
+                      {title}
                     </MonoFontLink>
                   ))}
                 </TagList>
@@ -169,9 +171,9 @@ function TagsPage({ data }) {
                 </Heading>
 
                 <TagList>
-                  {grades.map((grade) => (
-                    <MonoFontLink to={`/tags/grades/${grade.slug}`}>
-                      {grade.title}
+                  {grades.map(({ slug, title, ...grade }) => (
+                    <MonoFontLink to={`/tags/grades/${slug}`} key={slug}>
+                      {title}
                     </MonoFontLink>
                   ))}
                 </TagList>
@@ -185,9 +187,9 @@ function TagsPage({ data }) {
                   Topics
                 </Heading>
                 <TagList>
-                  {topics.map((topic) => (
-                    <MonoFontLink to={`/tags/topics/${topic.slug}`}>
-                      {topic.title}
+                  {topics.map(({ slug, title, ...topic }) => (
+                    <MonoFontLink to={`/tags/topics/${slug}`}>
+                      {title}
                     </MonoFontLink>
                   ))}
                 </TagList>

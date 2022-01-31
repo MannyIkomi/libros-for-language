@@ -254,13 +254,12 @@ function BookTemplate({ data }) {
                     gap: s1,
                   }}
                 >
-                  {typologies.map((typology) => {
+                  {typologies.map(({ slug, tagType, ...typology }) => {
                     return (
                       <Link
-                        to={`/tags/${slugify(pluralize(typology.tagType))}/${
-                          typology.slug
-                        }`}
+                        to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
                         css={{ textDecoration: 'none' }}
+                        key={slug}
                       >
                         <div
                           css={{
@@ -363,13 +362,14 @@ function BookTemplate({ data }) {
                   {pluralize.plural(genres[0].tagType.replace('_', ' '))}
                 </Heading>
                 <TagList>
-                  {genres.map((genre) => {
+                  {genres.map(({ tagType, slug, title, ...genre }) => {
                     return (
                       <Link
                         css={{ textDecoration: 'none' }}
-                        to={`/tags/${slugify(genre.tagType)}s/${genre.slug}`}
+                        to={`/tags/${slugify(tagType)}s/${slug}`}
+                        key={slug}
                       >
-                        <TextStructureTag>{genre.title}</TextStructureTag>
+                        <TextStructureTag>{title}</TextStructureTag>
                       </Link>
                     );
                   })}
@@ -383,15 +383,13 @@ function BookTemplate({ data }) {
                   {pluralize.plural(languages[0].tagType.replace('_', ' '))}
                 </Heading>
                 <TagList>
-                  {languages.map((language) => {
+                  {languages.map(({ tagType, slug, title, ...language }) => {
                     return (
                       <Link
                         css={{ textDecoration: 'none' }}
-                        to={`/tags/${slugify(language.tagType)}s/${
-                          language.slug
-                        }`}
+                        to={`/tags/${slugify(tagType)}s/${slug}`}
                       >
-                        <LanguageTag>{language.title}</LanguageTag>
+                        <LanguageTag>{title}</LanguageTag>
                       </Link>
                     );
                   })}
@@ -405,13 +403,13 @@ function BookTemplate({ data }) {
                   {pluralize.plural(grades[0].tagType.replace('_', ' '))}
                 </Heading>
                 <TagList>
-                  {grades.map((grade) => {
+                  {grades.map(({ tagType, slug, title, ...grade }) => {
                     return (
                       <Link
                         css={{ textDecoration: 'none' }}
-                        to={`/tags/${slugify(grade.tagType)}s/${grade.slug}`}
+                        to={`/tags/${slugify(tagType)}s/${slug}`}
                       >
-                        <LanguageTag>{grade.title}</LanguageTag>
+                        <LanguageTag>{title}</LanguageTag>
                       </Link>
                     );
                   })}
@@ -424,18 +422,18 @@ function BookTemplate({ data }) {
                   {pluralize.plural(textStructure[0].tagType.replace('_', ' '))}
                 </Heading>
                 <TagList>
-                  {textStructure.map((structure) => {
-                    return (
-                      <Link
-                        css={{ textDecoration: 'none' }}
-                        to={`/tags/${slugify(structure.tagType)}s/${
-                          structure.slug
-                        }`}
-                      >
-                        <TextStructureTag>{structure.title}</TextStructureTag>
-                      </Link>
-                    );
-                  })}
+                  {textStructure.map(
+                    ({ tagType, slug, title, ...structure }) => {
+                      return (
+                        <Link
+                          css={{ textDecoration: 'none' }}
+                          to={`/tags/${slugify(tagType)}s/${slug}`}
+                        >
+                          <TextStructureTag>{title}</TextStructureTag>
+                        </Link>
+                      );
+                    }
+                  )}
                 </TagList>
               </TextContainer>
             )}
@@ -446,13 +444,13 @@ function BookTemplate({ data }) {
                   {pluralize.plural(topics[0].tagType.replace('_', ' '))}
                 </Heading>
                 <TagList>
-                  {topics.map((topic) => {
+                  {topics.map(({ tagType, slug, title, ...topic }) => {
                     return (
                       <Link
                         css={{ textDecoration: 'none' }}
-                        to={`/tags/${slugify(topic.tagType)}s/${topic.slug}`}
+                        to={`/tags/${slugify(tagType)}s/${slug}`}
                       >
-                        <TopicTag>{topic.title}</TopicTag>
+                        <TopicTag>{title}</TopicTag>
                       </Link>
                     );
                   })}
@@ -495,13 +493,28 @@ function BookTemplate({ data }) {
                   <>
                     <dt>Awards:</dt>
                     <dd>
-                      {awards.length > 1
-                        ? awards.map((award) => (
-                            <>
-                              {award},<br />{' '}
-                            </>
-                          ))
-                        : awards[0]}
+                      {awards.length > 1 ? (
+                        awards.map((award, index) => (
+                          <span key={award}>
+                            {award}
+                            {awards.length !== index + 1 && ', '}
+                            <br />
+                          </span>
+                        ))
+                      ) : (
+                        <span>awards[0]</span>
+                      )}
+                      {/* 
+                        <MonoFontLink
+              key={slug}
+              to={`/authors-illustrators/${slug}`}
+              {...props}
+            >
+              {name}
+            </MonoFontLink>
+            {contributors.length !== index + 1 && ', '}
+                        
+                        */}
                     </dd>
                   </>
                 )}

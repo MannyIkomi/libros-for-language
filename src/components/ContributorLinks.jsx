@@ -9,7 +9,11 @@ export function ContributorLinks({ contributors, ...props }) {
       {contributors.map(({ name, slug }, index) => {
         return (
           <>
-            <MonoFontLink to={`/authors-illustrators/${slug}`} {...props}>
+            <MonoFontLink
+              key={slug}
+              to={`/authors-illustrators/${slug}`}
+              {...props}
+            >
               {name}
             </MonoFontLink>
             {contributors.length !== index + 1 && ', '}

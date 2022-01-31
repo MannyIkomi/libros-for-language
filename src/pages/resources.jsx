@@ -93,7 +93,7 @@ function ResourcesPage({ data }) {
               <TabList>
                 {resourceTypes.map(({ name: type }) => {
                   return (
-                    <Tab>
+                    <Tab key={type}>
                       <Heading level={2}>{pluralize(type)}</Heading>
                     </Tab>
                   );
@@ -102,7 +102,7 @@ function ResourcesPage({ data }) {
 
               {resourceTypes.map(({ name: type }) => {
                 return (
-                  <TabPanel>
+                  <TabPanel key={type}>
                     {/* <Heading level={2}>{type} Resources</Heading> */}
                     <div
                       css={[
@@ -118,9 +118,11 @@ function ResourcesPage({ data }) {
                       {resources
                         .filter(({ resourceType }) => resourceType === type)
                         .map((resource) => {
-                          const { description, attribution, url } = resource;
+                          const { description, attribution, url, title } =
+                            resource;
                           return (
                             <div
+                              key={url}
                               css={{
                                 ...flex('column'),
                                 gap: s1,
@@ -137,7 +139,7 @@ function ResourcesPage({ data }) {
                                   onTabletMedia({ marginBottom: 0 }),
                                 ]}
                               >
-                                {resource.title}
+                                {title}
                               </Heading>
 
                               {attribution && <span>by {attribution}</span>}
