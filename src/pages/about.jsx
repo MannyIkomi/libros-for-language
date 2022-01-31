@@ -87,7 +87,7 @@ function AboutPage({ data }) {
                 ]}
               /> */}
               <TextContainer>
-                <Heading level={3}>What is Translanguaging?</Heading>
+                <Heading level={2}>What is Translanguaging?</Heading>
                 <p>
                   Translanguaging is a natural phenomenon in which bilingual and
                   multilingual people draw from all their linguistic resources
