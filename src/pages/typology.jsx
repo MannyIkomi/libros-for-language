@@ -25,6 +25,7 @@ import {
   PRIMARY20,
   boxShadow,
   s4,
+  s3,
 } from '../styles';
 import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
@@ -44,6 +45,7 @@ import { MonoFontLink } from '../components/MonoFontLink';
 import { List } from '../components/List';
 import { sortWithProperty } from '../utils/sort';
 import { LineRule } from '../components/LineRule';
+import TagIcon, { TranslanguagingIcon } from '../icons/Icons';
 
 function TypologyPage({ data }) {
   const subTypeNames = data.subTypeNames.enumValues;
@@ -54,10 +56,19 @@ function TypologyPage({ data }) {
   const typologiesFilterNotSubType = typologies.filter(
     (term) => !term.tagSubType
   );
+  /* 
 
+
+There are a variety of ways authors and illustrators use translanguaging when they write and create their visuals. We created a typology that outlines some of these differences. 
+*/
   return (
     <>
-      <GlobalLayout>
+      <GlobalLayout
+        htmlHead={{
+          title: 'Translanguaging Typology',
+          description: `We created a typology that outlines how authors and illustrators use translanguaging when they write and create their visuals.`,
+        }}
+      >
         <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
@@ -182,11 +193,18 @@ function TypologyPage({ data }) {
                       <Heading
                         level={3}
                         css={[
-                          { marginBottom: 0 },
+                          {
+                            marginBottom: 0,
+                            ...flex('row', { alignItems: 'center' }),
+                          },
                           onTabletMedia({ marginBottom: 0 }),
                         ]}
                       >
-                        {subType}
+                        {subType} Texts{' '}
+                        <TagIcon
+                          name={subType}
+                          css={{ width: s3, height: s3 }}
+                        />
                       </Heading>
                       {typologies
                         .filter((term) => term.definition)

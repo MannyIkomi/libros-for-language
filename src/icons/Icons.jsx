@@ -48,7 +48,7 @@ export function GenreIcon(props) {
     </svg>
   );
 }
-export function InterlingualIcon(props) {
+export function TranslanguagingIcon(props) {
   return (
     <svg
       width="65"
@@ -134,7 +134,10 @@ export function TagIcon(props) {
     case 'Grade':
       return <GradeIcon {...props} />;
     case 'Typology':
-      return <InterlingualIcon {...props} />;
+    case 'Translanguaging':
+      return <TranslanguagingIcon {...props} />;
+    case 'Bilingual':
+      return <BilingualIcon {...props} />;
     default:
       return <TopicIcon {...props} />;
   }

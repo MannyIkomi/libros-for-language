@@ -34,7 +34,12 @@ function AuthorIllustratorPage({ data }) {
 
   return (
     <>
-      <GlobalLayout>
+      <GlobalLayout
+        htmlHead={{
+          title: 'Authors and Illustrators of Translanguaging Books',
+          description: '',
+        }}
+      >
         <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>

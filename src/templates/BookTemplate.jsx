@@ -11,6 +11,7 @@ import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
 import { GlobalLayout } from '../components/GlobalLayout';
 import {
+  GenreTag,
   LanguageTag,
   TextStructureTag,
   TopicTag,
@@ -35,6 +36,7 @@ import {
   grid,
   onDesktopMedia,
   onHover,
+  s3,
 } from '../styles';
 import { TagList } from '../components/TagList';
 import { Container, TextContainer } from '../components/Container';
@@ -53,6 +55,7 @@ import SuggestionForm from '../components/SuggestionForm';
 import { isDevEnv } from '../utils/environment';
 import { concatFullName } from '../utils/concatFullName';
 import { sortWithProperty } from '../utils/sort';
+import TagIcon from '../icons/Icons';
 
 function BookTemplate({ data }) {
   const {
@@ -110,6 +113,8 @@ function BookTemplate({ data }) {
       htmlHead={{
         title: title,
         description: publisherSummary,
+        image: bookCover.url,
+        imageDescription: bookCover.altDescription,
       }}
     >
       <GatsbyPreviewIndicator />
@@ -254,32 +259,46 @@ function BookTemplate({ data }) {
                     gap: s1,
                   }}
                 >
-                  {typologies.map(({ slug, tagType, ...typology }) => {
-                    return (
-                      <Link
-                        to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
-                        css={{ textDecoration: 'none' }}
-                        key={slug}
-                      >
-                        <div
-                          css={{
-                            padding: s1,
-
-                            background: COMPLIMENT20,
-                            borderRadius: `${s0125} ${s1}`,
-                            ...boxShadow,
-                          }}
+                  {typologies.map(
+                    ({ slug, tagType, tagSubType, ...typology }) => {
+                      return (
+                        <Link
+                          to={`/tags/${slugify(pluralize(tagType))}/${slug}`}
+                          css={{ textDecoration: 'none' }}
+                          key={slug}
                         >
-                          <span
-                            css={{ ...notoMono, textDecoration: 'underline' }}
+                          <div
+                            css={{
+                              padding: s1,
+
+                              background: COMPLIMENT20,
+                              borderRadius: `${s0125} ${s1}`,
+                              ...boxShadow,
+                            }}
                           >
-                            {typology.title}
-                          </span>
-                          {typology.definition && <p>{typology.definition}</p>}
-                        </div>
-                      </Link>
-                    );
-                  })}
+                            <span
+                              css={{
+                                ...notoMono,
+                                textDecoration: 'underline',
+                                ...flex('row', { alignItems: 'center' }),
+                              }}
+                            >
+                              {typology.title}{' '}
+                              {tagSubType && (
+                                <TagIcon
+                                  name={tagSubType}
+                                  css={{ width: s3, height: s3 }}
+                                />
+                              )}
+                            </span>
+                            {typology.definition && (
+                              <p>{typology.definition}</p>
+                            )}
+                          </div>
+                        </Link>
+                      );
+                    }
+                  )}
                 </List>
               </TextContainer>
             )}
@@ -369,7 +388,7 @@ function BookTemplate({ data }) {
                         to={`/tags/${slugify(tagType)}s/${slug}`}
                         key={slug}
                       >
-                        <TextStructureTag>{title}</TextStructureTag>
+                        <GenreTag>{title}</GenreTag>
                       </Link>
                     );
                   })}
@@ -564,6 +583,7 @@ export const query = graphql`
         sequence
         slug
         tagType
+        tagSubType
       }
       authors {
         lastName

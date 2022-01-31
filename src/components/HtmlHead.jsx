@@ -6,13 +6,16 @@ import '../fonts/fonts.css';
 import '../styles/normalize.css';
 
 const HtmlHead = ({ title, description, image, imageDescription }) => {
-  const { graphCmsSiteInformation } = useStaticQuery(graphql`
+  const { allGraphCmsSiteInformation } = useStaticQuery(graphql`
     query MyQuery {
-      graphCmsSiteInformation {
-        title
-        description
-        image {
-          id
+      allGraphCmsSiteInformation {
+        nodes {
+          title
+          imageDescription
+          image {
+            url
+          }
+          description
         }
       }
     }
@@ -23,11 +26,11 @@ const HtmlHead = ({ title, description, image, imageDescription }) => {
     siteDescription,
     image: siteImage,
     imageDescription: siteImageDescription,
-  } = graphCmsSiteInformation;
-
+  } = allGraphCmsSiteInformation.nodes[0];
+  console.log(allGraphCmsSiteInformation);
   const pageTitle = title ?? siteTitle;
   const pageDescription = description ?? siteDescription;
-  const pageImage = image ?? siteImage;
+  const pageImage = image ?? siteImage.url;
   const pageImageDescription = imageDescription ?? siteImageDescription;
 
   return (

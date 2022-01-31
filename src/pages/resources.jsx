@@ -53,7 +53,12 @@ function ResourcesPage({ data }) {
   const resourceTypes = data.resourceTypes.enumValues;
 
   return (
-    <GlobalLayout>
+    <GlobalLayout
+      htmlHead={{
+        title: 'Translanguaging Resources',
+        description: `These resources offer an excellent foundation in translanguaging, including real-life classroom vignettes about the many ways to implement a translanguaging pedagogy. In addition to instructional strategies and a variety of other issues that emerge in creating a multilingual classroom environment.`,
+      }}
+    >
       <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
@@ -86,6 +91,16 @@ function ResourcesPage({ data }) {
             css={{ gridArea: 'title', alignItems: 'start', margin: `${s2} 0` }}
           >
             <Heading level={1}>Translanguaging Resources</Heading>
+            <TextContainer>
+              <p>
+                These resources offer an excellent foundation in
+                translanguaging, including real-life classroom vignettes about
+                the many ways to implement a translanguaging pedagogy. In
+                addition to instructional strategies and a variety of other
+                issues that emerge in creating a multilingual classroom
+                environment.
+              </p>
+            </TextContainer>
           </Container>
 
           <Container css={[{ gridArea: 'resources' }]}>

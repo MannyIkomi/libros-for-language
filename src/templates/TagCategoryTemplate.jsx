@@ -43,7 +43,7 @@ function TagListingTemplate(props) {
   );
 
   return (
-    <GlobalLayout>
+    <GlobalLayout htmlHead={{ title: pageContext.title, description: '' }}>
       <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>

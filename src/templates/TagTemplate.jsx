@@ -32,9 +32,14 @@ function TagTemplate(props) {
   const { data, pageContext } = props;
   const { graphCmsTag } = data;
 
-  const { title, books, id, definition } = graphCmsTag;
+  const { title, books, id, definition, tagType } = graphCmsTag;
   return (
-    <GlobalLayout>
+    <GlobalLayout
+      htmlHead={{
+        title: `${title} (${tagType.replace('_', ' ')})`,
+        description: definition,
+      }}
+    >
       <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>
@@ -116,6 +121,7 @@ export const query = graphql`
       title
       slug
       tagType
+      tagSubType
       id
       definition
 

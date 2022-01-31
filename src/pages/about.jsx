@@ -31,7 +31,12 @@ function AboutPage({ data }) {
 
   return (
     <>
-      <GlobalLayout>
+      <GlobalLayout
+        htmlHead={{
+          title: 'About Libros for Language',
+          description: `The books on this site are examples of authors and illustrators who incorporate LOTE (Languages Other Than English) in their work, just as all multilingual people do in their daily lives.`,
+        }}
+      >
         <GatsbyPreviewIndicator />
         <MainMenu />
         <main css={{ position: 'relative' }}>
@@ -184,18 +189,21 @@ function AboutPage({ data }) {
 
           <Section>
             <Container>
-              <TextContainer>
+              <TextContainer css={{ gap: s2 }}>
                 <img
                   css={{ maxWidth: base320 }}
                   src={ALALogo}
                   alt={'ALA American Library Association Logo'}
                 />
-                <Heading level={4}>
+                <Heading
+                  level={4}
+                  css={[{ margin: 0 }, onTabletMedia({ margin: 0 })]}
+                >
                   Funded by the American Library Association's Carnegie-Whitney
                   Grant
                 </Heading>
                 <p>
-                  The Carnegie Whitney Awards have been established to provide
+                  The Carnegie-Whitney Awards have been established to provide
                   grants for the preparation and publication of popular or
                   scholarly reading lists, indexes and other guides to library
                   resources that will be useful to users of all types of

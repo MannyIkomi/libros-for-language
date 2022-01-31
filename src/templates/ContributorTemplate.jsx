@@ -69,7 +69,7 @@ function ContributorTemplate(props) {
     concatFullName(graphCmsContributor);
 
   return (
-    <GlobalLayout>
+    <GlobalLayout htmlHead={{ title: name, description: '' }}>
       <GatsbyPreviewIndicator />
       <MainMenu />
       <main css={{ position: 'relative' }}>

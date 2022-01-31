@@ -20,6 +20,7 @@ export function TeamMemberBio({
   portrait,
   name,
   firstName,
+  lastName,
   role,
   description,
   webLink,
