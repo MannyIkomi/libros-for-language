@@ -18,6 +18,8 @@ import {
   s5,
   s8,
   s80,
+  COMPLIMENT20,
+  COMPLIMENT_WHITE,
 } from '../styles';
 import useToggleSwitch from '../hooks/useToggleSwitch';
 import { NavigationLink } from './NavigationLink';
@@ -59,7 +61,8 @@ export function MainMenu() {
           <Logo
             css={[
               {
-                color: COMPLIMENT40,
+                // color: COMPLIMENT20,
+                color: COMPLIMENT_WHITE,
                 width: s5,
                 margin: s05,
 
