@@ -9,24 +9,23 @@ import {
   PRIMARY40,
   PRIMARY20,
   boxShadow,
+  onTabletMedia,
 } from '../styles';
 import { Heading } from './Heading';
 import { Container, TextContainer } from './Container';
-import { TertiaryLink } from './Link';
+import { SecondaryLink, TertiaryLink } from './Link';
 
-export function TeamMemberBio(props) {
-  const {
-    id,
-    portrait,
-    name,
-    firstName,
-    role,
-    description,
-    webLink,
-    webLinkLabel,
-    ...other
-  } = props;
-
+export function TeamMemberBio({
+  id,
+  portrait,
+  name,
+  firstName,
+  role,
+  description,
+  webLink,
+  webLinkLabel,
+  ...props
+}) {
   return (
     <Container
       key={id}
@@ -43,7 +42,7 @@ export function TeamMemberBio(props) {
           ...boxShadow,
         },
       ]}
-      {...other}
+      {...props}
     >
       <div
         css={[
@@ -99,7 +98,13 @@ export function TeamMemberBio(props) {
           ></div>
         )}
 
-        <Heading level={3} css={{ gridColumn: '2 / -1', margin: '0' }}>
+        <Heading
+          level={3}
+          css={[
+            { gridColumn: '2 / -1', margin: '0' },
+            onTabletMedia({ margin: '0' }),
+          ]}
+        >
           {name}
         </Heading>
 
@@ -116,12 +121,13 @@ export function TeamMemberBio(props) {
           <p>{description}</p>
           {webLink && (
             <p>
-              Learn more about {firstName}:{' '}
               {webLinkLabel ? (
-                <TertiaryLink to={webLink}>{webLinkLabel}</TertiaryLink>
+                <TertiaryLink to={webLink}>
+                  Learn more about {firstName}: {webLinkLabel}
+                </TertiaryLink>
               ) : (
                 <TertiaryLink to={webLink}>
-                  {new URL(webLink).host}
+                  Learn more about {firstName}: {new URL(webLink).host}
                 </TertiaryLink>
               )}
             </p>
