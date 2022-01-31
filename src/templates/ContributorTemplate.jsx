@@ -33,8 +33,6 @@ import { List } from '../components/List';
 import { concatFullName } from '../utils/concatFullName';
 import { LineRule } from '../components/LineRule';
 
-// const MAX_BOOK_DISPLAY_AMOUNT = 4;
-
 function renderBook(book) {
   return (
     <BookCover

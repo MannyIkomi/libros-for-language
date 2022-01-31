@@ -521,7 +521,7 @@ function BookTemplate({ data }) {
                           </span>
                         ))
                       ) : (
-                        <span>awards[0]</span>
+                        <span>{awards[0]}</span>
                       )}
                       {/* 
                         <MonoFontLink

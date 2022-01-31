@@ -31,8 +31,7 @@ import { TagIcon } from '../icons/Icons';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { LineRule } from '../components/LineRule';
 import { sortWithDate, sortWithProperty } from '../utils/sort';
-
-export const MAX_BOOK_DISPLAY_AMOUNT = 4;
+import { MAX_BOOK_DISPLAY_AMOUNT } from '../utils/environment';
 
 function TagListingTemplate(props) {
   const { data, pageContext } = props;
