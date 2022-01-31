@@ -27,7 +27,6 @@ const HtmlHead = ({ title, description, image, imageDescription }) => {
     image: siteImage,
     imageDescription: siteImageDescription,
   } = allGraphCmsSiteInformation.nodes[0];
-  console.log(allGraphCmsSiteInformation);
   const pageTitle = title ?? siteTitle;
   const pageDescription = description ?? siteDescription;
   const pageImage = image ?? siteImage.url;

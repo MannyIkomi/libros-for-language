@@ -324,7 +324,7 @@ function BookTemplate({ data }) {
                             );
                         }
                       }
-                      console.log('ICON TEXT', text);
+
                       return (
                         <Link
                           to={link}
