@@ -28,14 +28,13 @@ export const Container = ({ children, ...props }) => {
   );
 };
 
-export const TextContainer = ({ css, children, ...props }) => (
+export const TextContainer = ({ children, ...props }) => (
   <Container
     css={{
       fontSize: base16,
       ...maxTypeWidth,
       alignItems: 'initial',
       padding: 0,
-      ...css,
     }}
     {...props}
   >

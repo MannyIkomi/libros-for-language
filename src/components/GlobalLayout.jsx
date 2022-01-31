@@ -8,6 +8,8 @@ import {
   BLACK,
   WHITE,
   a,
+  b,
+  strong,
   p,
   label,
   textarea,
@@ -19,11 +21,6 @@ import {
   headingsDesktop,
   COMPLIMENT,
   COMPLIMENT60,
-  s00625,
-  s05,
-  s025,
-  COMPLIMENT80,
-  s0125,
 } from '../styles';
 import 'normalize.css/normalize.css';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -72,8 +69,11 @@ export const GlobalLayout = ({ htmlHead, children }) => {
               borderStyle: 'none',
             },
             ...headings,
+
             a,
             p,
+            strong,
+            b,
             label,
             textarea,
             input,
@@ -84,6 +84,7 @@ export const GlobalLayout = ({ htmlHead, children }) => {
           }),
         ]}
       />
+
       <div
         css={{
           backgroundColor: WHITE,
