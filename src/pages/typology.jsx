@@ -43,6 +43,7 @@ import { UnderConstruction } from '../components/UnderConstruction';
 import { MonoFontLink } from '../components/MonoFontLink';
 import { List } from '../components/List';
 import { sortWithProperty } from '../utils/sort';
+import { LineRule } from '../components/LineRule';
 
 function TypologyPage({ data }) {
   const subTypeNames = data.subTypeNames.enumValues;
@@ -66,95 +67,180 @@ function TypologyPage({ data }) {
                 ...grid({
                   gridTemplateColumns: '1fr',
                   gridTemplateAreas: `"title" "glossary" "terms"`,
-                  placeItems: 'start',
-                  gridGap: s1,
+                  placeItems: 'start center',
+                  gridGap: s2,
                 }),
 
                 minHeight: '80vh',
                 marginBottom: '10vh',
               },
               onTabletMedia({
-                gridGap: s2,
-                placeItems: 'start',
-                gridTemplateColumns: 'min-content 1fr',
+                gridGap: `${s1} ${s2}`,
+                placeItems: 'start end',
+                gridTemplateColumns: '1fr 1fr',
                 gridTemplateRows: 'min-content 1fr',
                 gridTemplateAreas: `"title terms" "glossary terms"`,
               }),
             ]}
           >
-            <Container css={{ gridArea: 'title', alignItems: 'start' }}>
-              <Heading level={1}>Translanguaging Typology</Heading>
-              <p>
-                There are a variety of ways authors and illustrators use
-                translanguaging when they write and create their visuals. We
-                created a typology that outlines some of these differences. By
-                more closely analyzing the specific ways translanguaging can
-                happen in books, we hope teachers can create a more detailed
-                plan for how to discuss with students the linguistic choices
-                authors make and the ways students can shape and craft their own
-                multilingual writing.
-              </p>
-            </Container>
-            <Container
+            <TextContainer
+              css={[
+                { gridArea: 'title', alignItems: 'center' },
+                // onTabletMedia({ placeSelf: 'end center' }),
+              ]}
+            >
+              <Container css={{ alignItems: 'start' }}>
+                <Heading level={1}>Translanguaging Typology</Heading>
+                <p>
+                  There are a variety of ways authors and illustrators use
+                  translanguaging when they write and create their visuals. We
+                  created a typology that outlines some of these differences. By
+                  more closely analyzing the specific ways translanguaging can
+                  happen in books, we hope teachers can create a more detailed
+                  plan for how to discuss with students the linguistic choices
+                  authors make and the ways students can shape and craft their
+                  own multilingual writing.
+                </p>
+              </Container>
+            </TextContainer>
+            <TextContainer
               css={{
                 gridArea: 'glossary',
-                alignSelf: 'start',
-                alignItems: 'start',
-                gap: s2,
+                alignItems: 'center',
               }}
             >
-              <Heading
-                level={2}
-                css={[{ marginBottom: 0 }, onTabletMedia({ marginBottom: 0 })]}
-              >
-                Glossary
-              </Heading>
-              {subTypeNames.map(({ name: subType }) => {
-                return (
-                  <List css={{ listStyle: 'none' }} key={subType}>
-                    <Heading level={3}>{subType} Tags</Heading>
-                    {typologies
-                      .filter((term) => term.tagSubType === subType)
-                      .map(({ title, slug, ...term }) => {
-                        return (
-                          <MonoFontLink
-                            key={slug}
-                            to={`#${slug}`}
-                            css={{ whiteSpace: 'normal' }}
-                          >
-                            {title}
-                          </MonoFontLink>
-                        );
-                      })}
-                  </List>
-                );
-              })}
+              <Container css={{ alignItems: 'start', gap: s2 }}>
+                <Heading
+                  level={2}
+                  css={[
+                    { marginBottom: 0 },
+                    onTabletMedia({ marginBottom: 0 }),
+                  ]}
+                >
+                  Glossary
+                </Heading>
 
-              <List css={{ listStyle: 'none' }}>
-                {typologiesFilterNotSubType.map((term) => {
+                {subTypeNames.map(({ name: subType }) => {
                   return (
-                    <MonoFontLink
-                      key={term.slug}
-                      to={`#${term.slug}`}
-                      css={{ whiteSpace: 'normal' }}
-                    >
-                      {term.title}
-                    </MonoFontLink>
+                    <List css={{ listStyle: 'none' }} key={subType}>
+                      <Heading level={3}>{subType} Tags</Heading>
+                      {typologies
+                        .filter((term) => term.tagSubType === subType)
+                        .map(({ title, slug, ...term }) => {
+                          return (
+                            <MonoFontLink
+                              key={slug}
+                              to={`#${slug}`}
+                              css={{ whiteSpace: 'normal' }}
+                            >
+                              {title}
+                            </MonoFontLink>
+                          );
+                        })}
+                    </List>
                   );
                 })}
-              </List>
-            </Container>
 
-            <Container
-              css={{
-                gridArea: 'terms',
-                gap: s4,
-              }}
+                <List css={{ listStyle: 'none' }}>
+                  {typologiesFilterNotSubType.map((term) => {
+                    return (
+                      <MonoFontLink
+                        key={term.slug}
+                        to={`#${term.slug}`}
+                        css={{ whiteSpace: 'normal' }}
+                      >
+                        {term.title}
+                      </MonoFontLink>
+                    );
+                  })}
+                </List>
+              </Container>
+            </TextContainer>
+
+            <TextContainer
+              css={[
+                {
+                  gridArea: 'terms',
+                },
+                onTabletMedia({ placeSelf: 'start' }),
+              ]}
             >
-              {subTypeNames.map(({ name: subType }) => {
-                return (
+              <Container css={{ gap: s4 }}>
+                {subTypeNames.map(({ name: subType }) => {
+                  return (
+                    <dl
+                      key={subType}
+                      css={[
+                        grid({
+                          gridTemplateColumns: '1fr',
+                          gridTemplateColumns: `repeat(auto-fit, 1fr)`,
+                          gridGap: `${s2} ${s2}`,
+                          placeItems: 'start',
+                        }),
+                      ]}
+                    >
+                      <Heading
+                        level={3}
+                        css={[
+                          { marginBottom: 0 },
+                          onTabletMedia({ marginBottom: 0 }),
+                        ]}
+                      >
+                        {subType}
+                      </Heading>
+                      {typologies
+                        .filter((term) => term.definition)
+                        .filter((term) => term.tagSubType === subType)
+                        .map((term) => {
+                          const { title, details, definition, slug } = term;
+                          return (
+                            <TextContainer
+                              key={slug}
+                              css={{
+                                padding: s1,
+                                background: COMPLIMENT20,
+                                borderRadius: `${s0125} ${s1}`,
+                                ...boxShadow,
+                              }}
+                            >
+                              <dt>
+                                <MonoFontLink
+                                  to={`/tags/typologies/${slug}`}
+                                  css={{ padding: 0, whiteSpace: 'normal' }}
+                                >
+                                  <Heading
+                                    level={3}
+                                    id={term.slug}
+                                    css={[
+                                      {
+                                        fontSize: 'inherit',
+                                        fontFamily: 'inherit',
+                                        scrollMargin: '25vh 0',
+                                        margin: 0,
+                                      },
+                                      onTabletMedia({
+                                        fontSize: 'inherit',
+                                        fontFamily: 'inherit',
+                                        margin: 0,
+                                      }),
+                                    ]}
+                                  >
+                                    {title}
+                                  </Heading>
+                                </MonoFontLink>
+                              </dt>
+                              <dd>
+                                {definition && <p>{definition}</p>}
+                                {details && <RichText html={details.html} />}
+                              </dd>
+                            </TextContainer>
+                          );
+                        })}
+                    </dl>
+                  );
+                })}
+                {typologiesFilterNotSubType && (
                   <dl
-                    key={subType}
                     css={[
                       grid({
                         gridTemplateColumns: '1fr',
@@ -164,18 +250,8 @@ function TypologyPage({ data }) {
                       }),
                     ]}
                   >
-                    <Heading
-                      level={3}
-                      css={[
-                        { marginBottom: 0 },
-                        onTabletMedia({ marginBottom: 0 }),
-                      ]}
-                    >
-                      {subType}
-                    </Heading>
-                    {typologies
+                    {typologiesFilterNotSubType
                       .filter((term) => term.definition)
-                      .filter((term) => term.tagSubType === subType)
                       .map((term) => {
                         const { title, details, definition, slug } = term;
                         return (
@@ -196,12 +272,22 @@ function TypologyPage({ data }) {
                                 <Heading
                                   level={3}
                                   id={term.slug}
-                                  css={{
-                                    fontSize: 'inherit',
-                                    scrollMargin: '25vh 0',
-                                  }}
-                                ></Heading>
-                                {title}
+                                  css={[
+                                    {
+                                      fontSize: 'inherit',
+                                      fontFamily: 'inherit',
+                                      scrollMargin: '25vh 0',
+                                      margin: 0,
+                                    },
+                                    onTabletMedia({
+                                      fontSize: 'inherit',
+                                      fontFamily: 'inherit',
+                                      margin: 0,
+                                    }),
+                                  ]}
+                                >
+                                  {title}
+                                </Heading>
                               </MonoFontLink>
                             </dt>
                             <dd>
@@ -212,59 +298,9 @@ function TypologyPage({ data }) {
                         );
                       })}
                   </dl>
-                );
-              })}
-              {typologiesFilterNotSubType && (
-                <dl
-                  css={[
-                    grid({
-                      gridTemplateColumns: '1fr',
-                      gridTemplateColumns: `repeat(auto-fit, 1fr)`,
-                      gridGap: `${s2} ${s2}`,
-                      placeItems: 'center',
-                    }),
-                  ]}
-                >
-                  {typologiesFilterNotSubType
-                    .filter((term) => term.definition)
-                    .map((term) => {
-                      const { title, details, definition, slug } = term;
-                      return (
-                        <TextContainer
-                          key={slug}
-                          css={{
-                            padding: s1,
-                            background: COMPLIMENT20,
-                            borderRadius: `${s0125} ${s1}`,
-                            ...boxShadow,
-                          }}
-                        >
-                          <dt>
-                            <MonoFontLink
-                              to={`/tags/typologies/${slug}`}
-                              css={{ padding: 0, whiteSpace: 'normal' }}
-                            >
-                              <Heading
-                                level={3}
-                                id={term.slug}
-                                css={{
-                                  fontSize: 'inherit',
-                                  scrollMargin: '25vh 0',
-                                }}
-                              ></Heading>
-                              {title}
-                            </MonoFontLink>
-                          </dt>
-                          <dd>
-                            {definition && <p>{definition}</p>}
-                            {details && <RichText html={details.html} />}
-                          </dd>
-                        </TextContainer>
-                      );
-                    })}
-                </dl>
-              )}
-            </Container>
+                )}
+              </Container>
+            </TextContainer>
           </Section>
         </main>
 
