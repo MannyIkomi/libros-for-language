@@ -476,6 +476,8 @@ export const query = graphql`
           id
         }
         bookCover {
+          id
+          gatsbyImageData
           altDescription
           height
           width

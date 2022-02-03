@@ -573,6 +573,8 @@ export const query = graphql`
       actionLink
       actionLabel
       bookCover {
+        id
+        gatsbyImageData
         altDescription
         url
         width

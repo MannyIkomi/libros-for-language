@@ -124,6 +124,8 @@ export const query = graphql`
           title
         }
         bookCover {
+          id
+          gatsbyImageData
           altDescription
           width
           url
@@ -139,6 +141,8 @@ export const query = graphql`
           title
         }
         bookCover {
+          id
+          gatsbyImageData
           altDescription
           width
           url
