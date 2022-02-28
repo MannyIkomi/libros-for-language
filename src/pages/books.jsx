@@ -21,9 +21,9 @@ import {
   s025,
   PRIMARY80,
   base320,
+  onDesktopMedia,
   PRIMARY20,
   s05,
-  onDesktopMedia,
   onTabletMedia,
   grid,
   PRIMARY40,
@@ -243,9 +243,11 @@ function BooksPage({ data, location }) {
                 minWidth: 'min-content',
                 maxHeight: '50vh',
                 overflow: 'scroll',
+                zIndex: 99,
               },
 
               onTabletMedia({
+                zIndex: 99,
                 display: 'block',
                 gridArea: 'filter',
                 maxHeight: '66vh',
