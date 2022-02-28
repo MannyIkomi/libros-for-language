@@ -1,7 +1,7 @@
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
-const isDevEnv = process.env.NODE_ENV === 'development';
+
 const isGatsbyPreview = process.env.GATSBY_CLOUD === 'preview';
 
 module.exports = {
