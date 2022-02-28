@@ -1,6 +1,8 @@
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
+const isDevEnv = process.env.NODE_ENV === 'development';
+const isGatsbyPreview = process.env.GATSBY_CLOUD === 'preview';
 
 module.exports = {
   siteMetadata: {
@@ -13,9 +15,7 @@ module.exports = {
       options: {
         endpoint: process.env.GRAPHCMS_ENDPOINT,
         token: process.env.GRAPHCMS_TOKEN,
-        stages: [
-          process.env.NODE_ENV === 'development' ? 'DRAFT' : 'PUBLISHED',
-        ],
+        stages: [isGatsbyPreview ? 'DRAFT' : 'PUBLISHED'],
         buildMarkdownNodes: true,
       },
     },
@@ -32,7 +32,6 @@ module.exports = {
         icon: './src/images/favicon.svg',
       },
     },
-    // 'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
