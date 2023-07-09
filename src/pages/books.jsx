@@ -237,6 +237,7 @@ function BooksPage({ data, location }) {
                 position: 'fixed',
                 bottom: 0,
                 right: 0,
+                zIndex: 10,
                 gridRow: '1',
                 backgroundColor: PRIMARY20,
                 width: '100%',

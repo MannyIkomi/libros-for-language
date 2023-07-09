@@ -39,11 +39,6 @@ const HtmlHead = ({ title, description, image, imageDescription, url }) => {
   const pageImageDescription = imageDescription ?? siteImageDescription;
   const pageUrl = url ?? site.siteMetadata.url;
 
-  // console.log(pageUrl);
-  // console.log(pageDescription);
-  // console.log(pageImage);
-  // console.log(pageImageDescription);
-
   return (
     <Helmet htmlAttributes={{ lang: 'en' }}>
       <meta charSet="utf-8" />
