@@ -19,20 +19,14 @@ module.exports = {
         buildMarkdownNodes: true,
       },
     },
-    `gatsby-plugin-mdx`,
+    // `gatsby-plugin-mdx`,
 
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
 
     'gatsby-plugin-react-helmet',
-    {
-      resolve: 'gatsby-plugin-sharp',
-      options: {
-        icon: './src/images/favicon.svg',
-      },
-    },
-    // 'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
