@@ -17,9 +17,10 @@ module.exports = {
           process.env.NODE_ENV === 'development' ? 'DRAFT' : 'PUBLISHED',
         ],
         buildMarkdownNodes: true,
+        queryConcurrency: 4,
       },
     },
-    // `gatsby-plugin-mdx`,
+    // `gatsby-plugin-mdx`, causing dependcy conflicts
 
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
