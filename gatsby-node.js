@@ -6,8 +6,6 @@ const pluralize = require('pluralize');
 
 const isDevEnv = process.env.NODE_ENV === 'development';
 const isGatsbyPreview = process.env.GATSBY_CLOUD === 'preview';
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('Gatsby Preview:', isGatsbyPreview);
 
 function slugify(string) {
   return string.replace('_', '-').replace(' ', '-').toLowerCase();
