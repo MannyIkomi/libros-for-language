@@ -34,15 +34,45 @@ export function useGlobalQuery() {
           name
         }
       }
+      allGraphCmsBook {
+        nodes {
+          title
+          slug
+          publisherSummary
+          bookCover {
+            url
+          }
+          tags {
+            title
+          }
+        }
+      }
     }
   `);
   return query;
 }
+
 export const GlobalContext = React.createContext();
 GlobalContext.displayName = 'Global Context';
 
+// export const GlobalProvider = ({ children }) => {
+//   const dataQuery = useGlobalQuery();
+//   // Define your static data here
+//   const staticData = {
+//     // Your static data properties
+//     message: 'Hello, Global Context!',
+//     // Add more properties as needed
+//   };
+
+//   return (
+//     <GlobalContext.Provider value={dataQuery}>
+//       {children}
+//     </GlobalContext.Provider>
+//   );
+// };
+
 export const GlobalLayout = ({ htmlHead, children }) => {
-  const globalData = useGlobalQuery();
+  const { tags, allGraphCmsBook } = useGlobalQuery();
 
   return (
     <>
@@ -125,7 +155,7 @@ export const GlobalLayout = ({ htmlHead, children }) => {
                 path: `/${slugify('Contact')}`,
               },
 
-              tags: globalData.tags.enumValues.map((term) => {
+              tags: tags.enumValues.map((term) => {
                 const base = {
                   title: `by ${term.name.replace('_', ' ')}`,
                   path: `/tags/${slugify(pluralize.plural(term.name))}`,
@@ -157,6 +187,7 @@ export const GlobalLayout = ({ htmlHead, children }) => {
                 }
               }),
             },
+            allGraphCmsBook,
           }}
         >
           {children}

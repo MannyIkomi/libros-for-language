@@ -1,7 +1,6 @@
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
-const { log } = require('console');
 const path = require(`path`);
 const pluralize = require('pluralize');
 
@@ -11,8 +10,8 @@ const isGatsbyPreview = process.env.GATSBY_CLOUD === 'preview';
 function slugify(string) {
   return string.replace('_', '-').replace(' ', '-').toLowerCase();
 }
-// Log out information after a build is done
 exports.onPostBuild = ({ reporter }) => {
+  // Log information after a build is done
   reporter.info(`Your Gatsby site has been built!`);
 };
 
@@ -79,14 +78,6 @@ exports.createPages = async ({ graphql, actions }) => {
         );
       }
       return book.bookCover;
-    })
-    .filter((book) => {
-      if (!book.publisherSummary) {
-        console.warn(
-          `${book.title} does not have a publisher summary, it will not be rendered.`
-        );
-      }
-      return book.publisherSummary;
     })
     .forEach((book) => {
       if (book.tags.length === 0) {

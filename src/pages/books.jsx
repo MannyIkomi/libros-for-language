@@ -99,7 +99,6 @@ function BooksPage({ data, location }) {
   const tagTypes = data.tagTypes.enumValues;
   const tags = data.allGraphCmsTag.nodes;
   const books = data.allGraphCmsBook.nodes.filter((book) => {
-    // Book won't be rendered without a title
     return book.bookCover;
   });
 

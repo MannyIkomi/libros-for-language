@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import * as React from 'react';
+import { useContext } from 'react';
 import { graphql } from 'gatsby';
 import { jsx } from '@emotion/react';
 import { s1, base320, onTabletMedia, grid, s2, WHITE } from '../styles';
@@ -7,26 +8,20 @@ import { Heading } from '../components/Heading';
 import { Footer } from '../components/Footer';
 import { Container, TextContainer } from '../components/Container';
 import { DebugData } from '../components/DebugData';
-
 import { Link, PrimaryLink, TertiaryLink } from '../components/Link';
-
-import { GlobalLayout } from '../components/GlobalLayout';
+import { GlobalLayout, GlobalContext } from '../components/GlobalLayout';
 
 import { MainMenu } from '../components/MainMenu';
 import { Section } from '../components/Section';
-
 import ALALogo from '../images/ALA-Logo.png';
-import { SecondaryButton } from '../components/Button';
 import { List } from '../components/List';
 import { TeamMemberBio } from '../components/TeamMemberBio';
-import ContactForm from '../components/ContactForm';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 
 function AboutPage({ data, location }) {
   const teamMembers = data.allGraphCmsTeamMember.nodes;
-  const totalBooks = data.allGraphCmsBook.totalCount;
   const bookCount = data.allGraphCmsBook.nodes.filter(
-    (book) => book.tags.length > 0
+    (book) => book.bookCover?.url
   ).length;
 
   return (
@@ -52,17 +47,7 @@ function AboutPage({ data, location }) {
               justifyContent: 'center',
             }}
           >
-            <Container
-              css={[
-                { alignSelf: 'center', gap: s2 },
-                // onTabletMedia({
-                //   ...grid({
-                //     gridTemplateColumns: '1fr 1fr',
-                //     gridTemplateRows: '1fr 1fr',
-                //   }),
-                // }),
-              ]}
-            >
+            <Container css={[{ alignSelf: 'center', gap: s2 }]}>
               <TextContainer>
                 <Heading level={1}>
                   A Curated Collection of {bookCount} Translanguaging Books
@@ -225,6 +210,9 @@ export const query = graphql`
     allGraphCmsBook {
       totalCount
       nodes {
+        bookCover {
+          url
+        }
         tags {
           title
         }
