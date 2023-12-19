@@ -77,7 +77,6 @@ function BookTemplate({ data, location, ...props }) {
     isbn,
     awards,
     copyrightYear,
-    translanguagingTypology,
   } = data.graphCmsBook;
 
   // const { altDescription, url, width, height } = bookCover;

@@ -44,7 +44,7 @@ import { slugify } from '../utils/slugify';
 import pluralize from 'pluralize';
 import { List } from '../components/List';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
-import { sortWithProperty } from '../utils/sort';
+import { sortWithDate, sortWithProperty } from '../utils/sort';
 import { DebugData } from '../components/DebugData';
 
 console.clear();
@@ -131,6 +131,7 @@ function IndexPage({ data, location }) {
             ]}
           >
             {featuredBooks
+
               .filter((book) => {
                 return (
                   book.bookCover ||
@@ -262,7 +263,7 @@ export const query = graphql`
     allGraphCmsBook(
       limit: 4
       filter: { featured: { eq: true } }
-      sort: { order: DESC, fields: updatedBy___updatedAt }
+      sort: { order: DESC, fields: updatedAt }
     ) {
       nodes {
         id

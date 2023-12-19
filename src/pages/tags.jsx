@@ -223,7 +223,7 @@ export const query = graphql`
 
     allGraphCmsGrade: allGraphCmsTag(
       filter: { tagType: { eq: Grade } }
-      sort: { fields: updatedAt, order: DESC }
+      sort: { fields: sequence, order: ASC }
     ) {
       nodes {
         title

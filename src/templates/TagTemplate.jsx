@@ -27,10 +27,12 @@ import {
 } from '../styles';
 import { GatsbyPreviewIndicator } from '../components/GatsbyPreviewIndicator';
 import { LineRule } from '../components/LineRule';
+import { sortNewToOld, sortWithDate } from '../utils/sort';
 
 function TagTemplate({ data, location, ...props }) {
   const { graphCmsTag } = data;
   const { title, books, id, definition, tagType } = graphCmsTag;
+  console.log(books.map((book) => `${book.title}: ${book.updatedAt}`));
 
   return (
     <GlobalLayout
@@ -77,31 +79,38 @@ function TagTemplate({ data, location, ...props }) {
                   onDesktopMedia({ gridGap: s3 }),
                 ]}
               >
-                {books.map((book) => {
-                  return (
-                    <BookCover
-                      link={{ to: `/books/${book.slug}` }}
-                      book={book}
-                      css={{ ...boxShadowLg }}
-                      key={book.id}
-                    >
-                      <Heading
-                        level={3}
-                        css={{
-                          position: 'absolute',
-                          opacity: 0,
-                          pointerEvents: 'none',
-
-                          fontSize: s1,
-                          fontWeight: 'bold',
-                          color: COMPLIMENT,
-                        }}
+                {books
+                  .sort(
+                    sortWithDate({
+                      order: 'desc',
+                      property: 'updatedAt',
+                    })
+                  )
+                  .map((book) => {
+                    return (
+                      <BookCover
+                        link={{ to: `/books/${book.slug}` }}
+                        book={book}
+                        css={{ ...boxShadowLg }}
+                        key={book.id}
                       >
-                        {book.title}
-                      </Heading>
-                    </BookCover>
-                  );
-                })}
+                        <Heading
+                          level={3}
+                          css={{
+                            position: 'absolute',
+                            opacity: 0,
+                            pointerEvents: 'none',
+
+                            fontSize: s1,
+                            fontWeight: 'bold',
+                            color: COMPLIMENT,
+                          }}
+                        >
+                          {book.title}
+                        </Heading>
+                      </BookCover>
+                    );
+                  })}
               </BookList>
             ) : (
               `Sorry, no books available for ${title}`
@@ -126,6 +135,8 @@ export const query = graphql`
       definition
 
       books {
+        updatedAt
+        createdAt
         title
         slug
         tags {
