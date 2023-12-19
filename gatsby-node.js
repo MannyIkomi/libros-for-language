@@ -1,6 +1,7 @@
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
+const { log } = require('console');
 const path = require(`path`);
 const pluralize = require('pluralize');
 
@@ -32,6 +33,10 @@ exports.createPages = async ({ graphql, actions }) => {
         nodes {
           title
           slug
+          publisherSummary
+          bookCover {
+            url
+          }
           tags {
             title
           }
@@ -66,18 +71,38 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  result.data.allGraphCmsBook.nodes.forEach((book) => {
-    createPage({
-      path: `/books/${book.slug}`,
-      component: BookTemplate,
-      context: {
-        ...book,
-      },
-    });
-    return;
+  result.data.allGraphCmsBook.nodes
+    .filter((book) => {
+      if (!book.bookCover) {
+        console.warn(
+          `${book.title} does not have a cover image, it will not be rendered.`
+        );
+      }
+      return book.bookCover;
+    })
+    .filter((book) => {
+      if (!book.publisherSummary) {
+        console.warn(
+          `${book.title} does not have a publisher summary, it will not be rendered.`
+        );
+      }
+      return book.publisherSummary;
+    })
+    .forEach((book) => {
+      if (book.tags.length === 0) {
+        console.warn(`${book.title} does not have any tags.`);
+      }
+      createPage({
+        path: `/books/${book.slug}`,
+        component: BookTemplate,
+        context: {
+          ...book,
+        },
+      });
+      return;
 
-    // books without tags get dropped unless the environment is development
-  });
+      // books without tags get dropped unless the environment is development
+    });
 
   result.data.allGraphCmsContributor.nodes.forEach((contributor) => {
     const { firstName, lastName, booksAuthored, booksIllustrated, slug } =
