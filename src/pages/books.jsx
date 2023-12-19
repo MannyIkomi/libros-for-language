@@ -17,20 +17,14 @@ import { useForm } from 'react-hook-form';
 import {
   s1,
   flex,
-  secondaryActionStyle,
-  s025,
-  PRIMARY80,
-  base320,
   PRIMARY20,
   s05,
-  onDesktopMedia,
   onTabletMedia,
   grid,
   PRIMARY40,
   PRIMARY,
   MIN_TOUCH_SIZE,
   s00625,
-  base160,
   s2,
   base24,
 } from '../styles';
@@ -104,9 +98,14 @@ function FilterTagCheckField(props) {
 function BooksPage({ data, location }) {
   const tagTypes = data.tagTypes.enumValues;
   const tags = data.allGraphCmsTag.nodes;
-  const books = data.allGraphCmsBook.nodes.filter(
-    (book) => book.tags.length > 0
-  );
+  const books = data.allGraphCmsBook.nodes.filter((book) => {
+    if (!book.bookCover) {
+      console.warn(
+        `${book.title} does not have a cover image, it will not be rendered.`
+      );
+    }
+    return book.bookCover;
+  });
 
   const booksLookup = books.map(withTagProperties);
   const { control, watch, setValue } = useForm();
