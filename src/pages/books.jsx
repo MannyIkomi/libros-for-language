@@ -99,11 +99,7 @@ function BooksPage({ data, location }) {
   const tagTypes = data.tagTypes.enumValues;
   const tags = data.allGraphCmsTag.nodes;
   const books = data.allGraphCmsBook.nodes.filter((book) => {
-    if (!book.bookCover) {
-      console.warn(
-        `${book.title} does not have a cover image, it will not be rendered.`
-      );
-    }
+    // Book won't be rendered without a title
     return book.bookCover;
   });
 
